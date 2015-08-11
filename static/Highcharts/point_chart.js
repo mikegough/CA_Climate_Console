@@ -1,5 +1,6 @@
 function createChart(climateVariable, statistic, season) {
 
+    //Determine what variables are set in the drop down menu.
     climateVar = document.getElementById("variable_selection_form");
     selectedClimateVar= climateVar.options[climateVar.selectedIndex].text;
     climateStat = document.getElementById("statistic_selection_form");
@@ -10,8 +11,10 @@ function createChart(climateVariable, statistic, season) {
     $('#point_chart_description').append(
         " Click on a point to display the dataset used to generate the plotted value. "
     )
+
     //alert(resultsJSON['m5arids2t1_avg'])
 
+    //Allow for climate variable variations.
     if (statistic=="anom"){
         if (climateVariable=="tmin"){climateVariable="tmia"}
         else if (climateVariable=="tmax"){climateVariable="tmaa"}

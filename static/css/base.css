@@ -43,15 +43,6 @@ body{
     border:0px solid gray;
 }
 
-.loading_image {
-}
-
-.loading_text {
-    padding-top:18px;
-    font: 18px Verdana;
-    color:#5F5F5F;
-}
-
 #initialization_wait{
     display:none;
     width:120px;
@@ -78,38 +69,53 @@ body{
     */
     height:115px;
     width:101%;
-    background-color:#CAC2B7;
+    /*background-color:#CAC2B7;*/
+    background-color:#1B6186;
     border-bottom:2px solid #444444;
     text-align:center;
     margin-left:auto;
     margin-right:auto;
+    background-size:100%;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0d2f42+1,12425b+10,1b6186+29,1b6186+100 */
+background: rgb(13,47,66); /* Old browsers */
+background: -moz-linear-gradient(-45deg, rgba(13,47,66,1) 1%, rgba(18,66,91,1) 10%, rgba(27,97,134,1) 29%, rgba(27,97,134,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(1%,rgba(13,47,66,1)), color-stop(10%,rgba(18,66,91,1)), color-stop(29%,rgba(27,97,134,1)), color-stop(100%,rgba(27,97,134,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* IE10+ */
+background: linear-gradient(135deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d2f42', endColorstr='#1b6186',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #title{
     position:absolute;
-    /*
-    top:50%;
-    height:50%;
-    width:100%;
-    margin-top:-2.5%;
-    */
     top:21px;
     width:100%;
     margin-left:auto;
     margin-right:auto;
     text-align: center;
-    color:#362819;
+    color:#FEAF23;
     font-size:34px;
     font-weight:bold;
     font-family: Verdana,Geneva,sans-serif;
+    font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
     font-variant:small-caps;
     letter-spacing:6px;
+    text-shadow: 1px 1px 2px black;
+}
+
+#poppyImage{
+    height:175px;
+    position:absolute;
+    left:-90px;
+    top:-60px;
 }
 
 #sub_title{
-    font-size:14px;
+    font-size:16px;
     text-align: center;
     letter-spacing:5px;
+    text-shadow: 1px 1px 0px black;
 }
 
 
@@ -739,12 +745,18 @@ ul#mainNav a {
     color: #464646;
 	padding: 6px 8px;
 	font: 14px/16px Arial, Helvetica, sans-serif;
+    font: 17px/19px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
 	background: white;
 	background: rgba(255,255,255,0.8);
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	border-radius: 5px;
     max-width:700px;
+}
 
+.info2Subtitle {
+    width:140%;
+    padding-top:2px;
+    font-size:.6em
 }
 .info h4 {
 	margin: 0 0 5px;
@@ -756,7 +768,7 @@ ul#mainNav a {
     color:#F8981D;
     width:250px;
     height:32px;
-    font-size:20px;
+    font-size:21px;
     font-weight:bold;
     line-height:32px;
     margin-left:5px;
@@ -770,7 +782,7 @@ ul#mainNav a {
     color:#F8981D;
     width:250px;
     height:42px;
-    font-size:20px;
+    font-size:21px;
     font-weight:bold;
     line-height:20px;
     margin-left:5px;
@@ -826,6 +838,7 @@ div.callout {
 
 #textInsideCallout {
     font: 26px Arial,Helvetica,sans-serif;
+    font: 27px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
     font-weight:bold;
     color:#F8981D;
     text-align:center;
@@ -1205,15 +1218,14 @@ background:#595959;
 
 .symbologyTD{
     width:25px;
-
 }
-
 
 #initialization_container{
     float:right;
     width: 29.8%;
     height:100%;
     border-left: 2px solid #444444;
+    background-color:#EEEEEE;
 }
 
 .footnote{

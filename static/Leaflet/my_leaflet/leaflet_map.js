@@ -35,6 +35,8 @@ dynamic_legend.onAdd = function (map) {
 };
 dynamic_legend.addTo(map)
 
+var climate_PNG_overlay=""
+
 //Swap legend on data point click
 function swapLegend(layerToAddName, layerToAdd, climateVariable) {
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
@@ -45,40 +47,19 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
         dbid=Data_Basin_ID_Dict[layerToAddName]
 
+        label_6="Very High";
+        label_5="High";
+        label_4="Mod. High";
+        label_mid="";
+        label_3="Mod. Low";
+        label_2="Low";
+        label_1="Very Low"
+
         if (climateVariable=='EEMSmodel'){
 
-            if (layerToAddName == 'intactness'){
-                legendTitle=('Terrestrial <br> Intactness')
-                legend_image='Intactness'
+            legendTitle=legendParams[layerToAddName][0]
+            legend_image=legendParams[layerToAddName][1]
 
-            } else if(layerToAddName == 'hisensfz') {
-                legendTitle='Site Sensitivity'
-                legend_image='EEMS_Climate_2'
-
-            } else if(layerToAddName == 'eecefzt1') {
-                legendTitle='Climate Exposure<br>2016-2045<br>(Ensemble)'
-                legend_image='EEMS_Climate_2'
-
-            } else if(layerToAddName == 'eecefzt2') {
-                legendTitle='Climate Exposure<br>2046-2075<br>(Ensemble)'
-                legend_image='EEMS_Climate_2'
-
-            } else if(layerToAddName == 'eepifzt1') {
-                legendTitle='Potential Impact<br>2016-2045<br>(Ensemble)'
-                legend_image='EEMS_Climate_2'
-
-            } else if(layerToAddName == 'eepifzt2') {
-                legendTitle='Potential Impact<br>2046-2075<br>(Ensemble)'
-                legend_image='EEMS_Climate_2'
-            }
-
-            label_6="Very High";
-            label_5="High";
-            label_4="Mod. High";
-            label_mid="";
-            label_3="Mod. Low";
-            label_2="Low";
-            label_1="Very Low"
 
         } else {
 
@@ -86,7 +67,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
             modelName=layerToAddName.replace(/c2.*/,'CanESM2').replace(/c4.*/,'CCSM4').replace(/m5.*/,'MIROC5').replace(/ee.*/,'Ensemble').replace(/pm.*/,'PRISM')
             timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
-
 
             // Old way: get from drop down. Doesn't work for the table though.
             /*
@@ -143,13 +123,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
                 legend_image='Red_to_green_diverging_bright'
             }
 
-            label_6="High"
-            label_5=""
-            label_4=""
-            label_mid=""
-            label_3=""
-            label_2=""
-            label_1="Low"
         }
 
         document.getElementsByClassName('info')[0].innerHTML=
@@ -224,7 +197,7 @@ function swapImageOverlay(layerName) {
 
 // CREATE LAYERS FROM TopoJSON
 // Study Area Boundary
-var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Bdy_20110128.json')
+var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Boundary_5_simplify.json')
     .on('ready',function(layer){
         this.eachLayer(function(dist){
             //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
@@ -246,17 +219,17 @@ var counties = L.geoJson(null, {
     onEachFeature: onEachFeature
 });
 
-var counties_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_County_Boundaries_JSON.json', null, counties)
+var counties_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_County_Boundaries_5_simplify.json', null, counties)
 
-//Ecoregion Subareas
-var ecoregion_subareas = L.geoJson(null, {
+//Jepson Ecoregions
+var jepson_ecoregions = L.geoJson(null, {
     style: function(feature) {
         return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
     },
     onEachFeature: onEachFeature
 });
 
-var ecoregion_subareas_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_Ecoregion_Subareas_JSON.json', null, ecoregion_subareas)
+var jepson_ecoregions_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json', null, jepson_ecoregions)
 
 //BLM Field Offices
 var blm_field_offices = L.geoJson(null, {
@@ -266,7 +239,7 @@ var blm_field_offices = L.geoJson(null, {
     onEachFeature: onEachFeature
 });
 
-var blm_field_offices_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_BLM_Field_Offices_no_simplify.json', null, blm_field_offices)
+var blm_field_offices_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_BLM_Field_Offices_7_simplify.json', null, blm_field_offices)
 
 var huc5_watersheds= L.geoJson(null, {
     style: function(feature) {
@@ -275,16 +248,16 @@ var huc5_watersheds= L.geoJson(null, {
     onEachFeature: onEachFeature
 });
 
-var huc5_watersheds_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_HUC5_Watersheds_1_5_simplify.json', null, huc5_watersheds)
+var huc5_watersheds_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_HUC5_Watersheds_5_simplify.json', null, huc5_watersheds)
 
-var deto_recovery_units= L.geoJson(null, {
+var usfs_national_forests= L.geoJson(null, {
     style: function(feature) {
         return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
     },
     onEachFeature: onEachFeature
 });
 
-var deto_recovery_units_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_DETO_Recovery_Units_no_simplify.json', null, deto_recovery_units)
+var usfs_national_forests_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_USFS_National_Forests_15_simplify.json', null, usfs_national_forests)
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
@@ -310,10 +283,10 @@ var overlayMaps = {
 var groupedOverlays = {
     "Reporting Units": {
         "Counties": counties,
-        "Ecoregion Subareas": ecoregion_subareas,
+        //"Jepson Ecoregions": jepson_ecoregions,
         "BLM Field Offices": blm_field_offices,
+        "USFS National Forests": usfs_national_forests,
         "HUC5 Watersheds": huc5_watersheds,
-        "Desert Tortoise Recovery Units": deto_recovery_units,
         "User Defined (1km)": onekm,
     },
     "Base Maps": {
@@ -328,14 +301,14 @@ var groupedOverlays = {
         /*
         "Selected Features": results_poly,
         */
-        "Study Area Boundary": study_area_boundary.addTo(map),
+        /*"Study Area Boundary": study_area_boundary.addTo(map),*/
+        "Study Area Boundary": study_area_boundary,
     }
 
 };
 
 //The order here affects the order in the list in the upper left.
-//var reportingUnitLayers = {"Counties": counties, "Ecoregion Subareas": ecoregion_subareas, "DWR Admin Boundaries": dwr_admin_boundaries, "Ecoregions (EPA LIII)": epa_ecoregions, "Watersheds (HUC6)": huc6_watersheds,  "BLM Allotments": BLM_allotments, "User Defined (1km)": onekm};
-var reportingUnitLayers = {"Counties": counties, "Ecoregion Subareas": ecoregion_subareas,"BLM Field Offices": blm_field_offices,"HUC5 Watersheds": huc5_watersheds,"Desert Tortoise Recovery Units": deto_recovery_units, "User Defined (1km)": onekm};
+var reportingUnitLayers = {"Counties": counties, "Jepson Ecoregions": jepson_ecoregions, "USFS National Forests": usfs_national_forests, "BLM Field Offices": blm_field_offices,"HUC5 Watersheds": huc5_watersheds,"User Defined (1km)": onekm};
 
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
 
@@ -349,10 +322,9 @@ map.on('baselayerchange', function (event) {
     //boundary shows behind the admin units, slightly misaligned due to simplification of Admin Units.
     //if (event.name == "BLM Admin Units") { reporting_units="BLM Admin Units"; map.removeLayer(study_area_boundary)}
     if (event.name == "Counties") { remember_reporting_units=counties; reporting_units="counties"; map.removeLayer(study_area_boundary)}
-    if (event.name == "Ecoregion Subareas") { remember_reporting_units=ecoregion_subareas; reporting_units="ecoregion_subareas"; map.removeLayer(study_area_boundary)}
+    if (event.name == "Jepson Ecoregions") { remember_reporting_units=jepson_ecoregions; reporting_units="jepson_ecoregions"; map.removeLayer(study_area_boundary)}
     if (event.name == "BLM Field Offices") { remember_reporting_units=blm_field_offices; reporting_units="blm_field_offices"; map.removeLayer(study_area_boundary)}
     if (event.name == "HUC5 Watersheds") { remember_reporting_units=huc5_watersheds; reporting_units="huc5_watersheds"; map.removeLayer(study_area_boundary)}
-    if (event.name == "Desert Tortoise Recovery Units") { remember_reporting_units=deto_recovery_units; reporting_units="deto_recovery_units"; map.removeLayer(study_area_boundary)}
     if (event.name == "User Defined (1km)") { remember_reporting_units=onekm;reporting_units="onekm"; map.addLayer(study_area_boundary)}
 });
 
@@ -412,10 +384,14 @@ function create_post(newWKT) {
 
             layerControl.addOverlay(results_poly, "Current Selection");
 
+            //Hide the initialization container upon successful response and show the tabs.
             document.getElementById('initialization_container').style.display="none";
             document.getElementById('tab_container').style.display="block";
+
             refreshSelectedFeaturesTab()
             //createDynamicDataTable()
+
+            //Populate the list of selected features in the bottom left hand corner.
             if (reporting_units != "onekm"){
                 $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
             }
@@ -423,8 +399,10 @@ function create_post(newWKT) {
                 $('.info2').html("")
             }
 
+            //column chart colors.
             columnChartColorsCSV=response['columnChartColors']
 
+            //create the charts.
             if (showChartOnMapSelect=="PointChart"){
                 createChart(document.getElementById("variable_selection_form").value,document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
             }
@@ -479,10 +457,10 @@ function highlightFeature(e) {
 
 function resetHighlight() {
     counties.eachLayer(function(l){counties.resetStyle(l);});
-    ecoregion_subareas.eachLayer(function(l){ecoregion_subareas.resetStyle(l);});
+    jepson_ecoregions.eachLayer(function(l){jepson_ecoregions.resetStyle(l);});
     blm_field_offices.eachLayer(function(l){blm_field_offices.resetStyle(l);});
     huc5_watersheds.eachLayer(function(l){huc5_watersheds.resetStyle(l);});
-    deto_recovery_units.eachLayer(function(l){deto_recovery_units.resetStyle(l);});
+    usfs_national_forests.eachLayer(function(l){usfs_national_forests.resetStyle(l);});
     near_term_climate_divisions.eachLayer(function(l){near_term_climate_divisions.resetStyle(l);});
     //info2.update('');
     if (initialize==0 && reporting_units != "onekm") {
@@ -497,11 +475,11 @@ function resetHighlight() {
 
 function mouseOverTextChangeColor(hovername) {
     if (reporting_units=="counties"){text_hover_layer=counties}
-    else if (reporting_units=="ecoregion_subareas"){text_hover_layer=ecoregion_subareas}
+    else if (reporting_units=="jepson_ecoregions"){text_hover_layer=jepson_ecoregions}
     else if (reporting_units=="epa_ecoregions"){text_hover_layer=epa_ecoregions}
     else if (reporting_units=="blm_field_offices"){text_hover_layer=blm_field_offices}
     else if (reporting_units=="huc5_watersheds"){text_hover_layer=huc5_watersheds}
-    else if (reporting_units=="deto_recovery_units"){text_hover_layer=deto_recovery_units}
+    else if (reporting_units=="usfs_national_forests"){text_hover_layer=usfs_national_forests}
     else { text_hover_layer = null }
 
     if (text_hover_layer != null) {
@@ -522,8 +500,6 @@ function mouseOverTextChangeColor(hovername) {
 function mouseOutTextChangeBack() {
     resetHighlight()
 }
-
-
 
 // BEGIN EXPORT TO WKT
 // Takes user draw shape and converts it to WKT format. This ships to the PostGIS database where it is used in the SBL.
@@ -650,7 +626,7 @@ var toolTitle = L.Control.extend({
 
     onAdd: function (map) {
         this._div = L.DomUtil.create('div', 'toolTitle2');
-        this._div.innerHTML = "2. Select Features<br><div width='140%' nowrap style='padding-top:2px; overflow:show; font-size:.54em'>(Use the tools below or click on a feature)</div>";
+        this._div.innerHTML = "2. Select Features<br><div class='info2Subtitle'>(Use the tools below or click on a feature)</div>";
         return this._div;
     },
 });
@@ -720,7 +696,8 @@ var near_term_climate_divisions= L.geoJson(null, {
 
 });
 
-var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_DRECP.json', null, near_term_climate_divisions)
+//var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_CA_Clip.json', null, near_term_climate_divisions)
+var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
 
 function passClimateDivisionID(feature, layer) {
     layer.on({
@@ -773,15 +750,15 @@ function activateMapForClimateForecast(){
     $('.ui-opacity').show()
     $('.leaflet-control-layers:nth-child(1)').show()
 
-    map.setView([35.8,-117.7],7);
+    map.setView([37.229722,-121.509444],6);
 
     generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
 
     map.removeLayer(counties)
-    map.removeLayer(ecoregion_subareas)
+    map.removeLayer(jepson_ecoregions)
     map.removeLayer(blm_field_offices)
     map.removeLayer(huc5_watersheds)
-    map.removeLayer(deto_recovery_units)
+    map.removeLayer(usfs_national_forests)
     map.removeLayer(onekm)
     map.removeLayer(results_poly)
     map.removeLayer(study_area_boundary)
@@ -911,7 +888,8 @@ function updateClimateDivisionSymbology(){
 
     });
 
-    near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_DRECP.json', null, near_term_climate_divisions)
+    //near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_CA_Clip.json', null, near_term_climate_divisions)
+    near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
     map.addLayer(near_term_climate_divisions)
 }
 
@@ -928,14 +906,13 @@ function getNearTermColor(d) {
                      '#4575B5';
     } else {
 
-        // same as temp for now.
     return d > 1  ? '#002673' :
         d > 0.75  ? '#08519c' :
         d > 0.5   ? '#3182BD' :
         d > 0.25  ? '#6BAED6' :
         d > 0     ? '#BDD7E7' :
         d == 0    ? '#DADADA' :
-                     'E08114';
+                     '#654321';
     }
 
 }

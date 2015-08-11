@@ -9,10 +9,12 @@
 <!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
 <script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
 
+<!-- Config -->
+<script src="{{STATIC_URL}}js/config.js"></script>
+
 <!-- Leaflet -->
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-
 
 <!-- ESRI Leaflet -->
 <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
@@ -66,18 +68,17 @@
     var initialize={{initialize}}
     var template="{{template}}"
     var count="{{count}}"
-    var center_lat={{centroidLat}}
-    var center_lon={{centroidLon}}
+    var center_lat={{initial_lat}}
+    var center_lon={{initial_lon}}
     var zoomLevel={{zoomLevel}}
     var last_poly="{{WKT_SelectedPolys}}"
     var last_reporting_units="{{reporting_units}}"
     var selectedChartVariable="{{selectedChartVariable}}"
-    var climate_PNG_overlay="{{climate_PNG_overlay}}"
-    var EEMS_PNG_overlay="{{EEMS_PNG_overlay}}"
-    //var fieldAliases="{{fieldAliases}}"
     columnChartColors="{{columnChartColors}}"
+    //var fieldAliases="{{fieldAliases}}"
 
 </script>
+
 <script>
 
      $(document).ready(function(){
@@ -108,20 +109,24 @@
 </head>
 
 <body onload="acquireNearTermClimate();">
+<!--
 <span id="version">BETA</span>
-
+-->
 <div id="header">
-    <div id="title">California<span style="color:#550000"> Climate Console</span><br><span id="sub_title">Climate Projections for the state of California</span></div>
+    <div id="title">California<span style="color:white"> Climate Console</span><br>
+      <span id="sub_title">Climate Projections for the state of California</span>
+    </div>
+    <div style="float:left"><img id="poppyImage" src="{{STATIC_URL}}img/poppy_l.png"></div>
+    <!--
+    <div style="float:left"><img style="height:90px; position:absolute; bottom:0px" src="{{STATIC_URL}}img/poppy.png"></div>
+    -->
 </div>
 
 <span id="DataBasinLinkBox">
     <ul id="mainNav">
         <li> <img id="DataBasinLogo" src="{{STATIC_URL}}img/dataBasinLogo-trans.png"> <ul></li>
-            <li><a target="_blank" href="http://drecp.databasin.org/">&nbsp DRECP Gateway </a></li>
-            <li style="border-bottom-left-radius:7px;"><a target="_blank" href="http://drecp.databasin.org/galleries/">&nbsp DRECP Data</a></li>
-            <!--
-            <li style="border-bottom-left-radius:7px;"><a target="_blank" href="http://databasin.org/groups/19a086b015b34d518e194399554c2952/content#expand=18708">&nbsp Working Group</a></li>
-            -->
+            <li><a target="_blank" href="http://drecp.databasin.org/">&nbsp CA Gateway </a></li>
+            <li style="border-bottom-left-radius:7px;"><a target="_blank" href="http://drecp.databasin.org/galleries/">&nbsp CA Data</a></li>
         </ul>
     </ul>
 </span>
@@ -137,7 +142,8 @@
     <!-- needs to go below the map and the opacity handle -->
     <script src="{{STATIC_URL}}Leaflet/my_leaflet/leaflet_map.js"></script>
 
-    <div id="initialization_container" style="background-color:#EEEEEE;">
+
+    <div id="initialization_container">
         <div id="calloutbox" class="callout right">
             <span id="textInsideCallout"><p>3. Results will Appear Here<br><br><br> <img style="width:200px" src="{{STATIC_URL}}img/chart3.png">
                 <span id="initialization_wait"><img id="initialization_loader_image" src='{{STATIC_URL}}img/loader3.gif'></span>
@@ -166,43 +172,38 @@
                 <div class="select_container">
                     <form class="select_form">
                         <div class="styled-select" id="ss1">
-                        <select id="variable_selection_form" onchange='createChart(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
-                            <!-- Annual Averages -->
-                            <option value="tmin" selected >Minimum Temperature</option>
-                            <option value="tmax">Maximum Temperature</option>
-                            <option value="prec">Precipitation</option>
-                            <option value="arid">Aridity</option>
-                            <option value="pet">PET</option>
-                        </select>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="variable_selection_form" onchange='createChart(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                                <!-- Annual Averages -->
+                                <option value="tmin" selected >Minimum Temperature</option>
+                                <option value="tmax">Maximum Temperature</option>
+                                <option value="prec">Precipitation</option>
+                                <option value="arid">Aridity</option>
+                                <option value="pet">PET</option>
+                            </select>
                         </div>
                         <div class="styled-select" id="ss2">
-                        <select id="statistic_selection_form" onchange='createChart(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
-                            <!-- Annual Averages -->
-                            <option class="avg" value="avg" selected >Average</option>
-                            <option class="delta" value="delta">Change</option>
-                            <!--
-                            <option class="anom" value="anom">Anomaly</option>
-                            -->
-                        </select>
+                            <select id="statistic_selection_form" onchange='createChart(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
+                                <!-- Annual Averages -->
+                                <option class="avg" value="avg" selected >Average</option>
+                                <option class="delta" value="delta">Change</option>
+                                <!-- <option class="anom" value="anom">Anomaly</option> -->
+                            </select>
                         </div>
                         <div class="styled-select" id="ss3">
-                        <select id="season_selection_form" onchange='createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value)'>
-                            <!-- Annual Averages -->
-                            <option value="s0" selected >Annual</option>
-                            <option value="s1">Jan-Feb-Mar</option>
-                            <option value="s2">Apr-May-Jun</option>
-                            <option value="s3">Jul-Aug-Sep</option>
-                            <option value="s4">Oct-Nov-Dec</option>
-                        </select>
+                            <select id="season_selection_form" onchange='createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value)'>
+                                <!-- Annual Averages -->
+                                <option value="s0" selected >Annual</option>
+                                <option value="s1">Jan-Feb-Mar</option>
+                                <option value="s2">Apr-May-Jun</option>
+                                <option value="s3">Jul-Aug-Sep</option>
+                                <option value="s4">Oct-Nov-Dec</option>
+                            </select>
                         </div>
                     </form>
                 </div>
 
                 <br>
-
-                <script>
-
-                </script>
 
                 <script>
                     if (initialize==1){
@@ -219,22 +220,8 @@
                 <div class="gradientDivisionLine"></div>
 
                 <div id="column_chart"></div>
-                <!--
-                <table style="width:100%" border="1px">
-                    <tr>
-                        <td style="width:3px"></td>
-                        <td style="width:15px"> <img class="blue_info_icon" src="{{STATIC_URL}}img/info_icon_small.png"> </td>
-                        <td style="width:5px; max-width:5px"> <img class="blue_info_icon" src="{{STATIC_URL}}img/info_icon_small.png"> </td>
-                        <td style="width:15px; min-width:15px; max-width:15px"> <img class="blue_info_icon" src="{{STATIC_URL}}img/info_icon_small.png"> </td>
-                        <td style="width:5px"> <img class="blue_info_icon" src="{{STATIC_URL}}img/info_icon_small.png"> </td>
-                        <td style="width:5px"> <img class="blue_info_icon" src="{{STATIC_URL}}img/info_icon_small.png"> </td>
-                        <td style="width:8%"></td>
-                    </tr>
-                </table>
-                -->
-                <!--
-                <div id="time_period_translation"> t1=2015-2030, t2=2045-2060</div>
-                -->
+                <!-- <div id="time_period_translation"> t1=2015-2030, t2=2045-2060</div> -->
+
             </div>
 
             <div id="view2"></div>
@@ -242,13 +229,12 @@
             <div id="view3">
 
                 <h3>Summary:</h3>
-                The <span style="font-weight:bold;">DRECP Climate Console</span> is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results for the DRECP Study Area.
+                The <span style="font-weight:bold;">California Climate Console</span> is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results for the State of California.
                 <p>
                 A total of 460 climate datasets have been incorporated into the system, as well as 6 EEMS model results (<i>Terrestrial Intactness, Site Sensitivity, Climate Exposure (2016-2045), Climate Exposure (2046-2075), Potential Impact (2016-2045), Potential Impact (2046-2075)</i>).
                 <p>
                 The zonal mean for each of these datasets was calculated for five separate reporting units (<i>Counties, Ecoregion Subareas, BLM Field Offices, HUC5 Watersheds, and Desert Tortoise Recovery Units</i>) and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
                 <p>
-                For more information on the Desert Renewable Energy Conservation Plan (DRECP), visit the <a href="http://www.drecp.org/" target="_blank">DRECP website</a> or the <a href="http://drecp.databasin.org/" target="_blank">DRECP Gateway</a> on Data Basin.
 
                 <h3>Instructions for Use: </h3>
 
@@ -317,6 +303,7 @@
                 <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
 
             </div>
+
             <div id="view4">
                 <div class="nearTermClimateFormDiv">
 
@@ -370,7 +357,6 @@
                 </form>
 
 
-
                 <!-- Table 3: Details (Historical Mean, Forecast Mean, 90% Confidence Interval)-->
                 <div id="nearTermClimateWrapper2" style="clear:both"></div>
 
@@ -418,6 +404,7 @@
                 <br>
 
             </div>
+
         </div>
     </div>
 </div>
