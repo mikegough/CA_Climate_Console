@@ -45,7 +45,7 @@ function createColumnChart(){
     }
 
     //var values = [resultsJSON["hitiv11_avg"],.3, -.2,.5 ]
-    var values = [intactness, hisensfz, eecefzt1,eecefzt2,eepifzt1,eepifzt2]
+    var values = [intactness,hisensfz,eecefzt1,eecefzt2,eepifzt1,eepifzt2]
     var minVal = -1;
     var maxVal = 1;
     var OID=1

@@ -1,3 +1,7 @@
+/*************************************************** SLIDER BARS ******************************************************/
+
+//Slider Bar code for Energy Scenario Builder
+
 /************************************************ TABLE TAB FUNCTIONS *************************************************/
 
 /* Selected Features Table */
@@ -29,15 +33,16 @@ function refreshSelectedFeaturesTab(){
             var count = 1
             listOfSelectedFeatures=""
             categoricalValuesArray=response['categoricalValues']
+            console.log(categoricalValuesArray)
 
             for (var i=0,  tot=categoricalValuesArray.length; i < tot; i++) {
 
-                listOfSelectedFeatures=listOfSelectedFeatures+ count + ". " + categoricalValuesArray[i] + "<br>";
+                listOfSelectedFeatures=listOfSelectedFeatures+"<div class='selectedFeaturesText' onmouseout='mouseOutTextChangeBack()' onmouseover='mouseOverTextChangeColor(\"" + categoricalValuesArray[i] + "\")' id='" + categoricalValuesArray[i] + "' >" + count + ". " + categoricalValuesArray[i] + "<span class='inner'></span></div>";
 
                 count=count+1
             }
 
-            selectedFeaturesTable.append("<tr><td>" + response['featureNamePlural'] + "</td><td>" + listOfSelectedFeatures + "</td></tr>")
+            selectedFeaturesTable.append("<tr><td>" + reporting_units +"</span></td><td>" + listOfSelectedFeatures + "</td></tr>")
    }
 
 
@@ -233,29 +238,7 @@ function changeSelectionForm(whichChart){
     }
 }
 
-$("#variable_selection_form").change(function(){
-    var selectedVal = $(this).val();
 
-    if(selectedVal == "arid")
-    {
-     $("select#statistic_selection_Form").prop("selectedIndex",1);
-     $(".delta,.children").show();
-     $(".avg,.children").hide();
-     $(".anom,.children").hide();
-    }
-    else if (selectedVal == "pet")
-    {
-     $("select#statistic_selection_Form").prop("selectedIndex",0);
-     $(".avg,.children").show();
-     $(".anom,.children").hide();
-     $(".delta,.children").hide();
-    }
-    else{
-     $(".avg,.children").show();
-     $(".anom,.children").show();
-     $(".delta,.children").show();
-    }
-  });
 
 /****************************************** Near-Term Climate ********************************************************/
 
@@ -474,80 +457,10 @@ function generateNearTermClimateResults(period,division) {
 
 function showInfoPopup(layerToDescribe){
 
-    var dbid=Data_Basin_ID_Dict[layerToDescribe]
+    var dbid=window[layerToDescribe+"Params"].dataBasinID
 
-    if (layerToDescribe=='intactness'){
-        title="Terrestrial Intactness"
-        description="<div class='MessiDiv'>"
-        description=description+"<a target='_blank' href=http://databasin.org/datasets/"+dbid+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p>"
-        description=description+"Terrestrial intactness is an estimate of current condition based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the DRECP study area. Terrestrial intactness values will be high in areas where these impacts are low. <p>The value shown in the column chart represents the average terrestrial intactness value within the selected area. Terrestrial intactness values are calculated using an <a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> fuzzy logic model that integrates multiple measures of landscape development and vegetation intactness (See EEMS model diagram below). <p>  This model integrates agriculture development (from LANDFIRE EVT v1.1), urban development (from LANDFIRE EVT v1.1 and NLCD Impervious Surfaces), linear development (from Tiger 2012 Roads, utility lines, and pipelines), OHV recreation areas, energy and mining development (from state mine and USGS national mines datasets as well as geothermal wells, oil/gas wells, wind turbines, and power plant footprints), vegetation departure (from LANDFIRE VDEP), invasive vegetation (multiple sources combined for invasives analyses), and measures of natural vegetation fragmentation calculated using FRAGSTATS. In this version, Maxent modeled Sahara Mustard was included in the Invasive's branch as well as in the Fragstats model run. "
-        description=description+"<div class='modelDiagram' style='height:70%'><img src='" + static_url + "img/modelDiagrams/Terrestrial_Intactness/Slide1.PNG'>"
-        description=description+"<img src='" + static_url + "img/modelDiagrams/Terrestrial_Intactness/Slide2.PNG'>"
-        description=description+"<div class='bottom_spacing'><p></div>"
-        description=description+"</div>"
-
-    }
-
-    else if (layerToDescribe=='hisensfz'){
-        title="Site Sensitivity"
-        description="<div class='MessiDiv'>"
-        description=description+"<a target='_blank' href=http://databasin.org/datasets/"+dbid+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p>"
-        description=description+"The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.<p>The value shown in the column chart represents the average sensitivity value within the selected area."
-        description=description+"<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/SiteSensitivity.png'>"
-        description=description+"<div class='bottom_spacing'><p></div>"
-        description=description+"</div>"
-
-    }
-
-    else if (layerToDescribe=='eecefzt1'){
-        title="Climate Exposure t<sub>1 </sub>(2016-2045)"
-        description="<div class='MessiDiv'>"
-        description=description+"<a target='_blank' href=http://databasin.org/datasets/"+dbid+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p>"
-        description=description+"<a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of climate exposure (2016-2045) generated using data from climate model results. Climate exposure is based on the difference between the projected future climate compared to the variability in climate over a reference historical period of 1971-2000. The higher the climate exposure, the greater the difference the projected climate is from what the area experienced in the past."
-        description=description+"<p>The value shown in the column chart represents the average climate exposure value within the selected area."
-        description=description+"<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/ClimateExposureEnsemble.png'>"
-        description=description+"<div class='bottom_spacing'><p></div>"
-        description=description+"</div>"
-
-    }
-
-    else if (layerToDescribe=='eecefzt2'){
-        title="Climate Exposure t<sub>2 </sub>(2046-2075)"
-        description="<div class='MessiDiv'>"
-        description=description+"<a target='_blank' href=http://databasin.org/datasets/"+dbid+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p>"
-        description=description+" <a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of climate exposure (2046-2075) generated using data from climate model results. Climate exposure is based on the difference between the projected future climate compared to the variability in climate over a reference historical period of 1971-2000. The higher the climate exposure, the greater the difference the projected climate is from what the area experienced in the past."
-        description=description+"<p>The value shown in the column chart represents the average climate exposure value within the selected area."
-        description=description+"<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/ClimateExposureEnsemble.png'>"
-        description=description+"<div class='bottom_spacing'><p></div>"
-        description=description+"</div>"
-
-    }
-
-    else if (layerToDescribe=='eepifzt1'){
-        title="Potential Climate Impact t<sub>1 </sub>(2016-2045)"
-        description="<div class='MessiDiv'>"
-        description=description+"<a target='_blank' href=http://databasin.org/datasets/"+dbid+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p>"
-        description=description+"<a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2016-2045) generated using data from STATSGO soils data and climate model results. "
-        description=description+"Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p>"
-        description=description+"<p>The value shown in the column chart represents the average potential climate impact value within the selected area."
-        description=description+"<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'>"
-        description=description+"<div class='bottom_spacing'><p></div>"
-        description=description+"</div>"
-
-    }
-
-    else if (layerToDescribe=='eepifzt2'){
-        title="Potential Climate Impact t<sub>2 </sub>(2046-2075)"
-        description="<div class='MessiDiv'>"
-        description=description+"<a target='_blank' href=http://databasin.org/datasets/"+dbid+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p>"
-        description=description+"<a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2046-2075) generated using data from STATSGO soils data and climate model results. "
-        description=description+"Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console."
-        description=description+"<p>The value shown in the column chart represents the average potential climate impact value within the selected area."
-        description=description+"<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'>"
-        description=description+"<div class='bottom_spacing'><p></div>"
-        description=description+"</div>"
-
-    }
+    title=window[layerToDescribe+"Params"].legendTitle
+    description=window[layerToDescribe+"Params"].description
 
     new Messi(description, {title: title, center:true, width:'1000px', modal:true, modalOpacity:.4,center: true});
 
@@ -593,7 +506,49 @@ $('#stop').click(function(e){
     stopCycle();
 })
 
+preload([
+    static_url + 'img/start.png',
+    static_url + 'img/stop.png',
+    static_url + 'img/start_hover.png',
+    static_url + 'img/stop_hover.png',
+]);
+
+
+$("#variable_selection_form").change(function(){
+    var selectedVal = $(this).val();
+
+    if(selectedVal == "arid")
+    {
+        $("select#statistic_selection_Form").prop("selectedIndex",1);
+        $(".delta,.children").show();
+        $(".avg,.children").hide();
+        $(".anom,.children").hide();
+    }
+    else if (selectedVal == "pet")
+    {
+        $("select#statistic_selection_Form").prop("selectedIndex",0);
+        $(".avg,.children").show();
+        $(".anom,.children").hide();
+        $(".delta,.children").hide();
+    }
+    else{
+        $(".avg,.children").show();
+        $(".anom,.children").show();
+        $(".delta,.children").show();
+    }
+});
+
 });//]]>
+
+function preload(arrayOfImages) {
+    //Image Preloader
+
+    $(arrayOfImages).each(function(){
+        $('<img/>')[0].src = this;
+        // Alternatively you could use:
+        // (new Image()).src = this;
+    });
+}
 
 $(function() {
     //Mouse over and click functions on the start/stop buttons.
@@ -633,3 +588,26 @@ $(function() {
         }
     });
 });
+
+function update_slider_label(value){
+    if (value <=-.75){
+        return "Very Low"
+    }
+    else if (value <=-.5){
+        return "Low"
+    }
+    else if (value <=0){
+        return "Moderately Low"
+    }
+    else if (value <=.5){
+        return "Moderately High"
+    }
+    else if (value <=.75){
+        return "High"
+    }
+    else {
+        return "Very High"
+    }
+}
+
+

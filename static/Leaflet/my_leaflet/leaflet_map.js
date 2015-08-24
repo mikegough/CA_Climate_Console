@@ -1,6 +1,9 @@
 var latlng = L.latLng(center_lat,center_lon);
 
-var results_poly = omnivore.wkt.parse(last_poly)
+if (last_poly != '') {
+    var results_poly = omnivore.wkt.parse(last_poly)
+}
+//else results_poly = omnivore.wkt.parse("SRID=4326;POINT(-115.7 34.8)")
 
 var map = L.map("map", {
     zoomControl: false,
@@ -35,8 +38,6 @@ dynamic_legend.onAdd = function (map) {
 };
 dynamic_legend.addTo(map)
 
-var climate_PNG_overlay=""
-
 //Swap legend on data point click
 function swapLegend(layerToAddName, layerToAdd, climateVariable) {
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
@@ -47,19 +48,12 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
         dbid=Data_Basin_ID_Dict[layerToAddName]
 
-        label_6="Very High";
-        label_5="High";
-        label_4="Mod. High";
-        label_mid="";
-        label_3="Mod. Low";
-        label_2="Low";
-        label_1="Very Low"
-
         if (climateVariable=='EEMSmodel'){
 
-            legendTitle=legendParams[layerToAddName][0]
-            legend_image=legendParams[layerToAddName][1]
-
+            legendTitle=window[layerToAddName+"Params"].legendTitle
+            legendImage=window[layerToAddName+"Params"].legendPNG
+            legendHeight=window[layerToAddName+"Params"].legendHeight
+            dbid=window[layerToAddName+"Params"].dataBasinID
 
         } else {
 
@@ -111,40 +105,38 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
             //Determine which png to use in the legend.
             if (climateVariableLabel.indexOf('Temp') !== -1) {
-               legend_image='Prediction'
+               legendImage='Prediction'
 
             } else if (climateVariableLabel=="Precipitation") {
-                legend_image='Brown_to_blue_green_diverging_bright'
+                legendImage='Brown_to_blue_green_diverging_bright'
 
             } else if (climateVariableLabel=="Aridity") {
-                legend_image='Brown_to_blue_green_diverging_bright_inverted'
+                legendImage='Brown_to_blue_green_diverging_bright_inverted'
 
             } else if (climateVariableLabel=="PET") {
-                legend_image='Red_to_green_diverging_bright'
+                legendImage='Red_to_green_diverging_bright'
             }
+
+            layerToAddName="climate"
+            legendHeight=window[layerToAddName+"Params"].legendHeight
 
         }
 
-        document.getElementsByClassName('info')[0].innerHTML=
-        /*'<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + Data_Basin_ID_Dict[layerToAddName] + '"><img id="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="../static/img/dataBasinRedirect.png"></a></div>' +*/
-        '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
-        '<div id="LegendHeader">' + legendTitle+ '</div>' +
-        '<table class="legendTable" border="0">' +
-        '<tr><td rowspan="8" style="padding-top:0px"><img height="110px" src="'+static_url+'Leaflet/my_leaflet/legends/' + legend_image + '.png"></td>' +
-        '<td style="vertical-align:top">'+label_6+'</td></tr>' +
-        '<td>'+label_5+'</td></tr>' +
-        '<td>'+label_4+'</td></tr>' +
-        '<td style="vertical-align:middle">'+label_mid+'</td></tr>' +
-        '<td>'+label_3+'</td></tr>' +
-        '<td>'+label_2+'</td></tr>' +
-        '<td style="vertical-align:bottom">'+label_1+'</td></tr>' +
-        '</tr></table>';
+          document.getElementsByClassName('info')[0].innerHTML=
+            '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
+            '<div id="LegendHeader">' + legendTitle+ '</div>' +
+            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/my_leaflet/legends/' + legendImage + '.png">'+
+            '<div class="legendLabels">'
+
+            for (i in window[layerToAddName+"Params"].legendLabels) {
+                $(".legendLabels").append(window[layerToAddName+"Params"].legendLabels[i] + "<br>");
+            }
         }
 }
 
 overlay_bounds = [[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]];
 
-if (climate_PNG_overlay != '') {
+if (typeof climate_PNG_overlay != 'undefined') {
     climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/TrimmedPNG/' + climate_PNG_overlay
     climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
     climate_PNG_overlay.addTo(map)
@@ -195,6 +187,25 @@ function swapImageOverlay(layerName) {
         */
 }
 
+var defaultStyle = {
+    color: '#F8981D',
+    weight:2,
+    dashArray: 0,
+    fillOpacity:0,
+    opacity:1
+};
+
+var hoverStyle = {
+    color:'#5083B0',
+    fillColor:'#5083B0',
+    fillOpacity:0,
+    weight:3,
+    dashArray: '3',
+    opacity: '1'
+};
+
+allLayers = new Array();
+
 // CREATE LAYERS FROM TopoJSON
 // Study Area Boundary
 var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Boundary_5_simplify.json')
@@ -207,66 +218,70 @@ var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Bounda
         })
     })//.addTo(map)
 
+
 // Getting rid of the fill opacity above and adding the "on" function below allows the user click anywhere in the map
 // when the 1km reporting units are selected because the study area boundary turns on when the 1km reporting units are selected.
 study_area_boundary.on('click',function(e){selectFeature(e) })
 
+allLayers.push(study_area_boundary)
+
 //Counties
 var counties = L.geoJson(null, {
-    style: function(feature) {
-        return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
-    },
+    style: defaultStyle,
     onEachFeature: onEachFeature
 });
-
 var counties_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_County_Boundaries_5_simplify.json', null, counties)
+
+allLayers.push(counties)
 
 //Jepson Ecoregions
 var jepson_ecoregions = L.geoJson(null, {
-    style: function(feature) {
-        return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
-    },
+    style: defaultStyle,
     onEachFeature: onEachFeature
 });
 
 var jepson_ecoregions_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json', null, jepson_ecoregions)
 
+allLayers.push(jepson_ecoregions)
+
 //BLM Field Offices
 var blm_field_offices = L.geoJson(null, {
-    style: function(feature) {
-        return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
-    },
+    style: defaultStyle,
     onEachFeature: onEachFeature
 });
 
 var blm_field_offices_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_BLM_Field_Offices_7_simplify.json', null, blm_field_offices)
 
+allLayers.push(blm_field_offices)
+
+//Watersheds
 var huc5_watersheds= L.geoJson(null, {
-    style: function(feature) {
-        return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
-    },
+    style: defaultStyle,
     onEachFeature: onEachFeature
 });
 
 var huc5_watersheds_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_HUC5_Watersheds_5_simplify.json', null, huc5_watersheds)
 
+allLayers.push(huc5_watersheds)
+
+//National Forests
 var usfs_national_forests= L.geoJson(null, {
-    style: function(feature) {
-        return {color: '#F8981D', weight:2, dashArray: 0, fillOpacity:0, opacity:1 }
-    },
+    style: defaultStyle,
     onEachFeature: onEachFeature
 });
 
 var usfs_national_forests_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_USFS_National_Forests_15_simplify.json', null, usfs_national_forests)
+
+allLayers.push(usfs_national_forests)
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
 var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
 var onekm= L.imageOverlay(onekm_url, onekmBounds);
 
-
 //Set Default Reporting Units
 counties_layer.addTo(map)
+reporting_units="counties"
 
 //Map Layers in layer control. Arrange order here. Uses the grouped layers plugin.
 OpenStreetMap=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' })
@@ -281,6 +296,7 @@ var overlayMaps = {
 }
 
 var groupedOverlays = {
+    /* Option to have reporting units in the upper right hand layer widget.
     "Reporting Units": {
         "Counties": counties,
         //"Jepson Ecoregions": jepson_ecoregions,
@@ -289,6 +305,7 @@ var groupedOverlays = {
         "HUC5 Watersheds": huc5_watersheds,
         "User Defined (1km)": onekm,
     },
+    */
     "Base Maps": {
         'Light Gray Base': lightGray,
         'World Topo Map': worldTopo,
@@ -298,11 +315,10 @@ var groupedOverlays = {
         'Open Street Map': OpenStreetMap,
     },
     "": {
-        /*
-        "Selected Features": results_poly,
-        */
-        /*"Study Area Boundary": study_area_boundary.addTo(map),*/
+
+        //"Selected Features": results_poly,
         "Study Area Boundary": study_area_boundary,
+        //"Study Area Boundary": study_area_boundary.addTo(map),
     }
 
 };
@@ -312,8 +328,9 @@ var reportingUnitLayers = {"Counties": counties, "Jepson Ecoregions": jepson_eco
 
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
 
-reporting_units = last_reporting_units
+//reporting_units = last_reporting_units
 
+//Layers icon in the upper right
 var options = { exclusiveGroups: ["Reporting Units","Base Maps"]};
 L.control.groupedLayers(overlayMaps, groupedOverlays, options).addTo(map);
 
@@ -328,30 +345,12 @@ map.on('baselayerchange', function (event) {
     if (event.name == "User Defined (1km)") { remember_reporting_units=onekm;reporting_units="onekm"; map.addLayer(study_area_boundary)}
 });
 
-var defaultStyle = {
-    fillOpacity:.1,
-    opacity:1,
-    color:'red',
-    weight:1,
-    fill:'red',
-    dashArray: '0',
-};
-
-var hoverStyle = {
-    color:'#5083B0',
-    fillColor:'#5083B0',
-    fillOpacity:0,
-    weight:3,
-    dashArray: '3',
-    opacity: '1'
-};
-
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0
     //console.log("create post is working!")
     $.ajax({
-        url : "", // the endpoint
+        url : "", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
         //url : "/climate", // the endpoint
         type : "POST", // http method
@@ -370,8 +369,11 @@ function create_post(newWKT) {
             resultsJSON=JSON.parse(response.resultsJSON)
 
             initialize=response.initialize;
-            map.removeLayer(results_poly)
-            layerControl.removeLayer(results_poly)
+
+            if (typeof results_poly != 'undefined') {
+                map.removeLayer(results_poly)
+                layerControl.removeLayer(results_poly)
+            }
 
             last_poly=response.WKT_SelectedPolys
             results_poly = omnivore.wkt.parse(last_poly)
@@ -444,7 +446,6 @@ function selectFeature(e){
 
 function highlightFeature(e) {
     var layer = e.target;
-
     layer.setStyle(hoverStyle)
 
     if (!L.Browser.ie && !L.Browser.opera) {
@@ -455,21 +456,20 @@ function highlightFeature(e) {
     info2.update(layer.feature.properties);
 }
 
-function resetHighlight() {
-    counties.eachLayer(function(l){counties.resetStyle(l);});
-    jepson_ecoregions.eachLayer(function(l){jepson_ecoregions.resetStyle(l);});
-    blm_field_offices.eachLayer(function(l){blm_field_offices.resetStyle(l);});
-    huc5_watersheds.eachLayer(function(l){huc5_watersheds.resetStyle(l);});
-    usfs_national_forests.eachLayer(function(l){usfs_national_forests.resetStyle(l);});
-    near_term_climate_divisions.eachLayer(function(l){near_term_climate_divisions.resetStyle(l);});
+function resetHighlight(e) {
+    var layer= e.target
+    layer.setStyle(defaultStyle)
+
     //info2.update('');
-    if (initialize==0 && reporting_units != "onekm") {
+    if (initialize==0 && reporting_units != "onekm" && typeof response != 'undefined') {
         $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
     }
     else {
         info2.update('');
     }
-    results_poly.bringToFront()
+    if (typeof results_poly != 'undefined') {
+        results_poly.bringToFront()
+    }
 
 }
 
@@ -498,7 +498,12 @@ function mouseOverTextChangeColor(hovername) {
 }
 
 function mouseOutTextChangeBack() {
-    resetHighlight()
+        //Loop through the array of all layers and remove them
+    allLayers.forEach( function (arrayItem) {
+        arrayItem.setStyle(defaultStyle)
+    })
+    results_poly.bringToFront()
+
 }
 
 // BEGIN EXPORT TO WKT
@@ -527,16 +532,15 @@ function toWKT(layer) {
 }
 
 map.on('draw:created', function (e) {
-    //Show Loading Bars on Draw
-    $(document).ajaxStart(function(){
-        $("#initialization_wait").css("display", "block");
-    });
 
     $(document).ajaxStart(function(){
+        //Show Loading Bars on Draw
+        $("#initialization_wait").css("display", "block");
         $("#view1").css("opacity", ".1");
         $("#view2").css("opacity", ".1");
         $(".wait").css("display", "block");
     });
+
     $(document).ajaxComplete(function(){
         $("#view1").css("opacity", "1");
         $("#view2").css("opacity", "1");
@@ -547,6 +551,7 @@ map.on('draw:created', function (e) {
     if(map.hasLayer(results_poly)){
         map.removeLayer(results_poly)
     }
+
     var type = e.layerType;
     var layer = e.layer;
     drawnItems.addLayer(layer);
@@ -565,7 +570,9 @@ map.on('draw:created', function (e) {
 
     create_post(user_wkt,reporting_units)
 
-    //Don't show on Select Features
+    //Don't show on Select Features.
+    //After a successful post from the drawing tools. set the display of the wait div back to none.
+
     $(document).ajaxStart(function(){
         $("#view1").css("opacity", "1");
         $("#view2").css("opacity", "1");
@@ -720,7 +727,6 @@ function resetClimateDivision(e) {
 
 function selectClimateDivision(e) {
 
-
     //set all polygon border back to the default.
     near_term_climate_divisions.setStyle({color:'#444444', weight:2})
 
@@ -736,7 +742,6 @@ function selectClimateDivision(e) {
 }
 
 function activateMapForClimateForecast(){
-
 
     if ( typeof fillOpacityLevel == 'undefined') {
         fillOpacityLevel=.85
@@ -754,15 +759,21 @@ function activateMapForClimateForecast(){
 
     generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
 
-    map.removeLayer(counties)
-    map.removeLayer(jepson_ecoregions)
-    map.removeLayer(blm_field_offices)
-    map.removeLayer(huc5_watersheds)
-    map.removeLayer(usfs_national_forests)
-    map.removeLayer(onekm)
-    map.removeLayer(results_poly)
-    map.removeLayer(study_area_boundary)
+    //Loop through the array of all layers and remove them
+    allLayers.forEach( function (arrayItem) {
+        map.removeLayer(arrayItem)
+    })
+
+    //Also remove any climate overlays nd the results_poly
     map.removeLayer(climate_PNG_overlay)
+    map.removeLayer(results_poly)
+
+    /*  Note: this works too:
+    var arrayLength = allLayers.length;
+    for (var i = 0; i < arrayLength; i++) {
+                map.removeLayer(allLayers[i])
+    }
+    */
 
     near_term_climate_divisions.addTo(map)
     near_term_climate_divisions.bringToFront()
@@ -849,8 +860,8 @@ function activateMapForDefault(){
     else {
         map.addLayer(remember_reporting_units)
     }
-    if (typeof results_poly != 'undefined') {
-        map.addLayer(results_poly)
+    if (typeof results_poly != 'undefined' && results_poly != '') {
+        //map.addLayer(results_poly)
     }
     //map.addLayer(results_poly)
     document.getElementsByClassName('info2')[0].innerHTML=''
@@ -863,7 +874,6 @@ function updateClimateDivisionSymbology(){
     selectedNearTermVariableToMap = $('input[name=nearTermMapVariable]:checked').val();
 
     map.removeLayer(near_term_climate_divisions)
-
 
     near_term_climate_divisions= L.geoJson(null, {
         style: function(feature) {

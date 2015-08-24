@@ -57,10 +57,16 @@
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/energy.css">
 
 <!-- My JS -->
 <script src="{{STATIC_URL}}js/general_js.js"></script>
 
+<!-- JQuery Slider -->
+<!--
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+-->
 
 <script>
 
@@ -75,7 +81,6 @@
     var last_reporting_units="{{reporting_units}}"
     var selectedChartVariable="{{selectedChartVariable}}"
     columnChartColors="{{columnChartColors}}"
-    //var fieldAliases="{{fieldAliases}}"
 
 </script>
 
@@ -109,17 +114,12 @@
 </head>
 
 <body onload="acquireNearTermClimate();">
-<!--
-<span id="version">BETA</span>
--->
+
 <div id="header">
     <div id="title">California<span style="color:white"> Climate Console</span><br>
       <span id="sub_title">Climate Projections for the state of California</span>
     </div>
     <div style="float:left"><img id="poppyImage" src="{{STATIC_URL}}img/poppy_l.png"></div>
-    <!--
-    <div style="float:left"><img style="height:90px; position:absolute; bottom:0px" src="{{STATIC_URL}}img/poppy.png"></div>
-    -->
 </div>
 
 <span id="DataBasinLinkBox">
@@ -142,7 +142,6 @@
     <!-- needs to go below the map and the opacity handle -->
     <script src="{{STATIC_URL}}Leaflet/my_leaflet/leaflet_map.js"></script>
 
-
     <div id="initialization_container">
         <div id="calloutbox" class="callout right">
             <span id="textInsideCallout"><p>3. Results will Appear Here<br><br><br> <img style="width:200px" src="{{STATIC_URL}}img/chart3.png">
@@ -156,7 +155,11 @@
             <li><a href="#view1" onclick="activateMapForDefault();">Charts</a></li>
             <li><a href="#view2">Current Selection</a></li>
             <li><a href="#view4" onclick="activateMapForClimateForecast()" >Near-Term Forecast</a></li>
+            <!--
+            <li><a href="#view5">Energy</a></li>
+            -->
             <li><a href="#view3"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
+
         </ul>
 
         <div class="tabcontents">
@@ -220,7 +223,6 @@
                 <div class="gradientDivisionLine"></div>
 
                 <div id="column_chart"></div>
-                <!-- <div id="time_period_translation"> t1=2015-2030, t2=2045-2060</div> -->
 
             </div>
 
@@ -378,22 +380,6 @@
                     });
 
                 </script>
-
-                <!--
-                <div style="clear:both">
-                    <table class="dynamicNearTermClimateTable">
-                        <tr><th>Show on Map </th></tr>
-                    </table>
-
-                    <br>
-
-                    <form id="nearTermMapForm">
-                        <input name="nearTermMapVariable" value="temp" type="radio">Temperature Change Forecast<br>
-                        <input name="nearTermMapVariable" value="precip" type="radio">Precipitation Change Forecast
-                    </form>
-
-                </div>
-                -->
 
                 <div id="sources">
                     Reference: Barnston et al., 2000, Bull. Amer. Meteor. Soc. 81:1271-1279<br>
