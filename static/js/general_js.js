@@ -33,7 +33,7 @@ function refreshSelectedFeaturesTab(){
             var count = 1
             listOfSelectedFeatures=""
             categoricalValuesArray=response['categoricalValues']
-            console.log(categoricalValuesArray)
+            //console.log(categoricalValuesArray)
 
             for (var i=0,  tot=categoricalValuesArray.length; i < tot; i++) {
 
@@ -238,6 +238,32 @@ function changeSelectionForm(whichChart){
     }
 }
 
+$(document).ready(function() {
+
+    $("#variable_selection_form").change(function(){
+        var selectedVal = $(this).val();
+
+        if(selectedVal == "arid")
+        {
+         $("select#statistic_selection_Form").prop("selectedIndex",1);
+         $(".delta,.children").show();
+         $(".avg,.children").hide();
+         $(".anom,.children").hide();
+        }
+        else if (selectedVal == "pet")
+        {
+         $("select#statistic_selection_Form").prop("selectedIndex",0);
+         $(".avg,.children").show();
+         $(".anom,.children").hide();
+         $(".delta,.children").hide();
+        }
+        else{
+         $(".avg,.children").show();
+         $(".anom,.children").show();
+         $(".delta,.children").show();
+        }
+      });
+});
 
 
 /****************************************** Near-Term Climate ********************************************************/
@@ -512,31 +538,6 @@ preload([
     static_url + 'img/start_hover.png',
     static_url + 'img/stop_hover.png',
 ]);
-
-
-$("#variable_selection_form").change(function(){
-    var selectedVal = $(this).val();
-
-    if(selectedVal == "arid")
-    {
-        $("select#statistic_selection_Form").prop("selectedIndex",1);
-        $(".delta,.children").show();
-        $(".avg,.children").hide();
-        $(".anom,.children").hide();
-    }
-    else if (selectedVal == "pet")
-    {
-        $("select#statistic_selection_Form").prop("selectedIndex",0);
-        $(".avg,.children").show();
-        $(".anom,.children").hide();
-        $(".delta,.children").hide();
-    }
-    else{
-        $(".avg,.children").show();
-        $(".anom,.children").show();
-        $(".delta,.children").show();
-    }
-});
 
 });//]]>
 

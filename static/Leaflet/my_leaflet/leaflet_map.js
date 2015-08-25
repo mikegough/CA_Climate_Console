@@ -555,7 +555,7 @@ map.on('draw:created', function (e) {
     var type = e.layerType;
     var layer = e.layer;
     drawnItems.addLayer(layer);
-    console.log(toWKT(layer));
+    //console.log(toWKT(layer));
     user_wkt=toWKT(layer);
 
     //Check for area selections that may take a long time. Ask for confirmation.
