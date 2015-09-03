@@ -3,7 +3,6 @@ var latlng = L.latLng(center_lat,center_lon);
 if (last_poly != '') {
     var results_poly = omnivore.wkt.parse(last_poly)
 }
-//else results_poly = omnivore.wkt.parse("SRID=4326;POINT(-115.7 34.8)")
 
 var map = L.map("map", {
     zoomControl: false,
@@ -117,6 +116,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
                 legendImage='Red_to_green_diverging_bright'
             }
 
+            legendImage=climateVariable+"_legend"
+
             layerToAddName="climate"
             legendHeight=window[layerToAddName+"Params"].legendHeight
 
@@ -125,7 +126,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
           document.getElementsByClassName('info')[0].innerHTML=
             '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
             '<div id="LegendHeader">' + legendTitle+ '</div>' +
-            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/my_leaflet/legends/' + legendImage + '.png">'+
+            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
             '<div class="legendLabels">'
 
             for (i in window[layerToAddName+"Params"].legendLabels) {
@@ -135,6 +136,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 }
 
 overlay_bounds = [[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]];
+overlay_bounds = [[32.52777441016329, -124.41250000002108], [42.02083587646484, -114.1214454281304]];
 
 if (typeof climate_PNG_overlay != 'undefined') {
     climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/TrimmedPNG/' + climate_PNG_overlay
@@ -439,6 +441,23 @@ function onEachFeature(feature, layer) {
 }
 
 function selectFeature(e){
+
+    //Comment out to prevent spinner on click. Uncomment in the map draw function.
+    $(document).ajaxStart(function(){
+        //Show Loading Bars on Draw
+        $("#initialization_wait").css("display", "block");
+        $("#view1").css("opacity", ".1");
+        $("#view2").css("opacity", ".1");
+        $(".wait").css("display", "block");
+    });
+
+    $(document).ajaxComplete(function(){
+        $("#view1").css("opacity", "1");
+        $("#view2").css("opacity", "1");
+        $(".wait").css("display", "none");
+        //map.removeLayer(layer)
+    });
+
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
     //AJAX REQUEST
     create_post(user_wkt,reporting_units)
@@ -570,8 +589,9 @@ map.on('draw:created', function (e) {
 
     create_post(user_wkt,reporting_units)
 
-    //Don't show on Select Features.
+    //Don't show spinner on Select Features.
     //After a successful post from the drawing tools. set the display of the wait div back to none.
+    /*
 
     $(document).ajaxStart(function(){
         $("#view1").css("opacity", "1");
@@ -584,6 +604,7 @@ map.on('draw:created', function (e) {
         $(".wait").css("display", "none");
         map.removeLayer(layer)
     });
+    */
 
 })
 

@@ -36,8 +36,8 @@ def index(request):
     ############################################# INPUT PARAMETERS #####################################################
 
     if reporting_units == "counties":
-        table="drecp_reporting_units_county_boundaries_no_simplify"
-        categoricalFields="name_pcase"
+        table="ca_reporting_units_county_boundaries_5_simplify"
+        categoricalFields="name"
 
     elif reporting_units == "ecoregion_subareas":
         table="drecp_reporting_units_ecoregion_subareas_no_simplify"
@@ -198,6 +198,20 @@ def index(request):
 
         #BAR COLORS
 
+        #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
+        #columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+        #columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+        #columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+        #columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+        #columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+
+        resultsDict["intactness_avg"]=.3
+        resultsDict["hisensfz_avg"]=.9
+        resultsDict["eecefzt1_avg"]=.7
+        resultsDict["eecefzt2_avg"]=.2
+        resultsDict["eepifzt1_avg"]=-.3
+        resultsDict["eepifzt2_avg"]=.4
+
         columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
         columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
         columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
@@ -205,9 +219,9 @@ def index(request):
         columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
         columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
 
-        columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+        #columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        #columnChartColors=5*"#444444,"
+        columnChartColors=5*"#444444,"
 
         ########################################### RETURN RESULTS #####################################################
 

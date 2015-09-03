@@ -12,7 +12,6 @@ function createChart(climateVariable, statistic, season) {
         " Click on a point to display the dataset used to generate the plotted value. "
     )
 
-
     //Allow for climate variable variations.
     if (statistic=="anom"){
         //remove the last character and add a "a" (e.g., tmin->tmia)
@@ -73,7 +72,12 @@ function createChart(climateVariable, statistic, season) {
         seriesNumber++;
     }
 
-    PRISM_LayersToAdd=['pm'+climateVariable+season+'t0']
+    if (statistic=='delta') {
+        PRISM_LayersToAdd=['single_transparent_pixel']
+    }
+    else {
+        PRISM_LayersToAdd=['pm'+climateVariable+season+'t0']
+    }
 
     yAxisLabel=climateParams['labels'][climateVariable][0]
     valueSuffix=climateParams['labels'][climateVariable][1]

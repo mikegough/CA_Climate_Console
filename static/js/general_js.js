@@ -1,3 +1,5 @@
+
+
 /*************************************************** SLIDER BARS ******************************************************/
 
 //Slider Bar code for Energy Scenario Builder
@@ -537,6 +539,7 @@ preload([
     static_url + 'img/stop.png',
     static_url + 'img/start_hover.png',
     static_url + 'img/stop_hover.png',
+    static_url + 'img/info_rotate5_hover.png',
 ]);
 
 });//]]>

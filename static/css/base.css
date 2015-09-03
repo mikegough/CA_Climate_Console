@@ -162,93 +162,36 @@ ul.tabs li a{
     padding-right:10px;
 }
 
-.select_container{
-    position:relative;
-    height:18px;
-    margin-top:20px;
+.select_container2{
+    font-family: Verdana,Geneva,sans-serif !important;
+    font-size: 13px !important;
     text-align:center;
     margin-left:auto;
     margin-right:auto;
 }
 
-.select_form{
+.select_form2{
+    font-family: Verdana,Geneva,sans-serif !important;
+    font-size: 13px !important;
+    margin-top:20px !important;
     white-space: nowrap;
-    width:357px;
     margin-left: auto;
     margin-right: auto;
     text-align:center;
-    padding-left:10px;
 }
 
-.styled-select select {
-   white-space: nowrap;
-   background: transparent;
-   color:#282828;
-   font:.85em Verdana;
-   padding: 5px;
-   border: 0;
-   height: 30px;
-   -webkit-appearance: none;
-}
 
-.styled-select {
-   overflow:hidden;
-   white-space: nowrap;
-   float:left;
-   height: 30px;
-   overflow: hidden;
-   background: url('../img/down_arrow_select4.png') no-repeat right white;
-   border: 1px solid #ccc;
-}
-
-#ss1{
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border-right: 0px solid #ccc;
-    width: 166px;
-}
-
-#ss1 select{
-    width: 286px;
-}
-
-#ss2{
-    width: 82px;
-    border-right: 0px solid #ccc;
-}
-
-#ss2 select{
-    width: 102px;
-
-}
-
-#ss3{
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    width: 105px;
-}
-
-#ss3 select{
-    width: 122px;
-}
-
-#variable_selection_form {
-    /*width:42%;*/
-}
-
-#statistic_selection_form {
-    /*
-    width:20%;
-    */
-}
-
-#season_selection_form {
-    /*
-    width:27%;
-    */
+.styled-select2{
+    font-family: Verdana,Geneva,sans-serif !important;
+    font-size: 13px !important;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    display:inline;
 }
 
 #point_chart{
+    /*height:30%;*/
     position:relative;
     margin-top:0px;
 }
@@ -285,8 +228,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 
 #column_chart{
+    /*height:40%;*/
     /*
-    height:39%;
     position:relative;
     max-height:340px;
     width:100%;
@@ -806,8 +749,12 @@ ul#mainNav a {
 }
 
 #calloutbox{
+    /*
     margin-left:auto;
     margin-right:auto;
+    */
+    margin-left:32px;
+    margin-right:31px;
     text-align:center;
     z-index:999;
 }
@@ -1173,7 +1120,6 @@ background:#595959;
 
 #initialization_container{
     float:right;
-    width: 29.8%;
     height:100%;
     border-left: 2px solid #444444;
     background-color:#EEEEEE;

@@ -66,7 +66,7 @@ eepifzt2Params = {
 climateParams = {
     //first array item is the model code used in the field name.
     // Second array item is the color to use in the point chart.
-    models:{"PRISM":["pm","black"], "CanESM2":["c2","#DEB78B"],"CCSM4":["c4","#717573"],"MIROC5":["m5","#C6D2DF"],"Ensemble":["ee","red"]},
+    models:{"PRISM":["pm","black"], "ACCESS":["a0", "#FF00FF"], "CanESM2":["c2","#DEB78B"],"CCSM4":["c4","#717573"],"MIROC5":["m5","#C6D2DF"],"Ensemble":["ee","red"]},
     timePeriods:2,
     labels:{
         "tmax":["Degrees (°C)","°C"],
@@ -76,11 +76,12 @@ climateParams = {
         "tmid":["Degrees (°C)","°C"],
         "tmia":["Degrees (°C)","°C"],
         "prec":["mm/year","mm/year"],
+        "ppt":["mm/year","mm/year"],
         "pred":["mm/year","mm/year"],
         "pet":["mm/year","mm/year"],
         "arid":["Percent Change","%"]
     },
-    legendHeight:"110px",
-    legendLabels:["High","","","","","Low"],
+    legendHeight:"176px",
+    legendLabels:["","","","","",""],
 }
 
