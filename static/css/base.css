@@ -182,12 +182,31 @@ ul.tabs li a{
 
 
 .styled-select2{
-    font-family: Verdana,Geneva,sans-serif !important;
+    /*font-family: Verdana,Geneva,sans-serif !important;
     font-size: 13px !important;
+    */
+    font-family: 13pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif !important;
+    color: #444444 !important;
     margin-left:auto;
     margin-right:auto;
     text-align:center;
     display:inline;
+}
+
+#units_selector{
+    background-color:#EDEDED;
+    position:relative;
+    top:15px;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:6px;
+    width:408px;
+    color:#606060;
+    font: 9pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif
+}
+
+#units_selector input {
+    cursor:pointer;
 }
 
 #point_chart{

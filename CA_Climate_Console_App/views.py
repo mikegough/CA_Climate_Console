@@ -39,6 +39,14 @@ def index(request):
         table="ca_reporting_units_county_boundaries_5_simplify"
         categoricalFields="name"
 
+    elif reporting_units == "usfs_national_forests":
+        table="ca_reporting_units_usfs_national_forests_15_simplify"
+        categoricalFields="name"
+
+    elif reporting_units == "jepson_ecoregions":
+        table="ca_jepson_ecoregions_2_simplify"
+        categoricalFields="name"
+
     elif reporting_units == "ecoregion_subareas":
         table="drecp_reporting_units_ecoregion_subareas_no_simplify"
         categoricalFields="sa_name"
@@ -62,7 +70,7 @@ def index(request):
     initial_lat=37.229722
     initial_lon=-121.509444
     zoomLevel = int(request.POST.get('zoomLevel',7))
-    stats_field_exclusions="'objectid', 'shape_leng', 'shape_area'"
+    stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
@@ -95,23 +103,33 @@ def index(request):
         ################################### BUILD SELECT LIST (FIELDS & TABLES) ########################################
         selectList="SELECT "
 
-        for field in statsFields.split(','):
-            #Non area weighted selection
-            #for stat in PostgresStatsToRetrieve:
-                #selectList+= stat+"(" + field + ")" + "as " + field + "_"+ stat + ","
-                #Area weighted selection. Would be preferable to get the sum of the shape area once, but would require
-                #a new selection using all the search conditions below.
-                #No need to store sum(shape_area) in a separate variable to avoid recalculating for each field....
-                #Time difference is negligible. 2.007133 mins for all watersheds vs 2.001333 mins with hard coded sum(shape_area).
-                #example: select sum(c4prec1530 * shape_area)/sum(shape_area) as c4prec1530_avg from table;
-                selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+        if ('POINT' in WKT):
+            #Point selection. No Area Weighted Average in the query.
+            #Performance gains are minimal even with 900 fields.
+            for field in statsFields.split(','):
+                selectList+=field + " as " + field + "_" + "avg" + ","
+            selectList+=categoricalFields + " as categorical_values, "
+            selectList+="1 as count, "
+            selectList+="ST_AsText(ST_SnapToGrid(ST_Force_2D(geom), .0001)) as outline_of_selected_features"
 
-        #Aggregates. Count, Unique CSV from categorical fields, Outline of selected features.
-        selectList+="count(*) as count, "
-        selectList+="string_agg(" + categoricalFields + ", ',') as categorical_values, "
-        #Sum of the area of selected features for area weighted average. Maybe report later.
-        #selectList+="sum(shape_area) as sum_area, "
-        selectList+="ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
+        else:
+            #Area or line based selection, requiring AWA
+            for field in statsFields.split(','):
+                #Non area weighted selection
+                #for stat in PostgresStatsToRetrieve:
+                    #selectList+= stat+"(" + field + ")" + "as " + field + "_"+ stat + ","
+                    #Area weighted selection. Would be preferable to get the sum of the shape area once, but would require
+                    #a new selection using all the search conditions below.
+                    #No need to store sum(shape_area) in a separate variable to avoid recalculating for each field....
+                    #Time difference is negligible. 2.007133 mins for all watersheds vs 2.001333 mins with hard coded sum(shape_area).
+                    #example: select sum(c4prec1530 * shape_area)/sum(shape_area) as c4prec1530_avg from table;
+                    selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+            selectList+="count(*) as count, "
+            #Aggregates. Count, Unique CSV from categorical fields, Outline of selected features.
+            selectList+="string_agg(" + categoricalFields + ", ',') as categorical_values, "
+            #Sum of the area of selected features for area weighted average. Maybe report later.
+            #selectList+="sum(shape_area) as sum_area, "
+            selectList+="ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
 
         tableList=" FROM " + table
 

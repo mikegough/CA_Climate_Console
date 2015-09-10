@@ -61,17 +61,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
             timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
 
-            // Old way: get from drop down. Doesn't work for the table though.
-            /*
-            var climateVar = document.getElementById("variable_selection_form");
-            var variable = climateVar.options[climateVar.selectedIndex].text;
-            var stat = document.getElementById("statistic_selection_form");
-            var statistic = stat.options[stat.selectedIndex].text;
-            var seas = document.getElementById("season_selection_form");
-            var season = seas.options[seas.selectedIndex].text;
-            variable=variable.replace("Minimum","Min").replace("Maximum", "Max").replace("Temperature", "Temp")
-            */
-
             //Create Climate Variable Label
             if (layerToAddName.indexOf('tma') != -1  ){
                var climateVariableLabel='Max Temp'
@@ -102,21 +91,13 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
             legendTitle=climateVariableLabel+"<br>"+ statisticLabel + "<br>" + season + "<br>" + timePeriod + "<br>(" + modelName + ")"
 
-            //Determine which png to use in the legend.
-            if (climateVariableLabel.indexOf('Temp') !== -1) {
-               legendImage='Prediction'
-
-            } else if (climateVariableLabel=="Precipitation") {
-                legendImage='Brown_to_blue_green_diverging_bright'
-
-            } else if (climateVariableLabel=="Aridity") {
-                legendImage='Brown_to_blue_green_diverging_bright_inverted'
-
-            } else if (climateVariableLabel=="PET") {
-                legendImage='Red_to_green_diverging_bright'
+            //legendImage=climateVariable+"_legend"
+            if(unitsForChart=="english"){
+                legendImage="Legends/"+layerToAddName+"_english_legend"
             }
-
-            legendImage=climateVariable+"_legend"
+            else {
+                legendImage="Legends/"+layerToAddName+"_legend"
+            }
 
             layerToAddName="climate"
             legendHeight=window[layerToAddName+"Params"].legendHeight
@@ -341,6 +322,7 @@ map.on('baselayerchange', function (event) {
     //boundary shows behind the admin units, slightly misaligned due to simplification of Admin Units.
     //if (event.name == "BLM Admin Units") { reporting_units="BLM Admin Units"; map.removeLayer(study_area_boundary)}
     if (event.name == "Counties") { remember_reporting_units=counties; reporting_units="counties"; map.removeLayer(study_area_boundary)}
+    if (event.name == "USFS National Forests") { remember_reporting_units=usfs_national_forests; reporting_units="usfs_national_forests"; map.removeLayer(study_area_boundary)}
     if (event.name == "Jepson Ecoregions") { remember_reporting_units=jepson_ecoregions; reporting_units="jepson_ecoregions"; map.removeLayer(study_area_boundary)}
     if (event.name == "BLM Field Offices") { remember_reporting_units=blm_field_offices; reporting_units="blm_field_offices"; map.removeLayer(study_area_boundary)}
     if (event.name == "HUC5 Watersheds") { remember_reporting_units=huc5_watersheds; reporting_units="huc5_watersheds"; map.removeLayer(study_area_boundary)}

@@ -194,6 +194,7 @@ function sortObject(o) {
 /*********************************** CHANGE SELECTION DROP-DOWN BASED ON CHART  ***************************************/
 function changeSelectionForm(whichChart){
 
+
     if (whichChart=="EnableForBoxPlot"){
         showChartOnMapSelect="BoxPlot"
         $( "#variable_selection_form" ).change(function() {
@@ -247,14 +248,16 @@ $(document).ready(function() {
 
         if(selectedVal == "arid")
         {
-         $("select#statistic_selection_Form").prop("selectedIndex",1);
+         $('#statistic_selection_form').val('delta').change();
+         //$("select#statistic_selection_form").prop("selectedIndex",1);
          $(".delta,.children").show();
          $(".avg,.children").hide();
          $(".anom,.children").hide();
         }
         else if (selectedVal == "pet")
         {
-         $("select#statistic_selection_Form").prop("selectedIndex",0);
+         $('#statistic_selection_form').val('avg').change();
+         //$("select#statistic_selection_form").prop("selectedIndex",0);
          $(".avg,.children").show();
          $(".anom,.children").hide();
          $(".delta,.children").hide();
@@ -496,6 +499,12 @@ function showInfoPopup(layerToDescribe){
 
 $(window).load(function(){
 
+    /*
+    $("#variable_selection_form").change(function () {
+        createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
+    });
+    */
+
 //Function to start and stop automatic time cycling on the near term climate tab.
 
 function startCycle(){
@@ -614,4 +623,9 @@ function update_slider_label(value){
     }
 }
 
+function changeUnits(units){
+    unitsForChart=units;
+    swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value);
+    createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
+}
 

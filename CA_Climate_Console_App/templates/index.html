@@ -89,6 +89,7 @@
     var last_reporting_units="{{reporting_units}}"
     var selectedChartVariable="{{selectedChartVariable}}"
     columnChartColors="{{columnChartColors}}"
+    var layerToAddName = 'single_transparent_pixel'
 
 </script>
 
@@ -188,13 +189,23 @@
             <div id="view1">
                 <div class="select_container_2">
                     <form class="select_form2">
+                        <!--
+                        <div style="position:relative; z-index:9999">
+                            <div class="styled-select2" id="ss4" style="position:absolute; top:40px;left:10px">
+                                <span style="font-size:9px;"> <input type="radio" name="units" value="male"></span>
+                               <div style="-moz-transform: rotate(-90deg);">&deg;C</div>
+                                <span style="font-size:9px;"> <input  type="radio" name="units" value="female"></span>
+                                <div style="-moz-transform: rotate(-90deg);">&deg;F</div>
+                            </div>
+                        </div>
+                        -->
                         <div class="styled-select2" id="ss1">
                             <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                            <select id="variable_selection_form" onchange='createChart(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                            <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
                                 <!-- Annual Averages -->
                                 <option value="tmin" selected >Minimum Temperature</option>
                                 <option value="tmax">Maximum Temperature</option>
-                                <option value="ppt">Precipitation</option>
+                                <option value="prec">Precipitation</option>
                                 <option value="arid">Aridity</option>
                                 <option value="pet">PET</option>
                             </select>
@@ -217,6 +228,19 @@
                                 <option value="s4">Oct-Nov-Dec</option>
                             </select>
                         </div>
+                        <!--
+                        <div class="styled-select2" id="ss4" style="float:right; position:relative; top:-36px;">
+                            <input type="radio" name="units" value="male">&deg;C
+                            <br>
+                            <input type="radio" name="units" value="female">&deg;F
+                        </div>
+                        -->
+                        <!--<div id="units_selector" class='selectboxit  selectboxit-enabled selectboxit-btn'>-->
+                        <div id="units_selector">
+                            <b>Units:</b>
+                            <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">Metric (&deg;C/mm)</span>
+                            <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel"> English (&deg;F/inches)</span>
+                        </div>
                     </form>
                 </div>
 
@@ -231,6 +255,7 @@
 
 
                 <div id="point_chart"></div>
+
 
                 <div id="point_chart_description"></div>
 
