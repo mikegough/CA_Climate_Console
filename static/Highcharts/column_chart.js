@@ -60,7 +60,7 @@ function createColumnChart(){
               chart: {
                     type: 'column',
                     width:477,
-                    height:380,
+                    height:360,
                     marginTop:50,
                 },
                 credits: {

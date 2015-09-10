@@ -239,7 +239,7 @@ def index(request):
 
         #columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        columnChartColors=5*"#444444,"
+        columnChartColors=6*"#444444,"
 
         ########################################### RETURN RESULTS #####################################################
 

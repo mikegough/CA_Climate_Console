@@ -194,7 +194,6 @@ function sortObject(o) {
 /*********************************** CHANGE SELECTION DROP-DOWN BASED ON CHART  ***************************************/
 function changeSelectionForm(whichChart){
 
-
     if (whichChart=="EnableForBoxPlot"){
         showChartOnMapSelect="BoxPlot"
         $( "#variable_selection_form" ).change(function() {
@@ -498,12 +497,6 @@ function showInfoPopup(layerToDescribe){
 }
 
 $(window).load(function(){
-
-    /*
-    $("#variable_selection_form").change(function () {
-        createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
-    });
-    */
 
 //Function to start and stop automatic time cycling on the near term climate tab.
 

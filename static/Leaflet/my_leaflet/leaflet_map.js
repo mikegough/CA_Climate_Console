@@ -58,6 +58,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
             //Legend Title
             modelName=layerToAddName.replace(/c2.*/,'CanESM2').replace(/c4.*/,'CCSM4').replace(/m5.*/,'MIROC5').replace(/ee.*/,'Ensemble').replace(/pm.*/,'PRISM')
+            modelName=modelName.replace(/g3.*/,'GFDL-CM3').replace(/hs.*/,'HadGEM2-ES').replace(/hc.*/,'HadGEM2-CC').replace(/a0.*/,'ACCESS1-0').replace(/cc.*/,'CESM1-BGC').replace(/cm.*/,'CMCC-CM').replace(/c5.*/,'CNRM-CM5')
             timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
 
