@@ -1176,6 +1176,97 @@ background:#595959;
     display: inline-block;
 }
 
+#clickToMapInfobox {
+    float:right;
+    z-index:999;
+    font-weight:bold;
+}
+
+#clickToMapInfobox a {
+    text-decoration:none;
+}
+
+
+div.clickToMapInfo {
+    position:absolute;
+    float:right;
+	height: 20px;
+	width: 250px;
+    right:-300px;
+    top:230px;
+    z-index:9999;
+    visibility:visible;
+}
+
+div.clickToMapInfo {
+    position:absolute;
+    float:right;
+	background-color: #444;
+	background-image: -moz-linear-gradient(top, #444, #444);
+    position:absolute;
+	color: #FFFFFF;
+	padding: 4px 4px 4px 6px;
+	border-radius: 6px;
+	box-shadow: 0px 0px 20px #999;
+	margin: 25px;
+	/*min-height: 50px;*/
+	border: 1px solid #333;
+	text-shadow: 2 0 1px #000;
+	/*box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;*/
+    color:#F8981D;
+    font-weight:bold !important;
+    font: 13px Verdana;
+}
+
+.clickToMapInfo::before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	border: 0.8em solid transparent;
+	position: absolute;
+}
+
+.clickToMapInfo.left::before {
+	right: -20px;
+	top: 40%;
+	border-left: 10px solid #444;
+}
+
+.clickToMapInfo.right::before {
+	left: -20px;
+	top: 40%;
+	border-right: 10px solid #444;
+
+}
+.clickToMapInfo.top-right::before {
+	right: 7px;
+	bottom: -20px;
+	border-top: 10px solid #444;
+}
+.clickToMapInfo.top-left::before {
+	left: 7px;
+	bottom: -20px;
+	border-top: 10px solid #444;
+}
+
+
+#close_button{
+    text-deocration:none;
+    font-family:Tahoma,Verdana,sans-serif;
+    color:#EFEFEF;
+    position:relative;
+    top:0px;
+    float:right;
+    right:3px;
+    font-size:13px;
+    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+}
+
+#close_button:hover {
+    color:#CCCCCC
+}
+
+
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */
 #footer a:active {color:#4D79B3;}  /* selected link */

@@ -125,6 +125,7 @@
 
 <body onload="acquireNearTermClimate();">
 
+
 <div id="header">
     <!--
     <div style="z-index:0; margin-left:auto; margin-right:auto; position:relative; left:200px; top:70px"><img style="width:270px" src="{{STATIC_URL}}img/ribbon.png"></div>
@@ -187,6 +188,11 @@
                 </div>
             </div>
 
+            <div id="clickToMapInfo" class="clickToMapInfo top-left"><span>Click any Point to Map the Data</span><a href="#" onclick="this.parentNode.style.visibility='hidden'">
+              <span id="close_button"> ✖ </span></a>
+            </div>
+
+
             <div id="view1">
                 <div class="select_container_2">
                     <form class="select_form2">
@@ -232,18 +238,10 @@
                                 <option value="s4">Oct-Nov-Dec</option>
                             </select>
                         </div>
-                        <!--
-                        <div class="styled-select2" id="ss4" style="float:right; position:relative; top:-36px;">
-                            <input type="radio" name="units" value="male">&deg;C
-                            <br>
-                            <input type="radio" name="units" value="female">&deg;F
-                        </div>
-                        -->
-                        <!--<div id="units_selector" class='selectboxit  selectboxit-enabled selectboxit-btn'>-->
                         <div id="units_selector">
                             <b>Units:</b>
-                            <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">Metric</span>
-                            <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel"> English</span>
+                            <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                            <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
                         </div>
                     </form>
                 </div>

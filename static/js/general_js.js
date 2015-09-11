@@ -622,3 +622,9 @@ function changeUnits(units){
     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
 }
 
+
+function animateClickToMapInfoBox(){
+    $('.clickToMapInfo').delay(1000).animate({"right":"100px"},900);
+    $('.clickToMapInfo').animate({"right":"80px"},600);
+}
+

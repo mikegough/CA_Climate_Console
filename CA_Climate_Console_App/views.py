@@ -52,8 +52,8 @@ def index(request):
         categoricalFields="sa_name"
 
     elif reporting_units == "blm_field_offices":
-        table="drecp_reporting_units_blm_field_offices_no_simplify"
-        categoricalFields="fo_name"
+        table="ca_reporting_units_blm_field_offices_7_simplify"
+        categoricalFields="name"
 
     elif reporting_units == "deto_recovery_units":
         table="drecp_reporting_units_deto_recovery_units_no_simplify"

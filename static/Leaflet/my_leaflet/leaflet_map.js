@@ -132,6 +132,7 @@ if (typeof climate_PNG_overlay != 'undefined') {
 
 //Function used by the Climate chart to add PNGs. Obviates the need to manually define each image overlay object.
 function swapImageOverlay(layerName) {
+        $("#clickToMapInfo").hide();
         //Transparency slider
         elements=document.getElementsByClassName('ui-opacity')
         map.removeLayer(climate_PNG_overlay)
@@ -411,7 +412,18 @@ function create_post(newWKT) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
             $("#initialization_wait").css("display", "None");
         }
+
     });
+
+
+    if (typeof firstChartDisplay == 'undefined'){
+        animateClickToMapInfoBox()
+    }
+    else{
+        $("#clickToMapInfo").hide();
+    }
+    firstChartDisplay=1
+
 }
 
 function onEachFeature(feature, layer) {

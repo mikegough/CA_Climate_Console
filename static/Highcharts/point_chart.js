@@ -180,6 +180,8 @@ function createChart(climateVariable, statistic, season) {
 
 function updateData(climateVariable, statistic, season) {
 
+    $("#clickToMapInfo").hide();
+
     //Unit Conversion (metric to english)
     if (typeof unitsForChart == 'undefined') {
         unitsForChart='metric'
@@ -221,11 +223,14 @@ function updateData(climateVariable, statistic, season) {
     else if (climateVariable=='prec' || climateVariable=="pet") {
         $('#units_selector').show()
         $('#MetricLabel').html('Millimeters (mm)');
-        $('#EnglishLabel').html('inches (in)');
+        $('#EnglishLabel').html('Inches (in)');
     }
     else if (climateVariable=='arid' || climateVariable=='pred') {
         $('#units_selector').hide()
     }
+
+    yAxisLabel=climateParams['labels'][climateVariable][0]
+    valueSuffix=climateParams['labels'][climateVariable][1]
 
     var db_statistic="avg"
 
@@ -252,12 +257,23 @@ function updateData(climateVariable, statistic, season) {
             }
             var historicalDataToPlot=line1Values[0]
             if (unitsForChart=='english'){
+                yAxisLabel=yAxisLabel.replace('mm','inches');
+                valueSuffix=valueSuffix.replace('mm','inches');
+                yAxisLabel=yAxisLabel.replace('°C','°F');
+                valueSuffix=valueSuffix.replace('°C','°F');
                 historicalDataToPlot=EnglishUnitsConversion(historicalDataToPlot)
+                line1Values=historicalDataToPlot
             }
             //Update the Data & the Click Event Layers to Add.
             chart.series[0].data[0].update(historicalDataToPlot,false);
             chart.series[0].update({
                 layersToAdd:eval(model +"_LayersToAdd")
+            },false);
+            //Update the units that appear in the tooltip
+            chart.series[0].update({
+                tooltip:{
+                       pointFormat: '<b>{point.y}</b> ' + valueSuffix + '<br><i>(Click to Map)</i>'
+                }
             },false);
         }
 
@@ -277,15 +293,24 @@ function updateData(climateVariable, statistic, season) {
                 var chartSeriesIndex=seriesNumber-1
                 var dataToPlot=eval("line"+seriesNumber+"Values[j]");
                 if (unitsForChart=='english'){
+                    valueSuffix=valueSuffix.replace('mm','inches');
+                    valueSuffix=valueSuffix.replace('°C','°F');
                     dataToPlot=EnglishUnitsConversion(dataToPlot)
                 }
                 //Update the Data.
                 chart.series[chartSeriesIndex].data[j].update(dataToPlot,false);
+
                 j++;
             }
             //Update the Click Event Layers To Add.
             chart.series[chartSeriesIndex].update({
                 layersToAdd:eval(model +"_LayersToAdd")
+            },false);
+            //Update the units that appear in the tooltip
+            chart.series[chartSeriesIndex].update({
+                tooltip:{
+                    pointFormat: '<b>{point.y}</b> ' + valueSuffix + '<br><i>(Click to Map)</i>',
+                }
             },false);
         }
 
@@ -315,18 +340,13 @@ function updateData(climateVariable, statistic, season) {
             convertedValue=dataValue*factor
         }
 
-        yAxisLabel=yAxisLabel.replace('mm','inches');
-        valueSuffix=valueSuffix.replace('mm','inches');
-        yAxisLabel=yAxisLabel.replace('°C','°F');
-        valueSuffix=valueSuffix.replace('°C','°F');
-
         roundedConvertedValue=Number(convertedValue.toFixed(2));
         return roundedConvertedValue
     }
 
+    chart.yAxis[0].setTitle({ text:yAxisLabel }, false);
 
-    yAxisLabel=climateParams['labels'][climateVariable][0]
-    valueSuffix=climateParams['labels'][climateVariable][1]
+    //chart.redraw()
 
 
     /******************************************** Description *********************************************************/
@@ -349,7 +369,7 @@ function updateData(climateVariable, statistic, season) {
     }
 
     if((selectedClimateStat=="Average" && climateVariable != "arid") || climateVariable == "pet" ) {
-            document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + line1Values  + valueSuffix + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
+            document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + line1Values  +" "+valueSuffix + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
             $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
             /*
             $('#point_chart_description').append("<div style='position:relative; float:right; right:0px; width:40px; margin-left:5px'><img style='width:20px; position:absolute; bottom:-20px;' src='"+static_url + "img/boxPlotIcon.png'></div>")
