@@ -619,6 +619,6 @@ function update_slider_label(value){
 function changeUnits(units){
     unitsForChart=units;
     swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value);
-    createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
+    updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
 }
 

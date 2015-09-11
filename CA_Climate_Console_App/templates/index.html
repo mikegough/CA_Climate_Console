@@ -90,6 +90,7 @@
     var selectedChartVariable="{{selectedChartVariable}}"
     columnChartColors="{{columnChartColors}}"
     layerToAddName = 'single_transparent_pixel'
+    unitsForChart="metric"
 
 </script>
 
@@ -201,7 +202,10 @@
                         -->
                         <div class="styled-select2" id="ss1">
                             <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <!--
                             <select id="variable_selection_form" onchange='createChart(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                            -->
+                            <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
                                 <!-- Annual Averages -->
                                 <option value="tmin" selected >Minimum Temperature</option>
                                 <option value="tmax">Maximum Temperature</option>
@@ -211,7 +215,7 @@
                             </select>
                         </div>
                         <div class="styled-select2" id="ss2">
-                            <select id="statistic_selection_form" onchange='createChart(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
+                            <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
                                 <!-- Annual Averages -->
                                 <option class="avg" value="avg" selected >Average</option>
                                 <option class="delta" value="delta">Change</option>
@@ -219,7 +223,7 @@
                             </select>
                         </div>
                         <div class="styled-select2" id="ss3">
-                            <select id="season_selection_form" onchange='createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value)'>
+                            <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value)'>
                                 <!-- Annual Averages -->
                                 <option value="s0" selected >Annual</option>
                                 <option value="s1">Jan-Feb-Mar</option>
@@ -238,8 +242,8 @@
                         <!--<div id="units_selector" class='selectboxit  selectboxit-enabled selectboxit-btn'>-->
                         <div id="units_selector">
                             <b>Units:</b>
-                            <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">Metric (&deg;C/mm)</span>
-                            <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel"> English (&deg;F/inches)</span>
+                            <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">Metric</span>
+                            <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel"> English</span>
                         </div>
                     </form>
                 </div>
