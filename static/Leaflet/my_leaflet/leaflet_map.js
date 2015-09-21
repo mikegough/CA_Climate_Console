@@ -284,7 +284,7 @@ var groupedOverlays = {
     /* Option to have reporting units in the upper right hand layer widget.
     "Reporting Units": {
         "Counties": counties,
-        //"Jepson Ecoregions": jepson_ecoregions,
+        "Jepson Ecoregions": jepson_ecoregions,
         "BLM Field Offices": blm_field_offices,
         "USFS National Forests": usfs_national_forests,
         "HUC5 Watersheds": huc5_watersheds,
@@ -392,7 +392,14 @@ function create_post(newWKT) {
 
             //create the charts.
             if (showChartOnMapSelect=="PointChart"){
-                createChart(document.getElementById("variable_selection_form").value,document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
+                //if this is the first time we're creating a chart.
+                if (typeof chart=='undefined') {
+                    animateClickToMapInfoBox()
+                    createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
+                }
+                else {
+                    updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value);
+                }
             }
             else if(showChartOnMapSelect=="BoxPlot"){
                 createBoxPlot(document.getElementById("variable_selection_form").value,document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
@@ -414,15 +421,6 @@ function create_post(newWKT) {
         }
 
     });
-
-
-    if (typeof firstChartDisplay == 'undefined'){
-        animateClickToMapInfoBox()
-    }
-    else{
-        $("#clickToMapInfo").hide();
-    }
-    firstChartDisplay=1
 
 }
 
@@ -758,6 +756,8 @@ function selectClimateDivision(e) {
 }
 
 function activateMapForClimateForecast(){
+
+    $("#clickToMapInfo").hide();
 
     if ( typeof fillOpacityLevel == 'undefined') {
         fillOpacityLevel=.85

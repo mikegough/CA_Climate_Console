@@ -60,7 +60,7 @@ def index(request):
         categoricalFields="unit_name"
 
     elif reporting_units == "huc5_watersheds":
-        table="drecp_reporting_units_huc5_watersheds_1_5_simplify"
+        table="ca_reporting_units_huc5_watersheds_5_simplify"
         categoricalFields="Name"
 
     elif reporting_units == "onekm":
@@ -215,13 +215,6 @@ def index(request):
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
         #BAR COLORS
-
-        #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
-        #columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-        #columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-        #columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-        #columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-        #columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
 
         resultsDict["intactness_avg"]=.3
         resultsDict["hisensfz_avg"]=.9
