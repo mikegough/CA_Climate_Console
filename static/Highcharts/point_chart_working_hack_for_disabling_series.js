@@ -246,76 +246,82 @@ function updateData(climateVariable, statistic, season) {
 
         //Data To Plot (line1Values, line2Values, etc)
         //Historical (PRISM)
-
         if (modelAbbreviation == 'pm'){
             if (statistic=='anom' || statistic =='delta' ){
-                historicalDataToPlot=[0]
+                eval("var line"+seriesNumber+"Values=[0]")
                 PRISM_LayersToAdd=['single_transparent_pixel']
             } else {
-                historicalDataToPlot=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]
+                eval("var line"+seriesNumber+"Values=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]")
                 PRISM_LayersToAdd=['pm'+climateVariable+season+'t0']
-                if (unitsForChart=='english'){
-                    yAxisLabel=yAxisLabel.replace('mm','inches');
-                    valueSuffix=valueSuffix.replace('mm','inches');
-                    yAxisLabel=yAxisLabel.replace('°C','°F');
-                    valueSuffix=valueSuffix.replace('°C','°F');
-                    historicalDataToPlot=[EnglishUnitsConversion(historicalDataToPlot[0])]
-                }
             }
-
+            var historicalDataToPlot=line1Values[0]
+            if (unitsForChart=='english'){
+                yAxisLabel=yAxisLabel.replace('mm','inches');
+                valueSuffix=valueSuffix.replace('mm','inches');
+                yAxisLabel=yAxisLabel.replace('°C','°F');
+                valueSuffix=valueSuffix.replace('°C','°F');
+                historicalDataToPlot=EnglishUnitsConversion(historicalDataToPlot)
+                line1Values=historicalDataToPlot
+            }
             //Update the Data & the Click Event Layers to Add.
-            chart.series[0].setData(historicalDataToPlot,false,true,true);
-            //chart.series[0].data[0].update(historicalDataToPlot,false);
-
+            chart.series[0].data[0].update(historicalDataToPlot,false);
             chart.series[0].update({
                 layersToAdd:eval(model +"_LayersToAdd")
             },false);
-
             //Update the units that appear in the tooltip
             chart.series[0].update({
                 tooltip:{
                        pointFormat: '<b>{point.y}</b> ' + valueSuffix + '<br><i>(Click to Map)</i>'
                 },
+                events: {
+                    //Prevent turning off PRISM. Just easier for now.
+                    legendItemClick: function () {
+                    return false; // <== returning false will cancel the default action
+                    }
+                 }
+
             },false);
         }
 
         else{
 
-            //New Layers to Add on Point Click
+            var hiddenSeriesData=['']
+            eval("var line"+seriesNumber+"Values=['']")
             eval("var " + model+"_LayersToAdd=['']")
-            //Array to store the new data to plot
-            var fieldCode
-            var dataPoint
-            var dataToPlot=['']
-
             var j=1;
-            //For Each Time Period. Loop through and push data into array
+            var fieldCode
+            //For Each Time Period
             while(j<=timePeriodCount) {
-                fieldCode = modelAbbreviation + climateVariable + season + 't' + j
+                fieldCode=modelAbbreviation+climateVariable+season+'t'+j
+                //Push data into series array
+                eval("line"+seriesNumber+"Values").push(resultsJSON[fieldCode+'_'+db_statistic])
                 //Layers to Add
-                eval(model + "_LayersToAdd").push(fieldCode)
-                //Push data into array
-                dataPoint=resultsJSON[fieldCode + '_' + db_statistic];
-                if (unitsForChart == 'metric') {
-                    dataToPlot.push(dataPoint);
+                eval(model+"_LayersToAdd").push(fieldCode)
+                var chartSeriesIndex=seriesNumber-1
+                var dataToPlot=eval("line"+seriesNumber+"Values[j]");
+                if (unitsForChart=='english'){
+                    valueSuffix=valueSuffix.replace('mm','inches');
+                    valueSuffix=valueSuffix.replace('°C','°F');
+                    dataToPlot=EnglishUnitsConversion(dataToPlot)
+                }
+                //Update the Data.
+                if (typeof chart.series[chartSeriesIndex].data[j] != 'undefined') {
+                    chart.series[chartSeriesIndex].data[j].update(dataToPlot, false);
                 }
                 else{
-                    valueSuffix = valueSuffix.replace('mm', 'inches');
-                    valueSuffix = valueSuffix.replace('°C', '°F');
-                    dataToPlot.push(EnglishUnitsConversion(dataPoint))
+                    //Hack to fix the problem with hidden data series not existing, and throwing a javascript error when the chart is updated and the data doesn't exist.
+                    //Checking to see whether the series is defined and then adding data results in offset and incorrect data.
+                    //Currently setting data twice, I know.
+                    hiddenSeriesData.push(dataToPlot)
+                    chart.series[chartSeriesIndex].setData(hiddenSeriesData,'Mixed',0);
                 }
+
                 j++;
             }
-
-            //update the data in the chart
-            var chartSeriesIndex = seriesNumber - 1
-            chart.series[chartSeriesIndex].setData(dataToPlot,false,true,true);
-
             //Update the Click Event Layers To Add.
             chart.series[chartSeriesIndex].update({
                 layersToAdd:eval(model +"_LayersToAdd")
             },false);
-
             //Update the units that appear in the tooltip
             chart.series[chartSeriesIndex].update({
                 tooltip:{
@@ -379,7 +385,7 @@ function updateData(climateVariable, statistic, season) {
     }
 
     if((selectedClimateStat=="Average" && climateVariable != "arid") || climateVariable == "pet" ) {
-            document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + historicalDataToPlot[0] +" "+valueSuffix + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
+            document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + line1Values  +" "+valueSuffix + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
             //$('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
             /*
             $('#point_chart_description').append("<div style='position:relative; float:right; right:0px; width:40px; margin-left:5px'><img style='width:20px; position:absolute; bottom:-20px;' src='"+static_url + "img/boxPlotIcon.png'></div>")
