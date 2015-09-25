@@ -108,7 +108,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
           document.getElementsByClassName('info')[0].innerHTML=
             '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
             '<div id="LegendHeader">' + legendTitle+ '</div>' +
-            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
+            //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
+            '<img style="float:left" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
             '<div class="legendLabels">'
 
             for (i in window[layerToAddName+"Params"].legendLabels) {
@@ -117,7 +118,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
         }
 }
 
-overlay_bounds = [[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]];
 overlay_bounds = [[32.52777441016329, -124.41250000002108], [42.02083587646484, -114.1214454281304]];
 
 if (typeof climate_PNG_overlay != 'undefined') {
