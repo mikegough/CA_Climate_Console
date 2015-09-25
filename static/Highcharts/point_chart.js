@@ -264,10 +264,14 @@ function updateData(climateVariable, statistic, season) {
                 line1Values=historicalDataToPlot
             }
             //Update the Data & the Click Event Layers to Add.
-            chart.series[0].data[0].update(historicalDataToPlot,false);
-            chart.series[0].update({
-                layersToAdd:eval(model +"_LayersToAdd")
-            },false);
+            //If the historical model in the legend has been clicked (turned off), this was causing a javascript error that froze the page.
+            //Bug fix: Check to see if the series exists first before updating the data.
+            if (typeof chart.series[0].data[0] != 'undefined') {
+                chart.series[0].data[0].update(historicalDataToPlot, false);
+            }
+                chart.series[0].update({
+                    layersToAdd:eval(model +"_LayersToAdd")
+                },false);
             //Update the units that appear in the tooltip
             chart.series[0].update({
                 tooltip:{
@@ -297,8 +301,11 @@ function updateData(climateVariable, statistic, season) {
                     dataToPlot=EnglishUnitsConversion(dataToPlot)
                 }
                 //Update the Data.
-                chart.series[chartSeriesIndex].data[j].update(dataToPlot,false);
-
+                //If a model in the legend has been clicked (turned off), this was causing a javascript error that froze the page.
+                //Bug fix: Check to see if the series exists first before updating the data.
+                if (typeof chart.series[chartSeriesIndex].data[j] != 'undefined') {
+                    chart.series[chartSeriesIndex].data[j].update(dataToPlot, false);
+                }
                 j++;
             }
             //Update the Click Event Layers To Add.
