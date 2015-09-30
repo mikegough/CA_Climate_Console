@@ -50,7 +50,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
         if (climateVariable=='EEMSmodel'){
 
             legendTitle=window[layerToAddName+"Params"].legendTitle
-            legendImage=window[layerToAddName+"Params"].legendPNG
+            legendImage="/Legends/"+window[layerToAddName+"Params"].legendPNG
             legendHeight=window[layerToAddName+"Params"].legendHeight
             dbid=window[layerToAddName+"Params"].dataBasinID
 
@@ -109,7 +109,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
             '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
             '<div id="LegendHeader">' + legendTitle+ '</div>' +
             //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
-            '<img style="float:left" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
+            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/'+legendImage + '.png">'+
             '<div class="legendLabels">'
 
             for (i in window[layerToAddName+"Params"].legendLabels) {
@@ -118,10 +118,10 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
         }
 }
 
-overlay_bounds = [[32.52777441016329, -124.41250000002108], [42.02083587646484, -114.1214454281304]];
+overlay_bounds = climateParams['overlayBounds'];
 
 if (typeof climate_PNG_overlay != 'undefined') {
-    climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/TrimmedPNG/' + climate_PNG_overlay
+    climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + climate_PNG_overlay
     climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
     climate_PNG_overlay.addTo(map)
 
@@ -131,7 +131,16 @@ if (typeof climate_PNG_overlay != 'undefined') {
 }
 
 //Function used by the Climate chart to add PNGs. Obviates the need to manually define each image overlay object.
-function swapImageOverlay(layerName) {
+function swapImageOverlay(layerName,modelType) {
+
+        //Need different overlay bounds for EEMS Models
+        if (modelType=="EEMSmodel"){
+            overlay_bounds = EEMSParams['overlayBounds'];
+        }
+        else{
+            overlay_bounds = climateParams['overlayBounds'];
+        }
+
         $("#clickToMapInfo").hide();
         //Transparency slider
         elements=document.getElementsByClassName('ui-opacity')
@@ -146,7 +155,7 @@ function swapImageOverlay(layerName) {
             }
 
         } else {
-                climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/TrimmedPNG/' + layerName + '.png';
+                climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + layerName + '.png';
                 climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
                 climate_PNG_overlay.addTo(map)
@@ -191,82 +200,233 @@ var hoverStyle = {
 
 allLayers = new Array();
 
+if (studyarea == 'ca') {
+
 // CREATE LAYERS FROM TopoJSON
 // Study Area Boundary
-var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Boundary_5_simplify.json')
-    .on('ready',function(layer){
-        this.eachLayer(function(dist){
-            //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
-            dist.setStyle({color:'orange', weight:2, fillOpacity:0, opacity:.8 })
-            //dist.setStyle(styleBLM Admin Units(dist.toGeoJSON().properties.FMNAME_PC))
-            //dist.bindPopup(dist.toGeoJSON().properties.FMNAME_PC);
-        })
-    })//.addTo(map)
+    var study_area_boundary = omnivore.topojson(static_url + 'Leaflet/myJSON/CA_Boundary_5_simplify.json')
+        .on('ready', function (layer) {
+            this.eachLayer(function (dist) {
+                //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
+                dist.setStyle({color: 'orange', weight: 2, fillOpacity: 0, opacity: .8})
+                //dist.setStyle(styleBLM Admin Units(dist.toGeoJSON().properties.FMNAME_PC))
+                //dist.bindPopup(dist.toGeoJSON().properties.FMNAME_PC);
+            })
+        })//.addTo(map)
 
 
 // Getting rid of the fill opacity above and adding the "on" function below allows the user click anywhere in the map
 // when the 1km reporting units are selected because the study area boundary turns on when the 1km reporting units are selected.
-study_area_boundary.on('click',function(e){selectFeature(e) })
+    study_area_boundary.on('click', function (e) {
+        selectFeature(e)
+    })
 
-allLayers.push(study_area_boundary)
+    allLayers.push(study_area_boundary)
 
 //Counties
-var counties = L.geoJson(null, {
-    style: defaultStyle,
-    onEachFeature: onEachFeature
-});
-var counties_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_County_Boundaries_5_simplify.json', null, counties)
+    var counties = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'counties',
+    });
+    var counties_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/CA_Reporting_Units_County_Boundaries_5_simplify.json', null, counties)
 
-allLayers.push(counties)
+    allLayers.push(counties)
 
 //Jepson Ecoregions
-var jepson_ecoregions = L.geoJson(null, {
-    style: defaultStyle,
-    onEachFeature: onEachFeature
-});
+    var jepson_ecoregions = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'jepson_ecoregions',
+    });
 
-var jepson_ecoregions_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json', null, jepson_ecoregions)
+    var jepson_ecoregions_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json', null, jepson_ecoregions)
 
-allLayers.push(jepson_ecoregions)
+    allLayers.push(jepson_ecoregions)
 
 //BLM Field Offices
-var blm_field_offices = L.geoJson(null, {
-    style: defaultStyle,
-    onEachFeature: onEachFeature
-});
+    var blm_field_offices = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'blm_field_offices',
+    });
 
-var blm_field_offices_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_BLM_Field_Offices_7_simplify.json', null, blm_field_offices)
+    var blm_field_offices_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/CA_Reporting_Units_BLM_Field_Offices_7_simplify.json', null, blm_field_offices)
 
-allLayers.push(blm_field_offices)
+    allLayers.push(blm_field_offices)
 
 //Watersheds
-var huc5_watersheds= L.geoJson(null, {
-    style: defaultStyle,
-    onEachFeature: onEachFeature
-});
+    var huc5_watersheds = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'huc5_watersheds',
+    });
 
-var huc5_watersheds_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_HUC5_Watersheds_5_simplify.json', null, huc5_watersheds)
+    var huc5_watersheds_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/CA_Reporting_Units_HUC5_Watersheds_5_simplify.json', null, huc5_watersheds)
 
-allLayers.push(huc5_watersheds)
+    allLayers.push(huc5_watersheds)
 
 //National Forests
-var usfs_national_forests= L.geoJson(null, {
-    style: defaultStyle,
-    onEachFeature: onEachFeature
-});
+    var usfs_national_forests = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'usfs_national_forests',
+    });
 
-var usfs_national_forests_layer = omnivore.topojson(static_url+'Leaflet/myJSON/CA_Reporting_Units_USFS_National_Forests_15_simplify.json', null, usfs_national_forests)
+    var usfs_national_forests_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/CA_Reporting_Units_USFS_National_Forests_15_simplify.json', null, usfs_national_forests)
 
-allLayers.push(usfs_national_forests)
+    allLayers.push(usfs_national_forests)
 
-//1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
-onekmBounds = [[36, -114], [36, -114]];
-var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
-var onekm= L.imageOverlay(onekm_url, onekmBounds);
+    //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
+    onekmBounds = [[36, -114], [36, -114]];
+    var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+    var onekm= L.imageOverlay(onekm_url, onekmBounds);
 
-//Set Default Reporting Units
-counties_layer.addTo(map)
-reporting_units="counties"
+    //Set Default Reporting Units
+    counties_layer.addTo(map)
+    reporting_units="counties"
+
+    //The order here affects the order in the list in the upper left.
+    var reportingUnitLayers = {"Counties": counties, "Jepson Ecoregions": jepson_ecoregions, "USFS National Forests": usfs_national_forests, "BLM Field Offices": blm_field_offices,"HUC5 Watersheds": huc5_watersheds,"User Defined (1km)": onekm};
+}
+
+else if (studyarea=="drecp"){
+    // CREATE LAYERS FROM TopoJSON
+    // Study Area Boundary
+    var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Bdy_20110128.json')
+        .on('ready',function(layer){
+            this.eachLayer(function(dist){
+                //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
+                dist.setStyle({color:'orange', weight:2, fillOpacity:0, opacity:.8 })
+                //dist.setStyle(styleBLM Admin Units(dist.toGeoJSON().properties.FMNAME_PC))
+                //dist.bindPopup(dist.toGeoJSON().properties.FMNAME_PC);
+            })
+        })//.addTo(map)
+
+    // Getting rid of the fill opacity above and adding the "on" function below allows the user click anywhere in the map
+    // when the 1km reporting units are selected because the study area boundary turns on when the 1km reporting units are selected.
+    study_area_boundary.on('click',function(e){selectFeature(e) })
+
+    //Counties
+    var counties = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'counties',
+    });
+
+    var counties_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_County_Boundaries_JSON.json', null, counties)
+
+    allLayers.push(counties)
+
+    //Ecoregion Subareas
+    var ecoregion_subareas = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'ecoregion_subareas',
+    });
+
+    var ecoregion_subareas_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_Ecoregion_Subareas_JSON.json', null, ecoregion_subareas)
+
+    allLayers.push(ecoregion_subareas)
+
+    //BLM Field Offices
+    var blm_field_offices = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'blm_field_offices',
+    });
+
+    var blm_field_offices_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_BLM_Field_Offices_no_simplify.json', null, blm_field_offices)
+
+    allLayers.push(blm_field_offices)
+
+    var huc5_watersheds= L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'huc5_watersheds',
+    });
+
+    var huc5_watersheds_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_HUC5_Watersheds_1_5_simplify.json', null, huc5_watersheds)
+
+    allLayers.push(huc5_watersheds)
+
+    var deto_recovery_units= L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'deto_recovery_units',
+    });
+
+    var deto_recovery_units_layer = omnivore.topojson(static_url+'Leaflet/myJSON/DRECP_Reporting_Units_DETO_Recovery_Units_no_simplify.json', null, deto_recovery_units)
+
+    allLayers.push(deto_recovery_units)
+
+    //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
+    onekmBounds = [[36, -114], [36, -114]];
+    var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+    var onekm= L.imageOverlay(onekm_url, onekmBounds);
+
+
+    //Set Default Reporting Units
+    counties_layer.addTo(map)
+    reporting_units="counties"
+
+    //The order here affects the order in the list in the upper left.
+    reportingUnitLayers = {"Counties": counties, "Ecoregion Subareas": ecoregion_subareas, "BLM Field Offices": blm_field_offices, "HUC5 Watersheds": huc5_watersheds, "DETO Recovery Units":deto_recovery_units, "User Defined (1km)": onekm};
+
+}
+
+else if (studyarea=="utah"){
+     var study_area_boundary = omnivore.topojson(static_url+'Leaflet/myJSON/UTAH_COP_Study_Area_Boundary_20150219_GCS_For_JSON_0_simp.json')
+        .on('ready',function(layer){
+            this.eachLayer(function(dist){
+                //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
+                dist.setStyle({color:'orange', weight:2, fillOpacity:0, opacity:.8 })
+                //dist.setStyle(styleBLM Admin Units(dist.toGeoJSON().properties.FMNAME_PC))
+                //dist.bindPopup(dist.toGeoJSON().properties.FMNAME_PC);
+            })
+        })//.addTo(map)
+
+    // Getting rid of the fill opacity above and adding the "on" function below allows the user click anywhere in the map
+    // when the 1km reporting units are selected because the study area boundary turns on when the 1km reporting units are selected.
+    study_area_boundary.on('click',function(e){selectFeature(e) })
+
+    //Counties
+    var blm_admin_units = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'blm_admin_units',
+    });
+
+    var blm_admin_units_layer = omnivore.topojson(static_url+'Leaflet/myJSON/UTAH_COP_Reporting_Units_BLM_Admin_Units_GCS_For_JSON_simp_1.5.json', null, blm_admin_units)
+
+    allLayers.push(counties)
+
+    //DWR Admin
+    var dwr_admin_boundaries = L.geoJson(null, {
+        style: defaultStyle,
+        onEachFeature: onEachFeature,
+        reporting_units_designation: 'dwr_admin_boundaries',
+    });
+
+    var dwr_admin_boundaries_layer = omnivore.topojson(static_url+'Leaflet/myJSON/Utah_COP_Reporting_Units_DWR_Admin_Boundaries_for_JSON_no_Simplify.json', null, dwr_admin_boundaries)
+
+    allLayers.push(dwr_admin_boundaries)
+
+        //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
+    onekmBounds = [[36, -114], [36, -114]];
+    var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+    var onekm= L.imageOverlay(onekm_url, onekmBounds);
+
+
+    //Set Default Reporting Units
+    blm_admin_units_layer.addTo(map)
+    reporting_units="blm_admin_units"
+
+    //The order here affects the order in the list in the upper left.
+    reportingUnitLayers = {"BLM Admin Units": blm_admin_units, "DWR Admin Boundaries": dwr_admin_boundaries, "User Defined (1km)": onekm};
+
+}
+
 
 //Map Layers in layer control. Arrange order here. Uses the grouped layers plugin.
 OpenStreetMap=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' })
@@ -284,11 +444,6 @@ var groupedOverlays = {
     /* Option to have reporting units in the upper right hand layer widget.
     "Reporting Units": {
         "Counties": counties,
-        "Jepson Ecoregions": jepson_ecoregions,
-        "BLM Field Offices": blm_field_offices,
-        "USFS National Forests": usfs_national_forests,
-        "HUC5 Watersheds": huc5_watersheds,
-        "User Defined (1km)": onekm,
     },
     */
     "Base Maps": {
@@ -308,9 +463,6 @@ var groupedOverlays = {
 
 };
 
-//The order here affects the order in the list in the upper left.
-var reportingUnitLayers = {"Counties": counties, "Jepson Ecoregions": jepson_ecoregions, "USFS National Forests": usfs_national_forests, "BLM Field Offices": blm_field_offices,"HUC5 Watersheds": huc5_watersheds,"User Defined (1km)": onekm};
-
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
 
 //reporting_units = last_reporting_units
@@ -321,14 +473,13 @@ L.control.groupedLayers(overlayMaps, groupedOverlays, options).addTo(map);
 
 map.on('baselayerchange', function (event) {
     var layer = event.layer;
-    //boundary shows behind the admin units, slightly misaligned due to simplification of Admin Units.
-    //if (event.name == "BLM Admin Units") { reporting_units="BLM Admin Units"; map.removeLayer(study_area_boundary)}
-    if (event.name == "Counties") { remember_reporting_units=counties; reporting_units="counties"; map.removeLayer(study_area_boundary)}
-    if (event.name == "USFS National Forests") { remember_reporting_units=usfs_national_forests; reporting_units="usfs_national_forests"; map.removeLayer(study_area_boundary)}
-    if (event.name == "Jepson Ecoregions") { remember_reporting_units=jepson_ecoregions; reporting_units="jepson_ecoregions"; map.removeLayer(study_area_boundary)}
-    if (event.name == "BLM Field Offices") { remember_reporting_units=blm_field_offices; reporting_units="blm_field_offices"; map.removeLayer(study_area_boundary)}
-    if (event.name == "HUC5 Watersheds") { remember_reporting_units=huc5_watersheds; reporting_units="huc5_watersheds"; map.removeLayer(study_area_boundary)}
-    if (event.name == "User Defined (1km)") { remember_reporting_units=onekm;reporting_units="onekm"; map.addLayer(study_area_boundary)}
+    reporting_units=event.layer.options.reporting_units_designation
+    if (event.name == "User Defined (1km)") {
+        reporting_units="onekm"; map.addLayer(study_area_boundary)
+    }
+    else {
+        map.removeLayer(study_area_boundary)
+    }
 });
 
 // AJAX for posting
@@ -353,6 +504,37 @@ function create_post(newWKT) {
 
             response=JSON.parse(json)
             resultsJSON=JSON.parse(response.resultsJSON)
+
+
+            //Update Utah with the new field code naming convention
+
+            if (studyarea=='utah') {
+
+                function findAndReplace(object) {
+                    //console.log(Object.keys(object))
+                    oldKeys = Object.keys(object)
+                    for (i = 0; i < oldKeys.length; i++) {
+                        //console.log(oldKeys[i])
+                        newKey = oldKeys[i].replace('ti_union', 'intactness')
+                        newKey = newKey.replace('eeccfz1530', 'eecefzt1')
+                        newKey = newKey.replace('eeccfz4560', 'eecefzt2')
+                        newKey = newKey.replace('eepifz1530', 'eepifzt1')
+                        newKey = newKey.replace('eepifz4560', 'eepifzt2')
+                        newKey = newKey.replace('6899', 's0t0')
+                        newKey = newKey.replace('1530', 's0t1')
+                        newKey = newKey.replace('4560', 's0t2')
+                        //newKey = newKey.replace('tmass0', 'tmaxs2')
+                        //newKey=newKey.replace('tmis','tmins0')
+                        resultsJSON[newKey] = object[oldKeys[i]]
+                        delete object[oldKeys[i]]
+                    }
+                }
+
+                findAndReplace(resultsJSON)
+                //console.log(resultsJSON)
+            }
+
+
 
             initialize=response.initialize;
 

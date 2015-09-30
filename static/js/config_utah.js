@@ -60,8 +60,12 @@ eepifzt2Params = {
     legendHeight:"110px",
     legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
     dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    desription:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2046-2075) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p>The value shown in the column chart represents the average potential climate impact value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>"
+    description:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2046-2075) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p>The value shown in the column chart represents the average potential climate impact value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>"
 };
+
+EEMSParams = {
+    overlayBounds:[[36.5628357240001, -114.052860], [42.0017065100001, -107.265658528]]
+}
 
 climateParams = {
     //first array item is the model code used in the field name.
@@ -70,16 +74,10 @@ climateParams = {
     timePeriods:2,
     models:{
         "PRISM":["pm","black"],
-        "ACCESS":["a0", "#FF00FF"],
-        "CanESM2":["c2","#DEB78B"],
         "CCSM4":["c4","#717573"],
-        "CESM1":["cc","#808000"],
-        "CMCC":["cm","#1EED1E"],
-        "CNRM":["c5","#800040"],
-        "GFDL":["g3","#1B6186"],
-        "HadGEM2CC":["hc","#FF8A09"],
-        "HadGEM2ES":["hs","#8080C0"],
-        "MIROC5":["m5","#C6D2DF"],
+        "GFDL_CM3":["g3","#717573"],
+        "MRI_CGCM3":["m3","#C6D2DF"],
+        "CESM1":["c5","#808000"],
         "Ensemble":["ee","red"]},
     labels:{
         "tmax":["Degrees (°C)","°C"],
@@ -94,7 +92,11 @@ climateParams = {
         "arid":["Percent Change","%"],
         "pred":["Percent Change","%"]
     },
-    legendHeight:"176px",
+    legendHeight:"",
     legendLabels:["","","","","",""],
+    imageOverlayDIR:"utahPNG",
+    overlayBounds: [[36.063956623094, -114.67500000413504], [42.433333325985004, -106.76059608289738]],
+    boxPlot:false
 }
+
 

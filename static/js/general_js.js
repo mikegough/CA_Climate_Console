@@ -544,6 +544,42 @@ preload([
     static_url + 'img/info_rotate5_hover.png',
 ]);
 
+$('#cbp-spmenu-s3').html("\
+   			<h3>Climate Tools & Links</h3>\
+			<a href='?studyarea=ca'>California Climate Console</a>\
+            <a href='http://climate.databasin.org/'>CBI Climate Center</a>\
+            <a href='javascript:void(0);' id='close_explore'>&#10006</a>\
+            \
+			<a href='?studyarea=drecp'>DRECP Climate Console</a>\
+            <a href='http://cal-adapt.org/'>Cal-Adapt</a>\
+            <a href=''> &nbsp</a>\
+            \
+			<a href='?studyarea=utah'>Utah/Colorado Plateau Climate Console</a>\
+            <a href='http://climate.calcommons.org/'>Climate Commons</a>\
+            <a href=''> &nbsp</a>\
+    "
+)
+
+/* Slide Out Menu Variables & Functions */
+var
+    menuTop = document.getElementById( 'cbp-spmenu-s3' ),
+    showTop = document.getElementById( 'showTop' ),
+    closeExplore = document.getElementById('close_explore')
+    body = document.body;
+
+showTop.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuTop, 'cbp-spmenu-open' );
+};
+
+closeExplore.onclick = function() {
+    classie.toggle( showTop, 'active' );
+    classie.toggle( menuTop, 'cbp-spmenu-open' );
+};
+
+
+
+
 });//]]>
 
 function preload(arrayOfImages) {
@@ -627,4 +663,5 @@ function animateClickToMapInfoBox(){
     $('.clickToMapInfo').delay(1000).animate({"right":"100px"},900);
     $('.clickToMapInfo').animate({"right":"80px"},600);
 }
+
 

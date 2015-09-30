@@ -17,9 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def index(request):
 
-    template=request.GET.get('template')
-    if not template:
-        template='index'
+    studyarea=request.GET.get('studyarea','ca')
 
     #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
 
@@ -29,53 +27,110 @@ def index(request):
 
     else:
         WKT=request.GET.get('user_wkt')
-        reporting_units=request.GET.get('reporting_units', "counties")
-        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
-        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
+        reporting_units=request.GET.get('reporting_units')
+        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
+        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
 
     ############################################# INPUT PARAMETERS #####################################################
 
-    if reporting_units == "counties":
-        table="ca_reporting_units_county_boundaries_5_simplify"
-        categoricalFields="name"
-
-    elif reporting_units == "usfs_national_forests":
-        table="ca_reporting_units_usfs_national_forests_15_simplify"
-        categoricalFields="name"
-
-    elif reporting_units == "jepson_ecoregions":
-        table="ca_jepson_ecoregions_2_simplify"
-        categoricalFields="name"
-
-    elif reporting_units == "ecoregion_subareas":
-        table="drecp_reporting_units_ecoregion_subareas_no_simplify"
-        categoricalFields="sa_name"
-
-    elif reporting_units == "blm_field_offices":
-        table="ca_reporting_units_blm_field_offices_7_simplify"
-        categoricalFields="name"
-
-    elif reporting_units == "deto_recovery_units":
-        table="drecp_reporting_units_deto_recovery_units_no_simplify"
-        categoricalFields="unit_name"
-
-    elif reporting_units == "huc5_watersheds":
-        table="ca_reporting_units_huc5_watersheds_5_simplify"
-        categoricalFields="Name"
-
-    elif reporting_units == "onekm":
-        table="drecp_reporting_units_1km_poly_v2"
-        categoricalFields="''"
-
-    initial_lat=37.229722
-    initial_lon=-121.509444
-    zoomLevel = int(request.POST.get('zoomLevel',7))
     stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
+
+    if studyarea=='drecp':
+
+        if reporting_units == "counties" or reporting_units == None:
+            table="drecp_reporting_units_county_boundaries_no_simplify"
+            categoricalFields="name_pcase"
+
+        elif reporting_units == "ecoregion_subareas":
+            table="drecp_reporting_units_ecoregion_subareas_no_simplify"
+            categoricalFields="sa_name"
+
+        elif reporting_units == "blm_field_offices":
+            table="drecp_reporting_units_blm_field_offices_no_simplify"
+            categoricalFields="fo_name"
+
+        elif reporting_units == "deto_recovery_units":
+            table="drecp_reporting_units_deto_recovery_units_no_simplify"
+            categoricalFields="unit_name"
+
+        elif reporting_units == "huc5_watersheds":
+            table="drecp_reporting_units_huc5_watersheds_1_5_simplify"
+            categoricalFields="Name"
+
+        elif reporting_units == "onekm":
+            table="drecp_reporting_units_1km_poly_v2"
+            categoricalFields="''"
+
+        initial_lat=34.8
+        initial_lon=-116.7
+        zoomLevel = int(request.POST.get('zoomLevel',8))
+        template='drecp'
+        config_file="config_drecp.js"
+
+    elif studyarea=='ca':
+
+        if reporting_units == "counties" or reporting_units == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        if reporting_units == "usfs_national_forests":
+            table="ca_reporting_units_usfs_national_forests_15_simplify"
+            categoricalFields="name"
+
+        elif reporting_units == "jepson_ecoregions":
+            table="ca_jepson_ecoregions_2_simplify"
+            categoricalFields="name"
+
+        elif reporting_units == "ecoregion_subareas":
+            table="drecp_reporting_units_ecoregion_subareas_no_simplify"
+            categoricalFields="sa_name"
+
+        elif reporting_units == "blm_field_offices":
+            table="ca_reporting_units_blm_field_offices_7_simplify"
+            categoricalFields="name"
+
+        elif reporting_units == "deto_recovery_units":
+            table="drecp_reporting_units_deto_recovery_units_no_simplify"
+            categoricalFields="unit_name"
+
+        elif reporting_units == "huc5_watersheds":
+            table="ca_reporting_units_huc5_watersheds_5_simplify"
+            categoricalFields="Name"
+
+        elif reporting_units == "onekm":
+            table="drecp_reporting_units_1km_poly_v2"
+            categoricalFields="''"
+
+        initial_lat=37.229722
+        initial_lon=-121.509444
+        template='ca'
+        config_file="config_ca.js"
+        zoomLevel = int(request.POST.get('zoomLevel',7))
+
+    elif studyarea=='utah':
+
+        if reporting_units == "blm_admin_units" or reporting_units == None:
+            table="utah_cop_reporting_units_blm_admin_units_1_5_simplify"
+            categoricalFields="name"
+
+        elif reporting_units == "dwr_admin_boundaries":
+            table="utah_cop_reporting_units_dwr_admin_boundaries_no_simplify"
+            categoricalFields="name"
+
+        elif reporting_units == "onekm":
+            table="utah_cop_ru_1km_poly_postgis_v3"
+            categoricalFields="''"
+
+        initial_lat=39.4
+        initial_lon=-112
+        template='utah'
+        config_file="config_utah.js"
+        zoomLevel = int(request.POST.get('zoomLevel',7))
 
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
     cursor = connection.cursor()
-    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and data_type = 'numeric' and column_name not in (" + stats_field_exclusions + ");"
+    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
     cursor.execute(field_name_query);
     statsFieldsTuple=cursor.fetchone()
     statsFields = ",".join(statsFieldsTuple)
@@ -92,6 +147,8 @@ def index(request):
                  'initialize': initialize,
                  'initial_lat':initial_lat,
                  'initial_lon': initial_lon,
+                 'config_file': config_file,
+                 'studyarea':studyarea,
                  'count': 0}
         return render(request, template+'.html', context)
 
@@ -215,24 +272,38 @@ def index(request):
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
         #BAR COLORS
+        if studyarea=='drecp':
 
-        resultsDict["intactness_avg"]=.3
-        resultsDict["hisensfz_avg"]=.9
-        resultsDict["eecefzt1_avg"]=.7
-        resultsDict["eecefzt2_avg"]=.2
-        resultsDict["eepifzt1_avg"]=-.3
-        resultsDict["eepifzt2_avg"]=.4
+            columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
 
-        columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
-        columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-        columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-        columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-        columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-        columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        #columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+        elif studyarea=='utah':
 
-        columnChartColors=6*"#444444,"
+            columnChartColor1=getColor(resultsDict["ti_union_avg"], "TI")
+            columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor3=getColor(resultsDict["eeccfz1530_avg"], "ClimateEEMS")
+            columnChartColor4=getColor(resultsDict["eeccfz4560_avg"], "ClimateEEMS")
+            columnChartColor5=getColor(resultsDict["eepifz1530_avg"], "ClimateEEMS")
+            columnChartColor6=getColor(resultsDict["eepifz4560_avg"], "ClimateEEMS")
+
+            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+
+        else:
+
+            resultsDict["intactness_avg"]=.3
+            resultsDict["hisensfz_avg"]=.9
+            resultsDict["eecefzt1_avg"]=.7
+            resultsDict["eecefzt2_avg"]=.2
+            resultsDict["eepifzt1_avg"]=-.3
+            resultsDict["eepifzt2_avg"]=.4
+
+            columnChartColors=6*"#444444,"
 
         ########################################### RETURN RESULTS #####################################################
 
@@ -247,6 +318,8 @@ def index(request):
                  'categoricalValues': categoricalValues,
                  'columnChartColors': columnChartColors,
                  'error': 0,
+                 'config_file':config_file,
+                 'studyarea':studyarea,
                  }
     if request.method == 'POST':
         #Also works
@@ -343,6 +416,7 @@ def getColor(value, parameter):
     else:
         return "gray"
 
+#Not currently used in this application. The decision was made to keep these separate.
 @gzip_page
 @csrf_exempt
 def energy(request):

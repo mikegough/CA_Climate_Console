@@ -190,7 +190,7 @@ function createColumnChart(){
                                     // End Workaround
 
                                     if (layerToAdd){
-                                         swapImageOverlay(layerToAdd)
+                                         swapImageOverlay(layerToAdd,'EEMSmodel')
                                          swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
                                         //window.open(layerToAdd);
                                         // toggleLayer(layerToAdd)
