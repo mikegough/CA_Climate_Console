@@ -1,3 +1,58 @@
+title="DRECP"
+subTitle="Desert Renewable Energy Conservation Plan"
+studyAreaBoundary="DRECP_Bdy_20110128.json"
+initial_lat=34.8
+initial_lon=-116.7
+zoomLevel=8
+
+reportingUnits={
+    //"RU Label":["reporting_units(database_table_name)","name_field","json_file"]
+    "Counties": ["drecp_reporting_units_county_boundaries_no_simplify","name_pcase","DRECP_Reporting_Units_County_Boundaries_JSON.json"],
+    "Ecoregion Subareas": ["drecp_reporting_units_ecoregion_subareas_no_simplify","sa_name","DRECP_Reporting_Units_Ecoregion_Subareas_JSON.json"],
+    "BLM Field Offices":["drecp_reporting_units_blm_field_offices_no_simplify", "fo_name", "DRECP_Reporting_Units_BLM_Field_Offices_no_simplify.json"],
+    "HUC5 Watersheds": ["drecp_reporting_units_huc5_watersheds_1_5_simplify", "Name", "DRECP_Reporting_Units_HUC5_Watersheds_1_5_simplify.json"],
+    "DETO Recovery Units": ["drecp_reporting_units_deto_recovery_units_no_simplify", "unit_name", "DRECP_Reporting_Units_DETO_Recovery_Units_no_simplify.json"],
+    "User Defined (1km)": ["drecp_reporting_units_1km_poly_v2", "",""],
+
+}
+
+climateParams={
+    //first array item is the model code used in the field name.
+    // Second array item is the color to use in the point chart.
+    //NOTE: Can't have underscores in the name.
+    timePeriods:2,
+    timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
+    models:{
+        "PRISM":["pm","black"],
+        "CanESM2":["c2","#DEB78B"],
+        "CCSM4":["c4","#717573"],
+        "MIROC5":["m5","#C6D2DF"],
+        "Ensemble":["ee","red"]},
+    labels:{
+        "tmax":["Degrees (°C)","°C"],
+        "tmad":["Degrees (°C)","°C"],
+        "tmaa":["Degrees (°C)","°C"],
+        "tmin":["Degrees (°C)","°C"],
+        "tmid":["Degrees (°C)","°C"],
+        "tmia":["Degrees (°C)","°C"],
+        "prec":["mm/year","mm/year"],
+        "ppt":["mm/year","mm/year"],
+        "pet":["mm/year","mm/year"],
+        "arid":["Percent Change","%"],
+        "pred":["Percent Change","%"]
+    },
+    legendHeight:"",
+    legendLabels:["","","","","",""],
+    imageOverlayDIR:"drecpPNG",
+    overlayBounds:[[32.52468802685505, -118.77083333561102], [37.53750228881834, -114.00019713887225]],
+    boxPlot:true
+
+}
+
+EEMSParams={
+    overlayBounds:[[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]]
+}
+
 //Legend Label, Legend Name
 legendParams={
     "intactness":["Terrestrial Intactness","Intactness"],
@@ -63,38 +118,4 @@ eepifzt2Params = {
     description:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2046-2075) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p>The value shown in the column chart represents the average potential climate impact value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>"
 };
 
-EEMSParams = {
-    overlayBounds:[[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]]
-}
 
-climateParams = {
-    //first array item is the model code used in the field name.
-    // Second array item is the color to use in the point chart.
-    //NOTE: Can't have underscores in the name.
-    timePeriods:2,
-    models:{
-        "PRISM":["pm","black"],
-        "CanESM2":["c2","#DEB78B"],
-        "CCSM4":["c4","#717573"],
-        "MIROC5":["m5","#C6D2DF"],
-        "Ensemble":["ee","red"]},
-    labels:{
-        "tmax":["Degrees (°C)","°C"],
-        "tmad":["Degrees (°C)","°C"],
-        "tmaa":["Degrees (°C)","°C"],
-        "tmin":["Degrees (°C)","°C"],
-        "tmid":["Degrees (°C)","°C"],
-        "tmia":["Degrees (°C)","°C"],
-        "prec":["mm/year","mm/year"],
-        "ppt":["mm/year","mm/year"],
-        "pet":["mm/year","mm/year"],
-        "arid":["Percent Change","%"],
-        "pred":["Percent Change","%"]
-    },
-    legendHeight:"",
-    legendLabels:["","","","","",""],
-    imageOverlayDIR:"drecpPNG",
-    overlayBounds:[[32.52468802685505, -118.77083333561102], [37.53750228881834, -114.00019713887225]],
-    boxPlot:true
-
-}

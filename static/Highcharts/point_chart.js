@@ -87,7 +87,7 @@ function createChart(climateVariable, statistic, season) {
                 text: '',
             },
             xAxis: {
-                categories: ['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
+                categories: climateParams["timePeriodLabels"],
             },
             yAxis: {
                 title: {
@@ -294,7 +294,6 @@ function updateData(climateVariable, statistic, season) {
             //For Each Time Period. Loop through and push data into array
             while(j<=timePeriodCount) {
                 fieldCode = modelAbbreviation + climateVariable + season + 't' + j
-                console.log(fieldCode)
                 //Layers to Add
                 eval(model + "_LayersToAdd").push(fieldCode)
                 //Push data into array

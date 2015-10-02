@@ -1,8 +1,28 @@
+ $(document).ready(function(){
 
+     document.title=title + " Climate Console"
 
-/*************************************************** SLIDER BARS ******************************************************/
+    //Prepare Near Term Forecast
 
-//Slider Bar code for Energy Scenario Builder
+    //Initialize Selected Climate Division
+    selectedClimateDivision='94'
+    //Initialize Selected Time Frame
+    selectedNearTermClimatePeriod=1
+
+    acquireNearTermClimate();
+    createDynamicMonthlyRadioButtons()
+    generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
+
+    //Check the top radio buttons
+     $('.neartermclimateform').each(function(){
+        $('input[type=radio]', this).get(0).checked = true;
+    });
+
+     $('#nearTermMapForm').each(function(){
+         $('input[type=radio]', this).get(0).checked = true;
+     });
+
+});
 
 /************************************************ TABLE TAB FUNCTIONS *************************************************/
 
@@ -44,7 +64,7 @@ function refreshSelectedFeaturesTab(){
                 count=count+1
             }
 
-            selectedFeaturesTable.append("<tr><td>" + reporting_units +"</span></td><td>" + listOfSelectedFeatures + "</td></tr>")
+            selectedFeaturesTable.append("<tr><td>" + activeReportingUnitsName +"</span></td><td>" + listOfSelectedFeatures + "</td></tr>")
    }
 
 

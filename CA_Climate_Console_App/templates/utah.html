@@ -1,20 +1,15 @@
 <html>
 <head>
-<title>Utah/COP Climate Console</title>
+<title></title>
 <link rel="shortcut icon" href="{{STATIC_URL}}img/sun.ico">
 
-<script>
-    var static_url="{{STATIC_URL}}"
-    studyarea="{{studyarea}}"
-    config_file="{{config_file}}"
-</script>
-
-
-<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
-<script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
+<script> var static_url="{{STATIC_URL}}" </script>
 
 <!-- Config -->
 <script src="{{STATIC_URL}}js/{{config_file}}"></script>
+
+<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
+<script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
 
 <!-- Leaflet -->
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -38,12 +33,11 @@
 <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 
 <!-- Jquery-->
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <!-- tabs -->
 <script src="{{STATIC_URL}}deps/js/tabcontent.js" type="text/javascript"></script>
 <link href="{{STATIC_URL}}css/tabcontent.css" rel="stylesheet" type="text/css" />
-
 
 <!-- Highcharts -->
 <!-- Latest Stable Version v4.1.5 as of 5/6/2015. Latest version at http://code.highcharts.com/highcharts.js -->
@@ -74,62 +68,18 @@
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
-<!--
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/energy.css">
--->
 
 <!-- My JS -->
 <script src="{{STATIC_URL}}js/general_js.js"></script>
 
-<!-- JQuery Slider -->
-<!--
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
--->
-
 <script>
-
+    var static_url="{{STATIC_URL}}"
     showChartOnMapSelect="PointChart"
     var initialize={{initialize}}
-    var template="{{template}}"
     var count="{{count}}"
-    var center_lat={{initial_lat}}
-    var center_lon={{initial_lon}}
-    var zoomLevel={{zoomLevel}}
     var last_poly="{{WKT_SelectedPolys}}"
-    var last_reporting_units="{{reporting_units}}"
-    var selectedChartVariable="{{selectedChartVariable}}"
     columnChartColors="{{columnChartColors}}"
-    layerToAddName = 'single_transparent_pixel'
     unitsForChart="metric"
-
-</script>
-
-<script>
-
-     $(document).ready(function(){
-        //Prepare Near Term Forecast
-
-        //Initialize Selected Climate Division
-        selectedClimateDivision='94'
-        //Initialize Selected Time Frame
-        selectedNearTermClimatePeriod=1
-
-        acquireNearTermClimate();
-        createDynamicMonthlyRadioButtons()
-        generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
-
-        //Check the top radio buttons
-         $('.neartermclimateform').each(function(){
-            $('input[type=radio]', this).get(0).checked = true;
-        });
-
-         $('#nearTermMapForm').each(function(){
-             $('input[type=radio]', this).get(0).checked = true;
-         });
-
-    });
-
 </script>
 
 </head>
@@ -154,28 +104,9 @@
 
 
 <div id="header">
-    <!--
-    <div style="z-index:0; margin-left:auto; margin-right:auto; position:relative; left:200px; top:70px"><img style="width:270px" src="{{STATIC_URL}}img/ribbon.png"></div>
-    -->
     <div id="title">Utah/COP<span style="color:white"> Climate Console</span><br>
       <span id="sub_title">Climate Projections for the state of Utah/COP</span>
     </div>
-    <!--
-    <div style="float:left;z-index:2"><img id="poppyImage" src="{{STATIC_URL}}img/poppy_l.png"></div>
-    -->
-    <!--
-    <div style="margin-left:auto;margin-right:auto;position:relative; top:-90px;"><img style="height:150px;" src="{{STATIC_URL}}img/sun.png"></div>
-    -->
-    <!--
-    <div style="float:right; position:relative; right:200px; z-index:9999">
-        <form>
-             <select name="studyarea" onchange="this.form.submit();" method="get">
-              <option  value="ca">Utah/COP</option>
-              <option  value="drecp">DRECP</option>
-            </select>
-        </form>
-    </div>
-    -->
 </div>
 
 <span id="DataBasinLinkBox">
@@ -235,21 +166,8 @@
             <div id="view1">
                 <div class="select_container_2">
                     <form class="select_form2">
-                        <!--
-                        <div style="position:relative; z-index:9999">
-                            <div class="styled-select2" id="ss4" style="position:absolute; top:40px;left:10px">
-                                <span style="font-size:9px;"> <input type="radio" name="units" value="male"></span>
-                               <div style="-moz-transform: rotate(-90deg);">&deg;C</div>
-                                <span style="font-size:9px;"> <input  type="radio" name="units" value="female"></span>
-                                <div style="-moz-transform: rotate(-90deg);">&deg;F</div>
-                            </div>
-                        </div>
-                        -->
                         <div class="styled-select2" id="ss1">
                             <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                            <!--
-                            <select id="variable_selection_form" onchange='createChart(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
-                            -->
                             <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
                                 <!-- Annual Averages -->
                                 <option value="tmax" selected>Maximum Temperature</option>
