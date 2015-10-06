@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
 
     studyarea=request.GET.get('studyarea','ca')
+    template=request.GET.get('template','template1')
 
     #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
 
@@ -44,7 +45,7 @@ def index(request):
             table="drecp_reporting_units_county_boundaries_no_simplify"
             categoricalFields="name_pcase"
 
-        template='template1'
+        template='drecp'
         config_file="config_drecp.js"
 
     elif studyarea=='ca':
@@ -54,7 +55,7 @@ def index(request):
             table="ca_reporting_units_county_boundaries_5_simplify"
             categoricalFields="name"
 
-        template='template1'
+        template='ca'
         config_file="config_ca.js"
 
     elif studyarea=='utah':
@@ -63,7 +64,6 @@ def index(request):
             table="utah_cop_reporting_units_blm_admin_units_1_5_simplify"
             categoricalFields="name"
 
-        template='template1'
         config_file="config_utah.js"
 
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
@@ -107,10 +107,10 @@ def index(request):
             selectList+="count(*) as count "
             #Aggregates. Count, Unique CSV from categorical fields, Outline of selected features.
             if categoricalFields:
-                selectList+=", string_agg(" + categoricalFields + ", ',') as categorical_values, "
+                selectList+=", string_agg(" + categoricalFields + ", ',') as categorical_values"
             #Sum of the area of selected features for area weighted average. Maybe report later.
             #selectList+="sum(shape_area) as sum_area, "
-            selectList+="ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
+            selectList+=", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
 
         tableList=" FROM " + table
 
@@ -202,11 +202,12 @@ def index(request):
         elif studyarea=='utah':
 
             columnChartColor1=getColor(resultsDict["ti_union_avg"], "TI")
-            columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor3=getColor(resultsDict["eeccfz1530_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eeccfz4560_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifz1530_avg"], "ClimateEEMS")
-            columnChartColor6=getColor(resultsDict["eepifz4560_avg"], "ClimateEEMS")
+            columnChartColor2=getColor(resultsDict["ai_100m_avg"], "TI")
+            columnChartColor3=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor4=getColor(resultsDict["eeccfz1530_avg"], "ClimateEEMS")
+            columnChartColor5=getColor(resultsDict["eeccfz4560_avg"], "ClimateEEMS")
+            columnChartColor6=getColor(resultsDict["eepifz1530_avg"], "ClimateEEMS")
+            columnChartColor7=getColor(resultsDict["eepifz4560_avg"], "ClimateEEMS")
 
             columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 

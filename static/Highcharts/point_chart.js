@@ -294,6 +294,7 @@ function updateData(climateVariable, statistic, season) {
             //For Each Time Period. Loop through and push data into array
             while(j<=timePeriodCount) {
                 fieldCode = modelAbbreviation + climateVariable + season + 't' + j
+                //console.log(fieldCode)
                 //Layers to Add
                 eval(model + "_LayersToAdd").push(fieldCode)
                 //Push data into array

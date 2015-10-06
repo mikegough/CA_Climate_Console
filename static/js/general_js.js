@@ -507,11 +507,9 @@ function generateNearTermClimateResults(period,division) {
 
 function showInfoPopup(layerToDescribe){
 
-    var dbid=window[layerToDescribe+"Params"].dataBasinID
-
-    title=window[layerToDescribe+"Params"].legendTitle
-    description=window[layerToDescribe+"Params"].description
-
+    var dbid=EEMSParams['models'][layerToDescribe][5]
+    title=EEMSParams['models'][layerToDescribe][0]
+    description=EEMSParams['models'][layerToDescribe][6]
     new Messi(description, {title: title, center:true, width:'1000px', modal:true, modalOpacity:.4,center: true});
 
 }
@@ -674,7 +672,9 @@ function update_slider_label(value){
 
 function changeUnits(units){
     unitsForChart=units;
-    swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value);
+    if (typeof layerToAddName != 'undefined'){
+        swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value);
+    }
     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
 }
 

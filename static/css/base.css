@@ -71,9 +71,6 @@ body{
 #header{
     position:relative;
     display:block;
-    /*height:10%
-    min-height:80px;
-    */
     height:115px;
     width:101%;
     /*background-color:#CAC2B7;*/
@@ -92,6 +89,7 @@ body{
     background: -ms-linear-gradient(-45deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* IE10+ */
     background: linear-gradient(135deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d2f42', endColorstr='#1b6186',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 
 #title{
@@ -113,11 +111,13 @@ body{
 
 }
 
-#poppyImage{
-    height:175px;
+
+
+#sun{
+    height:170px;
     position:absolute;
-    left:-90px;
-    top:-60px;
+    left:-75px;
+    top:-75px;
 }
 
 #sub_title{
@@ -275,6 +275,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 #highChartsXaxisText{
     text-align:right;
+    white-space:nowrap !important;
 }
 
 .MessiDiv{

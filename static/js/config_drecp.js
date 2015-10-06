@@ -1,12 +1,12 @@
 title="DRECP"
 subTitle="Desert Renewable Energy Conservation Plan"
 studyAreaBoundary="DRECP_Bdy_20110128.json"
-initial_lat=34.8
-initial_lon=-116.7
+initialLat=34.8
+initialLon=-116.7
 zoomLevel=8
 
 reportingUnits={
-    //"RU Label":["reporting_units(database_table_name)","name_field","json_file"]
+    // "Reporting Units Label":["database_table_name","name_field","json_file"]
     "Counties": ["drecp_reporting_units_county_boundaries_no_simplify","name_pcase","DRECP_Reporting_Units_County_Boundaries_JSON.json"],
     "Ecoregion Subareas": ["drecp_reporting_units_ecoregion_subareas_no_simplify","sa_name","DRECP_Reporting_Units_Ecoregion_Subareas_JSON.json"],
     "BLM Field Offices":["drecp_reporting_units_blm_field_offices_no_simplify", "fo_name", "DRECP_Reporting_Units_BLM_Field_Offices_no_simplify.json"],
@@ -17,12 +17,10 @@ reportingUnits={
 }
 
 climateParams={
-    //first array item is the model code used in the field name.
-    // Second array item is the color to use in the point chart.
-    //NOTE: Can't have underscores in the name.
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models:{
+        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color"]
         "PRISM":["pm","black"],
         "CanESM2":["c2","#DEB78B"],
         "CCSM4":["c4","#717573"],
@@ -50,72 +48,16 @@ climateParams={
 }
 
 EEMSParams={
-    overlayBounds:[[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]]
-}
-
-//Legend Label, Legend Name
-legendParams={
-    "intactness":["Terrestrial Intactness","Intactness"],
-    "hisensfz":["Site Sensitivity","EEMS_Climate_2"],
-    "eecefzt1":["Climate Exposure<br>2016-2045<br>(Ensemble)","EEMS_Climate_2"],
-    "eecefzt2":["Climate Exposure<br>2046-2075<br>(Ensemble)","EEMS_Climate_2"],
-    "eepifzt1":["Potential Impact<br>2016-2045<br>(Ensemble)","EEMS_Climate_2"],
-    "eepifzt2":["Potential Impact<br>2046-2075<br>(Ensemble)","EEMS_Climate_2"]
-};
-
-//Legend properties
-intactnessParams = {
-    legendTitle:"Terrestrial Intactness",
-    legendPNG:"intactness",
-    legendHeight:"110px",
-    legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
-    dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    description:"Terrestrial intactness is an estimate of current condition based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the DRECP study area. Terrestrial intactness values will be high in areas where these impacts are low. <p>The value shown in the column chart represents the average terrestrial intactness value within the selected area. Terrestrial intactness values are calculated using an <a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> fuzzy logic model that integrates multiple measures of landscape development and vegetation intactness (See EEMS model diagram below). <p>  This model integrates agriculture development (from LANDFIRE EVT v1.1), urban development (from LANDFIRE EVT v1.1 and NLCD Impervious Surfaces), linear development (from Tiger 2012 Roads, utility lines, and pipelines), OHV recreation areas, energy and mining development (from state mine and USGS national mines datasets as well as geothermal wells, oil/gas wells, wind turbines, and power plant footprints), vegetation departure (from LANDFIRE VDEP), invasive vegetation (multiple sources combined for invasives analyses), and measures of natural vegetation fragmentation calculated using FRAGSTATS. In this version, Maxent modeled Sahara Mustard was included in the Invasive's branch as well as in the Fragstats model run. <div class='modelDiagram' style='height:70%'><img src='" + static_url + "img/modelDiagrams/Terrestrial_Intactness/Slide1.PNG'><img src='" + static_url + "img/modelDiagrams/Terrestrial_Intactness/Slide2.PNG'><div class='bottom_spacing'><p></div></div>",
-};
-
-hisensfzParams = {
-    legendTitle:"Site Sensitivity",
-    legendPNG:"EEMS_Climate_2",
-    legendHeight:"110px",
-    legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
-    dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    description:"<a target='_blank' href=http://databasin.org/datasets/"+ this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p> The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.<p>The value shown in the column chart represents the average sensitivity value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/SiteSensitivity.png'><div class='bottom_spacing'><p></div></div>",
-};
-
-eecefzt1Params = {
-    legendTitle:"Climate Exposure<br>2016-2045<br>(Ensemble)",
-    legendPNG:"EEMS_Climate_2",
-    legendHeight:"110px",
-    legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
-    dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    description:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of climate exposure (2016-2045) generated using data from climate model results. Climate exposure is based on the difference between the projected future climate compared to the variability in climate over a reference historical period of 1971-2000. The higher the climate exposure, the greater the difference the projected climate is from what the area experienced in the past. <p>The value shown in the column chart represents the average climate exposure value within the selected area. <div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/ClimateExposureEnsemble.png'><div class='bottom_spacing'><p></div>",
-};
-
-eecefzt2Params = {
-    legendTitle:"Climate Exposure<br>2046-2075<br>(Ensemble)",
-    legendPNG:"EEMS_Climate_2",
-    legendHeight:"110px",
-    legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
-    dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    description:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of climate exposure (2046-2075) generated using data from climate model results. Climate exposure is based on the difference between the projected future climate compared to the variability in climate over a reference historical period of 1971-2000. The higher the climate exposure, the greater the difference the projected climate is from what the area experienced in the past.<p>The value shown in the column chart represents the average climate exposure value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/ClimateExposureEnsemble.png'><div class='bottom_spacing'><p></div>",
-};
-
-eepifzt1Params = {
-    legendTitle:"Potential Impact<br>2016-2045<br>(Ensemble)",
-    legendPNG:"EEMS_Climate_2",
-    legendHeight:"110px",
-    legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
-    dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    description:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2016-2045) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p><p>The value shown in the column chart represents the average potential climate impact value within the selected area. <div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>",
-};
-
-eepifzt2Params = {
-    legendTitle:"Potential Impact<br>2046-2075<br>(Ensemble)",
-    legendPNG:"EEMS_Climate_2",
-    legendHeight:"110px",
-    legendLabels:["Very High","High","Moderately High","Moderately Low", "Low", "Very Low"],
-    dataBasinID:"958719f2359e40b99ca683d1a473ba8d",
-    description:"<a target='_blank' href=http://databasin.org/datasets/"+this.dataBasinID+"><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2046-2075) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p>The value shown in the column chart represents the average potential climate impact value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>"
+    // "Field Code" ["Legend Label", "Legend File Name (without png)"]
+    models: {
+        "intactness": ["Terrestrial Intactness","Terrestrial Intactness","Intactness", "110px", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"], "958719f2359e40b99ca683d1a473ba8d", "Terrestrial intactness is an estimate of current condition based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the DRECP study area. Terrestrial intactness values will be high in areas where these impacts are low. <p><br> The value shown in the column chart represents the average terrestrial intactness value within the selected area. Terrestrial intactness values are calculated using an <a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> fuzzy logic model that integrates multiple measures of landscape development and vegetation intactness (See EEMS model diagram below). <p>  This model integrates agriculture development (from LANDFIRE EVT v1.1), urban development (from LANDFIRE EVT v1.1 and NLCD Impervious Surfaces), linear development (from Tiger 2012 Roads, utility lines, and pipelines), OHV recreation areas, energy and mining development (from state mine and USGS national mines datasets as well as geothermal wells, oil/gas wells, wind turbines, and power plant footprints), vegetation departure (from LANDFIRE VDEP), invasive vegetation (multiple sources combined for invasives analyses), and measures of natural vegetation fragmentation calculated using FRAGSTATS. In this version, Maxent modeled Sahara Mustard was included in the Invasive's branch as well as in the Fragstats model run. <div class='modelDiagram' style='height:70%'><img src='" + static_url + "img/modelDiagrams/Terrestrial_Intactness/Slide1.PNG'><img src='" + static_url + "img/modelDiagrams/Terrestrial_Intactness/Slide2.PNG'><div class='bottom_spacing'><p></div></div>"],
+        "hisensfz": ["Site Sensitivity","Site Sensitivity","EEMS_Climate_2", "110px", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"], "7478dab889544d66a3e0fe3d7644f1ad", "<a target='_blank' href=http://databasin.org/datasets/" +"7478dab889544d66a3e0fe3d7644f1ad" + "><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p> The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.<p>The value shown in the column chart represents the average sensitivity value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/SiteSensitivity.png'><div class='bottom_spacing'><p></div></div>"],
+        "eecefzt1": ["Climate Exposure<br>2016-2045<br>(Ensemble)", "Climate Exposure t1", "EEMS_Climate_2", "110px", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"], "c55b0a726487406bba0e17f4fe1b2cbb", "<a target='_blank' href=http://databasin.org/datasets/" + "c55b0a726487406bba0e17f4fe1b2cbb" + "><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of climate exposure (2016-2045) generated using data from climate model results. Climate exposure is based on the difference between the projected future climate compared to the variability in climate over a reference historical period of 1971-2000. The higher the climate exposure, the greater the difference the projected climate is from what the area experienced in the past. <p>The value shown in the column chart represents the average climate exposure value within the selected area. <div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/ClimateExposureEnsemble.png'><div class='bottom_spacing'><p></div>"],
+        "eecefzt2": ["Climate Exposure<br>2046-2075<br>(Ensemble)", "Climate Exposure t2", "EEMS_Climate_2", "110px", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"], "d0e9905271294cd293160cff7115ce8f", "<a target='_blank' href=http://databasin.org/datasets/" + "d0e9905271294cd293160cff7115ce8f" + "><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of climate exposure (2046-2075) generated using data from climate model results. Climate exposure is based on the difference between the projected future climate compared to the variability in climate over a reference historical period of 1971-2000. The higher the climate exposure, the greater the difference the projected climate is from what the area experienced in the past.<p>The value shown in the column chart represents the average climate exposure value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/ClimateExposureEnsemble.png'><div class='bottom_spacing'><p></div>"],
+        "eepifzt1": ["Potential Impact<br>2016-2045<br>(Ensemble)", "Potential Impact t1", "EEMS_Climate_2", "110px", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"], "238aad251e784e4386620a4c51ef272a", "<a target='_blank' href=http://databasin.org/datasets/" + "238aad251e784e4386620a4c51ef272a" + "><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2016-2045) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p><p>The value shown in the column chart represents the average potential climate impact value within the selected area. <div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>"],
+        "eepifzt2": ["Potential Impact<br>2046-2075<br>(Ensemble)", "Potential Impact t2", "EEMS_Climate_2", "110px", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"], "022ab9e3565a4b11a08b94a3f69695b5", "<a target='_blank' href=http://databasin.org/datasets/" + "022ab9e3565a4b11a08b94a3f69695b5" + "><img title='Click to view or download this dataset on Data Basin' class='DataBasinRedirectImgDescription' src='" + static_url + "img/dataBasinRedirect.png'></a><p><a target='_blank' href=http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems>EEMS</a> model of potential climate impacts (2046-2075) generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.<p>The value shown in the column chart represents the average potential climate impact value within the selected area.<div class='modelDiagram'><img src='" + static_url + "img/modelDiagrams/PotentialClimateImpactsEnsemble.png'><div class='bottom_spacing'><p></div>"],
+    },
+    "overlayBounds":[[32.6339585982195,-118.643362495493], [37.302775947927, -114.130781641769 ]],
 };
 
 

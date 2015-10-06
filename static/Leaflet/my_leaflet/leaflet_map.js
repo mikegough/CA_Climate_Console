@@ -1,4 +1,4 @@
-var latlng = L.latLng(initial_lat,initial_lon);
+var latlng = L.latLng(initialLat,initialLon);
 
 if (last_poly != '') {
     var results_poly = omnivore.wkt.parse(last_poly)
@@ -49,10 +49,15 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
         if (climateVariable=='EEMSmodel'){
 
-            legendTitle=window[layerToAddName+"Params"].legendTitle
-            legendImage="/Legends/"+window[layerToAddName+"Params"].legendPNG
-            legendHeight=window[layerToAddName+"Params"].legendHeight
-            dbid=window[layerToAddName+"Params"].dataBasinID
+            //legendTitle=window[layerToAddName+"Params"].legendTitle
+            //legendImage="/Legends/"+window[layerToAddName+"Params"].legendPNG
+            //legendHeight=window[layerToAddName+"Params"].legendHeight
+            //dbid=window[layerToAddName+"Params"].dataBasinID
+            legendTitle=EEMSParams["models"][layerToAddName][0]
+            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
+            legendHeight=EEMSParams["models"][layerToAddName][3]
+            legendLabels=EEMSParams["models"][layerToAddName][4]
+            dbid=EEMSParams["models"][layerToAddName][5]
 
         } else {
 
@@ -109,11 +114,13 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
             '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
             '<div id="LegendHeader">' + legendTitle+ '</div>' +
             //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
-            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/'+legendImage + '.png">'+
+            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/'+legendImage +'.png">'+
             '<div class="legendLabels">'
 
-            for (i in window[layerToAddName+"Params"].legendLabels) {
-                $(".legendLabels").append(window[layerToAddName+"Params"].legendLabels[i] + "<br>");
+            if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
+                for (i in legendLabels) {
+                    $(".legendLabels").append(legendLabels[i] + "<br>");
+                }
             }
         }
 }
@@ -329,7 +336,6 @@ function create_post(newWKT) {
         success : function(json) {
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
-            //console.log("success");
             //console.log(response.resultsJSON)
 
             response=JSON.parse(json)
@@ -344,8 +350,7 @@ function create_post(newWKT) {
                     oldKeys = Object.keys(object)
                     for (i = 0; i < oldKeys.length; i++) {
                         //console.log(oldKeys[i])
-                        newKey = oldKeys[i].replace('ti_union', 'intactness')
-                        newKey = newKey.replace('eeccfz1530', 'eecefzt1')
+                        newKey = oldKeys[i].replace('eeccfz1530', 'eecefzt1')
                         newKey = newKey.replace('eeccfz4560', 'eecefzt2')
                         newKey = newKey.replace('eepifz1530', 'eepifzt1')
                         newKey = newKey.replace('eepifz4560', 'eepifzt2')
@@ -355,7 +360,7 @@ function create_post(newWKT) {
                         //newKey = newKey.replace('tmass0', 'tmaxs2')
                         //newKey=newKey.replace('tmis','tmins0')
                         resultsJSON[newKey] = object[oldKeys[i]]
-                        delete object[oldKeys[i]]
+                        //Don't delete old key...if a key isn't replaced, it will get deleted.
                     }
                 }
 
