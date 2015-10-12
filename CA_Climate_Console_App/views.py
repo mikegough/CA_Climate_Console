@@ -1,5 +1,8 @@
 from django.http import HttpResponse
 import urllib
+import re
+import netCDF4
+import numpy as np
 
 from django.shortcuts import render
 from django.db import connection
@@ -55,7 +58,7 @@ def index(request):
             table="ca_reporting_units_county_boundaries_5_simplify"
             categoricalFields="name"
 
-        template='ca'
+        template='template1'
         config_file="config_ca.js"
 
     elif studyarea=='utah':
@@ -237,6 +240,55 @@ def index(request):
         return HttpResponse(json.dumps(context))
     else:
         return render(request, template+'.html', context)
+
+@gzip_page
+@csrf_exempt
+def downscale(request):
+    userWKT = request.POST.get('input')
+    print userWKT
+    coords=re.findall("[+-]?\d+.\d+", userWKT)
+    print coords
+    lon_target=float(coords[0])
+    lat_target=float(coords[1])
+    #lat_target=44.5608
+    #lon_target-123.2614
+    #=========================================================
+    #             SET OPENDAP PATH
+    #=========================================================
+    pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
+    pathname = 'static/data/idaho/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
+
+
+    #=========================================================
+    #             GET DATA HANDLES
+    #=========================================================
+    filehandle=netCDF4.Dataset(pathname,'r',format="NETCDF4")
+
+    lats=filehandle.variables['lat'][:]
+    lons=filehandle.variables['lon'][:]
+    time=filehandle.variables['time'][:]
+    variable=filehandle.variables['tasmax']
+
+    lon_index = np.abs(lons - lon_target).argmin()
+    lat_index = np.abs(lats - lat_target).argmin()
+
+    downscaled_data_to_plot={}
+
+    dates=[]
+    data=[]
+    for i in range(0,213):
+        #Order of variables in original script:
+        #[timeindex,lat_index,lon_index]
+        dates.append(str(netCDF4.num2date(int(time[i]),'days since 1900-01-01',calendar='standard').date()))
+        data.append(round(variable[lon_index,lat_index,i],2))
+
+    #data = variable[timeindex,lat_index,lon_index]
+    context={
+        'dates': dates,
+        'data': data
+    }
+
+    return HttpResponse(json.dumps(context))
 
 
 def getColor(value, parameter):

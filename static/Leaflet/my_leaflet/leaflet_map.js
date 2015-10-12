@@ -438,6 +438,33 @@ function create_post(newWKT) {
 
 }
 
+// AJAX for posting
+function create_post_downscale(newWKT) {
+    initialize = 0
+    //console.log("create post is working!")
+    $.ajax({
+        url: "http://127.0.0.1:8000/downscale", // the endpoint (for a specific view configured in urls.conf /view_name/)
+        //Webfactional
+        //url : "/climate", // the endpoint
+        type: "POST", // http method
+        //data sent to django view with the post request
+        //data : { the_post : $('#post-text').val() },
+        data: {input: newWKT},
+
+        // handle a successful response
+        success: function (results) {
+            //json is what gets returned from the HTTP Response
+            //console.log(json); // log the returned json to the console
+            response=JSON.parse(results)
+            console.log(response)
+            dates=response['dates']
+            data=response['data']
+            createTimeSeries(dates,data)
+        }
+    })
+}
+
+
 function onEachFeature(feature, layer) {
     layer.on({
         //Uncomment the line below (and the line in the select feature function) to trigger database query on feature click:
@@ -467,7 +494,13 @@ function selectFeature(e){
 
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
     //AJAX REQUEST
-    create_post(user_wkt,reporting_units)
+    if (initialize==1) {
+        create_post(user_wkt, reporting_units)
+    }
+    else {
+        create_post(user_wkt, reporting_units)
+        create_post_downscale(user_wkt)
+    }
 }
 
 function highlightFeature(e) {
