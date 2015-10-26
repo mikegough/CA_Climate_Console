@@ -104,6 +104,7 @@ function createColumnChart(){
                    borderWidth: 1,
                    shadow: true,
                    padding: 0,
+                   hideDelay:0,
                   // pointFormat: '<span style="font-size:14px"><b>{point.y}</b> </span>' + valueSuffix + '<br><i>(Click to Map)</i>',
 
                    formatter: function() {

@@ -2,12 +2,13 @@ function createTimeSeries(dates,tmax,precip){
     //dates=dates.slice(0,90)
 
 	$(function () {
-    $('#time_series').highcharts({
+    $('#time_series_popup').highcharts({
         chart: {
             type:'spline',
-            height:'340',
-            width:'430',
+            height:'250',
+            width:'300',
             marginTop:'20',
+            marginLeft:'55',
             alignTicks: false
         } ,
         credits: {
@@ -50,12 +51,15 @@ function createTimeSeries(dates,tmax,precip){
                 width: 1,
                 //color: '#808080'
             }],
-            opposite:false
+            opposite:true
         },
 
         ],
         tooltip: {
-            valueSuffix: 'F'
+            useHTML:true,
+            formatter: function(){
+                return this.y + "" + this.series.tooltipOptions.valueSuffix;
+            }
         },
         legend: {
             enabled: true,
@@ -64,8 +68,10 @@ function createTimeSeries(dates,tmax,precip){
             align: 'right',
             verticalAlign: 'middle',
             */
-            borderWidth: 0
-        },
+            borderWidth: 0,
+            labelFormatter: function () {return '<span>' + this.name+'</span>';},
+            useHTML:true
+            },
         series: [
             /*
             {
@@ -78,20 +84,23 @@ function createTimeSeries(dates,tmax,precip){
 
             {
             //name: 'Avg Max Temp',
-            name: 'Temperature Change from the Historical Mean',
+            name: '<i class="wi wi-thermometer" style="color:#DB3F02;font-size:1.3em;"></i> Change from the Historical Mean',
             type:'spline',
             data: tmax,
-            color: '#DB3F02'
+            color: '#DB3F02',
+                tooltip: {
+                    valueSuffix: '&degF'
+                }
         },
         {
 
-            name: 'Precipitation Change from the Historical Mean',
+            name: '<i class="wi wi-rain-mix" style="color: #4575B5;font-size:1.3em;"></i> Change from the Historical Mean',
             data: precip,
-            visible:false,
-            color: '#0000FF',
+            visible:true,
+            color: '#4575B5',
             yAxis:1,
             tooltip: {
-                valueSuffix: ' inches'
+                valueSuffix: 'in.'
             }
         },
             /*

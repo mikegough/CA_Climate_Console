@@ -3,6 +3,8 @@ subTitle="Desert Renewable Energy Conservation Plan"
 studyAreaBoundary="DRECP_Bdy_20110128.json"
 initialLat=34.8
 initialLon=-116.7
+initialDownscaleMarkerLat=35.28
+initialDownscaleMarkerLon=-116.54
 zoomLevel=8
 
 reportingUnits={

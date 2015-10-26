@@ -65,6 +65,7 @@
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/box_plot.js"></script>
 <script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/time_series.js"></script>
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
@@ -138,7 +139,8 @@
     </div>
 
     <div id="tab_container">
-        <ul class="tabs" data-persist="true">
+        <!--data-persist="true" keeps the current tab active on page refresh-->
+        <ul class="tabs" data-persist="false">
             <li><a href="#view1" onclick="activateMapForDefault();">Charts</a></li>
             <li><a href="#view2">Current Selection</a></li>
             <li><a href="#view4" onclick="activateMapForClimateForecast()" >Near-Term Forecast</a></li>

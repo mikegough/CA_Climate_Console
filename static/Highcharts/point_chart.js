@@ -112,6 +112,7 @@ function createChart(climateVariable, statistic, season) {
                 backgroundColor: '#E9E6E0',
                 borderWidth: 1,
                 shadow: true,
+                hideDelay:0,
                 //useHTML causes hover problems.
                 //useHTML: true,
                 padding: 0,

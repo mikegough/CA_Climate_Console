@@ -1,16 +1,23 @@
  $(document).ready(function(){
 
+     $( "li" ).removeClass( "selected" );
+
      document.title=title + " Climate Console"
+     $("#view1Link").click()
 
     //Prepare Near Term Forecast
 
     //Initialize Selected Climate Division
     selectedClimateDivision='94'
+    previousDivision=''
+    countTimesNoaa3MonthCalled=0
     //Initialize Selected Time Frame
     selectedNearTermClimatePeriod=1
 
     acquireNearTermClimate();
     createDynamicMonthlyRadioButtons()
+     //Only need this because for cases when the page is refreshed and the Near-Term Forecast tab is selected.
+     //Otherwise it could go in the leaflet_map function activateMapForNearTerm...function.
     generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
 
     //Check the top radio buttons
@@ -21,6 +28,10 @@
      $('#nearTermMapForm').each(function(){
          $('input[type=radio]', this).get(0).checked = true;
      });
+
+     //Initialize Downlscaled Time Series
+     create_post_downscale(initialDownscaleMarkerLon,initialDownscaleMarkerLat)
+     $('#downscaled_coords').html(initialDownscaleMarkerLon +", "+ initialDownscaleMarkerLat)
 
 });
 
@@ -178,7 +189,7 @@ function createDynamicDataTable(){
                         class_name=""
                     }
 
-                    table.append("<tr class='" +class_name + "' onclick='swapImageOverlay(&quot;" +imageOverlayName + "&quot;); swapLegend(&quot;"+imageOverlayName +"&quot;," + null + ",&quot;null&quot;)'>" + expandedLabel + "<td>" +resultsJSONsorted[key] + "</td></tr><br><br>")
+                    table.append("<tr class='" +class_name + "' onclick='swapImageOverlay(&quot;" +imageOverlayName + "&quot;); swapLegend(&quot;"+imageOverlayName +"&quot;," + null + ",&quot;null&quot;)'>" + expandedLabel + "<td>" +resultsJSONsorted[key] + "</td></tr>")
 
                 }
             }
@@ -453,7 +464,7 @@ function generateNearTermClimateResults(period,division) {
     $('#nearTermClimateWrapper').empty();
 
     $('#nearTermClimateWrapper').append('<br><div id="dynamicNearTermClimateTableDiv"></div>')
-    $('#dynamicNearTermClimateTableDiv').append('<table class="dynamicNearTermClimateTable" style="box-shadow: 1px 1px 4px black" id="nearTermChangeTable"></table>');
+    $('#dynamicNearTermClimateTableDiv').append('<table class="dynamicNearTermClimateTable" id="nearTermChangeTable"></table>');
 
     var nearTermClimateTable=$('#dynamicNearTermClimateTableDiv').children();
 
@@ -489,20 +500,55 @@ function generateNearTermClimateResults(period,division) {
     //Table 3
 
     $('#nearTermClimateWrapper2').empty();
-    $('#nearTermClimateWrapper2').append('<br><div id="dynamicNearTermClimateTableDiv2"></div>')
+    $('#nearTermClimateWrapper2').append('<div id="dynamicNearTermClimateTableDiv2"></div>')
     $('#dynamicNearTermClimateTableDiv2').append('<table class="dynamicNearTermClimateTable" id="nearTermDetailsTable"></table>');
 
     var nearTermClimateTable2=$('#dynamicNearTermClimateTableDiv2').children();
 
-    nearTermClimateTable2.append("<tr style='border: 1px solid !important;'><td>Historical Mean </td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>")
+    nearTermClimateTable2.append("<tr><td>Historical Mean </td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>")
     nearTermClimateTable2.append("<tr><td>Forecast Mean</td><td>"+temp_forecast_mean+"&deg;F</td><td>"+precip_forecast_mean+" in.</td></tr>")
-    nearTermClimateTable2.append("<tr><td>90% Confidence Interval</td><td>"+temp_ninety_percent_confidence_interval+ "</td><td>"+precip_ninety_percent_confidence_interval+"</td></tr>")
+    nearTermClimateTable2.append("<tr><td>90% Confidence</td><td>"+temp_ninety_percent_confidence_interval+ "</td><td>"+precip_ninety_percent_confidence_interval+"</td></tr>")
 
     // Adjust the thermometer and rain gauge levels based on the change
     // +21 to offset for Historical Mean
     $('#thermometerAfter').css('height', (temp_change_rounded * 37 + 67) + "px")
     $('#rainGaugeAfter').css('height', (precip_change_rounded * 37 + 67) + "px")
 
+
+    //test new noaa chart
+    if (typeof createNoaa3Month == "function") {
+
+
+                var temp_array_selected_division = []
+                j = 0
+                for (var i = 0; i < allTempDataArray.length; i++) {
+                    if (allTempDataArray[i][3] == division) {
+                        temp_array_selected_division[j] = allTempDataArray[i]
+                        j += 1
+                    }
+                }
+
+                //test new noaa chart
+                var precip_array_selected_division = []
+                j = 0
+                for (var i = 0; i < allPrecipDataArray.length; i++) {
+                    if (allPrecipDataArray[i][3] == division) {
+                        precip_array_selected_division[j] = allPrecipDataArray[i]
+                        j += 1
+                    }
+                }
+
+                //Prevent NT charts from reloading if the climate division hasn't changed.
+                //This has to be called twice for some reason in order for the charts to sync up.
+                //It's currently called once at the top of this file and once in leaflet_map.js when the NT Forecast tab is clicked
+                countTimesNoaa3MonthCalled+=1
+                if (countTimesNoaa3MonthCalled <= 2 || division != previousDivision)
+                {
+                    createNoaa3Month(temp_array_selected_division, precip_array_selected_division)
+                }
+
+                previousDivision = division
+            }
 }
 
 function showInfoPopup(layerToDescribe){
@@ -596,8 +642,6 @@ closeExplore.onclick = function() {
 };
 
 
-
-
 });//]]>
 
 function preload(arrayOfImages) {
@@ -683,5 +727,6 @@ function animateClickToMapInfoBox(){
     $('.clickToMapInfo').delay(1000).animate({"right":"100px"},900);
     $('.clickToMapInfo').animate({"right":"80px"},600);
 }
+
 
 

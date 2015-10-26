@@ -3,6 +3,7 @@ import urllib
 import re
 import netCDF4
 import numpy as np
+import time
 
 from django.shortcuts import render
 from django.db import connection
@@ -34,8 +35,8 @@ def index(request):
         WKT=request.GET.get('user_wkt')
         table=request.GET.get('reporting_units')
         categoricalFields=request.GET.get('name_field')
-        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
-        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
+        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
+        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
 
     ############################################# INPUT PARAMETERS #####################################################
 
@@ -58,7 +59,7 @@ def index(request):
             table="ca_reporting_units_county_boundaries_5_simplify"
             categoricalFields="name"
 
-        template='template1'
+        template='ca'
         config_file="config_ca.js"
 
     elif studyarea=='utah':
@@ -68,6 +69,15 @@ def index(request):
             categoricalFields="name"
 
         config_file="config_utah.js"
+
+    elif studyarea=='test':
+
+        if table == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        template='test'
+        config_file="config_ca.js"
 
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
@@ -245,7 +255,7 @@ def index(request):
 @csrf_exempt
 def downscale(request):
     userWKT = request.POST.get('input')
-    print userWKT
+    #print userWKT
     coords=re.findall("[+-]?\d+.\d+", userWKT)
     print coords
     lon_target=float(coords[0])
@@ -255,9 +265,14 @@ def downscale(request):
     #=========================================================
     #             SET OPENDAP PATH
     #=========================================================
-    pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
-    pathname = 'static/data/idaho/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
-
+    #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
+    #pathname = 'static/data/idaho/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
+    #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_monthly.nc'
+    pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_1monthAverage.nc'
+    #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_3monthAverage.nc'
+    #pathname = 'static/data/idaho/bcsd_nmme_metdata_ENSMEAN_forecast_3monthAverage.nc'
+    #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_daily.nc'
+    #pathname = 'http://inside-dev1.nkn.uidaho.edu:8080/thredds/dodsC/agg_met_tmmx_1979_2015_WUSA.nc'
 
     #=========================================================
     #             GET DATA HANDLES
@@ -266,26 +281,45 @@ def downscale(request):
 
     lats=filehandle.variables['lat'][:]
     lons=filehandle.variables['lon'][:]
-    time=filehandle.variables['time'][:]
-    variable=filehandle.variables['tasmax']
+    days_since_19000101=filehandle.variables['time'][:]
+    #tmax=filehandle.variables['tasmax']
+    #precip=filehandle.variables['pr']
 
+    #tmax=filehandle.variables['tasmax']
+    #precip=filehandle.variables['pr']
+
+    #tmax=filehandle.variables['tmp2m']
+    #precip=filehandle.variables['prate']
+
+    tmax=filehandle.variables['tmp2m_anom']
+    precip=filehandle.variables['prate_anom']
+
+    #days_since_19000101=filehandle.variables['day'][0:20]
+    #variable=filehandle.variables['daily_maximum_temperature'][0:20]
+
+    #Get the closest lat and lon value in the netCDF File
     lon_index = np.abs(lons - lon_target).argmin()
     lat_index = np.abs(lats - lat_target).argmin()
 
-    downscaled_data_to_plot={}
+    time_num=len(days_since_19000101)
+    time_index=range(0,time_num,1)
 
-    dates=[]
-    data=[]
-    for i in range(0,213):
-        #Order of variables in original script:
-        #[timeindex,lat_index,lon_index]
-        dates.append(str(netCDF4.num2date(int(time[i]),'days since 1900-01-01',calendar='standard').date()))
-        data.append(round(variable[lon_index,lat_index,i],2))
+    #Get the formatted dates and the data as lists
+    #dates=[str(netCDF4.num2date(int(i),'days since 1900-01-01',calendar='standard').date()) for i in days_since_19000101]
+    #Abbreviated Month Format
+    #print days_since_19000101
+    dates=[str(netCDF4.num2date(int(i),'days since 1900-01-01',calendar='standard').date().strftime("%b")) for i in days_since_19000101]
+    tmax_data=tmax[lon_index,lat_index, time_index].tolist()
+    precip_data=precip[lon_index,lat_index, time_index].tolist()
+    #Historical Order of variables
+    #data=variable[time_index,lon_index,lat_index].tolist()
+    rounded_tmax_data=[round(x,2) for x in tmax_data ]
+    rounded_precip_data=[round(x,2) for x in precip_data ]
 
-    #data = variable[timeindex,lat_index,lon_index]
     context={
         'dates': dates,
-        'data': data
+        'tmax_data': rounded_tmax_data,
+        'precip_data': rounded_precip_data
     }
 
     return HttpResponse(json.dumps(context))

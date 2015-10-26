@@ -65,6 +65,13 @@
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/box_plot.js"></script>
 <script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
+<!--<script src="{{STATIC_URL}}Highcharts/noaa_3_month_sync.js"></script>-->
+<script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
+<script src="{{STATIC_URL}}Highcharts/noaa_3_month_sync_combo.js"></script>
+    <!-- <script src="{{STATIC_URL}}Highcharts/noaa_3_month_shared.js"></script>-->
+
+<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
@@ -148,8 +155,9 @@
     </div>
 
     <div id="tab_container">
-        <ul class="tabs" data-persist="true">
-            <li><a href="#view1" onclick="activateMapForDefault();">Charts</a></li>
+        <!--data-persist="true" keeps the current tab active on page refresh-->
+        <ul class="tabs" data-persist="false">
+            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Charts</a></li>
             <li><a href="#view2">Current Selection</a></li>
             <li><a href="#view4" onclick="activateMapForClimateForecast()" >Near-Term Forecast</a></li>
             <!--
@@ -313,12 +321,17 @@
             <div id="view4">
                 <div class="nearTermClimateFormDiv">
 
+                   <!--
                     <h3>Climate Division <span id="climateDivision"></span></h3>
+                    -->
 
                     <!-- Table 1: Headers (Time Frame, Temperature, Precipitation -->
+                    <!--
                     <table class="dynamicNearTermClimateTable" style="box-shadow: 1px 1px 4px black">
                         <tr><th>Time Frame</th><th>Temperature</th><th>Precipitation</th></tr>
                     </table>
+                    -->
+                    <div class="nearTermHeader">Three Month Forecast in Climate Division <span id="climateDivision"></span></div>
 
                     <!-- Start and Stop Buttons -->
                     <a href="#" id="start" title="Click to automatically cycle through the time steps"><button id="startDiv"></button></a>
@@ -355,16 +368,14 @@
                 <!-- Table 2: Change values & "Show on Map Radio Buttons" Table -->
                 <form id="nearTermMapForm">
                     <div id="nearTermClimateWrapper" style="clear:both">
-                        <table class="dynamicNearTermClimateTable" style="box-shadow: 1px 1px 4px black" id="nearTermChangeTable">
+                        <table class="dynamicNearTermClimateTable" id="nearTermChangeTable">
                             <!-- The Show on Map Row needs to persist after after a feature click. Initialize, then save and append on click -->
                             <tr id="mapRadioRow" style="border-top:none"><td>Show on Map</td><td><input name='nearTermMapVariable' value='temp' type='radio' checked></td><td><input name='nearTermMapVariable' value='precip' type='radio'></td></tr>
                         </table>
                     </div>
+                    <!-- Table 3: Details (Historical Mean, Forecast Mean, 90% Confidence Interval)-->
+                    <div id="nearTermClimateWrapper2" style="clear:both"></div>
                 </form>
-
-
-                <!-- Table 3: Details (Historical Mean, Forecast Mean, 90% Confidence Interval)-->
-                <div id="nearTermClimateWrapper2" style="clear:both"></div>
 
                 <script>
 
@@ -385,13 +396,38 @@
 
                 </script>
 
+                <!--
+                <div class="nearTermHeader">Monthly Forecast at <img height="25px" src={{STATIC_URL}}img/marker-icon-blue.png> (<span id="downscaled_coords"></span>)</div>
+                <div id="time_series"></div>
+                -->
+
+                <!--
                 <div id="sources">
                     Reference: Barnston et al., 2000, Bull. Amer. Meteor. Soc. 81:1271-1279<br>
                     Source: <a href="http://www.cpc.ncep.noaa.gov/" target="_blank">http://www.cpc.ncep.noaa.gov/</a><br>
                     Data Updates: These data update automatically on the third Thursday of each month.
                 </div>
-                <br>
-                <br>
+                -->
+
+                <div id="noaa_3_month"></div>
+
+            </div>
+
+
+
+                <!--
+
+                <div class="nearTermHeader">Monthly Forecast at <img height="25px" src={{STATIC_URL}}img/marker-icon-blue.png> (<span id="downscaled_coords"></span>)</div>
+                <div id="time_series"></div>
+
+                <!--
+                <div id="sources">
+                    Reference: Barnston et al., 2000, Bull. Amer. Meteor. Soc. 81:1271-1279<br>
+                    Source: <a href="http://www.cpc.ncep.noaa.gov/" target="_blank">http://www.cpc.ncep.noaa.gov/</a><br>
+                    Data Updates: These data update automatically on the third Thursday of each month.
+                </div>
+                -->
+
 
             </div>
 

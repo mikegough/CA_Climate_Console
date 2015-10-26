@@ -438,31 +438,7 @@ function create_post(newWKT) {
 
 }
 
-// AJAX for posting
-function create_post_downscale(newWKT) {
-    initialize = 0
-    //console.log("create post is working!")
-    $.ajax({
-        url: "http://127.0.0.1:8000/downscale", // the endpoint (for a specific view configured in urls.conf /view_name/)
-        //Webfactional
-        //url : "/climate", // the endpoint
-        type: "POST", // http method
-        //data sent to django view with the post request
-        //data : { the_post : $('#post-text').val() },
-        data: {input: newWKT},
 
-        // handle a successful response
-        success: function (results) {
-            //json is what gets returned from the HTTP Response
-            //console.log(json); // log the returned json to the console
-            response=JSON.parse(results)
-            console.log(response)
-            dates=response['dates']
-            data=response['data']
-            createTimeSeries(dates,data)
-        }
-    })
-}
 
 
 function onEachFeature(feature, layer) {
@@ -475,7 +451,6 @@ function onEachFeature(feature, layer) {
 }
 
 function selectFeature(e){
-
     //Comment out to prevent spinner on click. Uncomment in the map draw function.
     $(document).ajaxStart(function(){
         //Show Loading Bars on Draw
@@ -494,13 +469,7 @@ function selectFeature(e){
 
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
     //AJAX REQUEST
-    if (initialize==1) {
-        create_post(user_wkt, reporting_units)
-    }
-    else {
-        create_post(user_wkt, reporting_units)
-        create_post_downscale(user_wkt)
-    }
+    create_post(user_wkt, reporting_units)
 }
 
 function highlightFeature(e) {
@@ -751,6 +720,37 @@ info2.addTo(map);
 
 /**************************************  Near-Term Forecast *********************************************************/
 
+// AJAX for posting
+function create_post_downscale(lon,lat) {
+    var newWKT="POINT(" + lon + " " +  lat + ")"
+    initialize = 0
+    //console.log("create post is working!")
+    $.ajax({
+        url: "downscale", // the endpoint (for a specific view configured in urls.conf /view_name/)
+        //Webfactional
+        //url : "/climate", // the endpoint
+        type: "POST", // http method
+        //data sent to django view with the post request
+        //data : { the_post : $('#post-text').val() },
+        data: {input: newWKT},
+
+        // handle a successful response
+        success: function (results) {
+            //json is what gets returned from the HTTP Response
+            //console.log(json); // log the returned json to the console
+            response2=JSON.parse(results)
+            //console.log(response)
+            dates=response2['dates']
+            tmax_data=response2['tmax_data']
+            precip_data=response2['precip_data']
+            //NOTE: Uncomment to create the chart right away.
+            //Or put it under the popup to create it when the user clicks on ther marker.
+            createTimeSeries(dates,tmax_data,precip_data)
+            //$('#downscaled_coords').html(Math.round(lon * 100)/100+", "+Math.round(lat * 100)/100)
+        }
+    })
+}
+
 var near_term_climate_divisions= L.geoJson(null, {
 
     onEachFeature:passClimateDivisionID,
@@ -760,9 +760,11 @@ var near_term_climate_divisions= L.geoJson(null, {
 //var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_CA_Clip.json', null, near_term_climate_divisions)
 var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
 
+
 function passClimateDivisionID(feature, layer) {
     layer.on({
-        click: function (e) { generateNearTermClimateResults(selectedNearTermClimatePeriod, feature.properties.NAME); selectClimateDivision(e); },
+        //Added trigger to get the downscaled data.
+        click: function (e) { generateNearTermClimateResults(selectedNearTermClimatePeriod, feature.properties.NAME); selectClimateDivision(e); create_post_downscale(e.latlng.lng,e.latlng.lat); onMapClick(e); },
         mouseover: highlightClimateDivision,
         mouseout: resetClimateDivision
     });
@@ -797,7 +799,24 @@ function selectClimateDivision(e) {
 
 function activateMapForClimateForecast(){
 
-    $("#clickToMapInfo").hide();
+    $('#clickToMapInfo').hide()
+
+    defaultLatLng=[35.28,-116.54]
+
+    marker = new L.marker(defaultLatLng)
+        .bindPopup("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled Monthly Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
+        .addTo(map);
+    marker.on("popupopen", onPopupOpen);
+
+    map.on('click', function(e){
+       map.removeLayer(marker);
+       var marker = new L.marker(e.latlng).addTo(map);
+    });
+
+    $(document).ajaxStart(function(){
+        //Show Loading Bars on Draw
+        $(".wait").css("display", "none");
+    });
 
     if ( typeof fillOpacityLevel == 'undefined') {
         fillOpacityLevel=.85
@@ -813,6 +832,8 @@ function activateMapForClimateForecast(){
 
     map.setView([37.229722,-121.509444],6);
 
+    //Currently this function is also called on document read in the general_js script.
+    //Noaa chart becomes unsynced without calling twice.
     generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
 
     //Loop through the array of all layers and remove them
@@ -889,6 +910,10 @@ function updateNearTermForecastLegend(){
 }
 
 function activateMapForDefault(){
+
+    if  (typeof marker != 'undefined') {
+        map.removeLayer(marker);
+    }
 
     if (climate_PNG_overlay_url != ''){
 
@@ -982,5 +1007,81 @@ function getNearTermColor(d) {
     }
 
 }
+
+// Script for adding marker on map click
+function onMapClick(e) {
+
+    if  (typeof marker != 'undefined') {
+        map.removeLayer(marker);
+    }
+
+    var geojsonFeature = {
+        "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [e.latlng.lat, e.latlng.lng]
+        }
+    }
+
+    L.geoJson(geojsonFeature, {
+
+        pointToLayer: function(feature, latlng){
+
+            marker = L.marker(e.latlng, {
+
+                title: "Click to view 4km downscaled data at this location",
+                alt: "Click to view 4km downscaled data at this location",
+                riseOnHover: true,
+                draggable: true,
+
+           // }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/><div id='time_series'></div>");
+            }).bindPopup("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled Monthly Forecast at Marker Location <br>(" + e.latlng + ")</div><div id='time_series_popup'></div>");
+
+            marker.on("popupopen", onPopupOpen);
+
+            return marker;
+        }
+    }).addTo(map);
+}
+// Function to handle delete as well as other events on marker popup open
+function onPopupOpen() {
+
+    createTimeSeries(dates,tmax_data,precip_data)
+
+    tempMarker = this;
+
+    //var tempMarkerGeoJSON = this.toGeoJSON();
+
+    //var lID = tempMarker._leaflet_id; // Getting Leaflet ID of this marker
+
+    // To remove marker on click of delete
+    $(".marker-delete-button:visible").click(function () {
+        map.removeLayer(tempMarker);
+    });
+}
+
+
+// getting all the markers at once
+function getAllMarkers() {
+
+    var allMarkersObjArray = [];//new Array();
+    var allMarkersGeoJsonArray = [];//new Array();
+
+    $.each(map._layers, function (ml) {
+        //console.log(map._layers)
+        if (map._layers[ml].feature) {
+
+            allMarkersObjArray.push(this)
+                                    allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+        }
+    })
+
+    console.log(allMarkersObjArray);
+    alert("total Markers : " + allMarkersGeoJsonArray.length + "\n\n" + allMarkersGeoJsonArray + "\n\n Also see your console for object view of this array" );
+}
+
+$(".get-markers").on("click", getAllMarkers);
+
 
 //************************************ End Near-Term Forecast ********************************************************//

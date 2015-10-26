@@ -3,6 +3,8 @@ subTitle="Climate Projections for the State of California"
 studyAreaBoundary="CA_Boundary_5_simplify.json"
 initialLat=37.2
 initialLon=-121.5
+initialDownscaleMarkerLat=35.28
+initialDownscaleMarkerLon=-116.54
 zoomLevel=7
 
 reportingUnits={
