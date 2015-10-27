@@ -872,7 +872,8 @@ function updateNearTermForecastLegend(){
        color_3='#FFE291'
        color_2='#FFFFBF'
        color_1='#DADADA'
-       color_0='#4575B5'
+       //color_0='#4575B5'
+       color_0='#BEB0FF'
     } else if (selectedNearTermVariableToMap=='precip'){
        legendTitle="Precipitiation Change <br> (Forecast - Historical)"
        units=' in.'
@@ -881,8 +882,9 @@ function updateNearTermForecastLegend(){
        color_4='#3182bd'
        color_3='#6baed6'
        color_2='#bdd7e7'
-       color_1='#DADAD'
+       color_1='#DADADA'
        color_0='#654321'
+       // color_0='#A56629'
     }
 
     label_6='> 1' + units
@@ -986,26 +988,13 @@ function updateClimateDivisionSymbology(){
 
 function getNearTermColor(d) {
 
-    if (selectedNearTermVariableToMap=='temp'){
-
-    return d > 1  ? '#D62F27' :
-        d > 0.75  ? '#F56C42' :
-        d > 0.5   ? '#FCAE60' :
-        d > 0.25  ? '#FFE291' :
-        d > 0     ? '#FFFFBF' :
-        d == 0    ? '#DADADA' :
-                     '#4575B5';
-    } else {
-
-    return d > 1  ? '#002673' :
-        d > 0.75  ? '#08519c' :
-        d > 0.5   ? '#3182BD' :
-        d > 0.25  ? '#6BAED6' :
-        d > 0     ? '#BDD7E7' :
-        d == 0    ? '#DADADA' :
-                     '#654321';
-    }
-
+    return d > 1  ? color_6 :
+        d > 0.75  ? color_5 :
+        d > 0.5   ? color_4 :
+        d > 0.25  ? color_3 :
+        d > 0     ? color_2 :
+        d == 0    ? color_1 :
+                    color_0;
 }
 
 // Script for adding marker on map click

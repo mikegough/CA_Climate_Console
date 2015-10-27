@@ -86,13 +86,17 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
             labels: {
                 enabled: false,
             },
-            categories: ['Nov-Dec-Jan 15-16', 'Dec-Jan-Feb 15-16', 'Jan-Feb-Mar 2016', 'Feb-Mar-Apr 2016', 'Mar-Apr-May 2016', 'Apr-May-Jun 2016', 'May-Jun-Jul 2016', 'Jun-Jul-Aug 2016', 'Jul-Aug-Sep 2016', 'Aug-Sep-Oct 2016', 'Sep-Oct-Nov 2016', 'Oct-Nov-Dec 2016', 'Nov-Dec-Jan 16-17']
+            crosshair: {
+                color: "#F0F0F0"
+            },
+            //categories: ['Nov-Dec-Jan 15-16', 'Dec-Jan-Feb 15-16', 'Jan-Feb-Mar 2016', 'Feb-Mar-Apr 2016', 'Mar-Apr-May 2016', 'Apr-May-Jun 2016', 'May-Jun-Jul 2016', 'Jun-Jul-Aug 2016', 'Jul-Aug-Sep 2016', 'Aug-Sep-Oct 2016', 'Sep-Oct-Nov 2016', 'Oct-Nov-Dec 2016', 'Nov-Dec-Jan 16-17']
+            categories: date_labels
         },
         yAxis: [{
             title: {
                 text: 'Forecasted Change (F)'
             },
-            tickInterval:5,
+            //tickInterval:5,
             gridLineWidth: 0,
             minorGridLineWidth: 0,
             endontick:false,
@@ -117,7 +121,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
             title: {
                 text: 'Forecasted Change (in)'
             },
-            tickInterval:5,
+            //tickInterval:5,
             gridLineWidth: 0,
             minorGridLineWidth: 0,
             endontick:false,
@@ -228,7 +232,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                         },
                  events: {
                     legendItemClick: function () {
-                    return false; // <== Disable otherwise points won't align properly
+                    return false;
                     }
                 },
             },
@@ -273,7 +277,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                         },
                 events: {
                     legendItemClick: function () {
-                    return false; // <== Disable otherwise points won't align properly
+                    return false;
                     }
                 },
             },
@@ -303,7 +307,6 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
 
 });
 
-
 }
 
 function createVerticalMonthLine(lead) {
@@ -315,7 +318,7 @@ function createVerticalMonthLine(lead) {
         noaa_3_month_chart.xAxis[0].addPlotLine({
             value: lead,
             color: 'rgba(61,140,0,0.2)',
-            width: 3,
+            width: 7,
             id: 'plot-line-1'
         });
 

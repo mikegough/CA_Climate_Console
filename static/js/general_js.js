@@ -401,20 +401,28 @@ function createDynamicMonthlyRadioButtons(){
 
     }
 
+
+    date_labels=[]
     for (i=0; i<13; i++) {
 
         if (year_list[i] == year_list[i+1] && year_list[i+1]== year_list[i+2]){
 
-            $(".nearTermClimateForm").append('<input  class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '" >' + month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_list[i] + '<br>')
+            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_list[i])
+
+            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '"><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">'+ date_labels[i] + ' </div></input><br>')
         }
         else {
 
             year_span = year_list[i].slice(-2) + "-" + (parseInt(year_list[i].slice(-2)) + 1)
 
-            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '" >' + month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_span + '<br>')
+            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_span)
+
+            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '" ><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">' + date_labels[i] + ' </div></input><br>')
+
         }
 
     }
+     $("#radio-button-span0").css({'background-color':'#D8E8CC'})
 }
 
 function generateNearTermClimateResults(period,division) {
@@ -454,6 +462,8 @@ function generateNearTermClimateResults(period,division) {
     precip_change_rounded=Math.round(precip_change * 100) / 100
     precip_ninety_percent_confidence_interval=precip_array[6] + " in. - "  + precip_array[16] + " in."
 
+    console.log(precip_array)
+
     //Table 2
 
     //Save the "Show on Map" Radio Buttons.
@@ -490,6 +500,7 @@ function generateNearTermClimateResults(period,division) {
         precip_change_td_contents='No Change'
     }
 
+    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Variable</td>'+'<td><b>Temperature</b></td><td><b>Precipitation</b></td></tr>')
     nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Change from the <br> Historical Mean</td>'+'<td class="changeTD">'+temp_change_td_contents+'</td><td class="changeTD">'+precip_change_td_contents+'</td></tr>')
 
     //Append the "Show on Map" Radio Buttons.
