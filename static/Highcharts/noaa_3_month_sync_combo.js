@@ -133,7 +133,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                     enabled: false
                 },
                 legend: {
-                    enabled: false
+                    enabled:false,
                 },
                 xAxis: {
                     crosshair: true,
@@ -189,6 +189,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                              y: 0 // align to title
                          };
                      },
+                    shared:true,
                     useHTML: true,
                     formatter: function(){
                         function format_arrow(value) {
@@ -234,8 +235,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                 series: [
 
                     {
-                        //name: 'Avg Max Temp',
-                        name: 'Change from the Historical Mean',
+                        name: 'Forecast Mean',
                         type: 'spline',
                         marker: {
                             symbol: 'triangle'
@@ -253,12 +253,13 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                             }
                         },
                         cursor: 'pointer',
+                        showInLegend:true,
                     },
 
                     {
                         name: '90% Confidence Interval',
                         type: 'areasplinerange',
-                        //linkedTo: ':previous',
+                        linkedTo: ':previous',
                         lineWidth: 0,
                         fillOpacity: 0.3,
                         //type: 'spline',
@@ -304,7 +305,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                     enabled: false
                 },
                 legend: {
-                    enabled:false
+                    enabled:false,
                 },
                 xAxis: {
                     crosshair: true,
@@ -355,6 +356,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                              y: 0 // align to title
                          };
                      },
+                    shared:true,
                     useHTML: true,
                     formatter: function(){
                         function format_arrow(value) {
@@ -400,7 +402,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
 
                     {
                         //name: 'Avg Max Temp',
-                        name: 'Change from the Historical Mean',
+                        name: 'Forecast Mean',
                         type: 'spline',
                         marker: {
                             symbol: 'triangle'
@@ -418,11 +420,12 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                                 }
                             }
                         },
+                        showInLegend:true,
                     },
                     {
                         name: '90% Confidence Interval',
                         type: 'areasplinerange',
-                        //linkedTo: ':previous',
+                        linkedTo: ':previous',
                         lineWidth: 0,
                         fillOpacity: 0.3,
                         //type: 'spline',
@@ -438,7 +441,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
             });
 
 
-            //Hack to get the tooltips to disappear on mouseout. Definitely need to do for "chart" which is the point chart.
+            //Hack to get the :tooltips to disappear on mouseout. Definitely need to do for "chart" which is the point chart.
             numCharts = (Highcharts.charts.length) - 1
 
                 Highcharts.Pointer.prototype.reset = function () {

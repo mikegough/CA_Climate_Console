@@ -1,4 +1,4 @@
-function createNoaa3Month(temp_array_selected_division, precip_array_selected_dvision) {
+function createNoaa3Month(temp_array_selected_division, precip_array_selected_division) {
     //dates=dates.slice(0,90)
     /*
     if (typeof Highcharts.charts.length > 4) {
@@ -57,7 +57,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_dv
             width:'430',
             marginTop:'20',
             alignTicks: false,
-            marginLeft:80,
+            marginLeft:50,
         } ,
         credits: {
             enabled: false
@@ -158,8 +158,8 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_dv
             {
                 name: '90% Confidence Interval',
                 type: 'areasplinerange',
-                //linkedTo: ':previous',
-                visible:false,
+                linkedTo: ':previous',
+                visible:true,
                 lineWidth: 0,
                 fillOpacity: 0.3,
                 //type: 'spline',
@@ -193,7 +193,6 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_dv
             },
             */
                {
-                            //name: 'Avg Max Temp',
                             name: 'Change from the Historical Mean',
                             type:'spline',
                               marker: {
@@ -207,13 +206,14 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_dv
                             {
                             name: '90% Confidence Interval',
                             type: 'areasplinerange',
-                            visible:false,
-                            //linkedTo: ':previous',
+                            visible:true,
+                            linkedTo: ':previous',
                             lineWidth: 0,
                             fillOpacity: 0.3,
                             //type: 'spline',
                             color: '#B3C7E1',
                             zIndex: 0,
+                            yAxis:2,
                             data: precip_confidence_interval
 
                             //[[53, 63], [44, 54], [49, 59], [50, 59], [53,64], [60, 69], [66, 78]]

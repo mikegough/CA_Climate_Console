@@ -1,7 +1,5 @@
  $(document).ready(function(){
 
-     $( "li" ).removeClass( "selected" );
-
      document.title=title + " Climate Console"
      $("#view1Link").click()
 
@@ -538,11 +536,13 @@ function generateNearTermClimateResults(period,division) {
                     }
                 }
 
-                //Prevent NT charts from reloading if the climate division hasn't changed.
+                countTimesNoaa3MonthCalled+=1
+
+                //Prevent NT charts from reloading if the climate divios
                 //This has to be called twice for some reason in order for the charts to sync up.
                 //It's currently called once at the top of this file and once in leaflet_map.js when the NT Forecast tab is clicked
-                countTimesNoaa3MonthCalled+=1
-                if (countTimesNoaa3MonthCalled <= 2 || division != previousDivision)
+                //The initialize==1 handles the case where the app is refreshed while on the NT tab.
+                if (countTimesNoaa3MonthCalled <= 2 || initialize == 1 || division != previousDivision)
                 {
                     createNoaa3Month(temp_array_selected_division, precip_array_selected_division)
                 }
