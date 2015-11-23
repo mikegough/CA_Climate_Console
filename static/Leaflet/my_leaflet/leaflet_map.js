@@ -19,7 +19,7 @@ var toolTitle = L.Control.extend({
 
     onAdd: function (map) {
         this._div = L.DomUtil.create('div', 'toolTitle');
-        this._div.innerHTML = "1. Select Reporting Units";
+        this._div.innerHTML = "<span class='introjs-helperNumberLayer'>1</span>Select Reporting Units";
         return this._div;
     }
 });
@@ -242,8 +242,10 @@ for (reporting_unit in reportingUnits) {
     dbnamefield = reportingUnits[reporting_unit][1]
     eval("var layer" + i + "= L.geoJson(null, { style: defaultStyle, onEachFeature: onEachFeature, dbtable:'" + dbtable + "',dbnamefield:'"+dbnamefield +"',name:'"+Object.keys(reportingUnits)[i]+"'  });")
     json_file = reportingUnits[reporting_unit][2]
-    eval("var layer" + i + "_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/" + json_file + "', null,layer" + i + ")")
-    allLayers.push(eval("layer" + i))
+    if (json_file) {
+        eval("var layer" + i + "_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/" + json_file + "', null,layer" + i + ")")
+        allLayers.push(eval("layer" + i))
+    }
 
     reportingUnitsName = Object.keys(reportingUnits)[i]
     reportingUnitLayers[reportingUnitsName] = eval("layer" + i)
@@ -454,9 +456,11 @@ function selectFeature(e){
     //Comment out to prevent spinner on click. Uncomment in the map draw function.
     $(document).ajaxStart(function(){
         //Show Loading Bars on Draw
-        $("#initialization_wait").css("display", "block");
+        //$("#initialization_wait").css("display", "block");
         $("#view1").css("opacity", ".1");
         $("#view2").css("opacity", ".1");
+        $("#initialization_container").css("background-color", "white");
+        $("#initialization_text").css("opacity", "0");
         $(".wait").css("display", "block");
     });
 
@@ -465,6 +469,7 @@ function selectFeature(e){
         $("#view2").css("opacity", "1");
         $(".wait").css("display", "none");
         //map.removeLayer(layer)
+
     });
 
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
@@ -656,7 +661,7 @@ var toolTitle = L.Control.extend({
 
     onAdd: function (map) {
         this._div = L.DomUtil.create('div', 'toolTitle2');
-        this._div.innerHTML = "2. Select Features<br><div class='info2Subtitle'>(Use the tools below or click on a feature)</div>";
+        this._div.innerHTML = "<span data-step='2'><span class='introjs-helperNumberLayer'>2</span>Select Features<br><div class='info2Subtitle'>Use the tools below or click in the map</div></span>";
         return this._div;
     },
 });
@@ -825,7 +830,7 @@ function activateMapForClimateForecast(){
     $('.leaflet-control-layers').hide()
     $('.leaflet-draw').hide()
     $('.toolTitle2').hide()
-    $('.toolTitle').html('Select a Climate Division')
+    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span><span style="font-size:.9em">Select a Climate Division</span>')
     $('.leaflet-bottom').show()
     $('.ui-opacity').show()
     $('.leaflet-control-layers:nth-child(1)').show()
@@ -931,12 +936,13 @@ function activateMapForDefault(){
     $('.leaflet-control-layers').show()
     $('.leaflet-draw').show()
     $('.toolTitle2').show()
-    $('.toolTitle').html('1. Select Reporting Units')
+    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units')
 
     map.setView(latlng,zoomLevel);
 
     map.removeLayer(near_term_climate_divisions)
-    map.addLayer(study_area_boundary)
+    //This was preventing mouseover on features in chrome b/c the boundary was going on top.
+    //map.addLayer(study_area_boundary)
     if (typeof activeReportingUnits == 'undefined') {
         map.addLayer(layer0)
     }
@@ -944,12 +950,11 @@ function activateMapForDefault(){
         map.addLayer(activeReportingUnits)
     }
     if (typeof results_poly != 'undefined' && results_poly != '') {
-        //map.addLayer(results_poly)
+        map.addLayer(results_poly)
     }
     //map.addLayer(results_poly)
     document.getElementsByClassName('info2')[0].innerHTML=''
     document.getElementsByClassName('info')[0].innerHTML=''
-
 }
 
 function updateClimateDivisionSymbology(){

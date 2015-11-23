@@ -3,7 +3,6 @@ import urllib
 import re
 import netCDF4
 import numpy as np
-import time
 
 from django.shortcuts import render
 from django.db import connection
@@ -35,8 +34,8 @@ def index(request):
         WKT=request.GET.get('user_wkt')
         table=request.GET.get('reporting_units')
         categoricalFields=request.GET.get('name_field')
-        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
-        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
+        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
+        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
 
     ############################################# INPUT PARAMETERS #####################################################
 
@@ -44,7 +43,6 @@ def index(request):
 
     if studyarea=='drecp':
 
-        #Default
         if table == None:
             table="drecp_reporting_units_county_boundaries_no_simplify"
             categoricalFields="name_pcase"
@@ -54,7 +52,6 @@ def index(request):
 
     elif studyarea=='ca':
 
-        #Default
         if table == None:
             table="ca_reporting_units_county_boundaries_5_simplify"
             categoricalFields="name"
@@ -69,15 +66,6 @@ def index(request):
             categoricalFields="name"
 
         config_file="config_utah.js"
-
-    elif studyarea=='test':
-
-        if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
-            categoricalFields="name"
-
-        template='test'
-        config_file="config_ca.js"
 
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
@@ -104,8 +92,7 @@ def index(request):
         selectList="SELECT "
 
         if ('POINT' in WKT):
-            #Point selection. No Area Weighted Average in the query.
-            #Performance gains are minimal even with 900 fields.
+            #Point selection. No Area Weighted Average in the query. Performance gains are minimal even with 900 fields.
             for field in statsFields.split(','):
                 selectList+=field + " as " + field + "_" + "avg, "
             if categoricalFields:
@@ -156,7 +143,7 @@ def index(request):
         ######################################## EXECUTE DATABASE QUERY ################################################
 
         if operator == "LIKE":
-              cursor.execute(selectStatement,['%' + stringOrValue + '%'] )
+            cursor.execute(selectStatement,['%' + stringOrValue + '%'] )
         else:
             cursor.execute(selectStatement)
 
@@ -175,7 +162,7 @@ def index(request):
                     else:
                         resultsDict[columns[i]] =(float(round(row[i],2)))
         except:
-            return render(request, template+'.html', errorHandler(template, 0,1))
+            return render(request, template+'.html')
 
         WKT_SelectedPolys=resultsDict['outline_of_selected_features']
 

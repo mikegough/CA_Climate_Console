@@ -10,6 +10,14 @@ body{
     height:100%;
 }
 
+a{
+    color:#4575B5;
+}
+a:hover {
+    text-decoration: underline;
+    color: #355A8C
+}
+
 #version {
     float:left;
     margin-left: 5px;
@@ -106,18 +114,12 @@ body{
     font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
     font-variant:small-caps;
     letter-spacing:5px;
-    text-shadow: 1px 1px 2px black;
     text-shadow: 1px 1px 8px #071D27;
 
 }
 
-
-
-#sun{
-    height:170px;
-    position:absolute;
-    left:-75px;
-    top:-75px;
+#title2 {
+    color:white;
 }
 
 #sub_title{
@@ -125,6 +127,12 @@ body{
     text-align: center;
     letter-spacing:4px;
     text-shadow: 1px 1px 2px black;
+}
+
+#sub_title_modern{
+    font-size:17px;
+    text-align: center;
+    letter-spacing:4px;
 }
 
 
@@ -360,6 +368,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     margin-left:20px;
     padding-right:20px;
     overflow-y:auto;
+    overflow-x:hidden;
 }
 
 #view4{
@@ -784,35 +793,44 @@ ul#mainNav a {
 .toolTitle {
     background-color:#444444;
     color:#F8981D;
-    width:250px;
+    width:227px;
     height:32px;
     font-size:21px;
     font-weight:bold;
     line-height:32px;
-    margin-left:5px;
+    /* margin-left:5px; */
+    margin-left:17px !important;
     padding:10px;
-    left:-8px
+    padding-left:28px;
+    left:-8px;
 
 }
 
 .toolTitle2 {
     background-color:#444444;
     color:#F8981D;
-    width:250px;
+    width:248px;
     height:42px;
     font-size:21px;
     font-weight:bold;
     line-height:20px;
-    margin-left:5px;
+    /* margin-left:5px; */
+    margin-left:17px !important;
     padding:10px;
+    padding-left:28px;
     padding-right:0px;
     margin-right:0px;
-    left:-8px
+    left:-8px;
+    top:5px;
 
 }
 
 .leaflet-control-layers-expanded{
     padding-bottom:0px !important;
+}
+
+.leaflet-draw{
+    top:5px;
 }
 
 #calloutbox{
@@ -865,6 +883,7 @@ div.callout {
     color:#F8981D;
     text-align:center;
 }
+
 /* Loading Overlay */
 /* Removed */
 
@@ -1187,10 +1206,34 @@ background:#595959;
 
 #initialization_container{
     float:right;
+    width:479px;
     height:100%;
     border-left: 2px solid #444444;
-    background-color:#EEEEEE;
+    background-color:#F9F9F9;
+    overflow-y:auto;
+    overflow-x:hidden;
 }
+
+#initialization_text{
+    font-size: 17px;
+    text-align:left;
+    padding:20px;
+    color:#666666;
+    padding-right:10px;
+    margin-right:10px;
+    font-family: arial,sans-serif;
+}
+
+.introjs-bullets{
+    display:none;
+
+}
+
+.introjs-helperNumberLayer{
+    top:-7px;
+    margin-left:10px;
+}
+
 
 .footnote{
     padding-left:20px;
@@ -1234,21 +1277,21 @@ background:#595959;
     text-decoration:none;
 }
 
-
-div.clickToMapInfo {
-    position:absolute;
-    float:right;
-	height: 20px;
-	width: 250px;
-    right:-300px;
-    top:230px;
-    z-index:9999;
-    visibility:visible;
+#infoCircle{
+    left:-22px;
+    top:-12px;
+    font-style:italic;
 }
 
 div.clickToMapInfo {
-    position:absolute;
     float:right;
+    height: 20px;
+    width: 275px;
+    right:-330px;
+    top:230px;
+    z-index:9999;
+    visibility:visible;
+    position:absolute;
 	background-color: #444;
 	background-image: -moz-linear-gradient(top, #444, #444);
     position:absolute;
@@ -1340,6 +1383,22 @@ div.clickToMapInfo {
 .cbp-spmenu-horizontal a{
     padding: .7em !important
 }
+
+/* Mouse over Leaflet Legend popup */
+div#pop-up {
+    display: none;
+    position: absolute;
+    width: 108px;
+    padding: 5px;
+    padding-right:2px;
+    background: #eeeeee;
+    color: #333;
+    border: 1px solid #1a1a1a;
+    border-radius:2px;
+    box-shadow: 1px 1px 6px #999;
+    font-size: 11px;
+}
+
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */

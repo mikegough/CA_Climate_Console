@@ -38,13 +38,17 @@ ul.tabs li a
 ul.tabs li:last-child a
 {
     border-right:1px solid #444444;
+    /*
     border-top-right-radius:8px;
+    */
     box-shadow: 2px -1px 5px -1px gray;
 }
 
 ul.tabs li:first-child a
 {
+    /*
     border-top-left-radius:8px;
+    */
     box-shadow: -2px -1px 5px -1px gray;
 }
 

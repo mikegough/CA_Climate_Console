@@ -13,8 +13,8 @@ reportingUnits={
     "Jepson Ecoregions":["ca_jepson_ecoregions_2_simplify","name","CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json"],
     "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
     "HUC5 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "CA_Reporting_Units_HUC5_Watersheds_5_simplify.json"],
-    //"National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
-    "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","Name","Multi_LCC_USFS_5_Simplify.json"],
+    "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
+    //"National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","Name","Multi_LCC_USFS_5_Simplify.json"],
     "User Defined (1km)": ["drecp_reporting_units_1km_poly_v2","",""],
 
 }

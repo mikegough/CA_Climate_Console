@@ -1,4 +1,5 @@
 function createChart(climateVariable, statistic, season) {
+
     //Determine what variables are set in the drop down menu.
     climateVar = document.getElementById("variable_selection_form");
     selectedClimateVar= climateVar.options[climateVar.selectedIndex].text;
@@ -59,7 +60,7 @@ function createChart(climateVariable, statistic, season) {
     )
 
 
-    document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average annual" + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
+    document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average annual " + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
     if (climateParams['boxPlot']==true) {
         $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
     }
@@ -177,6 +178,33 @@ function createChart(climateVariable, statistic, season) {
         });
         seriesNumber++;
     }
+
+    /* Other options for informing the user about the legend clicking ability */
+     //$('g.highcharts-legend:nth-child(9)').mouseover(function(){$('#legendTips').stop(true,true).delay(0).show(0)});
+     //$('g.highcharts-legend:nth-child(9)').mouseout(function(){$('#legendTips').show().delay(1000).hide(0)});
+     //$('g.highcharts-legend:nth-child(9)').attr('title', 'Click to show/hide this item in the chart');
+
+    /* Hover over legend tip */
+    var moveLeft = 2;
+    var moveDown = 24;
+
+    $('.highcharts-legend').hover(function(e) {
+
+        $("div#pop-up").html('Click to show/hide model in the chart')
+
+        $('div#pop-up').fadeIn(300);
+        }, function() {
+          $('div#pop-up').stop(true,true).hide(100);
+        });
+
+    $('.highcharts-legend').mousemove(function(e) {
+        if (e.pageX > 1475) {
+            $("div#pop-up").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft -108);
+        }
+        else {
+            $("div#pop-up").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        }
+    });
 
 }
 
@@ -401,3 +429,4 @@ function updateData(climateVariable, statistic, season) {
     });
 
 }
+

@@ -61,17 +61,27 @@
 <!--Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 <script src="{{STATIC_URL}}deps/SlidePushMenus/js/classie.js"></script>
 
+<!-- intro.js -->
+<script src="{{STATIC_URL}}deps/js/intro.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/css/introjs.css" />
+
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/box_plot.js"></script>
 <script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
-<script src="{{STATIC_URL}}Highcharts/time_series.js"></script>
+<!--<script src="{{STATIC_URL}}Highcharts/noaa_3_month_sync.js"></script>-->
+<script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
+
+<script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
+
+<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
-
 <!-- My JS -->
 <script src="{{STATIC_URL}}js/general_js.js"></script>
+
 
 <script>
     var static_url="{{STATIC_URL}}"
@@ -82,6 +92,9 @@
     columnChartColors="{{columnChartColors}}"
     unitsForChart="metric"
 </script>
+
+<style>
+</style>
 
 </head>
 
@@ -105,12 +118,9 @@
 
 
 <div id="header">
-    <div id="title"><script>document.write(title)</script><span style="color:white"> Climate Console</span><br>
+    <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
       <span id="sub_title"><script>document.write(subTitle)</script></span>
     </div>
-    <!--
-    <div><img id="sky" src="{{STATIC_URL}}img/sky.png"></div>
-    -->
 </div>
 
 <span id="DataBasinLinkBox">
@@ -134,23 +144,39 @@
     <script src="{{STATIC_URL}}Leaflet/my_leaflet/leaflet_map.js"></script>
 
     <div id="initialization_container">
-        <div id="calloutbox" class="callout right">
-            <span id="textInsideCallout"><p>3. Results will Appear Here<br><br><br> <img style="width:200px" src="{{STATIC_URL}}img/chart3.png">
-                <span id="initialization_wait"><img id="initialization_loader_image" src='{{STATIC_URL}}img/loader3.gif'></span>
-            </span>
+        <div class="wait">
+            <div class="loading_contents">
+                <img class="loading_image" src='{{STATIC_URL}}img/loader_circular.gif'><br>
+                <div class="loading_text">&nbsp Loading...</div>
+            </div>
         </div>
+            <div id="initialization_text">
+                <h3> Welcome to the <script>document.write(title)</script> Climate Console</h3>
+                The climate console is a web application designed for exploring climate change projections within a selected area of interest.
+                <h3> Getting Started </h3>
+                    <div style="margin-left:10px">
+                    1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">.
+                    <p>
+                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                    <p>
+                    2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">.
+                    <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                    <p>
+                    3. Explore results generated for the selected area.
+                    <p>
+                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                    </div>
+            </div>
     </div>
 
     <div id="tab_container">
         <!--data-persist="true" keeps the current tab active on page refresh-->
         <ul class="tabs" data-persist="false">
-            <li><a href="#view1" onclick="activateMapForDefault();">Charts</a></li>
-            <li><a href="#view2">Current Selection</a></li>
-            <li><a href="#view4" onclick="activateMapForClimateForecast()" >Near-Term Forecast</a></li>
-            <!--
-            <li><a href="#view5">Energy</a></li>
-            -->
-            <li><a href="#view3"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
+            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Charts</a></li>
+            <li><a href="#view2" onclick="$('#clickToMapInfo').hide()">Current Selection</a></li>
+            <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather Forecast</a></li>
+            <li><a href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
 
         </ul>
 
@@ -163,10 +189,9 @@
                 </div>
             </div>
 
-            <div id="clickToMapInfo" class="clickToMapInfo top-left"><span>Click any Point to Map the Data</span><a onclick="this.parentNode.style.visibility='hidden'">
+            <div id="clickToMapInfo" class="clickToMapInfo"><span><span id="infoCircle" class="introjs-helperNumberLayer">i</span><span style="margin-left:19px">Click any Point to Map the Data</span></span><a onclick="this.parentNode.style.visibility='hidden'; document.getElementById('infoCircle').style.visibility='hidden'">
               <span id="close_button"> ✖ </span></a>
             </div>
-
 
             <div id="view1">
                 <div class="select_container_2">
@@ -217,9 +242,9 @@
                     }
                 </script>
 
-
                 <div id="point_chart"></div>
 
+                <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
 
                 <div id="point_chart_description"></div>
 
@@ -235,19 +260,35 @@
 
                 <h3>Summary:</h3>
 
+                The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
+                <p>
+                The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
+
                 <p>
 
                 <h3>Instructions for Use: </h3>
 
                <ol>
-                    <li>Select a reporting units layer from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
-                    <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest.</li>
+                    <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
+                    <p>
+                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                    <p>
+                    <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png">.</li>
+                   <p>
+                   <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                   <p>
                     <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
+                   <p>
+                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                   <p>
                     <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
+                   <!--
                     <li>Click the "variability" link in the point chart description to view box plots of the data.
+                    -->
 
                </ol>
 
+                <!--
                 <h3>Interpreting the Box Plots: </h3>
                 <br>
                 <img style="margin-left:20px" src="{{STATIC_URL}}img/boxPlot.png">
@@ -256,8 +297,19 @@
                 <p>
                 <sup>2</sup>The lower quartile (Q1) represents the middle value between the minimum and the median. 75% of the data fall above this line. 25% of the data fall below it.
                 </div>
+                -->
 
                 <h3>Climate: </h3>
+                Climate refers to the statistical properties of weather over periods ranging from months to decades or more, and includes average conditions, and the range of variability, as well as the frequency of extreme events.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
+                <p>
+                Climate is different from weather. A weather forecast refers to a prediction about the specific atmospheric conditions expected for a
+                location in the short-term future (hours to days).<sup><a href="#refs" title="Source: National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy">2</a></sup>
+                <p>
+
+                A climate trend is a progressive change in the state of the climate based on weather statistics evaluated over long periods, typically of at least 30 years.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
+                <p>
+                For information on climate models click on the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
+                <p>
                 The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We evaluated ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics such as the Pacific Decadal Oscillation (PDO) and El Niño Southern Oscillation (ENSO) over the study area (Wang et al., 2011; Wang et al., 2014). Four models were selected that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the four downscaled climate models was calculated for each of the climate variables.
 
                 <h3>Terrestrial Intactness:</h3>
@@ -302,22 +354,21 @@
                 <p>
                 <a href="http://databasin.org/datasets/238aad251e784e4386620a4c51ef272a" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
                 <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
+                <p>
+
+                <a name="refs"></a>
+                <h3>Sources:</h3>
+                <sup>1</sup><a href="http://pics.uvic.ca/"> Pacific Institute for Climate Solutions</a>
+                <p>
+                <sup>2</sup><a href="http://cpo.noaa.gov/OutreachandEducation/ClimateLiteracy.aspx"> National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy</a>
+                <p>
+                <div style="height:800px"></div>
 
             </div>
 
-           <div id="view4">
+            <div id="view4">
                 <div class="nearTermClimateFormDiv">
 
-                   <!--
-                    <h3>Climate Division <span id="climateDivision"></span></h3>
-                    -->
-
-                    <!-- Table 1: Headers (Time Frame, Temperature, Precipitation -->
-                    <!--
-                    <table class="dynamicNearTermClimateTable" style="box-shadow: 1px 1px 4px black">
-                        <tr><th>Time Frame</th><th>Temperature</th><th>Precipitation</th></tr>
-                    </table>
-                    -->
                     <div class="nearTermHeader">Three Month Forecast in Climate Division <span id="climateDivision"></span></div>
 
                     <!-- Start and Stop Buttons -->
@@ -335,11 +386,6 @@
                             <span style="position:relative; top:4px; left:-11px; font-size:11px;color:#444444"><b>&ndash;</b> Historical Mean <b>&ndash;</b></span>
                             <span id="thermometerAfter"></span>
                         </div>
-                        <!--
-                        <div id="thermometerText">
-                            <span id="thermometerDegreeChange">20</span> <br><span style="color:#6F6F6F; font-size:12px; white-space:nowrap">From historical<br>average (mean)</span>
-                        </div>
-                        -->
                     </div>
 
                     <!--Rain Gauge -->
@@ -373,6 +419,12 @@
                         generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
                         //Update Map
                         updateClimateDivisionSymbology()
+                        createVerticalMonthLine(selectedNearTermClimatePeriod-1)
+                        elements = document.getElementsByClassName('radio-button-span');
+                        for (var i = 0; i < elements.length; i++) {
+                            elements[i].style.backgroundColor="";
+                        }
+                        $("#radio-button-span"+(selectedNearTermClimatePeriod-1)).css({'background-color':'#D8E8CC'})
                     });
 
                     $("#nearTermMapForm").change(function(){
@@ -382,8 +434,6 @@
                     });
 
                 </script>
-                <div class="nearTermHeader">Monthly Forecast at <img height="25px" src={{STATIC_URL}}img/marker-icon-blue.png> (<span id="downscaled_coords"></span>)</div>
-                <div id="time_series"></div>
 
                 <!--
                 <div id="sources">
@@ -393,31 +443,37 @@
                 </div>
                 -->
 
+                <div id="noaa_3_month"></div>
+                <br>
+                <br>
+
             </div>
 
         </div>
+
     </div>
+
 </div>
 
 <div id="footer" class="no-print">
     <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2015 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
 <script>
-     //Executes your code when the DOM is ready.  Acts the same as $(document).ready().
     $(function() {
       //Calls the selectBoxIt method on your HTML select box.
       $("select").selectBoxIt();
-            // Uses the jQuery 'fadeIn' effect when opening the drop down
-
     });
-     // Calls the selectBoxIt method on your HTML select box
-  $("select").selectBoxIt({
 
+    $("select").selectBoxIt({
     // Sets default text to appear for the drop down
-    aggressiveChange: true
+        aggressiveChange: true
+    });
 
-  });
 </script>
+
+<!-- div for the mouseover legend items text -->
+<div id="pop-up">
+</div>
 
 </body>
 </html>

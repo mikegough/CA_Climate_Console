@@ -31,6 +31,24 @@
      create_post_downscale(initialDownscaleMarkerLon,initialDownscaleMarkerLat)
      $('#downscaled_coords').html(initialDownscaleMarkerLon +", "+ initialDownscaleMarkerLat)
 
+     //enable intro.js  on the control layers
+     gettingStartedIntro=introJs();
+
+     $('.leaflet-control-layers-expanded').each(function(i) {
+         $(this).attr('data-step','1')
+         $(this).attr('data-intro','Reporting units define the ecological or administrative boundaries for which the climate projections will be calculated. By selecting counties, for example, you will be able to examine the climate projections for a specified county or counties of interest.')
+     });
+
+     $('.leaflet-draw').each(function(i) {
+         $(this).attr('data-step','2')
+         //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+         $(this).attr('data-intro','A feature refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+     });
+
+
+     //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
+     gettingStartedIntro.setOptions({'showStepNumbers':false, 'showBullets': 'false', 'tooltipPosition': 'right'});
+
 });
 
 /************************************************ TABLE TAB FUNCTIONS *************************************************/
@@ -462,7 +480,7 @@ function generateNearTermClimateResults(period,division) {
     precip_change_rounded=Math.round(precip_change * 100) / 100
     precip_ninety_percent_confidence_interval=precip_array[6] + " in. - "  + precip_array[16] + " in."
 
-    console.log(precip_array)
+    //console.log(precip_array)
 
     //Table 2
 
@@ -738,6 +756,6 @@ function animateClickToMapInfoBox(){
     $('.clickToMapInfo').delay(1000).animate({"right":"100px"},900);
     $('.clickToMapInfo').animate({"right":"80px"},600);
 }
-
+ // Apply events to text elements (SVG) and spans within the legend (VML + modern browsers with useHTML option).
 
 
