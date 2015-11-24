@@ -5,8 +5,6 @@
 
     //Prepare Near Term Forecast
 
-    //Initialize Selected Climate Division
-    selectedClimateDivision='94'
     previousDivision=''
     countTimesNoaa3MonthCalled=0
     //Initialize Selected Time Frame

@@ -3,8 +3,9 @@ subTitle="Climate Projections for the state of Utah/COP"
 studyAreaBoundary="UTAH_COP_Study_Area_Boundary_20150219_GCS_For_JSON_0_simp.json"
 initialLat=39.4
 initialLon=-112
-initialDownscaleMarkerLat=35.28
-initialDownscaleMarkerLon=-116.54
+initialDownscaleMarkerLat=41.28
+initialDownscaleMarkerLon=-112.0
+selectedClimateDivision='83'
 zoomLevel=7
 
 reportingUnits={

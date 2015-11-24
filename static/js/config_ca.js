@@ -5,6 +5,7 @@ initialLat=37.2
 initialLon=-121.5
 initialDownscaleMarkerLat=35.28
 initialDownscaleMarkerLon=-116.54
+selectedClimateDivision='94'
 zoomLevel=7
 
 reportingUnits={

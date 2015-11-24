@@ -806,7 +806,9 @@ function activateMapForClimateForecast(){
 
     $('#clickToMapInfo').hide()
 
-    defaultLatLng=[35.28,-116.54]
+    if (typeof defaultLatLng == 'undefined') {
+        defaultLatLng = [initialDownscaleMarkerLat, initialDownscaleMarkerLon]
+    }
 
     marker = new L.marker(defaultLatLng)
         .bindPopup("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled Monthly Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
@@ -835,7 +837,7 @@ function activateMapForClimateForecast(){
     $('.ui-opacity').show()
     $('.leaflet-control-layers:nth-child(1)').show()
 
-    map.setView([37.229722,-121.509444],6);
+    map.setView(defaultLatLng,6);
 
     //Currently this function is also called on document read in the general_js script.
     //Noaa chart becomes unsynced without calling twice.
@@ -1004,6 +1006,9 @@ function getNearTermColor(d) {
 
 // Script for adding marker on map click
 function onMapClick(e) {
+
+    //This maintains the last position of the marker if the user goes back to the charts view and then returns to the weather forecast view.
+    defaultLatLng=e.latlng
 
     if  (typeof marker != 'undefined') {
         map.removeLayer(marker);

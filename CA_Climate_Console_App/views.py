@@ -243,7 +243,8 @@ def index(request):
 def downscale(request):
     userWKT = request.POST.get('input')
     #print userWKT
-    coords=re.findall("[+-]?\d+.\d+", userWKT)
+    #coords=re.findall("[+-]?\d+.\d+", userWKT)
+    coords=re.findall("[-+]?\d+[\.]?\d*", userWKT)
     print coords
     lon_target=float(coords[0])
     lat_target=float(coords[1])
