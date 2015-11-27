@@ -726,7 +726,7 @@ var control = L.control.geonames({
     workingClass: 'fa-spin',  // class for search underway
     featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'],  // feature classes to search against.  See: http://www.geonames.org/export/codes.html
     baseQuery: 'isNameRequired=true',  // The core query sent to GeoNames, later combined with other parameters above
-    position: 'topleft'
+    position: 'topleft',
 });
 
 map.addControl(control);
@@ -930,7 +930,7 @@ function activateMapForClimateForecast(){
 
     markerInfo = L.popup()
         .setLatLng([defaultLatLng.lat+1,defaultLatLng.lng])
-        .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month temperature and precipitation forecast at the marker location. Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
+        .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month forecast at the marker location. <p> Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
         .addTo(map);
 }
 

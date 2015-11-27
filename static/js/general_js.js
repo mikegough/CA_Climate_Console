@@ -43,6 +43,12 @@
          $(this).attr('data-intro','A feature refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
      });
 
+     $('.leaflet-geonames-search').each(function(i) {
+         $(this).attr('data-step','3')
+         //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+         $(this).attr('data-intro','Click here to select features based on a place name')
+     });
+
 
      //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
      gettingStartedIntro.setOptions({'showStepNumbers':false, 'showBullets': 'false', 'tooltipPosition': 'right'});
