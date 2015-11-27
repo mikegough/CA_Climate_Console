@@ -256,7 +256,8 @@ def downscale(request):
     #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
     #pathname = 'static/data/idaho/bcsd_nmme_metdata_NCAR_forecast_daily.nc'
     #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_monthly.nc'
-    pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_1monthAverage.nc'
+    #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_1monthAverage.nc'
+    pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_3monthAverage.nc'
     #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_3monthAverage.nc'
     #pathname = 'static/data/idaho/bcsd_nmme_metdata_ENSMEAN_forecast_3monthAverage.nc'
     #pathname = 'http://thredds.nkn.uidaho.edu:8080/thredds/dodsC/NWCSC_INTEGRATED_SCENARIOS_ALL_CLIMATE/projections/nmme/bcsd_nmme_metdata_ENSMEAN_forecast_daily.nc'
@@ -303,6 +304,7 @@ def downscale(request):
     #data=variable[time_index,lon_index,lat_index].tolist()
     rounded_tmax_data=[round(x,2) for x in tmax_data ]
     rounded_precip_data=[round(x,2) for x in precip_data ]
+    print rounded_precip_data
 
     context={
         'dates': dates,

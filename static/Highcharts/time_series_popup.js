@@ -43,7 +43,7 @@ function createTimeSeries(dates,tmax,precip){
             }]
         },{
             title: {
-                text: 'Precipitation (in)'
+                text: 'Precipitation (%)'
             },
             showEmpty: false,
             plotLines: [{
@@ -100,7 +100,7 @@ function createTimeSeries(dates,tmax,precip){
             color: '#4575B5',
             yAxis:1,
             tooltip: {
-                valueSuffix: 'in.'
+                valueSuffix: '%'
             }
         },
             /*

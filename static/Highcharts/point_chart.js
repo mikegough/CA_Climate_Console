@@ -190,7 +190,7 @@ function createChart(climateVariable, statistic, season) {
 
     $('.highcharts-legend').hover(function(e) {
 
-        $("div#pop-up").html('Click to show/hide model in the chart')
+        $("div#pop-up").html('Click to show/hide this model in the chart above')
 
         $('div#pop-up').fadeIn(300);
         }, function() {

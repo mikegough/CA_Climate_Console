@@ -440,9 +440,6 @@ function create_post(newWKT) {
 
 }
 
-
-
-
 function onEachFeature(feature, layer) {
     layer.on({
         //Uncomment the line below (and the line in the select feature function) to trigger database query on feature click:
@@ -721,9 +718,66 @@ info2.update = function (props) {
 info2.addTo(map);
 // END TEXT BOTTOM LEFT
 
+var control = L.control.geonames({
+    username: 'cbi.test',  // Geonames account username.  Must be provided
+    zoomLevel: 7,  // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
+    maxresults: 5,  // Maximum number of results to display per search
+    //className: 'fa fa-crosshairs',  // class for icon
+    workingClass: 'fa-spin',  // class for search underway
+    featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'],  // feature classes to search against.  See: http://www.geonames.org/export/codes.html
+    baseQuery: 'isNameRequired=true',  // The core query sent to GeoNames, later combined with other parameters above
+    position: 'topleft'
+});
+
+map.addControl(control);
+
 /********************************* END MAP CONTROLS -- Right Hand Side **********************************************/
 
 /**************************************  Near-Term Forecast *********************************************************/
+
+
+function activateMapForDefault(){
+
+    if  (typeof marker != 'undefined') {
+        map.removeLayer(marker);
+        map.removeLayer(markerInfo)
+    }
+
+    if (climate_PNG_overlay_url != ''){
+
+        climate_PNG_overlay.addTo(map)
+        climate_PNG_overlay.bringToBack()
+        $('.ui-opacity').show()
+
+    } else {
+
+        $('.ui-opacity').hide()
+    }
+
+    $('.leaflet-control-layers').show()
+    $('.leaflet-draw').show()
+    $('.toolTitle2').show()
+    $('.leaflet-geonames-search').show()
+    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units')
+
+    map.setView(latlng,zoomLevel);
+
+    map.removeLayer(near_term_climate_divisions)
+    //This was preventing mouseover on features in chrome b/c the boundary was going on top.
+    //map.addLayer(study_area_boundary)
+    if (typeof activeReportingUnits == 'undefined') {
+        map.addLayer(layer0)
+    }
+    else {
+        map.addLayer(activeReportingUnits)
+    }
+    if (typeof results_poly != 'undefined' && results_poly != '') {
+        map.addLayer(results_poly)
+    }
+    //map.addLayer(results_poly)
+    document.getElementsByClassName('info2')[0].innerHTML=''
+    document.getElementsByClassName('info')[0].innerHTML=''
+}
 
 // AJAX for posting
 function create_post_downscale(lon,lat) {
@@ -804,15 +858,21 @@ function selectClimateDivision(e) {
 
 function activateMapForClimateForecast(){
 
+
     $('#clickToMapInfo').hide()
 
     if (typeof defaultLatLng == 'undefined') {
-        defaultLatLng = [initialDownscaleMarkerLat, initialDownscaleMarkerLon]
+        defaultLatLng = L.latLng([initialDownscaleMarkerLat, initialDownscaleMarkerLon])
+    }
+
+    if (typeof geo_marker != 'undefined'){
+       map.removeLayer(geo_marker)
     }
 
     marker = new L.marker(defaultLatLng)
-        .bindPopup("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled Monthly Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
-        .addTo(map);
+        .bindPopup("<div id='initialMarkerMessage' style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
+        .addTo(map)
+
     marker.on("popupopen", onPopupOpen);
 
     map.on('click', function(e){
@@ -832,6 +892,7 @@ function activateMapForClimateForecast(){
     $('.leaflet-control-layers').hide()
     $('.leaflet-draw').hide()
     $('.toolTitle2').hide()
+    $('.leaflet-geonames-search').hide()
     $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span><span style="font-size:.9em">Select a Climate Division</span>')
     $('.leaflet-bottom').show()
     $('.ui-opacity').show()
@@ -866,6 +927,11 @@ function activateMapForClimateForecast(){
     updateClimateDivisionSymbology()
 
     document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
+
+    markerInfo = L.popup()
+        .setLatLng([defaultLatLng.lat+1,defaultLatLng.lng])
+        .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month temperature and precipitation forecast at the marker location. Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
+        .addTo(map);
 }
 
 function updateNearTermForecastLegend(){
@@ -918,46 +984,6 @@ function updateNearTermForecastLegend(){
             '</tr></table>';
 }
 
-function activateMapForDefault(){
-
-    if  (typeof marker != 'undefined') {
-        map.removeLayer(marker);
-    }
-
-    if (climate_PNG_overlay_url != ''){
-
-        climate_PNG_overlay.addTo(map)
-        climate_PNG_overlay.bringToBack()
-        $('.ui-opacity').show()
-
-    } else {
-
-        $('.ui-opacity').hide()
-    }
-
-    $('.leaflet-control-layers').show()
-    $('.leaflet-draw').show()
-    $('.toolTitle2').show()
-    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units')
-
-    map.setView(latlng,zoomLevel);
-
-    map.removeLayer(near_term_climate_divisions)
-    //This was preventing mouseover on features in chrome b/c the boundary was going on top.
-    //map.addLayer(study_area_boundary)
-    if (typeof activeReportingUnits == 'undefined') {
-        map.addLayer(layer0)
-    }
-    else {
-        map.addLayer(activeReportingUnits)
-    }
-    if (typeof results_poly != 'undefined' && results_poly != '') {
-        map.addLayer(results_poly)
-    }
-    //map.addLayer(results_poly)
-    document.getElementsByClassName('info2')[0].innerHTML=''
-    document.getElementsByClassName('info')[0].innerHTML=''
-}
 
 function updateClimateDivisionSymbology(){
 
@@ -1007,6 +1033,8 @@ function getNearTermColor(d) {
 // Script for adding marker on map click
 function onMapClick(e) {
 
+    map.removeLayer(markerInfo)
+
     //This maintains the last position of the marker if the user goes back to the charts view and then returns to the weather forecast view.
     defaultLatLng=e.latlng
 
@@ -1023,28 +1051,32 @@ function onMapClick(e) {
         }
     }
 
-    L.geoJson(geojsonFeature, {
+    if (e.latlng.lng <= -103){
 
-        pointToLayer: function(feature, latlng){
+        L.geoJson(geojsonFeature, {
+            pointToLayer: function(feature, latlng){
 
-            marker = L.marker(e.latlng, {
+                marker = L.marker(e.latlng, {
 
-                title: "Click to view 4km downscaled data at this location",
-                alt: "Click to view 4km downscaled data at this location",
-                riseOnHover: true,
-                draggable: true,
+                    title: "Click to view 4km downscaled data at this location",
+                    alt: "Click to view 4km downscaled data at this location",
+                    riseOnHover: true,
+                    draggable: true,
 
-           // }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/><div id='time_series'></div>");
-            }).bindPopup("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled Monthly Forecast at Marker Location <br>(" + e.latlng + ")</div><div id='time_series_popup'></div>");
+               // }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/><div id='time_series'></div>");
+                }).bindPopup("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + e.latlng + ")</div><div id='time_series_popup'></div>");
 
-            marker.on("popupopen", onPopupOpen);
+                marker.on("popupopen", onPopupOpen);
 
-            return marker;
-        }
-    }).addTo(map);
+                return marker;
+            }
+        }).addTo(map);
+    }
 }
 // Function to handle delete as well as other events on marker popup open
 function onPopupOpen() {
+
+    map.removeLayer(markerInfo)
 
     createTimeSeries(dates,tmax_data,precip_data)
 

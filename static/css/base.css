@@ -1121,6 +1121,7 @@ background:#595959;
 }
 
 .nearTermClimateForm {
+    position:relative;
     float:left;
     width:200px;
     margin-bottom:0px;
