@@ -162,7 +162,9 @@ def index(request):
                     else:
                         resultsDict[columns[i]] =(float(round(row[i],2)))
         except:
-            return render(request, template+'.html')
+            print "Error: No features selected"
+            raise SystemExit(0)
+            #return render(request, template+'.html')
 
         WKT_SelectedPolys=resultsDict['outline_of_selected_features']
 
@@ -172,7 +174,7 @@ def index(request):
             categoricalValues=list(set(categoricalValues))
             categoricalValues.sort()
         else:
-            categoricalValues=['']
+            categoricalValues=[' ']
 
         #Remove these from the Dictionary before dumping to a JSON object (causing error & no need to send twice).
         resultsDict.pop('outline_of_selected_features',0)
@@ -245,7 +247,7 @@ def downscale(request):
     #print userWKT
     #coords=re.findall("[+-]?\d+.\d+", userWKT)
     coords=re.findall("[-+]?\d+[\.]?\d*", userWKT)
-    print coords
+    #print coords
     lon_target=float(coords[0])
     lat_target=float(coords[1])
     #lat_target=44.5608
@@ -304,7 +306,7 @@ def downscale(request):
     #data=variable[time_index,lon_index,lat_index].tolist()
     rounded_tmax_data=[round(x,2) for x in tmax_data ]
     rounded_precip_data=[round(x,2) for x in precip_data ]
-    print rounded_precip_data
+    #print rounded_precip_data
 
     context={
         'dates': dates,

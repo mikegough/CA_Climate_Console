@@ -29,24 +29,57 @@ function createColumnChart(){
                     type: 'column',
                     width:477,
                     height:360,
-                    marginTop:50,
+                    marginRight:35,
                 },
                 credits: {
                     enabled: false
                 },
 
                 exporting: {
-                    enabled: false
+                    enabled:true,
+                    allowHTML:true,
+                    filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + "Model_Results",
+                    chartOptions: {
+                        chart:{
+                            height:450,
+                            width:600,
+                            margin:100,
+                            marginBottom:130,
+                            marginLeft:130,
+                        },
+                        legend: {
+                            y:-10
+                        },
+                        title: {
+                            margin:20,
+                            text: "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'],
+                        },
+                        subtitle: {
+                            text: "<br>EEMS Model Results<br>",
+                            margin:20,
+                            marginBottom:100,
+                        },
+                        credits: {
+                            enabled:true,
+                            allowHTML:true,
+                            marginBottom:100,
+                            margin:10,
+                            style: {
+                                padding: '20px',
+                            },
+                            position: {
+                                align: 'center',
+                                y:-10,
+                            },
+                            text: "Source: " + title + " Climate Console, " +  currentYear + " Conservation Biology Institute",
+                        },
+                    }
                 },
                 title: {
 
                     text: ' ',
-                    x: 30,
                     margin: 15,
 
-                    style: {
-                        fontSize: '14px'
-                    }
                 },
                 subtitle: {
                     //text: '511574.7544' + 'N , ' + 'E3849223.0376' + 'E, UTM 11N, NAD83'

@@ -257,6 +257,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 
 #column_chart{
+    margin-top:35px;
     /*height:40%;*/
     /*
     position:relative;
@@ -1399,7 +1400,9 @@ div#pop-up {
     box-shadow: 1px 1px 6px #999;
     font-size: 11px;
 }
-
+.alertify{
+    top:200px;
+}
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */

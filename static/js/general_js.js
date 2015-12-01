@@ -1,7 +1,10 @@
  $(document).ready(function(){
 
+     var currentDate=new Date()
+     currentYear=currentDate.getFullYear()
+
      document.title=title + " Climate Console"
-     $("#view1Link").click()
+     //$("#view1Link").click()
 
     //Prepare Near Term Forecast
 
@@ -40,13 +43,13 @@
      $('.leaflet-draw').each(function(i) {
          $(this).attr('data-step','2')
          //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-         $(this).attr('data-intro','A feature refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+         $(this).attr('data-intro','A feature refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features (selected features will be those that intersect the drawn shape), or simply click on a single feature of interest in the map.')
      });
 
      $('.leaflet-geonames-search').each(function(i) {
          $(this).attr('data-step','3')
          //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-         $(this).attr('data-intro','Click here to select features based on a place name')
+         $(this).attr('data-intro','Click here to select a feature based on the location of a specified place name.')
      });
 
 
@@ -594,6 +597,27 @@ function showInfoPopup(layerToDescribe){
 }
 
 $(window).load(function(){
+
+     //Comment out to prevent spinner on click. Uncomment in the map draw function.
+    $(document).ajaxStart(function(){
+        //Show Loading Bars on Draw
+        //$("#initialization_wait").css("display", "block");
+        $("#view1").css("opacity", ".1");
+        $("#view2").css("opacity", ".1");
+        $("#initialization_container").css("background-color", "white");
+        $("#initialization_text").css("opacity", "0");
+        $(".wait").css("display", "block");
+    });
+
+    $(document).ajaxComplete(function(){
+        $("#view1").css("opacity", "1");
+        $("#view2").css("opacity", "1");
+        $(".wait").css("display", "none");
+        //Handles case where initial selection is made using draw tools, and no features selected. Show getting started info again.
+        $("#initialization_text").css("opacity", "1");
+        //map.removeLayer(layer)
+
+    });
 
 //Function to start and stop automatic time cycling on the near term climate tab.
 

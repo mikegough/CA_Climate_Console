@@ -302,8 +302,6 @@ var groupedOverlays = {
 
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
 
-//reporting_units = last_reporting_units
-
 //Layers icon in the upper right
 var options = { exclusiveGroups: ["Reporting Units","Base Maps"]};
 L.control.groupedLayers(overlayMaps, groupedOverlays, options).addTo(map);
@@ -429,7 +427,7 @@ function create_post(newWKT) {
 
         // handle a non-successful response
         error : function(xhr,errmsg,err) {
-            alert('No features selected. Please make a new selection.')
+            alertify.alert('No features selected. Please make a new selection.')
             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
@@ -450,24 +448,6 @@ function onEachFeature(feature, layer) {
 }
 
 function selectFeature(e){
-    //Comment out to prevent spinner on click. Uncomment in the map draw function.
-    $(document).ajaxStart(function(){
-        //Show Loading Bars on Draw
-        //$("#initialization_wait").css("display", "block");
-        $("#view1").css("opacity", ".1");
-        $("#view2").css("opacity", ".1");
-        $("#initialization_container").css("background-color", "white");
-        $("#initialization_text").css("opacity", "0");
-        $(".wait").css("display", "block");
-    });
-
-    $(document).ajaxComplete(function(){
-        $("#view1").css("opacity", "1");
-        $("#view2").css("opacity", "1");
-        $(".wait").css("display", "none");
-        //map.removeLayer(layer)
-
-    });
 
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
     //AJAX REQUEST
@@ -556,24 +536,18 @@ function toWKT(layer) {
 
 map.on('draw:created', function (e) {
 
-    $(document).ajaxStart(function(){
-        //Show Loading Bars on Draw
-        $("#initialization_wait").css("display", "block");
-        $("#view1").css("opacity", ".1");
-        $("#view2").css("opacity", ".1");
-        $(".wait").css("display", "block");
-    });
-
     $(document).ajaxComplete(function(){
-        $("#view1").css("opacity", "1");
-        $("#view2").css("opacity", "1");
-        $(".wait").css("display", "none");
-        map.removeLayer(layer)
+        //Remove user-drawn shape after a successful post.
+        if (map.hasLayer(layer)){
+            map.removeLayer(layer)
+        }
     });
 
+    /*
     if(map.hasLayer(results_poly)){
         map.removeLayer(results_poly)
     }
+    */
 
     var type = e.layerType;
     var layer = e.layer;
@@ -592,23 +566,6 @@ map.on('draw:created', function (e) {
     }
 
     create_post(user_wkt,reporting_units)
-
-    //Don't show spinner on Select Features.
-    //After a successful post from the drawing tools. set the display of the wait div back to none.
-    /*
-
-    $(document).ajaxStart(function(){
-        $("#view1").css("opacity", "1");
-        $("#view2").css("opacity", "1");
-        $(".wait").css("display", "none");
-    });
-    $(document).ajaxComplete(function(){
-        $("#view1").css("opacity", "1");
-        $("#view2").css("opacity", "1");
-        $(".wait").css("display", "none");
-        map.removeLayer(layer)
-    });
-    */
 
 })
 
@@ -721,11 +678,11 @@ info2.addTo(map);
 var control = L.control.geonames({
     username: 'cbi.test',  // Geonames account username.  Must be provided
     zoomLevel: 7,  // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
-    maxresults: 5,  // Maximum number of results to display per search
+    maxresults: 10,  // Maximum number of results to display per search
     //className: 'fa fa-crosshairs',  // class for icon
     workingClass: 'fa-spin',  // class for search underway
     featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'],  // feature classes to search against.  See: http://www.geonames.org/export/codes.html
-    baseQuery: 'isNameRequired=true',  // The core query sent to GeoNames, later combined with other parameters above
+    baseQuery: 'isNameRequired=true&country=US',  // The core query sent to GeoNames, later combined with other parameters above
     position: 'topleft',
 });
 
@@ -737,6 +694,12 @@ map.addControl(control);
 
 
 function activateMapForDefault(){
+
+    $(document).ajaxStart(function(){
+        //show spinner
+        $(".wait").css("display", "block");
+    });
+
 
     if  (typeof marker != 'undefined') {
         map.removeLayer(marker);
@@ -839,7 +802,6 @@ function resetClimateDivision(e) {
     document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
 }
 
-
 function selectClimateDivision(e) {
 
     //set all polygon border back to the default.
@@ -858,6 +820,10 @@ function selectClimateDivision(e) {
 
 function activateMapForClimateForecast(){
 
+    $(document).ajaxStart(function(){
+        //hide spinner on the weather-forecast tab
+        $(".wait").css("display", "none");
+    });
 
     $('#clickToMapInfo').hide()
 
@@ -878,11 +844,6 @@ function activateMapForClimateForecast(){
     map.on('click', function(e){
        map.removeLayer(marker);
        var marker = new L.marker(e.latlng).addTo(map);
-    });
-
-    $(document).ajaxStart(function(){
-        //Show Loading Bars on Draw
-        $(".wait").css("display", "none");
     });
 
     if ( typeof fillOpacityLevel == 'undefined') {
