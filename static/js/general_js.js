@@ -49,9 +49,8 @@
      $('.leaflet-geonames-search').each(function(i) {
          $(this).attr('data-step','3')
          //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-         $(this).attr('data-intro','Click here to select a feature based on the location of a specified place name.')
+         $(this).attr('data-intro','You can also click here to select a feature based on the location of a specified place name.')
      });
-
 
      //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
      gettingStartedIntro.setOptions({'showStepNumbers':false, 'showBullets': 'false', 'tooltipPosition': 'right'});
@@ -600,19 +599,17 @@ $(window).load(function(){
 
      //Comment out to prevent spinner on click. Uncomment in the map draw function.
     $(document).ajaxStart(function(){
-        //Show Loading Bars on Draw
-        //$("#initialization_wait").css("display", "block");
         $("#view1").css("opacity", ".1");
         $("#view2").css("opacity", ".1");
         $("#initialization_container").css("background-color", "white");
         $("#initialization_text").css("opacity", "0");
-        $(".wait").css("display", "block");
+        $(".loading").css("display", "block");
     });
 
     $(document).ajaxComplete(function(){
         $("#view1").css("opacity", "1");
         $("#view2").css("opacity", "1");
-        $(".wait").css("display", "none");
+        $(".loading").css("display", "none");
         //Handles case where initial selection is made using draw tools, and no features selected. Show getting started info again.
         $("#initialization_text").css("opacity", "1");
         //map.removeLayer(layer)

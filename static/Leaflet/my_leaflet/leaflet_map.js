@@ -1,9 +1,5 @@
 var latlng = L.latLng(initialLat,initialLon);
 
-if (last_poly != '') {
-    var results_poly = omnivore.wkt.parse(last_poly)
-}
-
 var map = L.map("map", {
     zoomControl: false,
     clickable: false,
@@ -49,10 +45,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
         if (climateVariable=='EEMSmodel'){
 
-            //legendTitle=window[layerToAddName+"Params"].legendTitle
-            //legendImage="/Legends/"+window[layerToAddName+"Params"].legendPNG
-            //legendHeight=window[layerToAddName+"Params"].legendHeight
-            //dbid=window[layerToAddName+"Params"].dataBasinID
             legendTitle=EEMSParams["models"][layerToAddName][0]
             legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
             legendHeight=EEMSParams["models"][layerToAddName][3]
@@ -206,9 +198,9 @@ var hoverStyle = {
 };
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
-    onekmBounds = [[36, -114], [36, -114]];
-    var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
-    var onekm= L.imageOverlay(onekm_url, onekmBounds);
+onekmBounds = [[36, -114], [36, -114]];
+var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+var onekm= L.imageOverlay(onekm_url, onekmBounds);
 
 allLayers = new Array();
 
@@ -279,7 +271,8 @@ var overlayMaps = {
 }
 
 var groupedOverlays = {
-    /* Option to have reporting units in the upper right hand layer widget.
+    // Option to have reporting units in the upper right hand layer widget.
+    /*
     "Reporting Units": {
         "Counties": counties,
     },
@@ -322,7 +315,6 @@ map.on('baselayerchange', function (event) {
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0
-    //console.log("create post is working!")
     $.ajax({
         url : "", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
@@ -365,7 +357,6 @@ function create_post(newWKT) {
                 }
 
                 findAndReplace(resultsJSON)
-                //console.log(resultsJSON)
             }
 
             initialize=response.initialize;
@@ -431,11 +422,9 @@ function create_post(newWKT) {
             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-            $("#initialization_wait").css("display", "None");
         }
 
     });
-
 }
 
 function onEachFeature(feature, layer) {
@@ -450,7 +439,6 @@ function onEachFeature(feature, layer) {
 function selectFeature(e){
 
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
-    //AJAX REQUEST
     create_post(user_wkt, reporting_units)
 }
 
@@ -461,8 +449,6 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
     }
-    //this.openPopup();
-    //document.getElementById("test").innerHTML = layer.feature.properties.NAME
     info2.update(layer.feature.properties);
 }
 
@@ -470,7 +456,6 @@ function resetHighlight(e) {
     var layer= e.target
     layer.setStyle(defaultStyle)
 
-    //info2.update('');
     if (initialize==0 && reporting_units != "onekm" && typeof response != 'undefined') {
         $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
     }
@@ -480,7 +465,6 @@ function resetHighlight(e) {
     if (typeof results_poly != 'undefined') {
         results_poly.bringToFront()
     }
-
 }
 
 function mouseOverTextChangeColor(hovername) {
@@ -495,22 +479,19 @@ function mouseOverTextChangeColor(hovername) {
                 }
             }
         });
-
     }
-
 }
 
 function mouseOutTextChangeBack() {
-        //Loop through the array of all layers and remove them
+    //Loop through the array of all layers and remove them
     allLayers.forEach( function (arrayItem) {
         arrayItem.setStyle(defaultStyle)
     })
     results_poly.bringToFront()
-
 }
 
 // BEGIN EXPORT TO WKT
-// Takes user draw shape and converts it to WKT format. This ships to the PostGIS database where it is used in the SBL.
+// Takes user drawn shape and converts it to WKT format. This ships to the PostGIS database where it is used in the SBL.
 function toWKT(layer) {
     var lng, lat, coords = [];
     if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
@@ -542,12 +523,6 @@ map.on('draw:created', function (e) {
             map.removeLayer(layer)
         }
     });
-
-    /*
-    if(map.hasLayer(results_poly)){
-        map.removeLayer(results_poly)
-    }
-    */
 
     var type = e.layerType;
     var layer = e.layer;
@@ -675,7 +650,7 @@ info2.update = function (props) {
 info2.addTo(map);
 // END TEXT BOTTOM LEFT
 
-var control = L.control.geonames({
+var geoSearch = L.control.geonames({
     username: 'cbi.test',  // Geonames account username.  Must be provided
     zoomLevel: 7,  // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
     maxresults: 10,  // Maximum number of results to display per search
@@ -686,7 +661,32 @@ var control = L.control.geonames({
     position: 'topleft',
 });
 
-map.addControl(control);
+map.addControl(geoSearch);
+
+/*
+var geoSearch = L.control.geonames({
+    username: 'cbi.test',  // Geonames account username.  Must be provided
+    zoomLevel: 7,  // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
+    maxresults: 10,  // Maximum number of results to display per search
+    //className: 'fa fa-crosshairs',  // class for icon
+    workingClass: 'fa-spin',  // class for search underway
+    featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'],  // feature classes to search against.  See: http://www.geonames.org/export/codes.html
+    baseQuery: 'isNameRequired=true&country=US',  // The core query sent to GeoNames, later combined with other parameters above
+    position: 'topleft',
+});
+
+geoSearch.onAdd = function (map) {
+    this._container = L.DomUtil.get('geoSearch');
+    if (!L.Browser.touch) {
+        L.DomEvent.disableClickPropagation(this._container);
+        L.DomEvent.on(this._container, 'mousewheel', L.DomEvent.stopPropagation);
+    } else {
+        L.DomEvent.on(this._container, 'click', L.DomEvent.stopPropagation);
+    }
+    return this._container;
+};
+geoSearch.addTo(map)
+*/
 
 /********************************* END MAP CONTROLS -- Right Hand Side **********************************************/
 
@@ -697,7 +697,7 @@ function activateMapForDefault(){
 
     $(document).ajaxStart(function(){
         //show spinner
-        $(".wait").css("display", "block");
+        $(".loading").css("display", "block");
     });
 
 
@@ -746,29 +746,19 @@ function activateMapForDefault(){
 function create_post_downscale(lon,lat) {
     var newWKT="POINT(" + lon + " " +  lat + ")"
     initialize = 0
-    //console.log("create post is working!")
     $.ajax({
         url: "downscale", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
         //url : "/climate", // the endpoint
         type: "POST", // http method
-        //data sent to django view with the post request
-        //data : { the_post : $('#post-text').val() },
         data: {input: newWKT},
 
-        // handle a successful response
         success: function (results) {
-            //json is what gets returned from the HTTP Response
-            //console.log(json); // log the returned json to the console
             response2=JSON.parse(results)
-            //console.log(response)
             dates=response2['dates']
             tmax_data=response2['tmax_data']
             precip_data=response2['precip_data']
-            //NOTE: Uncomment to create the chart right away.
-            //Or put it under the popup to create it when the user clicks on ther marker.
             createTimeSeries(dates,tmax_data,precip_data)
-            //$('#downscaled_coords').html(Math.round(lon * 100)/100+", "+Math.round(lat * 100)/100)
         }
     })
 }
@@ -779,7 +769,6 @@ var near_term_climate_divisions= L.geoJson(null, {
 
 });
 
-//var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_CA_Clip.json', null, near_term_climate_divisions)
 var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
 
 
@@ -822,7 +811,7 @@ function activateMapForClimateForecast(){
 
     $(document).ajaxStart(function(){
         //hide spinner on the weather-forecast tab
-        $(".wait").css("display", "none");
+        $(".loading").css("display", "none");
     });
 
     $('#clickToMapInfo').hide()
@@ -873,13 +862,6 @@ function activateMapForClimateForecast(){
     //Also remove any climate overlays nd the results_poly
     map.removeLayer(climate_PNG_overlay)
     map.removeLayer(results_poly)
-
-    /*  Note: this works too:
-    var arrayLength = allLayers.length;
-    for (var i = 0; i < arrayLength; i++) {
-                map.removeLayer(allLayers[i])
-    }
-    */
 
     near_term_climate_divisions.addTo(map)
     near_term_climate_divisions.bringToFront()
@@ -975,7 +957,6 @@ function updateClimateDivisionSymbology(){
 
     });
 
-    //near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_CA_Clip.json', null, near_term_climate_divisions)
     near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
     map.addLayer(near_term_climate_divisions)
 }
@@ -1044,15 +1025,12 @@ function onPopupOpen() {
     tempMarker = this;
 
     //var tempMarkerGeoJSON = this.toGeoJSON();
-
     //var lID = tempMarker._leaflet_id; // Getting Leaflet ID of this marker
-
     // To remove marker on click of delete
     $(".marker-delete-button:visible").click(function () {
         map.removeLayer(tempMarker);
     });
 }
-
 
 // getting all the markers at once
 function getAllMarkers() {

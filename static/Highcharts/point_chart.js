@@ -398,6 +398,7 @@ function updateData(climateVariable, statistic, season) {
 
     function EnglishUnitsConversion(dataValue){
 
+
         var convertedValue
         var roundedConvertedValue
 

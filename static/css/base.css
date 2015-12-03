@@ -1,6 +1,7 @@
 html {
     height:100%;
 }
+
 body{
     margin:0px;
     overflow-x:hidden;
@@ -13,6 +14,7 @@ body{
 a{
     color:#4575B5;
 }
+
 a:hover {
     text-decoration: underline;
     color: #355A8C
@@ -26,62 +28,11 @@ a:hover {
     color:#626262;
 }
 
-.wait {
-    border: 0px solid gray;
-    display:none;
-    float:right;
-    position:absolute;
-    right:0px;
-    width:30%;
-    height:75%;
-    z-index:9999999;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-.loading_contents {
-    position:absolute;
-    display:block;
-    top:50%;
-    height:200px;
-    width:100%;
-    margin-top:-25%;
-    text-align:center;
-    margin-right:100px;
-    border:0px solid gray;
-}
-
-.loading_text {
-    padding-top:18px;
-    font: 18px Verdana;
-    color:#5F5F5F;
-}
-
-#initialization_wait{
-    display:none;
-    width:120px;
-    height:90px;
-    position:relative;
-    top:-106px;
-    border:0px solid black;
-    z-index:9999999;
-    background-color:white;
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
-}
-
-#initialization_loader_image{
-    margin-top:23px;
-}
-
 #header{
     position:relative;
     display:block;
     height:115px;
     width:101%;
-    /*background-color:#CAC2B7;*/
     background-color:#1B6186;
     border-bottom:2px solid #444444;
     text-align:center;
@@ -97,7 +48,6 @@ a:hover {
     background: -ms-linear-gradient(-45deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* IE10+ */
     background: linear-gradient(135deg, rgba(13,47,66,1) 1%,rgba(18,66,91,1) 10%,rgba(27,97,134,1) 29%,rgba(27,97,134,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d2f42', endColorstr='#1b6186',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
 }
 
 #title{
@@ -110,7 +60,6 @@ a:hover {
     color:#FEAF23;
     font-size:34px;
     font-weight:bolder;
-    font-family: Verdana,Geneva,sans-serif;
     font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
     font-variant:small-caps;
     letter-spacing:5px;
@@ -135,9 +84,7 @@ a:hover {
     letter-spacing:4px;
 }
 
-
 #map_and_charts_container{
-    /*height:85%;*/
     height: -moz-calc(100% - 151px);
     height: -webkit-calc(100% - 151px);
     height: calc(100% - 151px);
@@ -149,18 +96,56 @@ a:hover {
 #map{
     float:left;
     height:100%;
-    /* width:70%; */
     width: -moz-calc(100% - 481px);
     width: -webkit-calc(100% - 481px);
     width: calc(100% - 481px);
 }
 
+.loading{
+    display: none;
+    float: right;
+    position: absolute;
+    right: 0px;
+    width: 479px;
+    height: 100%;
+    z-index: 9999999;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20%
+}
+
+.loading_text {
+    padding-top:18px;
+    font: 18px Verdana;
+    color:#5F5F5F;
+}
+
+#initialization_container{
+    width:479px;
+    height:100%;
+    border-left: 2px solid #444444;
+    background-color:#F9F9F9;
+    overflow-y:auto;
+    overflow-x:hidden;
+    position:relative;
+}
+
+
+#initialization_text{
+    font-size: 17px;
+    text-align:left;
+    padding:20px;
+    color:#666666;
+    padding-right:10px;
+    margin-right:10px;
+    font-family: arial,sans-serif;
+}
 
 #tab_container{
     float:right;
     height:100%;
     width:479px;
-    /* width: 29.8%; */
     border-left: 2px solid #444444;
 }
 
@@ -191,9 +176,6 @@ ul.tabs li a{
 
 
 .styled-select2{
-    /*font-family: Verdana,Geneva,sans-serif !important;
-    font-size: 13px !important;
-    */
     font-family: 13pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif !important;
     color: #444444 !important;
     margin-left:auto;
@@ -219,7 +201,6 @@ ul.tabs li a{
 }
 
 #point_chart{
-    /*height:30%;*/
     position:relative;
     margin-top:0px;
 
@@ -247,7 +228,6 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     text-decoration:underline;
 }
 
-
 #box_plot_description{
     margin-left:40px;
     margin-right:20px;
@@ -255,19 +235,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     font: 9pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif
 }
 
-
 #column_chart{
     margin-top:35px;
-    /*height:40%;*/
-    /*
-    position:relative;
-    max-height:340px;
-    width:100%;
-    max-width:477px;
-    margin-top:9%;
-    margin-left:auto;
-    margin-right:auto;
-    */
 }
 
 #time_period_translation {
@@ -303,7 +272,6 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     height:95%;
     overflow:auto;
 }
-
 
 .bottom_spacing{
     height:100px;
@@ -496,7 +464,6 @@ tr.active td {
     font-weight:bold
 }
 
-
 .nearTermHeader {
     font-weight:normal;
     text-align:center;
@@ -509,18 +476,13 @@ tr.active td {
     background-color:#EDEDED
 
 }
+
 #sources {
     font-size:10px;
 }
 
 
 #climateDivision{
-    /*
-      background-color: #00FFFF;
-      border:2px solid #444444;
-      border-radius:50px;
-      padding:5px;
-      */
 }
 
 .dynamicNearTermClimateTable {
@@ -597,7 +559,6 @@ tr.active td {
 .dynamicNearTermClimateTable tr:last-child{
 }
 
-
 .dynamicNearTermClimateTable th{
     height:10px;
     background-color:#444444;
@@ -620,6 +581,7 @@ tr.active td {
     border: solid #D8D8D8 1px !important;
 
 }
+
 .testDiv {
     position:absolute;
     z-index:10;
@@ -696,18 +658,11 @@ ul#mainNav {
     list-style-type:none;
     border:0px;
 }
-}
-ul#mainNav > li {
-    float:left;
-    display:inline;
-    position:relative;
-    border:1px white solid;
-    background-color:black;
 
-}
 ul#mainNav > li:hover {
     color:black;
 }
+
 ul#mainNav > li:hover ul {
     cursor:pointer;
     font-weight:bold;
@@ -721,12 +676,12 @@ ul#mainNav > li:hover ul {
     white-space:nowrap;
     z-index:9999;
 }
+
 ul#mainNav li ul {
     /*Properties for when you transition out */
     height:0;
     position:absolute;
     float:left;
-    width:0px;
     padding:10px;
     padding-top:2px;
     margin:0;
@@ -744,6 +699,7 @@ ul#mainNav li ul {
     text-align:left;
     z-index:9999;
 }
+
 ul#mainNav ul li {
     margin:2px;
     background-color:#F1F1F1;
@@ -755,8 +711,8 @@ ul#mainNav ul li {
     width:130px;
     box-shadow: -1px 1px 8px #001322;
 }
+
 ul#mainNav ul li:hover {
-    /*background-color:white;*/
     margin:2px;
     border:0px #444444 solid;
     color:#002D4E;
@@ -772,7 +728,6 @@ ul#mainNav a {
 .info, .info2, .toolTitle,.toolTitle2, .RU_Dropdown, .queryTool {
     color: #464646;
 	padding: 6px 8px;
-	font: 14px/16px Arial, Helvetica, sans-serif;
     font: 17px/19px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
 	background: white;
 	background: rgba(255,255,255,0.8);
@@ -786,6 +741,7 @@ ul#mainNav a {
     padding-top:2px;
     font-size:.6em
 }
+
 .info h4 {
 	margin: 0 0 5px;
 	color: #777;
@@ -799,12 +755,10 @@ ul#mainNav a {
     font-size:21px;
     font-weight:bold;
     line-height:32px;
-    /* margin-left:5px; */
     margin-left:17px !important;
     padding:10px;
     padding-left:28px;
     left:-8px;
-
 }
 
 .toolTitle2 {
@@ -815,7 +769,6 @@ ul#mainNav a {
     font-size:21px;
     font-weight:bold;
     line-height:20px;
-    /* margin-left:5px; */
     margin-left:17px !important;
     padding:10px;
     padding-left:28px;
@@ -835,16 +788,11 @@ ul#mainNav a {
 }
 
 #calloutbox{
-    /*
-    margin-left:auto;
-    margin-right:auto;
-    */
     margin-left:32px;
     margin-right:31px;
     text-align:center;
     z-index:999;
 }
-
 
 div.callout {
 	height: 330px;
@@ -878,15 +826,11 @@ div.callout {
 }
 
 #textInsideCallout {
-    font: 26px Arial,Helvetica,sans-serif;
     font: 27px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
     font-weight:bold;
     color:#F8981D;
     text-align:center;
 }
-
-/* Loading Overlay */
-/* Removed */
 
 /* Transparency slider */
 .ui-opacity {
@@ -904,24 +848,23 @@ div.callout {
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   background-image: url('../img/transparency2.png');
   background-size:contain;
-  }
+}
 
 .ui-opacity .handle {
   position:absolute;
   background:#414141;
-  left:-5;
+  left:-5px;
   top:20px;
   /*width:26px;*/
   width:23px;
   height:10px;
   border:1px solid rgba(0,0,0,0.4);
   border-radius:2px;
-  cursor:pointer;
   cursor:ns-resize;
   }
 
 .ui-opacity .handle:hover {
-background:#595959;
+    background:#595959;
 }
 
 #footer{
@@ -951,10 +894,9 @@ background:#595959;
     cursor: default !important
 
 }
+
 /* Thermometer column and text */
  .thermometer {
-    /*margin:10px 0 0 1px;
-    */
     white-space:nowrap;
     margin-top:25px;
     margin-left:18px;
@@ -963,7 +905,6 @@ background:#595959;
     display:block;
     font:bold 14px/152px helvetica, arial, sans-serif;
     text-indent: 36px;
-    /*background: -webkit-linear-gradient(top, #fff 0%, #fff 50%, #db3f02 50%, #db3f02 100%);*/
     border-radius:22px 22px 0 0;
     border:5px solid #4a1c03;
     border-bottom:none;
@@ -972,6 +913,7 @@ background:#595959;
     color:#4a1c03;
     background-color:white;
 }
+
 /* Thermometer Bulb */
  .thermometer::before {
     content:' ';
@@ -988,6 +930,7 @@ background:#595959;
     border:5px solid #4a1c03;
     box-shadow:inset 0 0 0 4px #fff;
 }
+
 /* This piece here connects the column with the bulb */
 #thermometerAfter{
     /* z-index:-2; */
@@ -996,9 +939,6 @@ background:#595959;
     width:14px;
     height:100px;
     max-height:145px !important;
-    /*
-    bottom:60px;
-    */
     bottom:2px;
     display:block;
     position:absolute;
@@ -1017,10 +957,8 @@ background:#595959;
     z-index:5;
 }
 
-/* Thermometer column and text */
+/* Rain gauge column and text */
 .rainGauge{
-    /*margin:10px 0 0 1px;
-    */
     left:20px;
     background-color:white;
     white-space:nowrap;
@@ -1028,15 +966,10 @@ background:#595959;
     margin-left:40px;
     margin-bottom:6px;
     width:22px;
-    /*
-    height:160px;
-    */
     height:140px;
     display:block;
     font:bold 14px/152px helvetica, arial, sans-serif;
     text-indent: 36px;
-    /*background: -webkit-linear-gradient(top, #fff 0%, #fff 50%, #db3f02 50%, #db3f02 100%);*/
-    /*border-radius:22px 22px 0 0;*/
     border:5px solid #4a1c03;
     border-bottom:4px solid white;
     position:relative;
@@ -1046,7 +979,7 @@ background:#595959;
 
  .rainGauge::before {
     /* rain Gauge Base */
-     /* Place the base under the column */
+    /* Place the base under the column */
     content:' ';
     width:46px;
     height:42px;
@@ -1063,9 +996,8 @@ background:#595959;
     box-shadow:inset 0 0 0 4px #fff;
 }
 
-
-  /* Required for Down Triangle */
-  .triangleTop:before, .triangleTop:after {
+/* Required for Down Triangle */
+.triangleTop:before, .triangleTop:after {
     content: "";
     position: absolute;
     width: 20;
@@ -1075,8 +1007,8 @@ background:#595959;
     border-bottom: 0;
   }
 
-  /* Stroke */
-  .triangleTop:before {
+/* Stroke */
+.triangleTop:before {
     z-index:-1;
     top: -13px;
     left: -21px;
@@ -1084,17 +1016,17 @@ background:#595959;
     /* If 1px darken stroke slightly */
     border-top-color: #4A1C03;
     border-width: 22px;
-  }
+}
 
-  /* Fill */
-  .triangleTop:after {
+/* Fill */
+.triangleTop:after {
     z-index:3;
     top: -8px;
     left: -9px;
     border-top-color: white;
     border-width: 10px;
 
-  }
+}
 
 #rainGaugeAfter{
     /* The blue bar */
@@ -1127,6 +1059,7 @@ background:#595959;
     width:200px;
     margin-bottom:0px;
 }
+
 #DataBasinRedirect{
     position:absolute;
     float:left;
@@ -1185,6 +1118,7 @@ background:#595959;
     font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
     /*font-family: "Helvetica Neue",Arial,Helvetica,sans-serif*/
 }
+
 .legendTable i {
     width: 18px;
     height: 18px;
@@ -1193,6 +1127,7 @@ background:#595959;
     opacity: 0.7;
 
 }
+
 .legendTable td{
     vertical-align:middle
 }
@@ -1206,36 +1141,14 @@ background:#595959;
     width:25px;
 }
 
-#initialization_container{
-    float:right;
-    width:479px;
-    height:100%;
-    border-left: 2px solid #444444;
-    background-color:#F9F9F9;
-    overflow-y:auto;
-    overflow-x:hidden;
-}
-
-#initialization_text{
-    font-size: 17px;
-    text-align:left;
-    padding:20px;
-    color:#666666;
-    padding-right:10px;
-    margin-right:10px;
-    font-family: arial,sans-serif;
-}
-
 .introjs-bullets{
     display:none;
-
 }
 
 .introjs-helperNumberLayer{
     top:-7px;
     margin-left:10px;
 }
-
 
 .footnote{
     padding-left:20px;
@@ -1296,16 +1209,12 @@ div.clickToMapInfo {
     position:absolute;
 	background-color: #444;
 	background-image: -moz-linear-gradient(top, #444, #444);
-    position:absolute;
-	color: #FFFFFF;
 	padding: 4px 4px 4px 6px;
 	border-radius: 6px;
 	box-shadow: 0px 0px 20px #999;
 	margin: 25px;
-	/*min-height: 50px;*/
 	border: 1px solid #333;
 	text-shadow: 2 0 1px #000;
-	/*box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;*/
     color:#F8981D;
     font-weight:bold !important;
     font: 13px Verdana;
@@ -1364,7 +1273,6 @@ div.clickToMapInfo {
 #close_button{
     cursor:pointer;
     text-deocration:none;
-    font-family:Tahoma,Verdana,sans-serif;
     color:#EFEFEF;
     position:relative;
     top:0px;
@@ -1400,6 +1308,7 @@ div#pop-up {
     box-shadow: 1px 1px 6px #999;
     font-size: 11px;
 }
+
 .alertify{
     top:200px;
 }

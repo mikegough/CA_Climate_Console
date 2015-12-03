@@ -28,7 +28,7 @@ function createColumnChart(){
               chart: {
                     type: 'column',
                     width:477,
-                    height:360,
+                    height:340,
                     marginRight:35,
                 },
                 credits: {
@@ -38,7 +38,7 @@ function createColumnChart(){
                 exporting: {
                     enabled:true,
                     allowHTML:true,
-                    filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + "Model_Results",
+                    filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + "EEMS_Model_Results",
                     chartOptions: {
                         chart:{
                             height:450,
