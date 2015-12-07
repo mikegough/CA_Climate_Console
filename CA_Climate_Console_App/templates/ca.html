@@ -5,24 +5,24 @@
 
 <script> var static_url="{{STATIC_URL}}" </script>
 
-<!-- Config -->
+<!-- Configuration File -->
 <script src="{{STATIC_URL}}js/{{config_file}}"></script>
 
 <!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
 <script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
 
 <!-- Alertify -->
-<script src="{{STATIC_URL}}deps/js/alertify.js-0.3.11/src/alertify.js"></script>
+<script src="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/src/alertify.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/js/alertify.js-0.3.11/themes/alertify.core.css">
 <!-- include a theme, can be included into the core instead of 2 separate files -->
 <link rel="stylesheet" href="{{STATIC_URL}}deps/js/alertify.js-0.3.11/themes/alertify.default.css">
 
 <!-- Leaflet -->
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.css" />
 
 <!-- ESRI Leaflet -->
-<script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+<script src="{{STATIC_URL}}deps/ESRI_Leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
 
 <!-- Leaflet.draw -->
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.js"></script>
@@ -32,39 +32,39 @@
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.css" />
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.js"></script>
 
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
+
+<script src='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.js'></script>
+<link href='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
 
 <!-- Omnivore -->
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+<script src='{{STATIC_URL}}deps/Leaflet/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
 
 <!-- Geonames -->
 <script src="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.css" />
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="{{STATIC_URL}}deps/font-awesome/4.2.0/font-awesome.min.css" />
 
 <!-- Jquery-->
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
 
-<!-- tabs -->
-<script src="{{STATIC_URL}}deps/js/tabcontent.js" type="text/javascript"></script>
-<link href="{{STATIC_URL}}css/tabcontent.css" rel="stylesheet" type="text/css" />
+<!-- Tabs -->
+<script src="{{STATIC_URL}}deps/TabContent/tabcontent.js" type="text/javascript"></script>
+<link href="{{STATIC_URL}}deps/TabContent/tabcontent.css" rel="stylesheet" type="text/css" />
 
 <!-- Highcharts -->
 <!-- Latest Stable Version v4.1.5 as of 5/6/2015. Latest version at http://code.highcharts.com/highcharts.js -->
-<script type='text/javascript' src="http://code.highcharts.com/4.1.5/highcharts.js"></script>
-<!-- The latest version broke my app: <script src="http://code.highcharts.com/highcharts-more.js"></script>-->
-<script src="http://code.highcharts.com/4.1.0/highcharts-more.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_4.1.5/highcharts.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_more_4.1.0/highcharts-more.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_exporting_4.1.10/exporting.js"></script>
 
 <!-- Messi -->
-<link rel="stylesheet" href="{{STATIC_URL}}deps/css/messi.css" />
-<script src="{{STATIC_URL}}deps/js/messi.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Messi/messi.css" />
+<script src="{{STATIC_URL}}deps/Messi/messi.js"></script>
 
 <!--selectBoxIt (Styled Select Boxes) -->
-<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}css/selectBoxIt.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-<script src="{{STATIC_URL}}deps/js/jquery.selectBoxIt.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}deps/SelectBoxIt/css/jquery.selectBoxIt.css" />
+<script src="{{STATIC_URL}}deps/SelectBoxIt/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="{{STATIC_URL}}deps/SelectBoxIt/js/jquery.selectBoxIt.min.js"></script>
 
 <!-- Slide Out Menu -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/SlidePushMenus/css/default.css" />
@@ -75,23 +75,22 @@
 <script src="{{STATIC_URL}}deps/SlidePushMenus/js/classie.js"></script>
 
 <!-- intro.js -->
-<script src="{{STATIC_URL}}deps/js/intro.js"></script>
-<link rel="stylesheet" href="{{STATIC_URL}}deps/css/introjs.css" />
+<script src="{{STATIC_URL}}deps/IntroJS/intro.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
 
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/box_plot.js"></script>
 <script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
-<!--<script src="{{STATIC_URL}}Highcharts/noaa_3_month_sync.js"></script>-->
 <script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
 
 <script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
 
-<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
+
 <!-- My JS -->
 <script src="{{STATIC_URL}}js/general_js.js"></script>
 
