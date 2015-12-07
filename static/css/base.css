@@ -348,6 +348,193 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 }
 
+#climate_quick_view_map_table{
+    position:absolute;
+    z-index:100;
+    right:540px;
+    top:128px;
+    width:210px;
+    font-weight:normal;
+    border: 1px solid #C0D0E0;
+    border-collapse: collapse;
+    box-shadow:0px 1px 5px rgba(0, 0, 0, 0.4)
+}
+
+#climate_quick_view_map_table th{
+    border:1px solid #C0D0E0;
+    height: 20px !important;
+    max-height: 20px !important;
+    min-height: 20px !important;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    background-color: #EDEDED;
+    color: #606060;
+    padding: 3px;
+}
+
+#climate_quick_view_map_table td{
+    border:1px solid #C0D0E0;
+    color:#606060;
+    text-align:center;
+    vertical-align:middle;
+    height: 10px !important;
+    max-height:10px !important;
+    min-height:10px !important;
+    font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+    font-weight:normal;
+    background: rgba(255, 255, 255, .8);
+    padding:4px;
+}
+
+.arrow_dir_map{
+    position:relative;
+    top: 3px;
+    font-size:1.5em;'
+    color: #444444;
+}
+
+.quick_therm_map{
+    position:relative;
+    top:1px;
+    font-size:1.6em;
+}
+
+.quick_rain_map{
+    position:relative;
+    font-size:1.4em;
+    top:-5px;
+}
+
+.quick_value_map{
+    font-size:14px;
+}
+
+.quick_value_map_range{
+    font-size:10px;
+    color:gray;
+    position:relative;
+    left:10px;
+    font-weight:normal;
+}
+
+
+#climate_quick_view{
+    width:100%;
+    text-align:center;
+    margin-top:20px;
+}
+
+#climate_quick_view_table{
+    width:400px;
+    font-weight:normal;
+    border: 1px solid #C0D0E0;
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#climate_quick_view_table th {
+    font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+    height:32px;
+    font-size:15px;
+    background-color:#EDEDED;
+    color:#606060;
+    font-weight:normal;
+}
+
+#climate_quick_view_table td{
+    border:1px solid #C0D0E0;
+    color:#606060;
+    /*text-align:center;*/
+    text-align:left;
+    vertical-align:middle;
+    min-height:100px;
+    height:100px;
+    padding:10px;
+    /*
+    width:33.33%;
+    */
+    font-size:13px;
+}
+
+.climate_quick_view_label_column{
+    font-size:11px;
+    white-space:nowrap;
+    width:12px !important;
+    max-width:12px !important;
+    background-color:#EDEDED;
+    padding:4px !important;
+}
+
+
+.climate_quick_view_label_div{
+    position:relative;
+    top:20px;
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+
+/*
+#climate_quick_view_table tr:last-child td{
+    height: 20px !important;
+    max-height:20px !important;
+    min-height:20px !important;
+    font-family:"Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    font-weight:normal;
+    background-color: #EDEDED;
+    color: #606060;
+    padding:3px;
+
+}
+*/
+
+.quick_therm_tmax{
+    color:#DB3F02;
+    font-size:4em;
+}
+
+.quick_therm_tmin{
+    color:#4575B5;
+    font-size:4em;
+}
+
+.quick_rain{
+    color:#4575B5;
+    font-size:4em;
+    position:relative;
+    top:-7px;
+}
+
+.arrow_dir{
+    position:relative;
+    top: 3px;
+    font-size:4em;
+    color:black;
+}
+
+.quick_value{
+    font-size:20px;
+}
+
+.quick_value_range{
+    font-size:10px;
+    color:gray;
+    position:relative;
+    left:10px;
+    font-weight:normal;
+}
+
 #selectedFeaturesTable {
     width:96%;
 }

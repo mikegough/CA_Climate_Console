@@ -67,6 +67,15 @@ def index(request):
 
         config_file="config_utah.js"
 
+    elif studyarea=='dev':
+
+        if table == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        template='ca_dev'
+        config_file="config_ca.js"
+
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
     cursor = connection.cursor()

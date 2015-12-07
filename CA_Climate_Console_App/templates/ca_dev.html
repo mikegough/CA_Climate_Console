@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="{{STATIC_URL}}deps/js/alertify.js-0.3.11/themes/alertify.default.css">
 
 <!-- Leaflet -->
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.css" />
 
 <!-- ESRI Leaflet -->
 <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
@@ -150,6 +150,66 @@
     </ul>
 </span>
 
+<!--
+<table id="climate_quick_view_map_table">
+    <tr>
+        <th>
+        </th>
+        <th class="climate_quick_view_date_map_td">
+            2016-2045
+        </th>
+        <th class="climate_quick_view_date_map_td">
+            2046-2075
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <div class="quick_therm_map"><i class="wi wi-thermometer" style="color:#DB3F02;"></i></div>
+        </td>
+        <td>
+            <script>
+                document.write("<span class='arrow_dir_map'><i class='wi wi-rotate-" + '0' + " wi-direction-up'></i></span> <span class='quick_value_map'>"+ '1.8' + " &deg;F</span><br>")
+            </script>
+        </td>
+        <td>
+            <script>
+                document.write("<span class='arrow_dir_map'><i class='wi wi-rotate-" + '0' + " wi-direction-up'></i></span> <span class='quick_value_map'>"+ '2.9' + " &deg;F</span><br>")
+            </script>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="quick_therm_map"><i class="wi wi-thermometer" style="color:#4575B5;"></i></div>
+        </td>
+        <td>
+            <script>
+                document.write("<span class='arrow_dir_map'><i class='wi wi-rotate-" + '0' + " wi-direction-up'></i></span> <span class='quick_value_map'>"+ '1.6' + " &deg;F</span><br>")
+            </script>
+        </td>
+        <td>
+            <script>
+                document.write("<span class='arrow_dir_map'><i class='wi wi-rotate-" + '0' + " wi-direction-up'></i></span> <span class='quick_value_map'>"+ '2.4' + " &deg;F</span><br>")
+            </script>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="quick_rain_map"><i class="wi wi-rain-mix" style="color: #4575B5;"></i></div>
+        </td>
+        <td>
+            <script>
+                document.write("<span class='arrow_dir_map'><i class='wi wi-rotate-" + '0' + " wi-direction-up'></i></span> <span class='quick_value_map'>"+ '.7' + " in</span><br>")
+            </script>
+        </td>
+        <td>
+            <script>
+                document.write("<span class='arrow_dir_map'><i class='wi wi-rotate-" + '180' + " wi-direction-up'></i></span>  <span class='quick_value_map'>"+ '.2' + " in</span><br>")
+            </script>
+        </td>
+    </tr>
+</table>
+-->
+
 <div id="map_and_charts_container">
 
     <div id="map"></div>
@@ -190,9 +250,9 @@
     <div id="tab_container">
         <!--data-persist="true" keeps the current tab active on page refresh-->
         <ul class="tabs" data-persist="false">
-            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Charts</a></li>
-            <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Current Selection</a></li>
+            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Climate</a></li>
             <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather Forecast</a></li>
+            <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">EEMS</a></li>
             <li><a href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
 
         </ul>
@@ -257,44 +317,173 @@
                 <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
 
                 <div id="point_chart_description"></div>
-
+                <!--
                 <div class="gradientDivisionLine"></div>
 
                 <div id="column_chart"></div>
+                -->
 
-            </div>
 
-            <div id="view2"></div>
+                <div id="climate_quick_view">
 
-            <div id="view3">
+                    {% comment %}
+                    <table id="climate_quick_view_table">
+                        <tr>
+                            <th colspan="3">
+                                Quick View (Ensemble Averages)
+                            </th>
+                        </tr>
 
-                <h3>Summary:</h3>
+                        <!-- TMAX -->
+                        <tr>
+                            <td>
+                                <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
+                            </td>
+                            <td>
+                                 <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
+                                 <span class='quick_value'><span id="quick_value_tmax_t1">1.8</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
+                                 <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                            <td>
+                                 <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
+                                 <span class='quick_value'><span id="quick_value_tmax_t2">2.9</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
+                                 <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t2">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
 
-                The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
-                <p>
-                The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
+                        <!-- TMIN -->
+                        <tr>
+                            <td>
+                                <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
+                            </td>
+                            <td>
+                                <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
+                                <span class='quick_value'><span id="quick_value_tmin_t1">1.6</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmin_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                            <td>
+                                <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
+                                <span class='quick_value'><span id="quick_value_tmin_t2">2.4</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
+                                <!-- <span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmin_t2">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
 
-                <p>
+                        <!-- PRECIP -->
+                        <tr>
+                            <td>
+                                <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
+                            </td>
+                            <td>
+                                <span class='arrow_dir'><span id="arrow_dir_precip_t1"><i class='wi wi-rotate-0  wi-direction-up'></i></span></span>
+                                <span class='quick_value'><span id="quick_value_precip_t1">1.6</span></span><span class="quick_value_precip_units">%</span><br>
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_precip_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                            <td>
+                                <span class='arrow_dir'><span id="arrow_dir_precip_t2"><i class='wi wi-rotate-0  wi-direction-up'></i></span></span>
+                                <span class='quick_value'><span id="quick_value_precip_t2">2.4</span></span><span class="quick_value_precp_units">%</span><br>
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_precip_t2">1.5-3.4</span>)</div></span>-->
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td class="climate_quick_view_date_td">
+                                    2016-2045
+                                </td>
+                                <td class="climate_quick_view_date_td">
+                                    2046-2075
+                                </td>
+                            </tr>
+                        </table>
 
-                <h3>Instructions for Use: </h3>
+                    {% endcomment %}
+                    <table id="climate_quick_view_table">
+                        <tr>
+                            <th colspan="2">
+                                A quick look at what the model averages are saying
+                            </th>
+                        </tr>
 
-               <ol>
-                    <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
+                        <!-- TMAX -->
+                        <tr>
+                            <td style="max-width:30px;text-align:center">
+                                <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
+                            </td>
+                            <td>
+                                The average maximum temperature in <span id="quick_view_place_name"> the selected area <span> is expected to increase by
+                                <p>
+                                <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
+
+                        <!-- TMIN -->
+                        <tr>
+                            <td style="max-width:30px; text-align:center">
+                                <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
+                            </td>
+                            <td>
+                                The average minimum temperature in <span id="quick_view_place_name"> the selected area <span> is expected to increase by
+                                <p>
+                                <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
+
+                        <!-- PRECIP -->
+                        <tr>
+                            <td>
+                                <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
+                            </td>
+                            <td>
+                                The average precipitation level in <span id="quick_view_place_name"> the selected area <span> is expected to <span id="increase_or_decrease_precip_t1"></span>  by
+                                <p>
+                                <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_temp_units">%</span> over the next 30 years<br>
+                                <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_temp_units">%</span> over the 30 years after that
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
+                    </table>
+
+                    </div>
+
+                    </div>
+
+                </div>
+
+                <div id="view2"></div>
+
+                <div id="view3">
+
+                    <h3>Summary:</h3>
+
+                    The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
                     <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                    The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
+
                     <p>
-                    <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png">.</li>
-                   <p>
-                   <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
-                   <p>
-                    <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
-                   <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
-                   <p>
-                    <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
-                   <!--
-                    <li>Click the "variability" link in the point chart description to view box plots of the data.
-                    -->
+
+                    <h3>Instructions for Use: </h3>
+
+                   <ol>
+                        <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                        <p>
+                        <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png">.</li>
+                       <p>
+                       <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                       <p>
+                        <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
+                       <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                       <p>
+                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
+                       <!--
+                        <li>Click the "variability" link in the point chart description to view box plots of the data.
+                        -->
 
                </ol>
 
