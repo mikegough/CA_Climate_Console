@@ -360,6 +360,7 @@ function create_post(newWKT) {
                 findAndReplace(resultsJSON)
             }
 
+            //Update Quick Table
             $('#quick_value_tmax_t1').html(resultsJSON['eetmads0t1_avg'])
             $('#quick_value_tmax_t2').html(resultsJSON['eetmads0t2_avg'])
 
@@ -392,6 +393,7 @@ function create_post(newWKT) {
                 $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
                 $('#increase_or_decrease_precip_t2').html("increase ")
             }
+
 
             initialize=response.initialize;
 
@@ -447,7 +449,6 @@ function create_post(newWKT) {
                createChart('tmax', 'avg', 's0')
             }
             createColumnChart()
-
         },
 
         // handle a non-successful response

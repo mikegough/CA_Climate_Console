@@ -13,13 +13,25 @@
 
 <!-- Alertify -->
 <script src="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/src/alertify.js"></script>
-<link rel="stylesheet" href="{{STATIC_URL}}deps/js/alertify.js-0.3.11/themes/alertify.core.css">
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.core.css">
 <!-- include a theme, can be included into the core instead of 2 separate files -->
-<link rel="stylesheet" href="{{STATIC_URL}}deps/js/alertify.js-0.3.11/themes/alertify.default.css">
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertfy/alertify.js-0.3.11/themes/alertify.default.css">
+
+<!-- JIT -->
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/base.css" rel="stylesheet" />
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/Spacetree.css" rel="stylesheet" />
+
+<script src="{{STATIC_URL}}deps/Jit/Jit-2.0.1/jit.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Spacetree.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/terrestrial_intactness.json"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/ecological_values.json"></script>
+
+
 
 <!-- Leaflet -->
-<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>
-<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.css" />
+<!--<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>-->
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 
 <!-- ESRI Leaflet -->
 <script src="{{STATIC_URL}}deps/ESRI_Leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
@@ -42,7 +54,7 @@
 <!-- Geonames -->
 <script src="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.css" />
-<link rel="stylesheet" href="{{STATIC_URL}}deps/font-awesome/4.2.0/font-awesome.min.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
 
 <!-- Jquery-->
 <script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
@@ -77,6 +89,9 @@
 <!-- intro.js -->
 <script src="{{STATIC_URL}}deps/IntroJS/intro.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
+
+
+
 
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
@@ -115,7 +130,8 @@
 
 </head>
 
-<body onload="acquireNearTermClimate();">
+<body onload="acquireNearTermClimate()">
+
 
     <!-- Slide Out Menu -->
     <div id="SlideOutMenuDiv">
@@ -190,19 +206,25 @@
         <!--data-persist="true" keeps the current tab active on page refresh-->
         <ul class="tabs" data-persist="false">
             <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Climate</a></li>
-            <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather Forecast</a></li>
-            <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">EEMS</a></li>
+            <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
+            <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
+            <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
+            <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
+            <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
             <li><a href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
 
         </ul>
 
         <div class="tabcontents">
 
+            <!--
             <div id="clickToMapInfo" class="clickToMapInfo"><span><span id="infoCircle" class="introjs-helperNumberLayer">i</span><span style="margin-left:19px">Click any Point to Map the Data</span></span><a onclick="this.parentNode.style.visibility='hidden'; document.getElementById('infoCircle').style.visibility='hidden'">
               <span id="close_button"> ✖ </span></a>
             </div>
+            -->
 
-            <div id="view1">
+            <div id="view1" class="views">
+
                 <div class="select_container_2">
                     <form class="select_form2">
                         <div class="styled-select2" id="ss1">
@@ -255,91 +277,14 @@
 
                 <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
 
-                <div id="point_chart_description"></div>
-                <!--
-                <div class="gradientDivisionLine"></div>
-
-                <div id="column_chart"></div>
-                -->
-
+                <div style="display:none" id="point_chart_description"></div>
 
                 <div id="climate_quick_view">
 
-                    {% comment %}
-                    <table id="climate_quick_view_table">
-                        <tr>
-                            <th colspan="3">
-                                Quick View (Ensemble Averages)
-                            </th>
-                        </tr>
-
-                        <!-- TMAX -->
-                        <tr>
-                            <td>
-                                <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
-                            </td>
-                            <td>
-                                 <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
-                                 <span class='quick_value'><span id="quick_value_tmax_t1">1.8</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
-                                 <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
-                            </td>
-                            <td>
-                                 <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
-                                 <span class='quick_value'><span id="quick_value_tmax_t2">2.9</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
-                                 <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t2">1.5-3.4</span>)</div></span>-->
-                            </td>
-                        </tr>
-
-                        <!-- TMIN -->
-                        <tr>
-                            <td>
-                                <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
-                            </td>
-                            <td>
-                                <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
-                                <span class='quick_value'><span id="quick_value_tmin_t1">1.6</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
-                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmin_t1">1.5-3.4</span>)</div></span>-->
-                            </td>
-                            <td>
-                                <span class='arrow_dir'> <i class='wi wi-rotate-0  wi-direction-up'></i></span>
-                                <span class='quick_value'><span id="quick_value_tmin_t2">2.4</span></span>&deg;<span class="quick_value_temp_units">C</span><br>
-                                <!-- <span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmin_t2">1.5-3.4</span>)</div></span>-->
-                            </td>
-                        </tr>
-
-                        <!-- PRECIP -->
-                        <tr>
-                            <td>
-                                <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
-                            </td>
-                            <td>
-                                <span class='arrow_dir'><span id="arrow_dir_precip_t1"><i class='wi wi-rotate-0  wi-direction-up'></i></span></span>
-                                <span class='quick_value'><span id="quick_value_precip_t1">1.6</span></span><span class="quick_value_precip_units">%</span><br>
-                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_precip_t1">1.5-3.4</span>)</div></span>-->
-                            </td>
-                            <td>
-                                <span class='arrow_dir'><span id="arrow_dir_precip_t2"><i class='wi wi-rotate-0  wi-direction-up'></i></span></span>
-                                <span class='quick_value'><span id="quick_value_precip_t2">2.4</span></span><span class="quick_value_precp_units">%</span><br>
-                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_precip_t2">1.5-3.4</span>)</div></span>-->
-                            </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                </td>
-                                <td class="climate_quick_view_date_td">
-                                    2016-2045
-                                </td>
-                                <td class="climate_quick_view_date_td">
-                                    2046-2075
-                                </td>
-                            </tr>
-                        </table>
-
-                    {% endcomment %}
                     <table id="climate_quick_view_table">
                         <tr>
                             <th colspan="2">
-                                A quick look at what the model averages are saying
+                                <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
                             </th>
                         </tr>
 
@@ -382,19 +327,22 @@
                                 <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_temp_units">%</span> over the next 30 years<br>
                                 <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_temp_units">%</span> over the 30 years after that
                                 <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                <p>
+                                <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
                             </td>
                         </tr>
                     </table>
 
-                    </div>
-
-                    </div>
-
                 </div>
 
-                <div id="view2"></div>
+            </div>
 
-                <div id="view3">
+
+            <!--
+            <div id="view2" class="views"></div>
+            -->
+
+            <div id="view3" class="views">
 
                     <h3>Summary:</h3>
 
@@ -525,7 +473,7 @@ The time series climate data used to represent the historical period (1971-2000)
 
             </div>
 
-            <div id="view4">
+            <div id="view4" class="views">
                 <div class="nearTermClimateFormDiv">
 
                     <div class="nearTermHeader">Three Month Forecast in Climate Division <span id="climateDivision"></span></div>
@@ -599,6 +547,31 @@ The time series climate data used to represent the historical period (1971-2000)
                 <br>
                 <br>
 
+            </div>
+
+            <div id="view5" class="views">
+                <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Fuzzy Logic Model Results</span></div>
+                <div id="column_chart"></div>
+                <div id="container">
+                    <div id="log">
+                        <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
+                        <div id="initialTreeInfo">
+                            <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
+                        </div>
+                    </div>
+
+                <div id="infovis"></div>
+
+                <div id="right-container" style="visibility:hidden">
+                     <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
+                </div>
+
+                </div>
+
+            </div>
+
+            <div id="view6">
+                <div class="nearTermHeader" style="line-height:30px;">The State of California: <div style="font-size:.9em">Diversity, Change, and Adaptation</div></div>
             </div>
 
         </div>

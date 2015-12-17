@@ -27,7 +27,10 @@ function createColumnChart(){
         $('#column_chart').highcharts({
               chart: {
                     type: 'column',
+                    /*
                     width:477,
+                    */
+                    width:450,
                     height:340,
                     marginRight:35,
                 },
@@ -45,7 +48,7 @@ function createColumnChart(){
                             width:600,
                             margin:100,
                             marginBottom:130,
-                            marginLeft:130,
+                            marginLeft:140,
                         },
                         legend: {
                             y:-10
@@ -176,6 +179,15 @@ function createColumnChart(){
                                 click: function() {
                                     var layerToAdd = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
 
+                                    //Update MEEMSE2.0 values
+                                    //Clear out the div containing the model diagram
+                                    $('#infovis').html('')
+                                    modelForTree=layerToAdd
+                                    //Define the json variable based on the layerToAdd  Name
+                                    defineJSONtree()
+                                    //Create the tree.
+                                    init()
+
                                     // Workaround to getting the last bar clicked to show up on top
                                     // Simply remove the other ones if they're in the map.
 
@@ -192,9 +204,9 @@ function createColumnChart(){
                                     // End Workaround
 
                                     if (layerToAdd){
-                                         swapImageOverlay(layerToAdd,'EEMSmodel')
-                                         swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
-                                        //window.open(layerToAdd);
+                                         //swapImageOverlay(layerToAdd,'EEMSmodel')
+                                         //swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
+                                         //window.open(layerToAdd);
                                         // toggleLayer(layerToAdd)
                                     }
 

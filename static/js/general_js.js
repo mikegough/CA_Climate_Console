@@ -597,10 +597,28 @@ function showInfoPopup(layerToDescribe){
 
 $(window).load(function(){
 
+    // Original method for loading JSON files for JIT. parseJSON is too strict about the JSON format.
+    // Load in header of HTML file instead.
+    /*
+    $.ajax(static_url + "Jit/My_Jit/Jit_Models/terrestrial_intactness.json", {
+                dataType: 'text',
+                async: false,
+                success: function (data) {
+                    json_eecefz = $.parseJSON(data);
+                },
+                error : function(xhr,errmsg,err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    console.log("Problem loading json file");
+                }
+    });
+    */
+
      //Comment out to prevent spinner on click. Uncomment in the map draw function.
     $(document).ajaxStart(function(){
         $("#view1").css("opacity", ".1");
         $("#view2").css("opacity", ".1");
+        $("#view3").css("opacity", ".1");
+        $("#view5").css("opacity", ".1");
         $("#initialization_container").css("background-color", "white");
         $("#initialization_text").css("opacity", "0");
         $(".loading").css("display", "block");
@@ -609,10 +627,19 @@ $(window).load(function(){
     $(document).ajaxComplete(function(){
         $("#view1").css("opacity", "1");
         $("#view2").css("opacity", "1");
+        $("#view3").css("opacity", "1");
+        $("#view5").css("opacity", "1");
         $(".loading").css("display", "none");
         //Handles case where initial selection is made using draw tools, and no features selected. Show getting started info again.
         $("#initialization_text").css("opacity", "1");
         //map.removeLayer(layer)
+
+        //Update MEEMSE2.0 values
+        if (typeof st != 'undefined') {
+            defineJSONtree()
+            st.loadJSON(json)
+            st.refresh()
+        }
 
     });
 
