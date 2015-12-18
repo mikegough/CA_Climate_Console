@@ -184,13 +184,14 @@ function createColumnChart(){
                                     $('#infovis').html('')
                                     modelForTree=layerToAdd
                                     eems_file_name=EEMSParams['models'][modelForTree][6]
+                                    top_node=EEMSParams['models'][modelForTree][7]
                                     $.ajax({
                                         url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
                                         //Webfactional
                                         //url : "/enerate_eems_tree", // the endpoint
                                         async: false,
                                         type: "POST", // http method
-                                        data: {eems_file_name: eems_file_name},
+                                        data: {eems_file_name: eems_file_name, top_node: top_node},
 
                                         success: function (results) {
                                             response=JSON.parse(results)

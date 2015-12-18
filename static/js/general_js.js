@@ -590,7 +590,7 @@ function showInfoPopup(layerToDescribe){
 
     var dbid=EEMSParams['models'][layerToDescribe][5]
     title=EEMSParams['models'][layerToDescribe][0]
-    description=EEMSParams['models'][layerToDescribe][7]
+    description=EEMSParams['models'][layerToDescribe][8]
     new Messi(description, {title: title, center:true, width:'1000px', modal:true, modalOpacity:.4,center: true});
 
 }

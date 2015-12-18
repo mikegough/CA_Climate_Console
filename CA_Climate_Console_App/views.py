@@ -342,7 +342,7 @@ def downscale(request):
 #Needs to be added to urls.py
 def generate_eems_tree(request):
 
-    dataset=r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\GIS\Scripts\EEMS_Command_Files\CAClimateExposure.nc"
+    dataset=''
     eems_file_name=request.POST.get("eems_file_name")
     eems_file_directory="static/config/eems"
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
@@ -361,11 +361,11 @@ def generate_eems_tree(request):
         elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
             eems_version=2
             print eems_version
-            top_node='HighDirectClimateExposureFz'
+            top_node=request.POST.get("top_node")
 
         else:
             eems_version=2
-            top_node='HighDirectClimateExposureFz'
+            top_node=request.POST.get("top_node")
 
 
     aliases={}
