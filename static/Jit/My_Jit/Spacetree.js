@@ -325,8 +325,12 @@ function init(){
         
         onAfterCompute: function(){
             Log.write("Click any node to view inputs");
-            $(".EEMS_Tree_Value").remove()
-            $("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
+            //$(".EEMS_Tree_Value").remove()
+            //$("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
+            if (typeof resultsJSON[modelForTree+"_avg"] != 'undefined') {
+                $(".EEMS_Tree_Value").remove()
+                $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree+"_avg"] + "</div>")
+            }
         },
                 onPlaceLabel: function(label, node, controllers){
             //override label styles

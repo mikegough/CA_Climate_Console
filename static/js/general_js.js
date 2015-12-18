@@ -640,13 +640,11 @@ $(window).load(function(){
             //st.loadJSON(json)
             //st.refresh()
             //Temporary proof of concept
-            $(".EEMS_Tree_Value").remove()
-            $("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
+            //$(".EEMS_Tree_Value").remove()
+            //$("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
 
-            if (typeof resultsJSON[modelForTree] != 'undefined') {
-                $(".EEMS_Tree_Value").remove()
-                $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree] + "</div>")
-            }
+            $(".EEMS_Tree_Value").remove()
+            $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree + "_avg"] + "</div>")
         }
 
     });

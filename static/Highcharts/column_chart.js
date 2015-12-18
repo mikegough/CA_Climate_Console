@@ -211,7 +211,6 @@ function createColumnChart(){
                                      //defineJSONtree()
                                      //Create the tree.
 
-
                                     // Workaround to getting the last bar clicked to show up on top
                                     // Simply remove the other ones if they're in the map.
 
@@ -228,8 +227,8 @@ function createColumnChart(){
                                     // End Workaround
 
                                     if (layerToAdd){
-                                         //swapImageOverlay(layerToAdd,'EEMSmodel')
-                                         //swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
+                                         swapImageOverlay(layerToAdd,'EEMSmodel')
+                                         swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
                                          //window.open(layerToAdd);
                                         // toggleLayer(layerToAdd)
                                     }

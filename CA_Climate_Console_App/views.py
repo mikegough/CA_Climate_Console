@@ -68,6 +68,7 @@ def index(request):
             table="utah_cop_reporting_units_blm_admin_units_1_5_simplify"
             categoricalFields="name"
 
+        template='template1'
         config_file="config_utah.js"
 
     elif studyarea=='dev':
@@ -342,35 +343,37 @@ def downscale(request):
 #Needs to be added to urls.py
 def generate_eems_tree(request):
 
-    dataset=''
+    #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
+    from EEMSBasePackage import EEMSCmd, EEMSProgram
+
     eems_file_name=request.POST.get("eems_file_name")
+    print eems_file_name
+    top_node=request.POST.get("top_node")
+
     eems_file_directory="static/config/eems"
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
+    eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
+
+    dataset=''
+
+    #Determine EEMS v1 or EEMS v2
     if os.path.isfile(eems_file):
         eems_file_handle= open(eems_file,"r")
         for line in eems_file_handle:
-            pass
-        lastLine=line
-        print lastLine
+            if re.match(r'^[a-zA-Z0-9_ ]+:', line):
+                eems_version=1
+                #top_node=lastLine.split(':')[0]
+                break
+
+            elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
+                eems_version=2
+                break
+
         global eems_version
-        if re.match(r'^[a-zA-Z0-9_ ]+:', lastLine):
-            eems_version=1
-            print eems_version
-            top_node=lastLine.split(':')[0]
-
-        elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
-            eems_version=2
-            print eems_version
-            top_node=request.POST.get("top_node")
-
-        else:
-            eems_version=2
-            top_node=request.POST.get("top_node")
-
 
     aliases={}
 
-    eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
+    #Get Aliases
     if os.path.isfile(eems_alias_file):
         eems_alias_file_handle=open(eems_alias_file,"r")
         for line in eems_alias_file_handle:
@@ -381,29 +384,6 @@ def generate_eems_tree(request):
            aliases[fieldname]=alias
 
         eems_alias_file_handle.close()
-
-
-    #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
-    from EEMSBasePackage import EEMSCmd, EEMSProgram
-
-    def get_eems_parser(command_file, dataset_model):
-        """
-        A factory method for retrieving the correct EEMS parser for the particular file.
-        """
-        lines_read = 0
-        for line in command_file:
-            #return EEMSOneFileParser(command_file, dataset_model)
-
-            if re.match(r'^[a-zA-Z0-9_ ]+:', line):
-                return EEMSOneFileParser(command_file, dataset_model)
-            elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
-                return EEMSTwoFileParser(command_file, dataset_model)
-            else:
-                lines_read += 1
-                if lines_read > 50:
-                    break
-
-        #raise ValueError(_('File is not a valid EEMS command file.'))
 
     class EEMSFileParser(object):
         """
@@ -610,7 +590,6 @@ def generate_eems_tree(request):
         def get_model(self, validate=True):
             command_model = {'nodes': {}}
 
-            print self.uploaded_file
             program = EEMSProgram(self.uploaded_file)
             for eems_command in program.orderedCmds:
                 command_name = eems_command.GetCommandName()
@@ -668,6 +647,7 @@ def generate_eems_tree(request):
     #for attr in (a for a in dir(eems_one_file_parser) if not a.startswith('_')):
     #    print attr
 
+    #Get Original JSON from Mike's Parser
     if eems_version == 1:
 
         eems_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
@@ -681,9 +661,9 @@ def generate_eems_tree(request):
         for k,v in JSON.iteritems():
             JSON=v
 
-    #Create new restructured JSON (JSON2)
-    #Separate into data key and children key
+    #Create new restructured JSON (JSON2) compatible with JIT, separate innto data key and children key
     JSON2={}
+
     for key,value in JSON.iteritems():
         JSON2[key]={}
         JSON2[key]['data']={}
@@ -698,28 +678,32 @@ def generate_eems_tree(request):
 
     if eems_version == 1:
         JSON2.pop('nodes')
-    #print json.dumps(JSON2, indent=4, sort_keys=True)
 
-    #Expand the pointers to children
-    def expandChildren(JSON):
-        for k, v in JSON.iteritems():
-            JSON[k]['name']=k
-            JSON[k]['id']=k
+    #for making the aliases file
+    for k,v in JSON2.iteritems():
+        print k + ":" + k
+
+    #Expand the pointers to children for each key
+    #each variable become it's own key containing a completed dictinonary of all its children
+    def expandChildren(JSON2):
+        for k, v in JSON2.iteritems():
+            JSON2[k]['name']=k
+            JSON2[k]['id']=k
             child_list=[]
-            if isinstance(v, dict) and JSON[k].has_key('children'):
-              for child in JSON[k]['children']:
+            if isinstance(v, dict) and JSON2[k].has_key('children'):
+              for child in JSON2[k]['children']:
                   child_list.append(child)
-              JSON[k].pop('children')
-              JSON[k]['children']=[]
-              JSON[k]['children'].append({})
+              JSON2[k].pop('children')
+              JSON2[k]['children']=[]
+              JSON2[k]['children'].append({})
               for child in child_list:
-                  JSON[k]['children'][0][child]=JSON[child]
+                  JSON2[k]['children'][0][child]=JSON2[child]
             else:
               pass
-        return JSON
+        return JSON2
 
     #Print the JSON Tree
-    def printJSONtree(d):
+    def createFinalJSONString(d):
         global eems_tree
         eems_tree+='"id": ' + "'" + d['id'] + "',"
         if d['name'] in aliases:
@@ -734,28 +718,22 @@ def generate_eems_tree(request):
             eems_tree+='"children": ['
             for k,v in d['children'][0].iteritems():
                 eems_tree+="{"
-                printJSONtree(v)
+                createFinalJSONString(v)
             eems_tree+="]},"
         else:
             eems_tree+="},"
 
-    finalJSON=expandChildren(JSON2)
+    expandedJSON=expandChildren(JSON2)
+
     global eems_tree
     eems_tree = '{'
 
-    printJSONtree(finalJSON[top_node])
-
-    print eems_tree
-
-    if eems_version == 1:
-        eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
-    else:
-        eems_tree_dict=ast.literal_eval(eems_tree)
+    createFinalJSONString(expandedJSON[top_node])
+    #print json.dumps(JSON2, indent=4, sort_keys=True)
 
     eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
 
     eems_file_handle.close()
-
 
     context={
         'eems_tree_dict': eems_tree_dict,
@@ -763,7 +741,6 @@ def generate_eems_tree(request):
     }
 
     return HttpResponse(json.dumps(context))
-
 
 def getColor(value, parameter):
     """Colors used in the highcharts chart"""

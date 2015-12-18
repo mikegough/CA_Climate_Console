@@ -1,0 +1,7 @@
+HighPrecipitationChangeFz:High Precipitation Change
+HighMaximumTemperatureChangeFz:High Maximum Temperature Change
+HighMinimumTemperatureChangeFz:High Minimum Temperature Change
+HighAridityChangeFz:High Aridity Change
+HighTemperatureChangeFz:High Temperature Change
+HighDirectClimateChangeFz:High Direct Climate Change
+HighClimateExposureFz:High Climate Exposure

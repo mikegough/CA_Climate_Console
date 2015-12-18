@@ -1,0 +1,191 @@
+# Metadata:
+#   Project: BLM Utah COP
+#   Model: High Sensitivity Value
+#   Version: 6.0
+#   Author: Tim Sheehan
+#   RunDate: 2015-07-06 15:09:47.383405
+#   InputInfo: Soil and Solar Radiation data provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+
+# All outputs going to single netCDF file
+
+# Soils data
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/awc.nc,
+    InFieldName = awc, # available water capacity
+    NewFieldName = AvailableWaterCapacity,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+LowAvailableWaterCapacityFz = CVTTOFUZZY(
+    InFieldName = AvailableWaterCapacity,
+    TrueThreshold = 0,
+    FalseThreshold = 10,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/LSKf.nc,
+    InFieldName = lskf, # erodability factor,
+    NewFieldName = WaterErodibilityIndex,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighWaterErodibilityFz = CVTTOFUZZY(
+    InFieldName = WaterErodibilityIndex,
+    TrueThreshold = 0.15,
+    FalseThreshold = 0,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/weg.nc,
+    InFieldName = weg, #erodability factor,
+    NewFieldName = WindErodibilityGroup,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighWindErodibilityFz = CVTTOFUZZY(
+    InFieldName = WindErodibilityGroup,
+    TrueThreshold = 2,
+    FalseThreshold = 7,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/rockdep.nc,
+    InFieldName = rockdep, # depth to bedrock,
+    NewFieldName = DepthToBedrock,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+LowDepthToBedrockFz = CVTTOFUZZY(
+    InFieldName = DepthToBedrock,
+    TrueThreshold = 2,
+    FalseThreshold = 15,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/ph.nc,
+    InFieldName = pH, # soil reaction
+    NewFieldName = SoilpH,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+ExtremeSoilpHFz = CVTTOFUZZYCURVE(
+    InFieldName = SoilpH,
+    RawValues =   [
+        5.50,
+        6.00,
+        6.50,
+        7.50,
+        8.00,
+        8.50
+    ]
+    FuzzyValues =   [
+        1,   # 550,
+        -0.5,  # 600,
+        -1,    # 650,
+        -1,    # 750,
+        -0.5,  # 800,
+        1    # 850,
+    ]
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/salinity.nc,
+    InFieldName = salinity, # soil reaction
+    NewFieldName = Salinity,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighSalinityFz = CVTTOFUZZY(
+    InFieldName = Salinity,
+    TrueThreshold = 16,
+    FalseThreshold = 8,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/nlcdClass.nc,
+    InFieldName = nlcdClass,
+    NewFieldName = NLCDClass,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+IsNotBarrenFz = CVTTOFUZZYCAT(
+    InFieldName = NLCDClass,
+    RawValues = [
+        22, # Low intens dev
+        24, # Hi intens dev
+        31 # Barren land
+        ],
+    FuzzyValues = [
+        -1, # Low intens dev
+        -1, # Hi intens dev
+        -1 # Barren land
+        ],
+    DefaultFuzzyValue = 1,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+)
+
+# PET
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/InputData/petNorm.nc,
+    InFieldName = petNorm,
+    NewFieldName = PotentialEvapoTrans,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighPotentialEvapoTransFz = CVTTOFUZZY(
+    InFieldName = PotentialEvapoTrans,
+    TrueThreshold = 2,
+    FalseThreshold = -2,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighSoilErodibilityFz = OR(
+    InFieldNames = [
+        HighWindErodibilityFz,
+        HighWaterErodibilityFz
+    ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+)
+
+HighSoilSensitivityFz = OR(
+    InFieldNames = [
+        HighSoilErodibilityFz,
+        ExtremeSoilpHFz,
+        LowDepthToBedrockFz,
+        HighSalinityFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+LowSoilWaterFz = UNION(
+    InFieldNames = [
+        HighPotentialEvapoTransFz,
+        LowAvailableWaterCapacityFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighPotentialSiteSensitivityFz = UNION(
+    InFieldNames = [
+        LowSoilWaterFz,
+        HighSoilSensitivityFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+
+HighSiteSensitivityFz = AND(
+    InFieldNames = [
+        HighPotentialSiteSensitivityFz,
+        IsNotBarrenFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc
+    )
+

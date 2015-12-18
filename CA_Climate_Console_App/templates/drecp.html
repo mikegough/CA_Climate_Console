@@ -17,6 +17,15 @@
 <!-- include a theme, can be included into the core instead of 2 separate files -->
 <link rel="stylesheet" href="{{STATIC_URL}}deps/js/alertify.js-0.3.11/themes/alertify.default.css">
 
+<!-- JIT -->
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/base.css" rel="stylesheet" />
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/Spacetree.css" rel="stylesheet" />
+
+<script src="{{STATIC_URL}}deps/Jit/Jit-2.0.1/jit.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Spacetree.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/terrestrial_intactness.json"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/ecological_values.json"></script>
+
 <!-- Leaflet -->
 <script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.css" />
@@ -203,20 +212,26 @@
     <div id="tab_container">
         <!--data-persist="true" keeps the current tab active on page refresh-->
         <ul class="tabs" data-persist="false">
-            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Charts</a></li>
-            <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Current Selection</a></li>
-            <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather Forecast</a></li>
+            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Climate</a></li>
+            <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
+            <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
+            <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
+            <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
+            <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
             <li><a href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
 
         </ul>
 
-        <div class="tabcontents">
+          <div class="tabcontents">
 
+            <!--
             <div id="clickToMapInfo" class="clickToMapInfo"><span><span id="infoCircle" class="introjs-helperNumberLayer">i</span><span style="margin-left:19px">Click any Point to Map the Data</span></span><a onclick="this.parentNode.style.visibility='hidden'; document.getElementById('infoCircle').style.visibility='hidden'">
               <span id="close_button"> ✖ </span></a>
             </div>
+            -->
 
-            <div id="view1">
+            <div id="view1" class="views">
+
                 <div class="select_container_2">
                     <form class="select_form2">
                         <div class="styled-select2" id="ss1">
@@ -269,45 +284,100 @@
 
                 <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
 
-                <div id="point_chart_description"></div>
+                <div style="display:none" id="point_chart_description"></div>
 
-                <div class="gradientDivisionLine"></div>
+                <div id="climate_quick_view">
 
-                <div id="column_chart"></div>
+                    <table id="climate_quick_view_table">
+                        <tr>
+                            <th colspan="2">
+                                <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
+                            </th>
+                        </tr>
+
+                        <!-- TMAX -->
+                        <tr>
+                            <td style="max-width:30px;text-align:center">
+                                <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
+                            </td>
+                            <td>
+                                The average maximum temperature in <span id="quick_view_place_name"> the selected area <span> is expected to increase by
+                                <p>
+                                <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
+
+                        <!-- TMIN -->
+                        <tr>
+                            <td style="max-width:30px; text-align:center">
+                                <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
+                            </td>
+                            <td>
+                                The average minimum temperature in <span id="quick_view_place_name"> the selected area <span> is expected to increase by
+                                <p>
+                                <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                            </td>
+                        </tr>
+
+                        <!-- PRECIP -->
+                        <tr>
+                            <td>
+                                <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
+                            </td>
+                            <td>
+                                The average precipitation level in <span id="quick_view_place_name"> the selected area <span> is expected to <span id="increase_or_decrease_precip_t1"></span>  by
+                                <p>
+                                <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_temp_units">%</span> over the next 30 years<br>
+                                <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_temp_units">%</span> over the 30 years after that
+                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                <p>
+                                <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
 
             </div>
 
-            <div id="view2"></div>
 
-            <div id="view3">
+            <!--
+            <div id="view2" class="views"></div>
+            -->
 
-                <h3>Summary:</h3>
+            <div id="view3" class="views">
 
-                The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
-                <p>
-                The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
+                    <h3>Summary:</h3>
 
-                <p>
-
-                <h3>Instructions for Use: </h3>
-
-               <ol>
-                    <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
+                    The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
                     <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                    The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
+
                     <p>
-                    <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png">.</li>
-                   <p>
-                   <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
-                   <p>
-                    <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
-                   <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
-                   <p>
-                    <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
-                   <!--
-                    <li>Click the "variability" link in the point chart description to view box plots of the data.
-                    -->
+
+                    <h3>Instructions for Use: </h3>
+
+                   <ol>
+                        <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                        <p>
+                        <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png">.</li>
+                       <p>
+                       <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                       <p>
+                        <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
+                       <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                       <p>
+                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
+                       <!--
+                        <li>Click the "variability" link in the point chart description to view box plots of the data.
+                        -->
 
                </ol>
 
@@ -334,7 +404,7 @@
                 For information on climate models click on the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
 
-                The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the four downscaled climate models was calculated for each of the climate variables.
+                The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected a subset of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the four downscaled climate models was calculated for each of the climate variables.
 
                 <h3>Weather Forecast: </h3>
 
@@ -344,7 +414,7 @@
                 <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat">Precipitation</a><br>
                 <p>
                 The data in these files represent <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/INTR.html">probability of exceedance</a> values.
-                The field headers (98, 95, 90 ,80, 70, 60, 50, 40, 30, 20, 10, 5, 2) indicate the probability that actual temperature or precipitation level will be greater than the stated value during the 3 month period expressed by the LEAD time and within the specified climate division (CD).
+                The field headers (98, 95, 90 ,80, 70, 60, 50, 40, 30, 20, 10, 5, 2) indicate the probability that actual temperature or precipitation level during the three month period expressed by the LEAD time will be greater than the stated value within the specified climate division (CD).
                 Click <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/explanation_fdf.html">here</a> for complete field descriptions and additional information on the forecast distribution files above.
                 <p>
                 The historical means and forecast means displayed in the climate console come directly from the values in the climatological mean field (C MEAN) and the forecast mean field (F MEAN). These values correspond to a 50% probability of exceedance.
@@ -354,6 +424,7 @@
                 Reference: Barnston et al., 2000, Bull. Amer. Meteor. Soc. 81:1271-1279<br>
                 Source: <a href="http://www.cpc.ncep.noaa.gov/" target="_blank">http://www.cpc.ncep.noaa.gov/</a><br>
                 </div>
+
 
                 <h3>Terrestrial Intactness:</h3>
                 Terrestrial intactness is an estimate of current condition based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the DRECP study area. Terrestrial intactness values will be high in areas where these impacts are low.
@@ -409,7 +480,7 @@
 
             </div>
 
-            <div id="view4">
+            <div id="view4" class="views">
                 <div class="nearTermClimateFormDiv">
 
                     <div class="nearTermHeader">Three Month Forecast in Climate Division <span id="climateDivision"></span></div>
@@ -478,18 +549,36 @@
 
                 </script>
 
-                <!--
-                <div id="sources">
-                    Reference: Barnston et al., 2000, Bull. Amer. Meteor. Soc. 81:1271-1279<br>
-                    Source: <a href="http://www.cpc.ncep.noaa.gov/" target="_blank">http://www.cpc.ncep.noaa.gov/</a><br>
-                    Data Updates: These data update automatically on the third Thursday of each month.
-                </div>
-                -->
-
                 <div id="noaa_3_month"></div>
+
                 <br>
                 <br>
 
+            </div>
+
+            <div id="view5" class="views">
+                <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Fuzzy Logic Model Results</span></div>
+                <div id="column_chart"></div>
+                <div id="container">
+                    <div id="log">
+                        <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
+                        <div id="initialTreeInfo">
+                            <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
+                        </div>
+                    </div>
+
+                <div id="infovis"></div>
+
+                <div id="right-container" style="visibility:hidden">
+                     <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
+                </div>
+
+                </div>
+
+            </div>
+
+            <div id="view6">
+                <div class="nearTermHeader" style="line-height:30px;">The State of California: <div style="font-size:.9em">Diversity, Change, and Adaptation</div></div>
             </div>
 
         </div>

@@ -1,0 +1,46 @@
+# Metadata:
+#   Project: BLM Utah COP
+#   Model: High Potential Climate Impact
+#   Version: 2.0
+#   Author: Tim Sheehan
+#   RunDate: 2015-07-28 16:29:45.813604
+#   InputInfo: Ultimate parent data provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+# Climate
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/ClimateModel/Results/ensemble_4560_ClimateExposure_3.0.nc,
+    InFieldName = HighClimateExposureFz,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    )
+
+# Sensitivity
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc,
+    InFieldName = HighPotentialSiteSensitivityFz,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    )
+
+# Barren
+READ(
+    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc,
+    InFieldName = IsNotBarrenFz,
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    )
+
+HighCalculatedPotentialImpactFz = UNION(
+    InFieldNames = [
+        HighClimateExposureFz,
+        HighPotentialSiteSensitivityFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    )
+
+HiPotImpactFz = AND(
+    InFieldNames = [
+        IsNotBarrenFz,
+        HighCalculatedPotentialImpactFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    )
+

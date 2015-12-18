@@ -1,0 +1,36 @@
+HighMaxTempONDExposureFz:High MaxTemp OND Exposure
+HighMinTempSeasonalExposureFz:High Min Temp Seasonal Exposure
+PrecipJFMAnomaly:Precip JFM Anomaly
+HighMaxTempAMJExposureFz:High Max Temp AMJ Exposure
+MinTempAMJAnomaly:Min Temp AMJ Anomaly
+MaxTempONDAnomaly:Max Temp OND Anomaly
+HighMaxTempAnnExposureFz:High Max Temp Ann Exposure
+HighPrecipSeasonalExposureFz:High Precip Seasonal Exposure
+PrecipAMJAnomaly:Precip AMJ Anomaly
+HighMinTempJFMExposureFz:High Min Temp JFM Exposure
+HighMaxTempJASExposureFz:High Max Temp JAS Exposure
+HighSeasonalClimateExposureFz:High Seasonal Climate Exposure
+HighPrecipJFMExposureFz:High Precip JFM Exposure
+HighMaxTempSeasonalExposureFz:High Max Temp SeasonalExposure
+MinTempONDAnomaly:Min Temp OND Anomaly
+MaxTempAnnAnomaly:Max Temp Ann Anomaly
+MinTempAnnAnomaly:Min Temp Ann Anomaly
+HighMinTempONDExposureFz:High Min Temp OND Exposure
+HighAnnualClimateExposureFz:High Annual Climate Exposure
+PrecipJASAnomaly:Precip JAS Anomaly
+HighMinTempAMJExposureFz:High Min Temp AMJ Exposure
+HighDirectClimateExposureFz:High Direct Climate Exposure
+HighPrecipJASExposureFz:High Precip JAS Exposure
+MinTempJFMAnomaly:Min Temp JFM Anomaly
+MaxTempJASAnomaly:Max Temp JAS Anomaly
+HighPrecipAMJExposureFz:High Precip AMJ Exposure
+MinTempJASAnomaly:Min Temp JAS Anomaly
+PrecipONDAnomaly:Precip OND Anomaly
+MaxTempAMJAnomaly:Max Temp AMJ Anomaly
+HighMinTempAnnExposureFz:High Min Temp Ann Exposure
+HighPrecipAnnExposureFz:High Precip Ann Exposure
+MaxTempJFMAnomaly:Max Temp JFM Anomaly
+PrecipAnnAnomaly:Precip Ann Anomaly
+HighMaxTempJFMExposureFz:High Max Temp JFM Exposure
+HighPrecipONDExposureFz:High Precip OND Exposure
+HighMinTempJASExposureFz:High Min Temp JAS Exposure

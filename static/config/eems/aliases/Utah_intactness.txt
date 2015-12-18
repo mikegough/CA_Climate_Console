@@ -1,0 +1,34 @@
+DRECP_AT_C_FragNP_AV_1KM_poly_MEAN:Fragstats(NP)
+LoNaturalPatchesFz:Low Natural Patches
+DRECP_AT_C_FragCorePct_AV_1KM_poly_MEAN:Fragstats(Core Pct)
+HiCoreAreaFz:Hi Core Area
+DRECP_AT_C_FragNN_AV_1KM_poly_MEAN:Fragstats(NN)
+LoNearestNeighborFz:Low Nearest Neighbor
+HiCoreIntegrityFz:High Core Integrity
+LoFragmentationFz:Low Fragmentation
+Power_Plants_Density:Power Plant Density
+LoPowerPlantDensityFz:Low Power Plant Density
+Oil_and_Gas_Wells_Density:Oil and Gas Well Density
+Mines_Density:Mines Density
+Geothermal_Wells_Density:Geothermal Wells Density
+Wind_Turbines_Density:Wind Turbines Density
+MinPtsSum:Mines & Points Sum
+LoMinPtDens:Low Mines Density
+LoEnergyDevFz:Low Energy Development
+GTLF_Density:GTLF Density
+Utility_Line_Density:Utility Line Density
+Pipelines_Density:Pipelines Density
+LinDevSum:Linear Development Sum
+LoLinDensFz:Low Linear Density
+Urban_Development_Density:Urban Development Density
+LoUrbanDevFz:Low Urban Development
+LoUrbanLoLinearFz:Low Urban Low Linear Density
+LoPermanentDevelopmentFz:Low Permanent Development
+VegDeparture_selective_reclass:Veg Departure
+Invasives_Density:Invasives Density
+BLM_OHV_Density:BLM OHV Density
+Grazing_Density:Grazing Density
+Intensive_Agriculture_Density:Intensive Ag Density
+VegStateImpactsSum:Veg State Impacts Sum
+LoVegStateImpactsFz:Low Veg State Impacts
+HiTerrestIntactnessFz:Terrestrial Intactness
