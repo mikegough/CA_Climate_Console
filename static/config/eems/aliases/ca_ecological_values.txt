@@ -1,0 +1,19 @@
+Area_Wted_Veg_Com_Under_Representation_Score:
+HiUnderrepresentedVegCommunities_v26:
+Veg_Com_Diversity_Score:
+HiVegComDiversity_v27_Fz:
+HiDiversityUnderRepCom_Union_v27:High Diversity
+Locally_Rare_Veg_Density:
+HiLocallyRareVegCommunitiesDen:
+Count_Rare_Species_CNDDB_Polys_S1S2S3:
+HiRareCNDDBSpeciesCnt:
+Rare_VegCommunities_Density:
+HiRareVegCommunitiesDen:
+HiRareSpeciesAndVegCommunities:High Rare Species & Veg
+Count_Covered_Species:
+Count_Non_Covered_Species:
+EffectiveSpeciesCount_WtedSum1:
+EffectiveSpeciesCount_WtedSum1_v25_Fz: Effective Species Count
+Linkage_TI_Score:
+HiConnectivityLinkageQualityFzv24:Hi Connectivity & Linkage Quality
+Hi_Linkage_SpeciesCt_Rarity_DiversityUnderRep_SelectedUnion2_v27:Conservation Value

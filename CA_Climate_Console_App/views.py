@@ -342,28 +342,33 @@ def downscale(request):
 #Needs to be added to urls.py
 def generate_eems_tree(request):
 
-    eems_file_name=request.POST.get("input")
-    eems_file_directory="static/data/eems"
-    eems_file=open(eems_file_directory + "/command_files/" + eems_file_name +".eem","r")
-    print eems_file
-    dataset=""
-
-    for line in eems_file:
-        pass
-    lastLine=line
-    topNode=lastLine.split(':')[0]
+    eems_file_name=request.POST.get("eems_file_name")
+    print eems_file_name
+    eems_file_directory="static/config/eems"
+    eems_file=eems_file_directory + "/command_files/" + eems_file_name
+    if os.path.isfile(eems_file):
+        print 'yes'
+        eems_file_handle= open(eems_file,"r")
+        for line in eems_file_handle:
+            pass
+        lastLine=line
+        top_node=lastLine.split(':')[0]
 
     aliases={}
 
-    eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name +".txt"
+    eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
     if os.path.isfile(eems_alias_file):
-        eems_alias_file_handle=open(eems_file_directory + "/aliases/" + eems_file_name +".txt","r")
+        eems_alias_file_handle=open(eems_alias_file,"r")
         for line in eems_alias_file_handle:
            fieldname=line.split(":")[0]
            alias=line.split(":")[1].strip()
+           if alias=='':
+               alias=fieldname
            aliases[fieldname]=alias
 
         eems_alias_file_handle.close()
+
+    dataset=""
 
     #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
     from EEMSBasePackage import EEMSCmd, EEMSProgram
@@ -649,7 +654,7 @@ def generate_eems_tree(request):
 
 
 
-    eems_one_file_parser=EEMSOneFileParser(eems_file,dataset)
+    eems_one_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
 
     #for attr in (a for a in dir(eems_one_file_parser) if not a.startswith('_')):
     #    print attr
@@ -715,12 +720,13 @@ def generate_eems_tree(request):
     finalJSON=expandChildren(JSON2)
     global eems_tree
     eems_tree = '{'
-    printJSONtree(finalJSON[topNode])
+    printJSONtree(finalJSON[top_node])
     eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
-    eems_file.close()
+    eems_file_handle.close()
 
     context={
         'eems_tree_dict': eems_tree_dict,
+        'top_node': top_node
     }
 
     return HttpResponse(json.dumps(context))

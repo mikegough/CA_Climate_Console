@@ -590,7 +590,7 @@ function showInfoPopup(layerToDescribe){
 
     var dbid=EEMSParams['models'][layerToDescribe][5]
     title=EEMSParams['models'][layerToDescribe][0]
-    description=EEMSParams['models'][layerToDescribe][6]
+    description=EEMSParams['models'][layerToDescribe][7]
     new Messi(description, {title: title, center:true, width:'1000px', modal:true, modalOpacity:.4,center: true});
 
 }
@@ -637,8 +637,16 @@ $(window).load(function(){
         //Update MEEMSE2.0 values
         if (typeof st != 'undefined') {
             //defineJSONtree()
-            st.loadJSON(json)
-            st.refresh()
+            //st.loadJSON(json)
+            //st.refresh()
+            //Temporary proof of concept
+            $(".EEMS_Tree_Value").remove()
+            $("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
+
+            if (typeof resultsJSON[modelForTree] != 'undefined') {
+                $(".EEMS_Tree_Value").remove()
+                $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree] + "</div>")
+            }
         }
 
     });

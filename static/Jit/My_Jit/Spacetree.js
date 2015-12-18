@@ -320,11 +320,13 @@ function init(){
         },
         
         onBeforeCompute: function(node){
-            Log.write("Loading " + node.name.replace('<br>',' ').replace('<br>',' '));
+            Log.write("Loading " + node.name.replace('<br>',' ').replace('<br>',' ') +"...");
         },
         
         onAfterCompute: function(){
             Log.write("Click any node to view inputs");
+            $(".EEMS_Tree_Value").remove()
+            $("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
         },
                 onPlaceLabel: function(label, node, controllers){
             //override label styles
@@ -439,8 +441,8 @@ function init(){
         bottom = $jit.id('r-bottom'), 
         right = $jit.id('r-right'),
         normal = $jit.id('s-normal');
-        
-    
+
+
     function changeHandler() {
         if(this.checked) {
             top.disabled = bottom.disabled = right.disabled = left.disabled = true;
@@ -454,7 +456,6 @@ function init(){
     
     //top.onchange = left.onchange = bottom.onchange = right.onchange = changeHandler;
     //end
-
 }
 
 
