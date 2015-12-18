@@ -183,10 +183,29 @@ function createColumnChart(){
                                     //Clear out the div containing the model diagram
                                     $('#infovis').html('')
                                     modelForTree=layerToAdd
-                                    //Define the json variable based on the layerToAdd  Name
-                                    defineJSONtree()
-                                    //Create the tree.
-                                    init()
+                                    $.ajax({
+                                        url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
+                                        //Webfactional
+                                        //url : "/enerate_eems_tree", // the endpoint
+                                        async: false,
+                                        type: "POST", // http method
+                                        data: {input: modelForTree},
+
+                                        success: function (results) {
+                                            response=JSON.parse(results)
+                                            json=response['eems_tree_dict']
+                                            //json=$.parseJSON(json);
+                                            //defineJSONtree()
+                                            //alert(json)
+                                            init()
+                                        }
+
+                                    });
+
+                                     //Define the json variable based on the layerToAdd  Name
+                                     //defineJSONtree()
+                                     //Create the tree.
+
 
                                     // Workaround to getting the last bar clicked to show up on top
                                     // Simply remove the other ones if they're in the map.

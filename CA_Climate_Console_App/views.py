@@ -3,6 +3,9 @@ import urllib
 import re
 import netCDF4
 import numpy as np
+import os
+#For converting string to dictionary
+import ast
 
 from django.shortcuts import render
 from django.db import connection
@@ -330,6 +333,394 @@ def downscale(request):
         'dates': dates,
         'tmax_data': rounded_tmax_data,
         'precip_data': rounded_precip_data
+    }
+
+    return HttpResponse(json.dumps(context))
+
+@gzip_page
+@csrf_exempt
+#Needs to be added to urls.py
+def generate_eems_tree(request):
+
+    eems_file_name=request.POST.get("input")
+    eems_file_directory="static/data/eems"
+    eems_file=open(eems_file_directory + "/command_files/" + eems_file_name +".eem","r")
+    print eems_file
+    dataset=""
+
+    for line in eems_file:
+        pass
+    lastLine=line
+    topNode=lastLine.split(':')[0]
+
+    aliases={}
+
+    eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name +".txt"
+    if os.path.isfile(eems_alias_file):
+        eems_alias_file_handle=open(eems_file_directory + "/aliases/" + eems_file_name +".txt","r")
+        for line in eems_alias_file_handle:
+           fieldname=line.split(":")[0]
+           alias=line.split(":")[1].strip()
+           aliases[fieldname]=alias
+
+        eems_alias_file_handle.close()
+
+    #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
+    from EEMSBasePackage import EEMSCmd, EEMSProgram
+
+    def get_eems_parser(command_file, dataset_model):
+        """
+        A factory method for retrieving the correct EEMS parser for the particular file.
+        """
+        lines_read = 0
+        for line in command_file:
+            #return EEMSOneFileParser(command_file, dataset_model)
+
+            if re.match(r'^[a-zA-Z0-9_ ]+:', line):
+                return EEMSOneFileParser(command_file, dataset_model)
+            elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
+                return EEMSTwoFileParser(command_file, dataset_model)
+            else:
+                lines_read += 1
+                if lines_read > 50:
+                    break
+
+        #raise ValueError(_('File is not a valid EEMS command file.'))
+
+    class EEMSFileParser(object):
+        """
+        EEMS File Parser is the base class for any of the parsers associated with EEMS files.
+        """
+
+        def __init__(self, uploaded_file, dataset_model):
+            # Circular dependency with datasets
+            #from databasin.datasets.models import DatasetAttribute
+
+            self.uploaded_file = uploaded_file
+            self.dataset_model = dataset_model
+            self.dataset_attributes = ['test']
+            #self.dataset_attributes = DatasetAttribute.objects.filter(
+            #    dataset_id=self.dataset_model.dataset.id
+            #)
+            #self.attribute_map = dict(self.dataset_attributes.values_list('attribute', 'alias'))
+            self.attribute_map = {'1': '2'}
+            #dict(self.dataset_attributes.values_list('attribute', 'alias'))
+
+        def get_model(self, validate=True):
+            """
+            Method for generating the JSON model used by the EEMS explorer. The format of this is an entry "nodes" that
+            is a dictionary of the individual nodes within the model. Each node will be formatted as :
+
+                "<attribute>" : {
+                    "operation": "<Human readable operation name, ex. Convert to Fuzzy>",
+                    "raw_operation": "<Machine readable operation name, ex. CVTTOFUZZY>",
+                    "arguments": "[a list of strings that are more readable argument descriptions]",
+                    "raw_arguments": "[a list of the arguments passed to the function]",
+                    "children": "[a list of attributes that are children to this node]",
+                    "is_fuzzy": <True if the operation has results that are fuzzy>,
+                    "short_desc": "<An optional human readable short description of the operation>"
+                }
+
+            """
+            raise NotImplementedError()
+
+        def get_attribute_alias(self, attribute):
+            return self.attribute_map[attribute] if attribute in self.attribute_map else attribute
+
+        def validate_dataset(self, attributes_in_model):
+
+            if self.dataset_model.dataset.mapservice.is_netcdf:
+                # Validate against dataset layers
+                layers_in_dataset = self.dataset_model.dataset.mapservice.datasetlayer_set.values_list('layer_id', flat=True)
+                layers_not_in_dataset = [layer for layer in attributes_in_model if layer not in layers_in_dataset]
+
+                if layers_not_in_dataset:
+                    raise ValueError(
+                        _('The following layers appear in the file but are not in the dataset: {0}').format(
+                            ', '.join(layers_not_in_dataset)
+                        )
+                    )
+
+            else:
+                # Validate against dataset attributes
+                attributes_in_dataset = self.dataset_attributes.values_list('attribute', flat=True)
+                attributes_not_in_dataset = [att for att in attributes_in_model if att not in attributes_in_dataset]
+
+                if attributes_not_in_dataset:
+                    raise ValueError(
+                        _('The following attributes appear in the file but are not in the dataset: {0}').format(
+                            ', '.join(attributes_not_in_dataset)
+                        )
+                    )
+
+
+    class EEMSOneFileParser(EEMSFileParser):
+        """
+        Parser for EEMS 1.0 style files. These files look like this:
+
+        ACEIII_Sensitive_Habitat_Index:READ
+        ACEIII_Rarity_Weighted_Richness_Index:READ
+        ACEIII_Biological_Index:READ
+        High_Conservation_Elements:UNION:ACEIII_Sensitive_Habitat_Index,ACEIII_Rarity_Weighted_Richness_Index,ACEIII_Biological_Index
+        Fuzzy_High_Conservation_Elements:CVTTOFUZZY:High_Conservation_Elements:0,0.5
+
+        """
+
+        operation_map = {
+            'READ': 'Read',
+            'AND': 'And',
+            'CVTTOFUZZY': 'Convert to Fuzzy',
+            'CVTTOFUZZYCURVE': 'Convert to Fuzzy Curve',
+            'COPYFIELD':  'Copy Field',
+            'DIF':  'Difference',
+            'MAX':  'Max',
+            'MEAN':  'Mean',
+            'MIN':  'Min',
+            'NOT':  'Not',
+            'OR':  'Or',
+            'ORNEG':  'Negative Or',
+            'SELECTEDUNION':  'Selected Union',
+            'SUM':  'Sum',
+            'UNION':  'Union',
+            'WTDAND':  'Weighted And',
+            'WTDMEAN':  'Weighted Mean',
+            'WTDSUM':  'Weighted Sum',
+            'WTDUNION':  'Weighted Union',
+            'XOR':  'XOr',
+        }
+
+        fuzzy_operations = [
+            'AND', 'CVTTOFUZZY', 'CVTTOFUZZYCURVE', 'NOT', 'OR', 'ORNEG', 'SELECTEDUNION',
+            'UNION', 'WTDAND', 'WTDMEAN', 'WTDUNION', 'XOR'
+        ]
+
+        def get_model(self, validate=True):
+            # This makes the JSON
+            command_model = {'nodes': {}}
+
+            self.uploaded_file.seek(0)
+            for line in self.uploaded_file:
+                command = line.strip()
+                split_command = command.split(':')
+                command_entry = {
+                    'raw_operation': split_command[1],
+                    'operation': split_command[1],
+                    #'is_fuzzy': split_command[1] in self.fuzzy_operations,
+                }
+                if split_command[1] in self.operation_map:
+                    #command_entry['operation'] = unicode(self.operation_map[split_command[1]])
+                    command_entry['operation'] = self.operation_map[split_command[1]]
+
+                if len(split_command) > 2:
+                    command_entry['children'] = split_command[2].split(',')
+
+                if len(split_command) > 3:
+                    command_entry['raw_arguments'] = split_command[3].split(',')
+
+                command_model[ split_command[0]] = command_entry
+
+            if validate:
+               #self.validate_dataset(command_model['nodes'])
+                pass
+
+            # Do this after we validate attributes, since it makes use of attribute Aliases
+            for node_key in command_model['nodes']:
+                single_node = command_model['nodes'][node_key]
+                if 'raw_arguments' in single_node:
+                    single_node['arguments'] = self.parse_arguments(
+                        single_node['raw_operation'], single_node['raw_arguments'], single_node['children']
+                    )
+
+            return command_model
+
+        def parse_arguments(self, operation, arguments, children):
+            if operation == 'CVTTOFUZZY':
+                return [
+                    '{0}: {1}'.format(('False Threshold'), arguments[0]),
+                    '{0}: {1}'.format(('True Threshold'), arguments[1])
+                ]
+            elif operation == 'SELECTEDUNION':
+                return [
+                    '{0} {1} {2}'.format(
+                        ('Union of sets', 'Union of the'),
+                        arguments[1],
+                        ('most false', 'falsest values') if arguments[0] == -1 else ('truest values')
+                    )
+                ]
+            elif len(arguments) == len(children):
+                weight_list = []
+                for index, argument in enumerate(arguments):
+                    weight_list.append(('{0} weight: {1}').format(
+                        self.get_attribute_alias(children[index]),
+                        arguments[index]
+                    ))
+                return weight_list
+            elif len(children) == 1:
+                return [
+                    '{0}: {1}'.format(self.get_attribute_alias(children[0]), ','.join(arguments))
+                ]
+            else:
+                return [','.join(arguments)]
+
+
+    class EEMSTwoFileParser(EEMSFileParser):
+        """
+        EEMS Parser for EEMS 2.0 style files. These files look like this:
+
+        # Barren
+        READ(
+            InFileName = /Users/timsheehan/Projects/BLMUtahCOP/EEMSModels/SensitivityModel/6.0/BLMUtahSiteSensitivity.csv,
+            InFieldName = IsNotBarrenFz,
+            OutFileName = /Users/timsheehan/Projects/BLMUtahCOP/EEMSModels/PotentialImpactModel/2.0/CCSM4/1530/BLMUtahPotentialImpacts.csv
+            )
+
+        HighCalculatedPotentialImpactFz = UNION(
+            InFieldNames = [
+                HighClimateExposureFz,
+                HighPotentialSiteSensitivityFz
+                ],
+            OutFileName = /Users/timsheehan/Projects/BLMUtahCOP/EEMSModels/PotentialImpactModel/2.0/CCSM4/1530/BLMUtahPotentialImpacts.csv
+            )
+
+        HiPotImpactFz = AND(
+            InFieldNames = [
+                IsNotBarrenFz,
+                HighCalculatedPotentialImpactFz
+                ],
+            OutFileName = /Users/timsheehan/Projects/BLMUtahCOP/EEMSModels/PotentialImpactModel/2.0/CCSM4/1530/BLMUtahPotentialImpacts.csv
+            )
+        """
+
+        def get_model(self, validate=True):
+            command_model = {'nodes': {}}
+
+            program = EEMSProgram(self.uploaded_file)
+            for eems_command in program.orderedCmds:
+                command_name = eems_command.GetCommandName()
+
+                if eems_command.IsReadCmd():
+                    if eems_command.HasParam('NewFieldName'):
+                        attribute_name = eems_command.GetParam('NewFieldName')
+                    else:
+                        attribute_name = eems_command.GetParam('InFieldName')
+                else:
+                    attribute_name = eems_command.GetResultName()
+
+                # Skip CSVIndex Commands. These are special commands used by EEMS, but not shown in the model.
+                if attribute_name == 'CSVIndex':
+                    continue
+
+                command_entry = {
+                    'raw_operation': command_name,
+                    'operation': eems_command.GetReadableNm(),
+                    'is_fuzzy': eems_command.GetRtrnType() == 'Fuzzy',
+                    'short_desc': eems_command.GetShortDesc()
+                }
+
+                # The CallExtern command's return type is not known by default. It is determined by what is being run
+                # externally. Need to get the fuzzy property based on its ResultType parameter.
+                if command_name == 'CALLEXTERN':
+                    command_entry['is_fuzzy'] = eems_command.GetParam('ResultType').lower() == 'fuzzy'
+
+                if not eems_command.IsReadCmd():
+                    if 'InFieldNames' in eems_command.GetRequiredParamNames():
+                        command_entry['children'] = eems_command.GetParam('InFieldNames')
+                    else:
+                        command_entry['children'] = [eems_command.GetParam('InFieldName')]
+
+                command_entry['arguments'] = []
+                for param_name in eems_command.GetParamNames():
+                    if param_name not in ['InFileName', 'OutFileName', 'InFieldNames', 'InFieldName']:
+                        param_value = eems_command.GetParam(param_name)
+                        if type(param_value) is list:
+                            param_str = ', '.join(str(x) for x in param_value)
+                        else:
+                            param_str = str(param_value)
+                        command_entry['arguments'].append('{0}: {1}'.format(param_name, param_str))
+                if len(command_entry['arguments']) == 0:
+                    command_entry.pop('arguments', None)
+
+                command_model['nodes'][attribute_name] = command_entry
+
+            if validate:
+                self.validate_dataset(command_model['nodes'])
+
+            return command_model
+
+
+
+    eems_one_file_parser=EEMSOneFileParser(eems_file,dataset)
+
+    #for attr in (a for a in dir(eems_one_file_parser) if not a.startswith('_')):
+    #    print attr
+
+    JSON=eems_one_file_parser.get_model()
+
+    #Create new restructured JSON (JSON2)
+    #Separate into data key and children key
+    JSON2={}
+    for key,value in JSON.iteritems():
+        JSON2[key]={}
+        JSON2[key]['data']={}
+        for sub_key,value in value.iteritems():
+            if sub_key == 'children':
+                JSON2[key][sub_key]=value
+            else:
+                JSON2[key]['data'].update(JSON[key])
+
+        if JSON2[key].has_key('children'):
+            JSON2[key]['data'].pop('children')
+    JSON2.pop('nodes')
+    #print json.dumps(JSON2, indent=4, sort_keys=True)
+
+    #Expand the pointers to children
+    def expandChildren(JSON):
+        for k, v in JSON.iteritems():
+            JSON[k]['name']=k
+            JSON[k]['id']=k
+            child_list=[]
+            if isinstance(v, dict) and JSON[k].has_key('children'):
+              for child in JSON[k]['children']:
+                  child_list.append(child)
+              JSON[k].pop('children')
+              JSON[k]['children']=[]
+              JSON[k]['children'].append({})
+              for child in child_list:
+                  JSON[k]['children'][0][child]=JSON[child]
+            else:
+              pass
+        return JSON
+
+    #Print the JSON Tree
+    def printJSONtree(d):
+        global eems_tree
+        eems_tree+='"id": ' + "'" + d['id'] + "',"
+        if d['name'] in aliases:
+           alias=aliases[d['name']]
+        else:
+           alias = d['name']
+        eems_tree+='"name": ' + "'" + alias + "',"
+        eems_tree+='"data": '
+        eems_tree+=json.dumps(d['data'])
+        eems_tree+=(",")
+        if d.has_key('children'):
+            eems_tree+='"children": ['
+            for k,v in d['children'][0].iteritems():
+                eems_tree+="{"
+                printJSONtree(v)
+            eems_tree+="]},"
+        else:
+            eems_tree+="},"
+
+    finalJSON=expandChildren(JSON2)
+    global eems_tree
+    eems_tree = '{'
+    printJSONtree(finalJSON[topNode])
+    eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
+    eems_file.close()
+
+    context={
+        'eems_tree_dict': eems_tree_dict,
     }
 
     return HttpResponse(json.dumps(context))

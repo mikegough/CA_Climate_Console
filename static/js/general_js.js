@@ -636,7 +636,7 @@ $(window).load(function(){
 
         //Update MEEMSE2.0 values
         if (typeof st != 'undefined') {
-            defineJSONtree()
+            //defineJSONtree()
             st.loadJSON(json)
             st.refresh()
         }
