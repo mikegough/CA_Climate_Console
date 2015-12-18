@@ -342,17 +342,31 @@ def downscale(request):
 #Needs to be added to urls.py
 def generate_eems_tree(request):
 
+    dataset=r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\GIS\Scripts\EEMS_Command_Files\CAClimateExposure.nc"
     eems_file_name=request.POST.get("eems_file_name")
-    print eems_file_name
     eems_file_directory="static/config/eems"
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
     if os.path.isfile(eems_file):
-        print 'yes'
         eems_file_handle= open(eems_file,"r")
         for line in eems_file_handle:
             pass
         lastLine=line
-        top_node=lastLine.split(':')[0]
+        print lastLine
+        global eems_version
+        if re.match(r'^[a-zA-Z0-9_ ]+:', lastLine):
+            eems_version=1
+            print eems_version
+            top_node=lastLine.split(':')[0]
+
+        elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
+            eems_version=2
+            print eems_version
+            top_node='HighDirectClimateExposureFz'
+
+        else:
+            eems_version=2
+            top_node='HighDirectClimateExposureFz'
+
 
     aliases={}
 
@@ -368,7 +382,6 @@ def generate_eems_tree(request):
 
         eems_alias_file_handle.close()
 
-    dataset=""
 
     #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
     from EEMSBasePackage import EEMSCmd, EEMSProgram
@@ -403,13 +416,11 @@ def generate_eems_tree(request):
 
             self.uploaded_file = uploaded_file
             self.dataset_model = dataset_model
-            self.dataset_attributes = ['test']
+            self.dataset_attributes = ''
             #self.dataset_attributes = DatasetAttribute.objects.filter(
             #    dataset_id=self.dataset_model.dataset.id
             #)
             #self.attribute_map = dict(self.dataset_attributes.values_list('attribute', 'alias'))
-            self.attribute_map = {'1': '2'}
-            #dict(self.dataset_attributes.values_list('attribute', 'alias'))
 
         def get_model(self, validate=True):
             """
@@ -599,6 +610,7 @@ def generate_eems_tree(request):
         def get_model(self, validate=True):
             command_model = {'nodes': {}}
 
+            print self.uploaded_file
             program = EEMSProgram(self.uploaded_file)
             for eems_command in program.orderedCmds:
                 command_name = eems_command.GetCommandName()
@@ -618,7 +630,7 @@ def generate_eems_tree(request):
                 command_entry = {
                     'raw_operation': command_name,
                     'operation': eems_command.GetReadableNm(),
-                    'is_fuzzy': eems_command.GetRtrnType() == 'Fuzzy',
+                    #'is_fuzzy': eems_command.GetRtrnType() == 'Fuzzy',
                     'short_desc': eems_command.GetShortDesc()
                 }
 
@@ -648,18 +660,26 @@ def generate_eems_tree(request):
                 command_model['nodes'][attribute_name] = command_entry
 
             if validate:
-                self.validate_dataset(command_model['nodes'])
+                #self.validate_dataset(command_model['nodes'])
+                pass
 
             return command_model
-
-
-
-    eems_one_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
 
     #for attr in (a for a in dir(eems_one_file_parser) if not a.startswith('_')):
     #    print attr
 
-    JSON=eems_one_file_parser.get_model()
+    if eems_version == 1:
+
+        eems_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
+        JSON=eems_file_parser.get_model()
+
+    elif eems_version == 2:
+
+        eems_file_parser=EEMSTwoFileParser(eems_file,dataset)
+        JSON=eems_file_parser.get_model()
+        #get rid of "Nodes"
+        for k,v in JSON.iteritems():
+            JSON=v
 
     #Create new restructured JSON (JSON2)
     #Separate into data key and children key
@@ -675,7 +695,9 @@ def generate_eems_tree(request):
 
         if JSON2[key].has_key('children'):
             JSON2[key]['data'].pop('children')
-    JSON2.pop('nodes')
+
+    if eems_version == 1:
+        JSON2.pop('nodes')
     #print json.dumps(JSON2, indent=4, sort_keys=True)
 
     #Expand the pointers to children
@@ -720,9 +742,20 @@ def generate_eems_tree(request):
     finalJSON=expandChildren(JSON2)
     global eems_tree
     eems_tree = '{'
+
     printJSONtree(finalJSON[top_node])
+
+    print eems_tree
+
+    if eems_version == 1:
+        eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
+    else:
+        eems_tree_dict=ast.literal_eval(eems_tree)
+
     eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
+
     eems_file_handle.close()
+
 
     context={
         'eems_tree_dict': eems_tree_dict,
