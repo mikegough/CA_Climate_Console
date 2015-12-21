@@ -1,4 +1,5 @@
 var latlng = L.latLng(initialLat,initialLon);
+enableDownscale = false
 
 var map = L.map("map", {
     zoomControl: false,
@@ -393,7 +394,6 @@ function create_post(newWKT) {
                 $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
                 $('#increase_or_decrease_precip_t2').html("increase ")
             }
-
 
             initialize=response.initialize;
 
@@ -810,7 +810,11 @@ var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJ
 function passClimateDivisionID(feature, layer) {
     layer.on({
         //Added trigger to get the downscaled data.
-        click: function (e) { generateNearTermClimateResults(selectedNearTermClimatePeriod, feature.properties.NAME); selectClimateDivision(e); create_post_downscale(e.latlng.lng,e.latlng.lat); onMapClick(e); },
+        click: function (e) { generateNearTermClimateResults(selectedNearTermClimatePeriod, feature.properties.NAME); selectClimateDivision(e);
+            if (enableDownscale) {
+                create_post_downscale(e.latlng.lng,e.latlng.lat); onMapClick(e);
+            }
+        },
         mouseover: highlightClimateDivision,
         mouseout: resetClimateDivision
     });
@@ -859,16 +863,19 @@ function activateMapForClimateForecast(){
        map.removeLayer(geo_marker)
     }
 
-    marker = new L.marker(defaultLatLng)
-        .bindPopup("<div id='initialMarkerMessage' style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
-        .addTo(map)
+    if (enableDownscale) {
 
-    marker.on("popupopen", onPopupOpen);
+        marker = new L.marker(defaultLatLng)
+            .bindPopup("<div id='initialMarkerMessage' style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
+            .addTo(map)
 
-    map.on('click', function(e){
-       map.removeLayer(marker);
-       var marker = new L.marker(e.latlng).addTo(map);
-    });
+        marker.on("popupopen", onPopupOpen);
+
+        map.on('click', function (e) {
+            map.removeLayer(marker);
+            var marker = new L.marker(e.latlng).addTo(map);
+        });
+    }
 
     if ( typeof fillOpacityLevel == 'undefined') {
         fillOpacityLevel=.85
@@ -882,6 +889,7 @@ function activateMapForClimateForecast(){
     $('.leaflet-bottom').show()
     $('.ui-opacity').show()
     $('.leaflet-control-layers:nth-child(1)').show()
+
 
     map.setView(defaultLatLng,6);
 
@@ -906,10 +914,12 @@ function activateMapForClimateForecast(){
 
     document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
 
-    markerInfo = L.popup()
-        .setLatLng([defaultLatLng.lat+1,defaultLatLng.lng])
-        .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month forecast at the marker location. <p> Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
-        .addTo(map);
+    if (typeof marker != 'undefined') {
+        markerInfo = L.popup()
+            .setLatLng([defaultLatLng.lat + 1, defaultLatLng.lng])
+            .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month forecast at the marker location. <p> Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
+            .addTo(map);
+    }
 }
 
 function updateNearTermForecastLegend(){

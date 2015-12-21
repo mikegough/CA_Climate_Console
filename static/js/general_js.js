@@ -635,7 +635,7 @@ $(window).load(function(){
         //map.removeLayer(layer)
 
         //Update MEEMSE2.0 values
-        if (typeof st != 'undefined') {
+        if (typeof st != 'undefined' && typeof resultsJSON[modelForTree+"_avg"] != 'undefined') {
             //defineJSONtree()
             //st.loadJSON(json)
             //st.refresh()

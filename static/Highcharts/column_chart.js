@@ -226,7 +226,7 @@ function createColumnChart(){
                                     }
                                     // End Workaround
 
-                                    if (layerToAdd){
+                                    if (typeof layerToAdd != 'undefined'){
                                          swapImageOverlay(layerToAdd,'EEMSmodel')
                                          swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
                                          //window.open(layerToAdd);
