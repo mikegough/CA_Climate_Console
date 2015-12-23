@@ -28,255 +28,6 @@ var Log = {
   }
 };
 
-function defineJSONtree(){
-
-    if (modelForTree=='intactness') {
-        /*
-        $.getScript( static_url + "Jit/My_Jit/Jit_Models/terrestrial_intactness.json", function( data, textStatus, jqxhr ) {
-          console.log( textStatus ); // Success
-          console.log( jqxhr.status ); // 200
-          console.log( "Load was performed." );
-          json=data;
-          console.log(json); // Data returned
-        });
-        */
-        json={
-id: 'HiTerrestIntactnessFz',
-name: 'Terrestrial Intactness'  + "<div class='EEMS_Tree_Value'>" + resultsJSON['eetmins1t1_avg'] + "</div>",
-data:  {'raw_operation': 'SELECTEDUNION', 'raw_arguments': ['-1', '2'], 'operation': 'Selected Union'} ,
-children: [
-{
-id: 'LoVegStateImpactsFz',
-name: 'Low Veg State Impacts' + "<div class='EEMS_Tree_Value'>" + resultsJSON['eetmins1t2_avg'] + "</div>",
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['100', '0'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'VegStateImpactsSum',
-name: 'Veg State Impacts Sum',
-data:  {'raw_operation': 'WTDSUM', 'raw_arguments': ['0.2', '0.4', '0.2', '0.3', '0.5'], 'operation': 'Weighted Sum'} ,
-children: [
-{
-id: 'Invasives_Density',
-name: 'Invasives_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'Grazing_Density',
-name: 'Grazing_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'Intensive_Agriculture_Density',
-name: 'Intensive_Agriculture_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'BLM_OHV_Density',
-name: 'BLM_OHV_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'VegDeparture_selective_reclass',
-name: 'VegDeparture_selective_reclass',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-]},
-{
-id: 'LoPermanentDevelopmentFz',
-name: 'Low Permanent Development' + "<div class='EEMS_Tree_Value'>" + resultsJSON['eetmins4t2_avg'] + "</div>",
-data:  {'raw_operation': 'ORNEG', 'operation': 'Negative Or'} ,
-children: [
-{
-id: 'LoUrbanLoLinearFz',
-name: 'LoUrbanLoLinearFz',
-data:  {'raw_operation': 'WTDUNION', 'raw_arguments': ['40', '60'], 'operation': 'Weighted Union'} ,
-children: [
-{
-id: 'LoLinDensFz',
-name: 'LoLinDensFz',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['2.5', '0'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'LinDevSum',
-name: 'LinDevSum',
-data:  {'raw_operation': 'SUM', 'operation': 'Sum'} ,
-children: [
-{
-id: 'Pipelines_Density',
-name: 'Pipelines_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'Utility_Line_Density',
-name: 'Utility_Line_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'GTLF_Density',
-name: 'GTLF_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-]},
-{
-id: 'LoUrbanDevFz',
-name: 'LoUrbanDevFz',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['20', '0'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'Urban_Development_Density',
-name: 'Urban_Development_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-]},
-{
-id: 'LoEnergyDevFz',
-name: 'LoEnergyDevFz',
-data:  {'raw_operation': 'ORNEG', 'operation': 'Negative Or'} ,
-children: [
-{
-id: 'LoPowerPlantDensityFz',
-name: 'LoPowerPlantDensityFz',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['10', '0'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'Power_Plants_Density',
-name: 'Power_Plants_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-{
-id: 'LoMinPtDens',
-name: 'LoMinPtDens',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['10', '0'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'MinPtsSum',
-name: 'MinPtsSum',
-data:  {'raw_operation': 'SUM', 'operation': 'Sum'} ,
-children: [
-{
-id: 'Wind_Turbines_Density',
-name: 'Wind_Turbines_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'Oil_and_Gas_Wells_Density',
-name: 'Oil_and_Gas_Wells_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'Mines_Density',
-name: 'Mines_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-{
-id: 'Geothermal_Wells_Density',
-name: 'Geothermal_Wells_Density',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-]},
-]},
-]},
-{
-id: 'LoFragmentationFz',
-name: 'Low Fragmentation' + "<div class='EEMS_Tree_Value'>" + resultsJSON['eetmins2t2_avg'] + "</div>",
-data:  {'raw_operation': 'ORNEG', 'operation': 'Negative Or'} ,
-children: [
-{
-id: 'HiCoreIntegrityFz',
-name: 'HiCoreIntegrityFz',
-data:  {'raw_operation': 'ORNEG', 'operation': 'Negative Or'} ,
-children: [
-{
-id: 'HiCoreAreaFz',
-name: 'HiCoreAreaFz',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['20', '9999'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'DRECP_AT_C_FragCorePct_AV_1KM_poly_MEAN',
-name: 'DRECP_AT_C_FragCorePct_AV_1KM_poly_MEAN',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-{
-id: 'LoNearestNeighborFz',
-name: 'LoNearestNeighborFz',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['180', '59'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'DRECP_AT_C_FragNN_AV_1KM_poly_MEAN',
-name: 'DRECP_AT_C_FragNN_AV_1KM_poly_MEAN',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-]},
-{
-id: 'LoNaturalPatchesFz',
-name: 'LoNaturalPatchesFz',
-data:  {'raw_operation': 'CVTTOFUZZY', 'raw_arguments': ['68.805', '1'], 'operation': 'Convert to Fuzzy'} ,
-children: [
-{
-id: 'DRECP_AT_C_FragNP_AV_1KM_poly_MEAN',
-name: 'DRECP_AT_C_FragNP_AV_1KM_poly_MEAN',
-data:  {'operation': 'Read', 'raw_operation': 'READ'} ,
-},
-]},
-]},
-]}
-        //alert(json)
-    }
-    else if (modelForTree=='hisensfz') {
-
-        json = {
-            id: "node1",
-            name: "Hi Sensitivity:<br>" + resultsJSON['eetmins1t1_avg'],
-            //: {"$color":'red'},
-            children: [
-                {
-                    id: "node11",
-                    name: "Not Barren<br>" + resultsJSON['eetmins2t1_avg'],
-                    //: {"$color":'#00C600'},
-                    children: [
-                        {
-                            id: "node111",
-                            name: "Not Barren<br>" + resultsJSON['eetmins2t1_avg'],
-                            //: {"$color":'#00C600'},
-                        },
-                        {
-                            id: "node112",
-                            name: "Not Barren<br>" + resultsJSON['eetmins2t1_avg'],
-                            //: {"$color":'#00C600'},
-                        },
-                    ]
-                },
-                {
-                    id: "node12",
-                    name: "Hi Potential Site Sensitivity<br>" + resultsJSON['eetmins2t1_avg'],
-                    //: {"$color":'#00C600'},
-                },
-                {
-                    id: "node13",
-                    name: "Hi Potential Site Sensitivity<br>" + resultsJSON['eetmins2t1_avg'],
-                    //: {"$color":'#00C600'},
-                }
-            ]
-        }
-    }
-    else {
-        //load the appropriate json files on window.load (in general_js)
-        //json must be well-formed (e.g., keys must be quoted), otherwise no-worky.
-        //getting the JSON file through Ajax creates an infinate loop because these functions are called in general_json on AJAX complete:
-            //defineJSONtree()
-            //st.loadJSON(json)
-            //st.refresh()
-        json={"id": 'Hi_Linkage_SpeciesCt_Rarity_DiversityUnderRep_SelectedUnion2_v27',"name": 'Hi_Linkage_SpeciesCt_Rarity_DiversityUnderRep_SelectedUnion2_v27',"data": {"raw_operation": "SELECTEDUNION", "raw_arguments": ["1", "2"], "operation": "Selected Union"},"children": [{"id": 'HiDiversityUnderRepCom_Union_v27',"name": 'HiDiversityUnderRepCom_Union_v27',"data": {"raw_operation": "UNION", "operation": "Union"},"children": [{"id": 'HiVegComDiversity_v27_Fz',"name": 'HiVegComDiversity_v27_Fz',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["0.26", "2.08"], "operation": "Convert to Fuzzy"},"children": [{"id": 'Veg_Com_Diversity_Score',"name": 'Veg_Com_Diversity_Score',"data": {"operation": "Read", "raw_operation": "READ"},},]},{"id": 'HiUnderrepresentedVegCommunities_v26',"name": 'HiUnderrepresentedVegCommunities_v26',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["90", "10"], "operation": "Convert to Fuzzy"},"children": [{"id": 'Area_Wted_Veg_Com_Under_Representation_Score',"name": 'Area_Wted_Veg_Com_Under_Representation_Score',"data": {"operation": "Read", "raw_operation": "READ"},},]},]},{"id": 'EffectiveSpeciesCount_WtedSum1_v25_Fz',"name": 'EffectiveSpeciesCount_WtedSum1_v25_Fz',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["5.7", "14.5"], "operation": "Convert to Fuzzy"},"children": [{"id": 'EffectiveSpeciesCount_WtedSum1',"name": 'EffectiveSpeciesCount_WtedSum1',"data": {"raw_operation": "WTDSUM", "raw_arguments": ["1", "0.5"], "operation": "Weighted Sum"},"children": [{"id": 'Count_Non_Covered_Species',"name": 'Count_Non_Covered_Species',"data": {"operation": "Read", "raw_operation": "READ"},},{"id": 'Count_Covered_Species',"name": 'Count_Covered_Species',"data": {"operation": "Read", "raw_operation": "READ"},},]},]},{"id": 'HiConnectivityLinkageQualityFzv24',"name": 'HiConnectivityLinkageQualityFzv24',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["-3", "9999"], "operation": "Convert to Fuzzy"},"children": [{"id": 'Linkage_TI_Score',"name": 'Linkage_TI_Score',"data": {"operation": "Read", "raw_operation": "READ"},},]},{"id": 'HiRareSpeciesAndVegCommunities',"name": 'HiRareSpeciesAndVegCommunities',"data": {"raw_operation": "OR", "operation": "Or"},"children": [{"id": 'HiLocallyRareVegCommunitiesDen',"name": 'HiLocallyRareVegCommunitiesDen',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["-9999", "10"], "operation": "Convert to Fuzzy"},"children": [{"id": 'Locally_Rare_Veg_Density',"name": 'Locally_Rare_Veg_Density',"data": {"operation": "Read", "raw_operation": "READ"},},]},{"id": 'HiRareCNDDBSpeciesCnt',"name": 'HiRareCNDDBSpeciesCnt',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["-9999", "3"], "operation": "Convert to Fuzzy"},"children": [{"id": 'Count_Rare_Species_CNDDB_Polys_S1S2S3',"name": 'Count_Rare_Species_CNDDB_Polys_S1S2S3',"data": {"operation": "Read", "raw_operation": "READ"},},]},{"id": 'HiRareVegCommunitiesDen',"name": 'HiRareVegCommunitiesDen',"data": {"raw_operation": "CVTTOFUZZY", "raw_arguments": ["-9999", "10"], "operation": "Convert to Fuzzy"},"children": [{"id": 'Rare_VegCommunities_Density',"name": 'Rare_VegCommunities_Density',"data": {"operation": "Read", "raw_operation": "READ"},},]},]},]}
-    }
-}
-
 function init(){
    JitInitializationComplete=true
     //init data
@@ -353,8 +104,12 @@ function init(){
         //Use this method to add event handlers and styles to
         //your node.
         onCreateLabel: function(label, node){
-            label.id = node.id;            
-            label.innerHTML = node.name +"<br>"+"<div class='EEMS_Tree_Operation'> (" + node.data.operation + ")</div>";
+            label.id = node.id;
+            if (typeof(node.data.short_desc) != 'undefined') {
+                label.innerHTML = node.name + "<br>" + "<div class='EEMS_Tree_Operation' title='" + node.data.short_desc + "'> (" + node.data.operation + ")</div>";
+            } else {
+                label.innerHTML = node.name +"<br>"+"<div class='EEMS_Tree_Operation' title='This is the operation used to create this node'> (" + node.data.operation + ")</div>";
+            }
             label.onclick = function(){
             	if(normal.checked) {
             	  st.onClick(node.id);
@@ -373,10 +128,10 @@ function init(){
             style.color = '#444444';
             style.fontWeight = 'bold';
             style.fontSize = '0.88em';
-            style.textAlign= 'center';
+            style.textAlign = 'center';
             style.paddingTop = '5px';
-            style.paddingLeft= '3px';
-            style.paddingRight= '3px';
+            style.paddingLeft = '3px';
+            style.paddingRight = '3px';
             style.overflow= 'hidden';
             style.boxShadow= '0px 0px 15px rgba(0, 0, 0, 0.2)';
         },

@@ -400,8 +400,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 .EEMS_Tree_Operation {
     width:100%;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left:0px;
+    margin-right:0px;
     text-align:center;
     position:absolute;
     bottom: 1px;
@@ -412,6 +412,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     font-style:italic;
     font-weight:normal;
     color:#F8981D;
+    cursor:help;
     background-color:#444444 !important;
 }
 

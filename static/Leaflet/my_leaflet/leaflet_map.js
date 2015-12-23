@@ -156,6 +156,7 @@ function swapImageOverlay(layerName,modelType) {
 
         } else {
                 climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + layerName + '.png';
+
                 climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
                 climate_PNG_overlay.addTo(map)
