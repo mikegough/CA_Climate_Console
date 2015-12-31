@@ -58,7 +58,7 @@ function init(){
             height: 70,
             width: 130,
             type: 'rectangle',
-            color: '#aaa',
+            color: '#baa',
             overridable: true,
             //align:'center',
             alpha:1
@@ -113,8 +113,10 @@ function init(){
             label.onclick = function(){
             	if(normal.checked) {
             	  st.onClick(node.id);
-                      //swapImageOverlay('intactness','EEMSmodel')
-                      //swapLegend(intactness, intactness, 'EEMSmodel')
+                      eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
+                      swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                      swapLegend("inputs", "inputs", 'EEMSmodel')
+                      $('#LegendHeader').html(node.name)
             	} else {
                 st.setRoot(node.id, 'animate');
             	}

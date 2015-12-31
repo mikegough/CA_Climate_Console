@@ -1,5 +1,5 @@
 var latlng = L.latLng(initialLat,initialLon);
-enableDownscale = false
+enableDownscale = true
 
 var map = L.map("map", {
     zoomControl: false,

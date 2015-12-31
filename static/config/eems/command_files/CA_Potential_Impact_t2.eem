@@ -1,46 +1,47 @@
 # Metadata:
-#   Project: BLM Utah COP
-#   Model: High Potential Climate Impact
-#   Version: 2.0
+#   Project: California 2015
+#   Model: Potential Impacts
+#   Version: 1.0
 #   Author: Tim Sheehan
-#   RunDate: 2015-07-28 16:29:45.813604
-#   InputInfo: Ultimate parent data provided by Barry Baker
+#   RunDate: 2015-12-22 17:16:42.842322
+#   InputInfo: Soil and Solar Radiation data provided by Barry Baker
 #   Comments: EEEMS model created from template in python script
 
 # Climate
 READ(
-    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/ClimateModel/Results/ensemble_4560_ClimateExposure_3.0.nc,
-    InFieldName = HighClimateExposureFz,
-    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    InFileName = /Users/timsheehan/Projects/California2015/EEMSModels/ClimateExposure/1.0/ensemble/4675/CAClimateExposure.nc,
+    InFieldName = HighDirectClimateExposureFz,
+    OutFileName = /Users/timsheehan/Projects/California2015/EEMSModels/PotentialImpacts/1.0/PotentialImpacts/ensemble/4675/CAPotentialImpacts.nc
     )
 
 # Sensitivity
 READ(
-    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc,
+    InFileName = /Users/timsheehan/Projects/California2015/EEMSModels/SiteSensitivity/1.0/CASiteSensitivity.nc,
     InFieldName = HighPotentialSiteSensitivityFz,
-    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    OutFileName = /Users/timsheehan/Projects/California2015/EEMSModels/PotentialImpacts/1.0/PotentialImpacts/ensemble/4675/CAPotentialImpacts.nc
     )
 
 # Barren
 READ(
-    InFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/SensitivityModel/Results/SiteSensitivity_6.0.nc,
+    InFileName = /Users/timsheehan/Projects/California2015/EEMSModels/SiteSensitivity/1.0/CASiteSensitivity.nc,
     InFieldName = IsNotBarrenFz,
-    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    OutFileName = /Users/timsheehan/Projects/California2015/EEMSModels/PotentialImpacts/1.0/PotentialImpacts/ensemble/4675/CAPotentialImpacts.nc
     )
 
 HighCalculatedPotentialImpactFz = UNION(
     InFieldNames = [
-        HighClimateExposureFz,
+        HighDirectClimateExposureFz,
         HighPotentialSiteSensitivityFz
         ],
-    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    OutFileName = /Users/timsheehan/Projects/California2015/EEMSModels/PotentialImpacts/1.0/PotentialImpacts/ensemble/4675/CAPotentialImpacts.nc
     )
+
 
 HiPotImpactFz = AND(
     InFieldNames = [
         IsNotBarrenFz,
         HighCalculatedPotentialImpactFz
         ],
-    OutFileName = /Users/timsheehan/Projects/BLMUtahForDelivery/PotentialImpactModel/Results/ensemble_4560_PotentialImpacts_2.0.nc
+    OutFileName = /Users/timsheehan/Projects/California2015/EEMSModels/PotentialImpacts/1.0/PotentialImpacts/ensemble/4675/CAPotentialImpacts.nc
     )
 

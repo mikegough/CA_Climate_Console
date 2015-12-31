@@ -3,3 +3,4 @@ IsNotBarrenFz:Is Not Barren
 HiPotImpactFz:Hi Potential Impact
 HighPotentialSiteSensitivityFz:High Potential Site Sensitivity
 HighCalculatedPotentialImpactFz:High Calculated Potential Impact
+HighDirectClimateExposureFz:High Direct Climate Exposure

@@ -228,20 +228,19 @@ def index(request):
 
         else:
 
-            #resultsDict["intactness_avg"]=.3
-            #resultsDict["hisensfz_avg"]=.9
-            #resultsDict["eecefzt1_avg"]=.7
-            #resultsDict["eecefzt2_avg"]=.2
-            #resultsDict["eepifzt1_avg"]=-.3
-            #resultsDict["eepifzt2_avg"]=.4
+            resultsDict["intactness_avg"]=.3
+            resultsDict["hisensfz_avg"]=.9
+            resultsDict["eecefzt1_avg"]=.7
+            resultsDict["eecefzt2_avg"]=.2
+            resultsDict["eepifzt1_avg"]=-.3
+            resultsDict["eepifzt2_avg"]=.4
 
-            #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-            columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
-            columnChartColor6="#4444444"
+            columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
 
             #columnChartColors=6*"#444444,"
 
@@ -648,96 +647,92 @@ def generate_eems_tree(request):
     #for attr in (a for a in dir(eems_one_file_parser) if not a.startswith('_')):
     #    print attr
 
+    #eems_one_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
+    #dict_orig=eems_one_file_parser.get_model()
+
+    #eems_two_file_parser=EEMSTwoFileParser(eems_file,dataset)
+    #dict_orig=eems_two_file_parser.get_model()
     #Get Original JSON from Mike's Parser
     if eems_version == 1:
 
         eems_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
-        JSON=eems_file_parser.get_model()
+        dict_orig=eems_file_parser.get_model()
+
+        #Modify JSON from Mike's Parser
+        dict_prepped={}
+        for key,value in dict_orig.iteritems():
+                print value
+                dict_prepped[key]=value
+                dict_prepped[key]["id"]=key
+                if dict_prepped[key]["id"] in aliases:
+                    dict_prepped[key]["name"]=aliases[dict_prepped[key]["id"]]
+                dict_prepped[key]["data"]={}
+                if dict_orig[key].has_key("operation"):
+                    dict_prepped[key]["data"]["operation"]=dict_orig[key]["operation"]
 
     elif eems_version == 2:
 
         eems_file_parser=EEMSTwoFileParser(eems_file,dataset)
-        JSON=eems_file_parser.get_model()
-        #get rid of "Nodes"
-        for k,v in JSON.iteritems():
-            JSON=v
+        dict_orig=eems_file_parser.get_model()
 
-    #Create new restructured JSON (JSON2) compatible with JIT, separate innto data key and children key
-    JSON2={}
+        #Modify JSON from Mike's Parser
+        dict_prepped={}
+        for k,v in dict_orig.iteritems():
+            for key,value in v.iteritems():
+                dict_prepped[key]=value
+                dict_prepped[key]["id"]=key
+                if dict_prepped[key]["id"] in aliases:
+                    dict_prepped[key]["name"]=aliases[dict_prepped[key]["id"]]
+                dict_prepped[key]["data"]={}
+                dict_prepped[key]["data"]["operation"]=dict_prepped[key]["operation"]
+                dict_prepped[key]["data"]["short_desc"]=dict_prepped[key]["short_desc"]
 
-    for key,value in JSON.iteritems():
-        JSON2[key]={}
-        JSON2[key]['data']={}
-        for sub_key,value in value.iteritems():
-            if sub_key == 'children':
-                JSON2[key][sub_key]=value
-            else:
-                JSON2[key]['data'].update(JSON[key])
 
-        if JSON2[key].has_key('children'):
-            JSON2[key]['data'].pop('children')
+    print json.dumps(dict_orig, indent=4, sort_keys=True)
 
-    if eems_version == 1:
-        JSON2.pop('nodes')
+    def recurse_children(child_dict,child_list):
+        expanded_children_dict=child_dict.copy()
+        if child_dict.has_key('children'):
+            for child in child_dict['children']:
+                if isinstance(child,str):
+                    if dict_prepped[child].has_key('children'):
+                        #only here if children have children
+                        recurse_children(dict_prepped[child],child_list)
+                    else:
+                        child_list.append(dict_prepped[child])
+            expanded_children_dict['children'].extend(child_list)
 
-    #for making the aliases file
-    for k,v in JSON2.iteritems():
-        print k + ":" + k
+            #remove children that are just the original strings:
+            list_of_string_children=[]
+            for check_child in expanded_children_dict['children']:
+                if isinstance(check_child,str):
+                    list_of_string_children.append(check_child)
+            for string_child in list_of_string_children:
+                expanded_children_dict['children'].remove(string_child)
 
-    #Expand the pointers to children for each key
-    #each variable become it's own key containing a completed dictinonary of all its children
-    def expandChildren(JSON2):
-        for k, v in JSON2.iteritems():
-            JSON2[k]['name']=k
-            JSON2[k]['id']=k
-            child_list=[]
-            if isinstance(v, dict) and JSON2[k].has_key('children'):
-              for child in JSON2[k]['children']:
-                  child_list.append(child)
-              JSON2[k].pop('children')
-              JSON2[k]['children']=[]
-              JSON2[k]['children'].append({})
-              for child in child_list:
-                  JSON2[k]['children'][0][child]=JSON2[child]
-            else:
-              pass
-        return JSON2
+        return expanded_children_dict
 
-    #Print the JSON Tree
-    def createFinalJSONString(d):
-        global eems_tree
-        eems_tree+='"id": ' + "'" + d['id'] + "',"
-        if d['name'] in aliases:
-           alias=aliases[d['name']]
-        else:
-           alias = d['name']
-        eems_tree+='"name": ' + "'" + alias + "',"
-        eems_tree+='"data": '
-        eems_tree+=json.dumps(d['data'])
-        eems_tree+=(",")
-        if d.has_key('children'):
-            eems_tree+='"children": ['
-            for k,v in d['children'][0].iteritems():
-                eems_tree+="{"
-                createFinalJSONString(v)
-            eems_tree+="]},"
-        else:
-            eems_tree+="},"
+    def initialize_children_search(dict_prepped):
+        for key, value in dict_prepped.iteritems():
+              if value.has_key('children'):
+                  results=[]
+                  for child in value['children']:
+                        if isinstance(child,str):
+                            child_list=[]
+                            expanded_children_dict=recurse_children(dict_prepped[child],child_list)
+                            results.append(expanded_children_dict)
+                  dict_prepped[key]['children']=results
 
-    expandedJSON=expandChildren(JSON2)
+        return dict_prepped
 
-    global eems_tree
-    eems_tree = '{'
+    dict_final=initialize_children_search(dict_prepped)
 
-    createFinalJSONString(expandedJSON[top_node])
-    #print json.dumps(JSON2, indent=4, sort_keys=True)
-
-    eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
+    #print json.dumps(dict_final[top_node], indent=4, sort_keys=True)
 
     eems_file_handle.close()
 
     context={
-        'eems_tree_dict': eems_tree_dict,
+        'eems_tree_dict': dict_final[top_node],
         'top_node': top_node
     }
 

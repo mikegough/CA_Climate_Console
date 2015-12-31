@@ -1354,7 +1354,8 @@ div.callout {
     filter: alpha(opacity=90); /* For IE8 and earlier */
 }
 
-#legendHeader {
+#LegendHeader {
+    max-width:125px;
     text-align: left;
     line-height: 18px;
     color: #555;

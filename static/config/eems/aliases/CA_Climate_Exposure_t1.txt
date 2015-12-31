@@ -11,7 +11,7 @@ HighMinTempJFMExposureFz:High Min Temp JFM Exposure
 HighMaxTempJASExposureFz:High Max Temp JAS Exposure
 HighSeasonalClimateExposureFz:High Seasonal Climate Exposure
 HighPrecipJFMExposureFz:High Precip JFM Exposure
-HighMaxTempSeasonalExposureFz:High Max Temp SeasonalExposure
+HighMaxTempSeasonalExposureFz:High Max Temp Seasonal Exposure
 MinTempONDAnomaly:Min Temp OND Anomaly
 MaxTempAnnAnomaly:Max Temp Ann Anomaly
 MinTempAnnAnomaly:Min Temp Ann Anomaly
