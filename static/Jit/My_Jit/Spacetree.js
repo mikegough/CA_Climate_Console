@@ -39,7 +39,7 @@ function init(){
         //id of viz container element
         injectInto: 'infovis',
         orientation:"top",
-        offsetY:350,
+        offsetY:400,
         //set duration for the animation
         duration: 800,
         //set animation transition type
@@ -75,7 +75,7 @@ function init(){
         },
         
         onAfterCompute: function(){
-            Log.write("Click any node to view inputs");
+            Log.write(EEMSParams["models"][modelForTree][1] + ": Click boxes to show inputs");
             //$(".EEMS_Tree_Value").remove()
             //$("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
             if (typeof resultsJSON[modelForTree+"_avg"] != 'undefined') {
@@ -83,7 +83,7 @@ function init(){
                 $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree+"_avg"] + "</div>")
             }
         },
-                onPlaceLabel: function(label, node, controllers){
+            onPlaceLabel: function(label, node, controllers){
             //override label styles
             var style = label.style;
 
@@ -99,7 +99,8 @@ function init(){
             //This is what prevents the text from disappearing when a node goes off the canvas
             style.display = '';
         },
-        
+
+
         //This method is called on DOM label creation.
         //Use this method to add event handlers and styles to
         //your node.
@@ -111,16 +112,57 @@ function init(){
                 label.innerHTML = node.name +"<br>"+"<div class='EEMS_Tree_Operation' title='This is the operation used to create this node'> (" + node.data.operation + ")</div>";
             }
             label.onclick = function(){
+
+                //Fix for nodes shooting off the screen after panning then clicking.
+                var m = {
+                    offsetX:st.canvas.translateOffsetX,
+                    offsetY:st.canvas.translateOffsetY + 400
+                };
+                st.onClick(node.id, { Move: m });
+
             	if(normal.checked) {
             	  st.onClick(node.id);
                       eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
-                      swapImageOverlay(eems_node_image_name,'EEMSmodel')
                       swapLegend("inputs", "inputs", 'EEMSmodel')
-                      $('#LegendHeader').html(node.name)
+                      swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                      $('#legendHeader').html(node.name)
+
             	} else {
                 st.setRoot(node.id, 'animate');
             	}
+
+               //Code for expanding/contracting nodes (toggle) Not working correctly
+                /*
+               if(!node.anySubnode("exist")) {
+                     node['collapsed']=true;
+                     node.eachSubgraph(function(subnode) {
+                                               if(node.id!=subnode.id)
+                                                 {
+                                                    subnode.drawn=false;
+                                                    subnode.setData('alpha',1);
+                                                 }
+                                });
+                   st.onClick(node.id, { Move: m });
+
+               } else {
+                    node['collapsed']=false;
+
+                        node.eachSubgraph(function(subnode) {
+                               if(node.id!=subnode.id)
+                                 {
+                                  subnode.exist=false;
+                                  subnode.drawn=false;
+                                  subnode.setData('alpha',0);
+                                 }
+
+                                });
+                   st.onClick(node.id, { Move: m });
+
+               }
+               */
+
             };
+
             //set label styles
             //Width + Padding should equal the node width to prevent formatting issues.
             var style = label.style;
@@ -136,7 +178,12 @@ function init(){
             style.paddingRight = '3px';
             style.overflow= 'hidden';
             style.boxShadow= '0px 0px 15px rgba(0, 0, 0, 0.2)';
+
+
+
+
         },
+
         
         //This method is called right before plotting
         //a node. It's useful for changing an individual node
@@ -192,9 +239,11 @@ function init(){
     //compute node positions and layout
     st.compute();
     //optional: make a translation of the tree
-    st.geom.translate(new $jit.Complex(-200, 0), "current");
+    //st.geom.translate(new $jit.Complex(-200, 0), "current");
     //emulate a click on the root node.
     st.onClick(st.root);
+
+
     //end
     //Add event handlers to switch spacetree orientation.
     var top = $jit.id('r-top'), 

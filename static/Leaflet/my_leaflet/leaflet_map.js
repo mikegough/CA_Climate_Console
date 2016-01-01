@@ -159,6 +159,8 @@ function swapImageOverlay(layerName,modelType) {
 
                 climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
+                console.log(climate_PNG_overlay)
+
                 climate_PNG_overlay.addTo(map)
                 climate_PNG_overlay.bringToBack()
                 elements=document.getElementsByClassName('ui-opacity')

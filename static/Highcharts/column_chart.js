@@ -30,9 +30,11 @@ function createColumnChart(){
                     /*
                     width:477,
                     */
-                    width:450,
-                    height:340,
+                    width:420,
+                    height:400,
                     marginRight:35,
+                    marginBottom:200
+
                 },
                 credits: {
                     enabled: false
@@ -98,7 +100,7 @@ function createColumnChart(){
                     categories: attributes,
                     labels: {
                        rotation: -45,
-                       style: { fontSize: '11px', fontWeight: 'normal', textAlign: 'right', cursor: 'pointer'},
+                       style: { fontSize: '11px', fontWeight: 'normal', textAlign: 'left', cursor: 'pointer', textOverflow:'none'},
                        staggerLines:1,
                        //fix for overlapping labels
                        //useHTML:false
@@ -206,6 +208,12 @@ function createColumnChart(){
 
                                     });
 
+                                     for (var i = 0; i < this.series.data.length; i++) {
+                                         this.series.data[i].update({ borderColor: '#444444', borderWidth: 1 }, true, false);
+                                         this.series.data[i].graphic.attr({'stroke-width': 1}, true, false);
+                                     }
+                                        this.update({ borderColor: '#23A4FF'}, true, false)
+                                        this.graphic.attr({'stroke-width': 2 })
 
                                      //Define the json variable based on the layerToAdd  Name
                                      //defineJSONtree()
