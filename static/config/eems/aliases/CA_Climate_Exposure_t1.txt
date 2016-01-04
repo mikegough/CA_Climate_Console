@@ -19,7 +19,7 @@ HighMinTempONDExposureFz:High Min Temp OND Exposure
 HighAnnualClimateExposureFz:High Annual Climate Exposure
 PrecipJASAnomaly:Precip JAS Anomaly
 HighMinTempAMJExposureFz:High Min Temp AMJ Exposure
-HighDirectClimateExposureFz:High Direct Climate Exposure
+HighDirectClimateExposureFz:Climate Exposure (2016-2045)
 HighPrecipJASExposureFz:High Precip JAS Exposure
 MinTempJFMAnomaly:Min Temp JFM Anomaly
 MaxTempJASAnomaly:Max Temp JAS Anomaly

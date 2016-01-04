@@ -10,7 +10,7 @@ Salinity:Salinity
 DepthToBedrock:Depth To Bedrock
 ExtremeSoilpHFz:Extreme Soil pH
 LowDepthToBedrockFz:Low Depth To Bedrock
-HighSiteSensitivityFz:High Site Sensitivity
+HighSiteSensitivityFz:Site Sensitivity
 AvailableWaterCapacity:Available Water Capacity
 HighPotentialSiteSensitivityFz:High Potential Site Sensitivity
 HighPotentialEvapoTransFz:High Potential EvapoTrans

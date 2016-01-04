@@ -81,6 +81,7 @@ function init(){
             if (typeof resultsJSON[modelForTree+"_avg"] != 'undefined') {
                 $(".EEMS_Tree_Value").remove()
                 $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree+"_avg"] + "</div>")
+
             }
         },
             onPlaceLabel: function(label, node, controllers){
@@ -123,7 +124,14 @@ function init(){
             	if(normal.checked) {
             	  st.onClick(node.id);
                       eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
-                      swapLegend("inputs", "inputs", 'EEMSmodel')
+                      if (node.id.indexOf("Fz") >=0) {
+                          //For classified (original)
+                          swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+                      }
+                        else {
+                          //For stretched
+                          swapLegend(node.id+"_legend",node.name, 'EEMSmodelTREE_Stretched')
+                      }
                       swapImageOverlay(eems_node_image_name,'EEMSmodel')
                       $('#legendHeader').html(node.name)
 

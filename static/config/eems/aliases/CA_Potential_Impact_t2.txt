@@ -1,6 +1,6 @@
 HighClimateExposureFz:High Climate Exposure
 IsNotBarrenFz:Is Not Barren
-HiPotImpactFz:Hi Potential Impact
+HiPotImpactFz:Potential Impact (2046-2075)
 HighPotentialSiteSensitivityFz:High Potential Site Sensitivity
 HighCalculatedPotentialImpactFz:High Calculated Potential Impact
 HighDirectClimateExposureFz:High Direct Climate Exposure

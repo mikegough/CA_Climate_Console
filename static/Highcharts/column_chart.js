@@ -203,17 +203,21 @@ function createColumnChart(){
                                             //defineJSONtree()
                                             //alert(json)
                                             init()
-
+                                            //$("#"+st.root).click()
                                         }
 
                                     });
 
+
+                                    //Change column properties on click (problem is that when selecting a new feature, these properties no longer apply to the selected column)
+                                    /*
                                      for (var i = 0; i < this.series.data.length; i++) {
-                                         this.series.data[i].update({ borderColor: '#444444', borderWidth: 1 }, true, false);
+                                         this.series.data[i].update({ borderColor: '#444444'}, true, false);
                                          this.series.data[i].graphic.attr({'stroke-width': 1}, true, false);
                                      }
-                                        this.update({ borderColor: '#23A4FF'}, true, false)
+                                        this.update({ borderColor: '#00FFFF'}, true, false)
                                         this.graphic.attr({'stroke-width': 2 })
+                                     */
 
                                      //Define the json variable based on the layerToAdd  Name
                                      //defineJSONtree()
@@ -238,7 +242,7 @@ function createColumnChart(){
                                          swapImageOverlay(layerToAdd,'EEMSmodel')
                                          swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
                                          //window.open(layerToAdd);
-                                        // toggleLayer(layerToAdd)
+                                         // toggleLayer(layerToAdd)
                                     }
 
                                     //function for deselecting points when a column is selected.

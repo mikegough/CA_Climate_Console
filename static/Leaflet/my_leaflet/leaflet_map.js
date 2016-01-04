@@ -44,6 +44,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
 
         dbid=Data_Basin_ID_Dict[layerToAddName]
 
+        //Column chart click
         if (climateVariable=='EEMSmodel'){
 
             legendTitle=EEMSParams["models"][layerToAddName][0]
@@ -52,7 +53,32 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
             legendLabels=EEMSParams["models"][layerToAddName][4]
             dbid=EEMSParams["models"][layerToAddName][5]
 
-        } else {
+        }
+
+        //JIT tree standard
+        else if (climateVariable=='EEMSmodelTREE_Standard'){
+
+            legendTitle=layerToAdd
+            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
+            legendHeight=EEMSParams["models"][layerToAddName][3]
+            legendLabels=EEMSParams["models"][layerToAddName][4]
+            dbid=EEMSParams["models"][layerToAddName][5]
+
+        }
+
+        //JIT tree stretched
+        else if (climateVariable=='EEMSmodelTREE_Stretched'){
+
+            legendTitle=layerToAdd
+            legendImage="/Legends/"+layerToAddName
+            legendHeight=""
+            legendLabels=EEMSParams["models"]["inputs"][4]
+            dbid=EEMSParams["models"]["inputs"][5]
+
+        }
+
+        //Climate
+        else {
 
             //Legend Title
             modelName=layerToAddName.replace(/c2.*/,'CanESM2').replace(/c4.*/,'CCSM4').replace(/m5.*/,'MIROC5').replace(/ee.*/,'Ensemble').replace(/pm.*/,'PRISM')
