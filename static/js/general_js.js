@@ -293,16 +293,16 @@ function changeSelectionForm(whichChart){
     }
 }
 
-function updateQuickViewTable(){
+function updateQuickViewTable(season){
 
              if (unitsForChart == "english") {
 
                 //Update Quick Table
-                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmads0t1_avg'], 'tmad'))
-                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmads0t2_avg'], 'tmad'))
+                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmad' + season + 't1_avg'], 'tmad'))
+                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmad' + season + 't2_avg'], 'tmad'))
 
-                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmids0t1_avg'], 'tmid'))
-                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmids0t2_avg'], 'tmid'))
+                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmid' + season + 't1_avg'], 'tmid'))
+                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmid' + season + 't2_avg'], 'tmid'))
 
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('F');
@@ -313,11 +313,11 @@ function updateQuickViewTable(){
             else {
 
                 //Update Quick Table
-                $('#quick_value_tmax_t1').html(resultsJSON['eetmads0t1_avg'])
-                $('#quick_value_tmax_t2').html(resultsJSON['eetmads0t2_avg'])
+                $('#quick_value_tmax_t1').html(resultsJSON['eetmad' + season + 't1_avg'])
+                $('#quick_value_tmax_t2').html(resultsJSON['eetmad' + season + 't2_avg'])
 
-                $('#quick_value_tmin_t1').html(resultsJSON['eetmids0t1_avg'])
-                $('#quick_value_tmin_t2').html(resultsJSON['eetmids0t2_avg'])
+                $('#quick_value_tmin_t1').html(resultsJSON['eetmid' + season + 't1_avg'])
+                $('#quick_value_tmin_t2').html(resultsJSON['eetmid' + season + 't2_avg'])
 
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('C');
@@ -325,8 +325,8 @@ function updateQuickViewTable(){
 
             }
 
-            $('#quick_value_precip_t1').html(resultsJSON['eepreds0t1_avg'])
-            $('#quick_value_precip_t2').html(resultsJSON['eepreds0t2_avg'])
+            $('#quick_value_precip_t1').html(resultsJSON['eepred' + season + 't1_avg'])
+            $('#quick_value_precip_t2').html(resultsJSON['eepred' + season + 't2_avg'])
 
 
 
@@ -868,7 +868,7 @@ function changeUnits(units){
     }
     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
 
-    updateQuickViewTable()
+    updateQuickViewTable(document.getElementById("season_selection_form").value)
 }
 
 

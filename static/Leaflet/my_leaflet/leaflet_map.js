@@ -416,7 +416,7 @@ function create_post(newWKT) {
                 findAndReplace(resultsJSON)
             }
 
-            updateQuickViewTable();
+            updateQuickViewTable(document.getElementById("season_selection_form").value);
 
             initialize=response.initialize;
 
