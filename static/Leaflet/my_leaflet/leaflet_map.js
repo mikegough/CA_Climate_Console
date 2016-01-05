@@ -36,6 +36,7 @@ dynamic_legend.addTo(map)
 
 //Swap legend on data point click
 function swapLegend(layerToAddName, layerToAdd, climateVariable) {
+
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
         document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''

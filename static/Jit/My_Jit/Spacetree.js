@@ -114,6 +114,7 @@ function init(){
             }
             label.onclick = function(){
 
+
                 //Fix for nodes shooting off the screen after panning then clicking.
                 var m = {
                     offsetX:st.canvas.translateOffsetX,
@@ -123,20 +124,25 @@ function init(){
 
             	if(normal.checked) {
             	  st.onClick(node.id);
+
                       eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
+                      //Note: have to do swapImageOverlay before swapLegend
+                      swapImageOverlay(eems_node_image_name,'EEMSmodel')
+
                       if (node.id.indexOf("Fz") >=0) {
                           //For classified (original)
                           swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+                          //For stretched
+                          //swapLegend(node.id+"_legend",node.name, 'EEMSmodelTREE_Stretched')
                       }
                         else {
                           //For stretched
                           swapLegend(node.id+"_legend",node.name, 'EEMSmodelTREE_Stretched')
                       }
-                      swapImageOverlay(eems_node_image_name,'EEMSmodel')
                       $('#legendHeader').html(node.name)
 
             	} else {
-                st.setRoot(node.id, 'animate');
+                    st.setRoot(node.id, 'animate');
             	}
 
                //Code for expanding/contracting nodes (toggle) Not working correctly

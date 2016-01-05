@@ -295,6 +295,31 @@ function changeSelectionForm(whichChart){
 
 function updateQuickViewTable(season){
 
+            if (season=='s0'){
+                $('#seasonLabel').html('Annual')
+
+            }
+            else if (season=='s1'){
+
+                $('#seasonLabel').html('Jan-Feb-Mar')
+
+            }
+            else if (season=='s2'){
+
+                $('#seasonLabel').html('Apr-May-Jun')
+
+            }
+            else if (season=='s3'){
+
+                $('#seasonLabel').html('Jul-Aug-Sep')
+
+            }
+            else if (season=='s4'){
+
+                $('#seasonLabel').html('Oct-Nov-Dec')
+
+            }
+
              if (unitsForChart == "english") {
 
                 //Update Quick Table
@@ -327,7 +352,6 @@ function updateQuickViewTable(season){
 
             $('#quick_value_precip_t1').html(resultsJSON['eepred' + season + 't1_avg'])
             $('#quick_value_precip_t2').html(resultsJSON['eepred' + season + 't2_avg'])
-
 
 
             if (resultsJSON['eepreds0t1_avg'] < 0) {
