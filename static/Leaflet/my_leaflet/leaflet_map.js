@@ -185,8 +185,6 @@ function swapImageOverlay(layerName,modelType) {
 
                 climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
-                console.log(climate_PNG_overlay)
-
                 climate_PNG_overlay.addTo(map)
                 climate_PNG_overlay.bringToBack()
                 elements=document.getElementsByClassName('ui-opacity')
@@ -343,6 +341,34 @@ map.on('baselayerchange', function (event) {
     }
 });
 
+
+function EnglishUnitsConversionQuickTable(dataValue,climateVariable){
+
+    var convertedValue
+    var roundedConvertedValue
+
+    //Celsius to Fahrenheit
+    if (climateVariable == 'tmin'|| climateVariable == 'tmax'){
+        convertedValue=1.8*dataValue+32;
+    }
+    else {
+        if (climateVariable == 'tmid'|| climateVariable == 'tmad'){
+            var factor=1.8
+        }
+        else if (climateVariable == 'prec' || climateVariable == 'pet'){
+            var factor=0.0393701
+        }
+        else if (climateVariable == 'arid' || climateVariable == 'pred'){
+            var factor=1
+        }
+
+        convertedValue=dataValue*factor
+    }
+
+    roundedConvertedValue=Number(convertedValue.toFixed(2));
+    return roundedConvertedValue
+}
+
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0
@@ -390,39 +416,7 @@ function create_post(newWKT) {
                 findAndReplace(resultsJSON)
             }
 
-            //Update Quick Table
-            $('#quick_value_tmax_t1').html(resultsJSON['eetmads0t1_avg'])
-            $('#quick_value_tmax_t2').html(resultsJSON['eetmads0t2_avg'])
-
-            $('#quick_value_tmin_t1').html(resultsJSON['eetmids0t1_avg'])
-            $('#quick_value_tmin_t2').html(resultsJSON['eetmids0t2_avg'])
-
-            $('#quick_value_precip_t1').html(resultsJSON['eepreds0t1_avg'])
-            $('#quick_value_precip_t2').html(resultsJSON['eepreds0t2_avg'])
-
-
-            if (resultsJSON['eepreds0t1_avg'] < 0) {
-                $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
-                $('#increase_or_decrease_precip_t1').html("decrease")
-            }
-            else {
-                $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
-                $('#increase_or_decrease_precip_t1').html("increase")
-            }
-
-            if ((resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] < 0) || (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] > 0)) {
-                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
-                $('#increase_or_decrease_precip_t2').html("")
-            }
-
-            if (resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] > 0) {
-                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
-                $('#increase_or_decrease_precip_t2').html(" decrease ")
-            }
-            if (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] < 0) {
-                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
-                $('#increase_or_decrease_precip_t2').html("increase ")
-            }
+            updateQuickViewTable();
 
             initialize=response.initialize;
 

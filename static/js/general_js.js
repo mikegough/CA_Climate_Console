@@ -293,6 +293,67 @@ function changeSelectionForm(whichChart){
     }
 }
 
+function updateQuickViewTable(){
+
+             if (unitsForChart == "english") {
+
+                //Update Quick Table
+                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmads0t1_avg'], 'tmad'))
+                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmads0t2_avg'], 'tmad'))
+
+                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmids0t1_avg'], 'tmid'))
+                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmids0t2_avg'], 'tmid'))
+
+                $('.quick_value_temp_units').each(function() {
+                    $(this).html('F');
+                });
+
+            }
+
+            else {
+
+                //Update Quick Table
+                $('#quick_value_tmax_t1').html(resultsJSON['eetmads0t1_avg'])
+                $('#quick_value_tmax_t2').html(resultsJSON['eetmads0t2_avg'])
+
+                $('#quick_value_tmin_t1').html(resultsJSON['eetmids0t1_avg'])
+                $('#quick_value_tmin_t2').html(resultsJSON['eetmids0t2_avg'])
+
+                $('.quick_value_temp_units').each(function() {
+                    $(this).html('C');
+                });
+
+            }
+
+            $('#quick_value_precip_t1').html(resultsJSON['eepreds0t1_avg'])
+            $('#quick_value_precip_t2').html(resultsJSON['eepreds0t2_avg'])
+
+
+
+            if (resultsJSON['eepreds0t1_avg'] < 0) {
+                $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
+                $('#increase_or_decrease_precip_t1').html("decrease")
+            }
+            else {
+                $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
+                $('#increase_or_decrease_precip_t1').html("increase")
+            }
+
+            if ((resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] < 0) || (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] > 0)) {
+                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
+                $('#increase_or_decrease_precip_t2').html("")
+            }
+
+            if (resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] > 0) {
+                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
+                $('#increase_or_decrease_precip_t2').html(" decrease ")
+            }
+            if (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] < 0) {
+                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
+                $('#increase_or_decrease_precip_t2').html("increase ")
+            }
+}
+
 $(document).ready(function() {
 
     $("#variable_selection_form").change(function(){
@@ -321,7 +382,6 @@ $(document).ready(function() {
         }
       });
 });
-
 
 /****************************************** Near-Term Climate ********************************************************/
 
@@ -807,6 +867,8 @@ function changeUnits(units){
         swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value);
     }
     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
+
+    updateQuickViewTable()
 }
 
 
