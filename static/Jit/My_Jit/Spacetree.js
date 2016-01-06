@@ -28,6 +28,24 @@ var Log = {
   }
 };
 
+
+//function for scaling the labels when you zoom (mouse wheel in and out)
+function setLabelScaling() {
+
+    var x = st.canvas.scaleOffsetX,
+
+    y = st.canvas.scaleOffsetY;
+
+    $(".node").css("-moz-transform", "scale(" + x +"," +  y + ")");
+
+    $(".node").css("-webkit-transform", "scale(" + x +"," + y + ")");
+
+    $(".node").css("-ms-transform", "scale(" + x +"," +  y + ")");
+
+    $(".node").css("-o-transform", "scale(" + x +"," +  y + ")");
+
+}
+
 function init(){
    JitInitializationComplete=true
     //init data
@@ -49,7 +67,8 @@ function init(){
         //enable panning
         Navigation: {
           enable:true,
-          panning:true
+          panning:true,
+          zooming:20,
         },
         //set node and edge styles
         //set overridable=true for styling individual
@@ -68,6 +87,10 @@ function init(){
         Edge: {
             type: 'bezier',
             overridable: true
+        },
+
+        onMouseWheel: function(node){
+            setLabelScaling()
         },
         
         onBeforeCompute: function(node){
@@ -205,6 +228,7 @@ function init(){
         //The data properties prefixed with a dollar
         //sign will override the global node style properties.
         onBeforePlotNode: function(node){
+            setLabelScaling()
             //add some color to the nodes in the path between the
             //root node and the selected node.
             if (node.selected) {

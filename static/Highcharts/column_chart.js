@@ -46,10 +46,10 @@ function createColumnChart(){
                     filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + "EEMS_Model_Results",
                     chartOptions: {
                         chart:{
-                            height:450,
+                            height:500,
                             width:600,
                             margin:100,
-                            marginBottom:130,
+                            marginBottom:180,
                             marginLeft:140,
                         },
                         legend: {

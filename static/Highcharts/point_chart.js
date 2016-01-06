@@ -88,7 +88,7 @@ function createChart(climateVariable, statistic, season) {
                 filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason+")",
                 chartOptions: {
                     chart:{
-                        height:450,
+                        height:500,
                         width:600,
                         margin:100,
                         marginBottom:110,
