@@ -40,7 +40,7 @@ climateParams={
         "ppt":["mm/year","mm/year"],
         "pet":["mm/year","mm/year"],
         "arid":["Percent Change","%"],
-        "pred":["Percent Change","%"]
+        "pred":["mm/year","mm/year"]
     },
     legendHeight:"",
     legendLabels:["","","","","",""],

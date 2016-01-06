@@ -296,6 +296,13 @@ function updateData(climateVariable, statistic, season) {
         $('#units_selector').hide()
     }
 
+    //Turns out precip deltas for the DRECP are mm
+    if (title == 'DRECP'  &&  climateVariable=='pred'){
+        $('#units_selector').show()
+        $('#MetricLabel').html('Millimeters (mm)');
+        $('#EnglishLabel').html('Inches (in)');
+    }
+
     yAxisLabel=climateParams['labels'][climateVariable][0]
     valueSuffix=climateParams['labels'][climateVariable][1]
 
@@ -410,10 +417,15 @@ function updateData(climateVariable, statistic, season) {
                 var factor=1.8
             }
             else if (climateVariable == 'prec' || climateVariable == 'pet'){
-                var factor=0.0393701
+                var factor=0.03936996
             }
             else if (climateVariable == 'arid' || climateVariable == 'pred'){
                 var factor=1
+            }
+
+            //Turns out precip deltas for the DRECP are mm
+            if (climateVariable == 'pred' && title == 'DRECP'){
+                var factor=0.03936996
             }
 
             convertedValue=dataValue*factor

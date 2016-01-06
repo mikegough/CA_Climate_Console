@@ -343,33 +343,6 @@ map.on('baselayerchange', function (event) {
 });
 
 
-function EnglishUnitsConversionQuickTable(dataValue,climateVariable){
-
-    var convertedValue
-    var roundedConvertedValue
-
-    //Celsius to Fahrenheit
-    if (climateVariable == 'tmin'|| climateVariable == 'tmax'){
-        convertedValue=1.8*dataValue+32;
-    }
-    else {
-        if (climateVariable == 'tmid'|| climateVariable == 'tmad'){
-            var factor=1.8
-        }
-        else if (climateVariable == 'prec' || climateVariable == 'pet'){
-            var factor=0.0393701
-        }
-        else if (climateVariable == 'arid' || climateVariable == 'pred'){
-            var factor=1
-        }
-
-        convertedValue=dataValue*factor
-    }
-
-    roundedConvertedValue=Number(convertedValue.toFixed(2));
-    return roundedConvertedValue
-}
-
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0

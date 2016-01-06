@@ -293,6 +293,41 @@ function changeSelectionForm(whichChart){
     }
 }
 
+function EnglishUnitsConversionQuickTable(dataValue,climateVariable){
+
+    var convertedValue
+    var roundedConvertedValue
+
+    //Celsius to Fahrenheit
+    if (climateVariable == 'tmin'|| climateVariable == 'tmax'){
+        convertedValue=1.8*dataValue+32;
+    }
+    else {
+        if (climateVariable == 'tmid'|| climateVariable == 'tmad'){
+            var factor=1.8
+        }
+        else if (climateVariable == 'prec' || climateVariable == 'pet'){
+            var factor=0.03936996
+        }
+        else if (climateVariable == 'arid' || climateVariable == 'pred'){
+            var factor=1
+        }
+        else {
+            var factor=1
+        }
+
+        //Turns out precip deltas for the DRECP are mm
+        if ((climateVariable == 'prec' || climateVariable == 'pred')  && title == 'DRECP'){
+                var factor=0.03936996
+        }
+
+        convertedValue=dataValue*factor
+    }
+
+    roundedConvertedValue=Number(convertedValue.toFixed(2));
+    return roundedConvertedValue
+}
+
 function updateQuickViewTable(season){
 
             if (season=='s0'){
@@ -329,9 +364,19 @@ function updateQuickViewTable(season){
                 $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmid' + season + 't1_avg'], 'tmid'))
                 $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmid' + season + 't2_avg'], 'tmid'))
 
+                $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eepred' + season + 't1_avg'], 'pred'))
+                $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eepred' + season + 't2_avg'], 'pred'))
+
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('F');
                 });
+
+                if (title=="DRECP") {
+                     $('.quick_value_precip_units').each(function () {
+                         $(this).html('in');
+                     });
+                }
+
 
             }
 
@@ -344,14 +389,21 @@ function updateQuickViewTable(season){
                 $('#quick_value_tmin_t1').html(resultsJSON['eetmid' + season + 't1_avg'])
                 $('#quick_value_tmin_t2').html(resultsJSON['eetmid' + season + 't2_avg'])
 
+                $('#quick_value_precip_t1').html(resultsJSON['eepred' + season + 't1_avg'])
+                $('#quick_value_precip_t2').html(resultsJSON['eepred' + season + 't2_avg'])
+
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('C');
                 });
 
-            }
+                if (title=="DRECP") {
 
-            $('#quick_value_precip_t1').html(resultsJSON['eepred' + season + 't1_avg'])
-            $('#quick_value_precip_t2').html(resultsJSON['eepred' + season + 't2_avg'])
+                     $('.quick_value_precip_units').each(function () {
+                         $(this).html('mm');
+                     });
+                }
+
+            }
 
 
             if (resultsJSON['eepreds0t1_avg'] < 0) {
