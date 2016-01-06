@@ -524,6 +524,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     width:33.33%;
     */
     font-size:13px;
+    cursor:default;
 }
 
 .climate_quick_view_label_column{
