@@ -68,7 +68,7 @@ def index(request):
             table="utah_cop_reporting_units_blm_admin_units_1_5_simplify"
             categoricalFields="name"
 
-        template='template1'
+        template='utah'
         config_file="config_utah.js"
 
     elif studyarea=='dev':
