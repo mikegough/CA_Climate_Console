@@ -841,7 +841,7 @@ $('#cbp-spmenu-s3').html("\
             <a href='http://cal-adapt.org/'>Cal-Adapt</a>\
             <a href=''> &nbsp</a>\
             \
-			<a href='?studyarea=utah'>Utah/Colorado Plateau Climate Console</a>\
+			<!--<a href='?studyarea=utah'>Utah/Colorado Plateau Climate Console</a>-->\
             <a href='http://climate.calcommons.org/'>Climate Commons</a>\
             <a href=''> &nbsp</a>\
     "

@@ -213,59 +213,63 @@
 
             <div id="view1" class="views">
 
-                <div class="select_container_2">
-                    <form class="select_form2">
-                        <div class="styled-select2" id="ss1">
-                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                            <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
-                                <!-- Annual Averages -->
-                                <option value="tmax" selected>Maximum Temperature</option>
-                                <option value="tmin">Minimum Temperature</option>
-                                <option value="prec">Precipitation</option>
-                                <option value="arid">Aridity</option>
-                                <option value="pet">PET</option>
-                            </select>
-                        </div>
-                        <div class="styled-select2" id="ss2">
-                            <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
-                                <!-- Annual Averages -->
-                                <option class="avg" value="avg" selected >Average</option>
-                                <option class="delta" value="delta">Change</option>
-                                <!-- <option class="anom" value="anom">Anomaly</option> -->
-                            </select>
-                        </div>
-                        <div class="styled-select2" id="ss3">
-                            <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value)'>
-                                <!-- Annual Averages -->
-                                <option value="s0" selected >Annual</option>
-                                <option value="s1">Jan-Feb-Mar</option>
-                                <option value="s2">Apr-May-Jun</option>
-                                <option value="s3">Jul-Aug-Sep</option>
-                                <option value="s4">Oct-Nov-Dec</option>
-                            </select>
-                        </div>
-                        <div id="units_selector">
-                            <b>Units:</b>
-                            <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
-                            <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
-                        </div>
-                    </form>
+                <div id="all_point_chart_goodies">
+
+                        <div class="select_container_2">
+                                                           <form class="select_form2">
+                                                           <div class="styled-select2" id="ss1">
+                                                           <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                                                           <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                                                           <!-- Annual Averages -->
+                                                           <option value="tmax" selected>Maximum Temperature</option>
+                                                           <option value="tmin">Minimum Temperature</option>
+                                                           <option value="prec">Precipitation</option>
+                                                           <option value="arid">Aridity</option>
+                                                           <option value="pet">PET</option>
+                                                           </select>
+                                                           </div>
+                                                           <div class="styled-select2" id="ss2">
+                                                           <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
+                                                           <!-- Annual Averages -->
+                                                           <option class="avg" value="avg" selected >Average</option>
+                                                           <option class="delta" value="delta">Change</option>
+                                                           <!-- <option class="anom" value="anom">Anomaly</option> -->
+                                                           </select>
+                                                           </div>
+                                                           <div class="styled-select2" id="ss3">
+                                                           <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value)'>
+                                                           <!-- Annual Averages -->
+                                                           <option value="s0" selected >Annual</option>
+                                                           <option value="s1">Jan-Feb-Mar</option>
+                                                           <option value="s2">Apr-May-Jun</option>
+                                                           <option value="s3">Jul-Aug-Sep</option>
+                                                           <option value="s4">Oct-Nov-Dec</option>
+                                                           </select>
+                                                           </div>
+                                                           <div id="units_selector">
+                                                           <b>Units:</b>
+                                                           <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                                                           <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
+                                                           </div>
+                                                           </form>
+                                                           </div>
+
+                        <br>
+
+                        <script>
+                            if (initialize==1){
+                                document.getElementById('initialization_container').style.display="block";
+                                document.getElementById('tab_container').style.display="none";
+                            }
+                        </script>
+
+                        <div id="point_chart"></div>
+
+                        <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
+
+                        <div style="display:none" id="point_chart_description"></div>
+
                 </div>
-
-                <br>
-
-                <script>
-                    if (initialize==1){
-                        document.getElementById('initialization_container').style.display="block";
-                        document.getElementById('tab_container').style.display="none";
-                    }
-                </script>
-
-                <div id="point_chart"></div>
-
-                <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
-
-                <div style="display:none" id="point_chart_description"></div>
 
                 <div id="climate_quick_view">
 

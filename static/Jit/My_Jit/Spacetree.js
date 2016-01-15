@@ -1,6 +1,19 @@
 var labelType, useGradients, nativeTextSupport, animate;
 
+//default renderer
+renderer=EEMSParams['defaultRenderer']
+
+function switchRenderer(node_id,renderer_arg){
+    if (renderer_arg=="classified") {
+        $("#" + node_id + "_classified").prop("checked", true)
+    }
+    else if (renderer_arg=="stretched") {
+        $("#" + node_id + "_stretched").prop("checked", true)
+    }
+}
+
 (function() {
+
   var ua = navigator.userAgent,
       iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i),
       typeOfCanvas = typeof HTMLCanvasElement,
@@ -75,7 +88,7 @@ function init(){
         //nodes or edges
         Node: {
             height: 70,
-            width: 130,
+            width: 155,
             type: 'rectangle',
             color: '#baa',
             overridable: true,
@@ -124,7 +137,6 @@ function init(){
             style.display = '';
         },
 
-
         //This method is called on DOM label creation.
         //Use this method to add event handlers and styles to
         //your node.
@@ -135,34 +147,65 @@ function init(){
             } else {
                 label.innerHTML = node.name +"<br>"+"<div class='EEMS_Tree_Operation' title='This is the operation used to create this node'> (" + node.data.operation + ")</div>";
             }
-            label.onclick = function(){
 
+            if (node.id.indexOf("Fz") >=1) {
+                //Change renderer options. Clicking a color ramp selects the corresponding radio button.
+                //Whichever radio button is set to checked below sets the default renderer.
+                label.innerHTML += '<span style="display:none"><input type="radio" checked name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
+                label.innerHTML += '<span style="display:none"><input type="radio"  name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
+                label.innerHTML += '<span title="Click to apply a classified renderer to the map" style="position:absolute; float:right; top:0px; right:12px"><img onclick=switchRenderer("' + node.id + '","classified") id="' + node.id + '_image" style="height:52px; width:10px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Legends/' + EEMSParams["models"]["inputs"][2] + '.png"></span>'
+                label.innerHTML += '<span title="Click to apply a stretched renderer to the map" style="position:absolute; float:right; top:-7px; right:-30px"><img onclick=switchRenderer("' + node.id + '","stretched") id="' + node.id + '_image" style="height:63px; width:40px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png"></span>'
+            } else {
+                //Non-Fuzzy inputs don't have a classified renderer.
+                label.innerHTML += '<span style="display:none"><input type="radio"  checked name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
+            }
+
+            label.onclick = function(){
 
                 //Fix for nodes shooting off the screen after panning then clicking.
                 var m = {
                     offsetX:st.canvas.translateOffsetX,
                     offsetY:st.canvas.translateOffsetY + 400
                 };
+
                 st.onClick(node.id, { Move: m });
 
             	if(normal.checked) {
-            	  st.onClick(node.id);
+            	st.onClick(node.id);
 
-                      eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
-                      //Note: have to do swapImageOverlay before swapLegend
-                      swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                    //Get renderer type on click based on the selected hidden radio button option
+                    renderer=$("#" +node.id + " input[type='radio']:checked").val()
 
+                    eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
+                    //Note: have to do swapImageOverlay before swapLegend
+                    swapImageOverlay(eems_node_image_name,'EEMSmodel')
+
+                    //For stretched
+                    if (renderer=='stretched' ) {
+                        swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
+                    }
+                    //For classified (original)
+                    else {
+                         swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+                    }
+                    /* Old version prevented nonFuzzy nodes from having a classified color ramp.
                       if (node.id.indexOf("Fz") >=0) {
-                          //For classified (original)
-                          swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+
                           //For stretched
-                          //swapLegend(node.id+"_legend",node.name, 'EEMSmodelTREE_Stretched')
+                          if (renderer=='stretched' ) {
+                              swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
+                          }
+                          //For classified (original)
+                          else {
+                              swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+                          }
                       }
                         else {
                           //For stretched
                           swapLegend(node.id+"_legend",node.name, 'EEMSmodelTREE_Stretched')
                       }
-                      $('#legendHeader').html(node.name)
+                      */
+                    $('#legendHeader').html(node.name)
 
             	} else {
                     st.setRoot(node.id, 'animate');
@@ -203,7 +246,7 @@ function init(){
             //set label styles
             //Width + Padding should equal the node width to prevent formatting issues.
             var style = label.style;
-            style.width = 124 + 'px';
+            style.width = 115 + 'px';
             style.height = 65 + 'px';
             style.cursor = 'pointer';
             style.color = '#444444';
@@ -211,13 +254,10 @@ function init(){
             style.fontSize = '0.88em';
             style.textAlign = 'center';
             style.paddingTop = '5px';
-            style.paddingLeft = '3px';
-            style.paddingRight = '3px';
+            style.paddingLeft = '15px';
+            style.paddingRight = '25px';
             style.overflow= 'hidden';
             style.boxShadow= '0px 0px 15px rgba(0, 0, 0, 0.2)';
-
-
-
 
         },
 
@@ -301,7 +341,9 @@ function init(){
             });
         }
     };
-    
+
+
+
     //top.onchange = left.onchange = bottom.onchange = right.onchange = changeHandler;
     //end
 }

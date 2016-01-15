@@ -1,5 +1,5 @@
 var latlng = L.latLng(initialLat,initialLon);
-enableDownscale = true
+enableDownscale = false
 
 var map = L.map("map", {
     zoomControl: false,
@@ -129,19 +129,43 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
             legendHeight=window[layerToAddName+"Params"].legendHeight
 
         }
+          //If its a classified renderer from the EEMS charts or a climate variable
+          if (renderer=="classified" || climateVariable.indexOf("EEMS") < 0) {
+              document.getElementsByClassName('info')[0].innerHTML =
+                  '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="' + static_url + 'img/dataBasinRedirect.png"></a></div>' +
+                  '<div id="LegendHeader">' + legendTitle + '</div>' +
+                      //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
+                  '<img style="float:left" height="' + legendHeight + '" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + legendImage + '.png">' +
+                  '<div class="legendLabels">'
 
-          document.getElementsByClassName('info')[0].innerHTML=
-            '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="'+static_url+'img/dataBasinRedirect.png"></a></div>' +
-            '<div id="LegendHeader">' + legendTitle+ '</div>' +
-            //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
-            '<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/'+legendImage +'.png">'+
-            '<div class="legendLabels">'
+              if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
+                  for (i in legendLabels) {
+                      $(".legendLabels").append(legendLabels[i] + "<br>");
+                  }
+              }
 
-            if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
-                for (i in legendLabels) {
-                    $(".legendLabels").append(legendLabels[i] + "<br>");
-                }
-            }
+          } else {
+                //Otherwise, go into the stretched directory
+                document.getElementsByClassName('info')[0].innerHTML =
+                '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="' + static_url + 'img/dataBasinRedirect.png"></a></div>' +
+                '<div id="LegendHeader">' + legendTitle + '</div>' +
+                '<img style="float:left" height="" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png">' +
+                '<div class="legendLabelsStretch">'
+                $(".legendLabelsStretch").append("Highest<br><br><br><br><br>Lowest");
+
+              /*
+                 if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
+                     for (i in legendLabels) {
+                         if (legendLabels[i] != 'Moderately High' && legendLabels[i] != 'Moderately Low') {
+                         } else{
+                             $(".legendLabels").append("<br>");
+                         }
+                     }
+                 }
+               */
+
+
+          }
         }
 }
 
@@ -173,7 +197,7 @@ function swapImageOverlay(layerName,modelType) {
         elements=document.getElementsByClassName('ui-opacity')
         map.removeLayer(climate_PNG_overlay)
         //ti
-        if (climate_PNG_overlay_url.search(layerName)> 0){
+        if (climate_PNG_overlay_url.search(layerName)> 0 && lastRenderer==renderer){
             map.removeLayer(climate_PNG_overlay)
             climate_PNG_overlay_url=""
             //Transparency slider
@@ -182,7 +206,12 @@ function swapImageOverlay(layerName,modelType) {
             }
 
         } else {
-                climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + layerName + '.png';
+                if (renderer=='stretched' && modelType== "EEMSmodel") {
+                    climate_PNG_overlay_url = static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + layerName + '.png';
+                }
+                else{
+                    climate_PNG_overlay_url = static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + layerName + '.png';
+                }
 
                 climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
@@ -196,6 +225,8 @@ function swapImageOverlay(layerName,modelType) {
                 climate_PNG_overlay.setOpacity(1 - (handle.offsetTop / 200))
 
         }
+
+        lastRenderer=renderer
 
         //For keeping table row selected
         climate_PNG_overlay.name=layerName
@@ -357,9 +388,11 @@ function create_post(newWKT) {
 
         // handle a successful response
         success : function(json) {
+            timesRun=initialize+1
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
             //console.log(response.resultsJSON)
+
 
             response=JSON.parse(json)
             resultsJSON=JSON.parse(response.resultsJSON)
@@ -446,6 +479,38 @@ function create_post(newWKT) {
                createChart('tmax', 'avg', 's0')
             }
             createColumnChart()
+
+            if (typeof first_query_complete == 'undefined') {
+
+                gettingStartedIntro2 = introJs();
+                gettingStartedIntro2.setOptions({
+                    'showStepNumbers': false,
+                    'showBullets': 'false',
+                    'tooltipPosition': 'left'
+                });
+                $('#all_point_chart_goodies').each(function (i) {
+                    $(this).attr('data-step', '4')
+                    //$(this).attr('data-intro','This chart allows you to explore modeled climate projections within the selected area (mean averages over the stated time periods). Use the dropdown menus to select a new climate variable, statistic, or season. Clicking any point will display the corresponding dataset in the map.')
+                    //$(this).attr('data-intro','This chart shows the average annual maximum temperature that occurred historically within the selected area (anaverage of the annual temperature highs), as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Use the dropdown menus to select a new climate variable, statistic, or season. Clicking any point in the chart will display the corresponding dataset in the map.')
+                    //$(this).attr('data-intro', 'This chart shows the average of the annual high temperatures that occurred within the selected area during the historical period (<span style="font-size:1.3em;">&#8226;</span>), as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>Use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
+                    //$(this).attr('data-intro', 'This chart shows the average of the ' + $("#season_selection_form option:selected").text().toLowerCase() +' ' + $("#variable_selection_form option:selected").text().toLowerCase() + 's that occured within the selected area during the historical period ' + (climateParams['timePeriodLabels'][0]).replace('Historical','') + ', as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>Use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
+                    $(this).attr('data-intro', 'This chart shows the average of the annual temperature highs that occurred within the selected area during the historical period '+  (climateParams['timePeriodLabels'][0]).replace('Historical','') + ', as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
+                });
+
+                $('#climate_quick_view_table').each(function (i) {
+                    $(this).attr('data-step', '5')
+                    //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+                    $(this).attr('data-intro', 'This table provides a quick snapshot of the changes that are projected to occur within the selected area according to the model averages.<p>Click on the "About" tab for more information about the Climate Console.')
+                });
+                //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
+                gettingStartedIntro2.goToStep(4).start()
+            }
+
+            first_query_complete = true
+
+            $( ".select_form2" ).change(function() {
+              gettingStartedIntro2.exit()
+            });
         },
 
         // handle a non-successful response

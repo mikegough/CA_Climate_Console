@@ -408,11 +408,12 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     padding-bottom:3px;
     left:0px;
     vertical-align:bottom;
-    font-size:1em;
+    font-size:.9em;
     font-style:italic;
     font-weight:normal;
     color:#F8981D;
     cursor:help;
+    white-space:nowrap;
     background-color:#444444 !important;
 }
 
@@ -1370,6 +1371,18 @@ div.callout {
     position:relative;
     left:5px;
     margin-right:30px;
+    font-size:12px;
+}
+
+.legendLabelsStretch {
+    white-space:nowrap;
+    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+    position:relative;
+    left:-9px;
+    margin-right:30px;
+    line-height:35px;
+    width:70px;
+    top:-2px;
     font-size:12px;
 }
 

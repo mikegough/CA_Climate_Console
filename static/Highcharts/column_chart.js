@@ -239,8 +239,12 @@ function createColumnChart(){
                                     // End Workaround
 
                                     if (typeof layerToAdd != 'undefined'){
-                                         swapImageOverlay(layerToAdd,'EEMSmodel')
-                                         swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
+                                         //swapImageOverlay(layerToAdd,'EEMSmodel')
+                                         //swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
+                                         eems_node_image_name=eems_file_name.replace(".eem","")+"_" + top_node
+                                         eems_node_legend_name=eems_file_name.replace(".eem","")+"_" + "Legend"
+                                         swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                                         swapLegend(layerToAdd, eems_node_image_name, 'EEMSmodel')
                                          //window.open(layerToAdd);
                                          // toggleLayer(layerToAdd)
                                     }
