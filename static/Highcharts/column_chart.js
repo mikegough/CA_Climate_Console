@@ -1,6 +1,6 @@
 var attributes =[]
 for (EEMSModel in EEMSParams["models"]){
-    attributes.push("<span class='highChartsXaxisText' title='Click to view information about this model'><span onclick='swapImageOverlay(&quot;"+EEMSModel+"&quot;);swapLegend(&quot;"+EEMSModel+"&quot;,&quot;"+EEMSModel+"&quot;,&quot;EEMSmodel&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>")
+    attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='swapImageOverlay(&quot;"+EEMSModel+"&quot;);swapLegend(&quot;"+EEMSModel+"&quot;,&quot;"+EEMSModel+"&quot;,&quot;EEMSmodel&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>")
 }
 
 function createColumnChart(){

@@ -177,7 +177,7 @@ function init(){
             	if(normal.checked) {
             	st.onClick(node.id);
 
-                    if (EEMSParams['hasSubNodeImageOverlays']) {
+                    if (EEMSParams['hasSubNodeImageOverlays'] == true) {
 
                         //Get renderer type on click based on the selected hidden radio button option
                         renderer = $("#" + node.id + " input[type='radio']:checked").val()
