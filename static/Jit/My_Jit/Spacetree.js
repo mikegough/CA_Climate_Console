@@ -142,22 +142,26 @@ function init(){
         //your node.
         onCreateLabel: function(label, node){
             label.id = node.id;
+
             if (typeof(node.data.short_desc) != 'undefined') {
                 label.innerHTML = node.name + "<br>" + "<div class='EEMS_Tree_Operation' title='" + node.data.short_desc + "'> (" + node.data.operation + ")</div>";
             } else {
                 label.innerHTML = node.name +"<br>"+"<div class='EEMS_Tree_Operation' title='This is the operation used to create this node'> (" + node.data.operation + ")</div>";
             }
 
-            if (node.id.indexOf("Fz") >=1) {
-                //Change renderer options. Clicking a color ramp selects the corresponding radio button.
-                //Whichever radio button is set to checked below sets the default renderer.
-                label.innerHTML += '<span style="display:none"><input type="radio" checked name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
-                label.innerHTML += '<span style="display:none"><input type="radio"  name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
-                label.innerHTML += '<span title="Click to apply a classified renderer to the map" style="position:absolute; float:right; top:0px; right:12px"><img onclick=switchRenderer("' + node.id + '","classified") id="' + node.id + '_image" style="height:52px; width:10px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Legends/' + EEMSParams["models"]["inputs"][2] + '.png"></span>'
-                label.innerHTML += '<span title="Click to apply a stretched renderer to the map" style="position:absolute; float:right; top:-7px; right:-30px"><img onclick=switchRenderer("' + node.id + '","stretched") id="' + node.id + '_image" style="height:63px; width:40px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png"></span>'
-            } else {
-                //Non-Fuzzy inputs don't have a classified renderer.
-                label.innerHTML += '<span style="display:none"><input type="radio"  checked name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
+            if (EEMSParams['hasSubNodeImageOverlays']){
+
+                if (node.id.indexOf("Fz") >= 1) {
+                    //Change renderer options. Clicking a color ramp selects the corresponding radio button.
+                    //Whichever radio button is set to checked below sets the default renderer.
+                    label.innerHTML += '<span style="display:none"><input type="radio" checked name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
+                    label.innerHTML += '<span style="display:none"><input type="radio"  name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
+                    label.innerHTML += '<span title="Click to apply a classified renderer to the map" style="position:absolute; float:right; top:0px; right:12px"><img onclick=switchRenderer("' + node.id + '","classified") id="' + node.id + '_image" style="height:52px; width:10px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Legends/' + EEMSParams["models"]["inputs"][2] + '.png"></span>'
+                    label.innerHTML += '<span title="Click to apply a stretched renderer to the map" style="position:absolute; float:right; top:-7px; right:-30px"><img onclick=switchRenderer("' + node.id + '","stretched") id="' + node.id + '_image" style="height:63px; width:40px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png"></span>'
+                } else {
+                    //Non-Fuzzy inputs don't have a classified renderer.
+                    label.innerHTML += '<span style="display:none"><input type="radio"  checked name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
+                }
             }
 
             label.onclick = function(){
@@ -173,38 +177,24 @@ function init(){
             	if(normal.checked) {
             	st.onClick(node.id);
 
-                    //Get renderer type on click based on the selected hidden radio button option
-                    renderer=$("#" +node.id + " input[type='radio']:checked").val()
+                    if (EEMSParams['hasSubNodeImageOverlays']) {
 
-                    eems_node_image_name=eems_file_name.replace(".eem","")+"_" + node.id
-                    //Note: have to do swapImageOverlay before swapLegend
-                    swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                        //Get renderer type on click based on the selected hidden radio button option
+                        renderer = $("#" + node.id + " input[type='radio']:checked").val()
 
-                    //For stretched
-                    if (renderer=='stretched' ) {
-                        swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
-                    }
-                    //For classified (original)
-                    else {
-                         swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
-                    }
-                    /* Old version prevented nonFuzzy nodes from having a classified color ramp.
-                      if (node.id.indexOf("Fz") >=0) {
+                        eems_node_image_name = eems_file_name.replace(".eem", "") + "_" + node.id
+                        //Note: have to do swapImageOverlay before swapLegend
+                        swapImageOverlay(eems_node_image_name, 'EEMSmodel')
 
-                          //For stretched
-                          if (renderer=='stretched' ) {
-                              swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
-                          }
-                          //For classified (original)
-                          else {
-                              swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
-                          }
-                      }
+                        //For stretched
+                        if (renderer == 'stretched') {
+                            swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
+                        }
+                        //For classified (original)
                         else {
-                          //For stretched
-                          swapLegend(node.id+"_legend",node.name, 'EEMSmodelTREE_Stretched')
-                      }
-                      */
+                            swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+                        }
+                    }
                     $('#legendHeader').html(node.name)
 
             	} else {
