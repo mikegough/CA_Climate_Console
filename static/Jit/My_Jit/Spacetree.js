@@ -70,7 +70,8 @@ function init(){
         //id of viz container element
         injectInto: 'infovis',
         orientation:"top",
-        offsetY:400,
+        //Higher numbers make the model go higher up the page.
+        offsetY:120,
         //set duration for the animation
         duration: 800,
         //set animation transition type
@@ -169,7 +170,7 @@ function init(){
                 //Fix for nodes shooting off the screen after panning then clicking.
                 var m = {
                     offsetX:st.canvas.translateOffsetX,
-                    offsetY:st.canvas.translateOffsetY + 400
+                    offsetY:st.canvas.translateOffsetY + 120
                 };
 
                 st.onClick(node.id, { Move: m });
