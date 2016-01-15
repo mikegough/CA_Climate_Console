@@ -70,7 +70,7 @@ function init(){
         //id of viz container element
         injectInto: 'infovis',
         orientation:"top",
-        //Higher numbers make the model go higher up the page.
+        //Higher numbers
         offsetY:120,
         //set duration for the animation
         duration: 800,

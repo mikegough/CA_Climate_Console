@@ -15,7 +15,7 @@ function createColumnChart(){
         layersToAddNames.push(EEMSModel)
     }
     if (valuesToPlot.length == 0) {
-        valuesToPlot = [.4, .8, -.3, .4,.1]
+        valuesToPlot = [0, 0, 0, 0, 0]
     }
 
     var minVal = -1;

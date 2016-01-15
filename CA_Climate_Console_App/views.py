@@ -228,24 +228,28 @@ def index(request):
 
         else:
 
-            #resultsDict["intactness_avg"]=.3
-            #resultsDict["hisensfz_avg"]=.9
-            #resultsDict["eecefzt1_avg"]=.7
-            #resultsDict["eecefzt2_avg"]=.2
-            #resultsDict["eepifzt1_avg"]=-.3
-            #resultsDict["eepifzt2_avg"]=.4
+            if table == "ca_reporting_units_1km_poly":
+                resultsDict["intactness_avg"]=0
+                resultsDict["hisensfz_avg"]=0
+                resultsDict["eecefzt1_avg"]=0
+                resultsDict["eecefzt2_avg"]=0
+                resultsDict["eepifzt1_avg"]=0
+                resultsDict["eepifzt2_avg"]=0
 
-            #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-            columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
-            columnChartColor6="#4444444"
+                columnChartColors=6*"#444444,"
 
-            #columnChartColors=6*"#444444,"
+            else:
 
-            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+                #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
+                columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+                columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+                columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+                columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+                columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+                columnChartColor6="#4444444"
+
+
+                columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
         ########################################### RETURN RESULTS #####################################################
 
