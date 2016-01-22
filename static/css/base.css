@@ -1424,6 +1424,7 @@ div.callout {
 .introjs-helperNumberLayer{
     top:-7px;
     margin-left:10px;
+    z-index:999 !important
 }
 
 .footnote{
@@ -1587,6 +1588,22 @@ div#pop-up {
     border-radius:2px;
     box-shadow: 1px 1px 6px #999;
     font-size: 11px;
+    z-index:1001;
+}
+
+div#pop-up2 {
+    display: none;
+    position: absolute;
+    width:408px;
+    padding: 5px;
+    padding-right:2px;
+    background: #eeeeee;
+    color: #333;
+    border: 1px solid #1a1a1a;
+    border-radius:2px;
+    box-shadow: 1px 1px 6px #999;
+    font-size: 11px;
+    z-index:1001;
 }
 
 .alertify{

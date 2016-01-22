@@ -16,7 +16,7 @@ reportingUnits={
     "HUC5 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "CA_Reporting_Units_HUC5_Watersheds_5_simplify.json"],
     "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
     //"National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","Name","Multi_LCC_USFS_5_Simplify.json"],
-    "User Defined (1km)": ["ca_reporting_units_1km_poly","",""],
+    "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems","",""],
 
 }
 
@@ -57,6 +57,8 @@ climateParams = {
     boxPlot:false
 }
 
+modelInfoText='The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the 10 downscaled climate models was calculated for each of the climate variables.'
+
 EEMSParams={
     defaultRenderer:'stretched',
     hasSubNodeImageOverlays:true,
@@ -83,6 +85,7 @@ EEMSParams={
     },
     "overlayBounds":[[32.534715526793306, -124.40416822955052], [42.01249803975221, -114.12309789053886]],
 };
+
 
 
 

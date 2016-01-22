@@ -182,7 +182,7 @@
     <div id="initialization_container">
             <div id="initialization_text">
                 <h3> Welcome to the <script>document.write(title)</script> Climate Console</h3>
-                The climate console is a web application designed for exploring climate change projections within a selected area of interest.
+                The climate console is a web application designed for exploring climate change projections for a selected area of interest.
                 <h3> Getting Started </h3>
                     <div style="margin-left:10px">
                     1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">.
@@ -209,7 +209,7 @@
             <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
             <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
             <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
-            <li><a href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
+            <li><a id="view3Link" href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
 
         </ul>
 
@@ -280,6 +280,8 @@
                     <div style="display:none" id="point_chart_description"></div>
 
                 </div> <!--all_point_chart_goodies -->
+
+                <!--<div style="height:20px; cursor: help; float:right;position:relative;right:25px;top:-20px;font-size:.8em"><a id="modelInfoLink" >About these climate models</a></div>-->
 
                 <div id="climate_quick_view">
 
@@ -402,7 +404,7 @@
                 For information on climate models click on the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
 
-                The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the four downscaled climate models was calculated for each of the climate variables.
+                The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the 10 downscaled climate models was calculated for each of the climate variables.
 
                 <h3>Weather Forecast: </h3>
 
@@ -415,7 +417,7 @@
                 The field headers (98, 95, 90 ,80, 70, 60, 50, 40, 30, 20, 10, 5, 2) indicate the probability that the actual temperature or precipitation level during the three month period expressed by the LEAD time will be greater than the stated value within the specified climate division (CD).
                 Click <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/explanation_fdf.html">here</a> for complete field descriptions and additional information on the forecast distribution files above.
                 <p>
-                The historical means and forecast means displayed in the climate console come directly from the values in the climatological mean field (C MEAN) and the forecast mean field (F MEAN). These values correspond to a 50% probability of exceedance.
+                The historical means and forecast means displayed in the climate console come directly from the values in the climatological mean field (C MEAN) and the forecast mean field (F MEAN), respectively. The forecast mean corresponds to the 50% probability of exceedance value.
                 These data are automatically updated on the third Thursday of each month.
 
                 <div id="sources">
@@ -548,7 +550,10 @@
 
                 </script>
 
+                <!--<div style="height:20px; cursor:help; float:right;position:relative;right:0px;top:0px;font-size:.8em"><a id="weatherInfoLink" >About the weather data</a></div>-->
+
                 <div id="noaa_3_month"></div>
+
 
                 <br>
                 <br>
@@ -603,8 +608,9 @@
 </script>
 
 <!-- div for the mouseover legend items text -->
-<div id="pop-up">
-</div>
+<div id="pop-up"></div>
+<div id="pop-up2"></div>
+<div id="pop-up3"></div>
 
 </body>
 </html>
