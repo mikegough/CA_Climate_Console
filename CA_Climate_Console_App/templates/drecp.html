@@ -190,24 +190,24 @@
     </div>
 
     <div id="initialization_container">
-        <div id="initialization_text">
-            <h3> Welcome to the <script>document.write(title)</script> Climate Console</h3>
-            The climate console is a web application designed for exploring climate change projections for a selected area of interest.
-            <h3> Getting Started </h3>
-                <div style="margin-left:10px">
-                1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">.
-                <p>
-                <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
-                <p>
-                2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">.
-                <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
-                <p>
-                3. Explore results generated for the selected area.
-                <p>
-                <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
-                </div>
-        </div>
+            <div id="initialization_text">
+                <h3> Welcome to the <script>document.write(title)</script> Climate Console</h3>
+                The climate console is a web application designed for exploring climate change projections for a selected area of interest.
+                <h3> Getting Started </h3>
+                    <div style="margin-left:10px">
+                        1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">.
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                        <p>
+                        2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">.
+                        <p>
+                            <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                        <p>
+                        3. Explore results generated for the selected area.<br><span style="margin-left:18px;">(Results will appear here)</span>
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                    </div>
+            </div>
     </div>
 
     <div id="tab_container">
@@ -219,7 +219,7 @@
             <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
             <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
             <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
-            <li><a href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
+            <li><a  id="view3Link" href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
 
         </ul>
 
@@ -291,6 +291,8 @@
 
                     </div>
 
+                    <div style="height:20px; float:right;position:relative;right:25px;top:-20px;font-size:.8em"><a href="" id="modelInfoLink" >About the climate data</a></div>
+
                 <div id="climate_quick_view">
 
                     <table id="climate_quick_view_table">
@@ -360,7 +362,7 @@
 
                     <h3>Summary:</h3>
 
-                    The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
+                    The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results for a specified area of interest.
                     <p>
                     The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
 
@@ -381,7 +383,7 @@
                        <p>
                         <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
                        <p>
-                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
+                       <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. Click the point again to remove the dataset from the map.</li>
                        <!--
                         <li>Click the "variability" link in the point chart description to view box plots of the data.
                         -->
@@ -399,7 +401,7 @@
                 </div>
                 -->
 
-                <h3>Climate: </h3>
+                <h3 id="aboutClimateData">Climate: </h3>
                 Climate refers to the statistical properties of weather over periods ranging from months to decades or more, and includes average conditions, and the range of variability, as well as the frequency of extreme events.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
                 <p>
                 Climate is different from weather. A weather forecast refers to a prediction about the specific atmospheric conditions expected for a
@@ -413,8 +415,7 @@
 
                 The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected a subset of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the four downscaled climate models was calculated for each of the climate variables.
 
-                <h3>Weather Forecast: </h3>
-
+                <h3 id="aboutWeatherData">Weather Forecast: </h3>
                 The near-term weather forecast data presented in the climate console streams directly from the following forecast distribution files generated by NOAA's <a target="_blank" href="http://www.cpc.ncep.noaa.gov/"> Climate Prediction Center</a>:
                 <p>
                 <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat">Temperature</a><br>
@@ -432,6 +433,21 @@
                 Source: <a href="http://www.cpc.ncep.noaa.gov/" target="_blank">http://www.cpc.ncep.noaa.gov/</a><br>
                 </div>
 
+                <h3 id="aboutEEMSData">Condition & Impact Models </h3>
+
+                <p>
+                    We used the Environmental Evaluation Modeling System (EEMS), a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI), to evaluate the potential impact of climate change throughout the study area.  We defined potential impact as a function of “site sensitivity” and the nature and degree to which a site may experience changes in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
+                <p>
+
+                    Overview of the EEMS Modeling Process
+                <p>
+                    EEMS is based on the Ecosystem Management Decision Support System (EMDS; Reynolds, 2006). With fuzzy logic modeling (a quick introduction to fuzzy logic modeling can be found at: http://tinyurl.com/ox76lhb), input variables are first converted into a common numeric domain or range (also referred to as fuzzy space). Fuzzy values are assigned to the input variables based on the relationship to a true/false proposition.  Values range between -1.0 (representing a fully false result) and +1.0 (representing a fully true result). For instance, input values of projected change in average minimum temperature can be tested against the proposition, “has high change from historical temperature” via a mathematical function with fuzzy values between +1.0 (the most true result) and -1.0 (the most false result), inclusive.
+
+                <p>
+                    Fuzzy values are combined using logic operators in a hierarchical, tree-based logic structure to produce a result based on a single evaluation proposition (for instance “has a high degree of climate change”). Each cell in the study area is evaluated independently, and a map reflecting the value of each proposition across the landscape is produced.
+                <p>
+                    <!--We implemented the models on data in NetCDF Format across the same study area as the input files.-->
+                    <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
 
                 <h3>Terrestrial Intactness:</h3>
                 Terrestrial intactness is an estimate of current condition based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the DRECP study area. Terrestrial intactness values will be high in areas where these impacts are low.
@@ -448,7 +464,7 @@
                 <p>
                 <a href="http://databasin.org/datasets/958719f2359e40b99ca683d1a473ba8d" target="_blank">View or Download this dataset on Data Basin</a>
 
-                <h3> Site Sensitivity</h3>
+                <h3>Site Sensitivity</h3>
                 The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.
                 <p>
                 <a href="http://databasin.org/datasets/7478dab889544d66a3e0fe3d7644f1ad" target="_blank">View or Download this dataset on Data Basin</a>
@@ -556,6 +572,8 @@
 
                 </script>
 
+                <div style="height:20px; float:right;position:relative;right:0px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="">About the weather data</a></div>
+
                 <div id="noaa_3_month"></div>
 
                 <br>
@@ -566,6 +584,7 @@
             <div id="view5" class="views">
                 <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Fuzzy Logic Model Results</span></div>
                 <div id="column_chart"></div>
+                <p>
                 <div id="container">
                     <div id="log">
                         <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
@@ -581,11 +600,9 @@
                 </div>
 
                 </div>
+                <p>
+                <div style="height:20px; float:right;position:relative;right:20px;top:-30px;font-size:.8em"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
 
-            </div>
-
-            <div id="view6">
-                <div class="nearTermHeader" style="line-height:30px;">The State of California: <div style="font-size:.9em">Diversity, Change, and Adaptation</div></div>
             </div>
 
         </div>

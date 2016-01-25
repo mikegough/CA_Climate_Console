@@ -185,17 +185,17 @@
                 The climate console is a web application designed for exploring climate change projections for a selected area of interest.
                 <h3> Getting Started </h3>
                     <div style="margin-left:10px">
-                    1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">.
-                    <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
-                    <p>
-                    2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">.
-                    <p>
-                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
-                    <p>
-                    3. Explore results generated for the selected area.
-                    <p>
-                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                        1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                        <p>
+                        2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">
+                        <p>
+                            <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                        <p>
+                        3. Explore results generated for the selected area.<br><span style="margin-left:18px;">(Results will appear here)</span>
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
                     </div>
             </div>
     </div>
@@ -226,43 +226,43 @@
                 <div id="all_point_chart_goodies">
 
                     <div class="select_container_2">
-                                                       <form class="select_form2">
-                                                       <div class="styled-select2" id="ss1">
-                                                       <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                                                       <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
-                                                       <!-- Annual Averages -->
-                                                       <option value="tmax" selected>Maximum Temperature</option>
-                                                       <option value="tmin">Minimum Temperature</option>
-                                                       <option value="prec">Precipitation</option>
-                                                       <option value="arid">Aridity</option>
-                                                       <option value="pet">PET</option>
-                                                       </select>
-                                                       </div>
-                                                       <div class="styled-select2" id="ss2">
-                                                       <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
-                                                       <!-- Annual Averages -->
-                                                       <option class="avg" value="avg" selected >Average</option>
-                                                       <option class="delta" value="delta">Change</option>
-                                                       <!-- <option class="anom" value="anom">Anomaly</option> -->
-                                                       </select>
-                                                       </div>
-                                                       <div class="styled-select2" id="ss3">
-                                                       <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
-                                                       <!-- Annual Averages -->
-                                                       <option value="s0" selected >Annual</option>
-                                                       <option value="s1">Jan-Feb-Mar</option>
-                                                       <option value="s2">Apr-May-Jun</option>
-                                                       <option value="s3">Jul-Aug-Sep</option>
-                                                       <option value="s4">Oct-Nov-Dec</option>
-                                                       </select>
-                                                       </div>
-                                                       <div id="units_selector">
-                                                       <b>Units:</b>
-                                                       <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
-                                                       <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
-                                                       </div>
-                                                       </form>
-                                                       </div>
+                       <form class="select_form2">
+                       <div class="styled-select2" id="ss1">
+                       <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                       <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                       <!-- Annual Averages -->
+                       <option value="tmax" selected>Maximum Temperature</option>
+                       <option value="tmin">Minimum Temperature</option>
+                       <option value="prec">Precipitation</option>
+                       <option value="arid">Aridity</option>
+                       <option value="pet">PET</option>
+                       </select>
+                       </div>
+                       <div class="styled-select2" id="ss2">
+                       <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
+                       <!-- Annual Averages -->
+                       <option class="avg" value="avg" selected >Average</option>
+                       <option class="delta" value="delta">Change</option>
+                       <!-- <option class="anom" value="anom">Anomaly</option> -->
+                       </select>
+                       </div>
+                       <div class="styled-select2" id="ss3">
+                       <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
+                       <!-- Annual Averages -->
+                       <option value="s0" selected >Annual</option>
+                       <option value="s1">Jan-Feb-Mar</option>
+                       <option value="s2">Apr-May-Jun</option>
+                       <option value="s3">Jul-Aug-Sep</option>
+                       <option value="s4">Oct-Nov-Dec</option>
+                       </select>
+                       </div>
+                       <div id="units_selector">
+                       <b>Units:</b>
+                       <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                       <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
+                       </div>
+                       </form>
+                       </div>
 
                     <br>
 
@@ -281,7 +281,7 @@
 
                 </div> <!--all_point_chart_goodies -->
 
-                <!--<div style="height:20px; cursor: help; float:right;position:relative;right:25px;top:-20px;font-size:.8em"><a id="modelInfoLink" >About these climate models</a></div>-->
+                <div style="height:20px; float:right;position:relative;right:25px;top:-20px;font-size:.8em"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
 
                 <div id="climate_quick_view">
 
@@ -353,7 +353,7 @@
 
                     <h3>Summary:</h3>
 
-                    The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results within a specified area of interest.
+                    The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results for a specified area of interest.
                     <p>
                     The zonal mean for several climate projection datasets is calculated for each of the reporting units and stored in a spatial database which can then be queried against using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine the future climate predictions and potential for climate change impact within one or more administrative units or ecological boundaries of interest.
 
@@ -374,7 +374,7 @@
                        <p>
                         <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
                        <p>
-                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. </li>
+                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. Click the point again to remove the dataset from the map.</li>
                        <!--
                         <li>Click the "variability" link in the point chart description to view box plots of the data.
                         -->
@@ -392,21 +392,67 @@
                 </div>
                 -->
 
-                <h3>Climate: </h3>
+                <h3 id="aboutClimateData">Climate: </h3>
                 Climate refers to the statistical properties of weather over periods ranging from months to decades or more, and includes average conditions, and the range of variability, as well as the frequency of extreme events.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
                 <p>
-                Climate is different from weather. A weather forecast refers to a prediction about the specific atmospheric conditions expected for a
-                location in the short-term future (hours to days).<sup><a href="#refs" title="Source: National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy">2</a></sup>
-                <p>
-
                 A climate trend is a progressive change in the state of the climate based on weather statistics evaluated over long periods, typically of at least 30 years.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
                 <p>
                 For information on climate models click on the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
+
                 <p>
+                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008).  The PRISM data must be obtained directly from the PRISM group at http://www.prism.oregonstate.edu
+                <p>
+                The LT71m PRISM dataset is monthly long-term time series consisting of monthly-modeled values for precipitation (rain + melted snow) and maximum, minimum, and mean temperatures.  The LT71m dataset uses only station networks that have at least some stations with ≥ 20 years of observed data. The data were derived using the climatologically-aided interpolation method using the 1971-2000 monthly climatologies (Daly et al., 2008).
+                <p>
+                All PRISM data used for the historical period were converted from the ESRI ASCII raster format (ESRI, 2014) to the Network Common Data Form (NetCDF; UNIDATA, 2015).
+                <p>
+                We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the <a href="#aboutRCP" title="The Representative Concentration Pathways (RCPs) describe four different 21st century pathways of greenhouse gas (GHG) emissions and atmospheric concentrations, air pollutant emissions and land use. Click this link for more information">representative concentration pathway 8.5</a>(RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011).
+                <p>
+                <b>CMIP5 General Circulation Models (GCMs) used</b>
+                <ol>
+                    <li>ACCESS1-0</li>
+                    <li>CanESM2</li>
+                    <li>CCSM4</li>
+                    <li>CESM1-BGC</li>
+                    <li>CMCC-CM</li>
+                    <li>CNRM-CM5</li>
+                    <li>GFDL-CM3</li>
+                    <li>HadGEM2-CC</li>
+                    <li>HadGEM2-ES</li>
+                    <li>MIROC5</li>
+                </ol>
 
-                The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the 10 downscaled climate models was calculated for each of the climate variables.
+                We then obtained downscaled climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the 2016-2045 and 2046-2075 time periods. The multi-model ensemble mean of the downscaled climate models was calculated for each of the climate variables.
+                <p>
+                The NEX US-DCP30 dataset represent climate projection output from 34 GCMs that have been statistically downscaled to the 30 arc-second spatial resolution using the Bias-Correction Spatial Disaggregation (BCSD) method (Maurer and Hidalgo, 2008).   The bias in monthly temperature and precipitation output from the GCMs was corrected by comparing the GCM output against the “observational” data from the PRISM dataset (Daly et al., 2008). The data were then downscaled to the finer 30 arc-second grid using the complex spatial interpolation method during the “spatial-disaggregation” step (Thrasher et al., 2013).
+                <p>
+                We discovered that when the NEX data were processed by Thrasher ,et al. (2013) the left lower corners of the PRISM data were used as the center coordinates for processing the NEX NetCDF files.  Therefore, the origin of the NEX US-DCP30 data had to be altered to conform to the PRISM data. The NEX grids were adjusted by one-half grid cell (0.004166666667 decimal degrees) so that the two datasets would be spatially aligned and consistent.
+                <p>
+                Once all of the data were in the NetCDF format and spatially aligned, the climate variables, maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec) were extracted from the both CONUS datasets for the spatial extent of California.  The multi-model ensemble was then created for each base climate variable by taking the un-weighted mean of the projections from the ten GCMs.
+                <p>
+                The climate variables (tmax, tmin, and prec) for each of the time periods (1971-2000, 2016-2045, and 2046-2075) were obtained by first calculating the annual averages for the temperature values and the annual total precipitation. Then the mean value was calculated for each time period.
+                <p>
+                Two derived climate variables, potential evapotranspiration (PET) and aridity, were also calculated for the historical and future scenarios. Average monthly PET was calculated using the 1985 version of the Hargreaves potential evaporation equation (Hargreaves and Allen, 2003):
+                <p>
+                PET = 0.0023 x 0.408RA x (Tavg + 17.8) x TD 0.5 (1)
+                <p>
+                where RA was extraterrestrial radiation expressed in (MJ m-2 d-1) and expressed as the averaged for each month, Tavg (oC) was average temperature, and TD (oC) was the temperature range. The constant 0.408 was the inverse of latent heat flux of vaporization at 20 oC and was used to convert extraterrestrial radiation units from MJ m-2 d-1 to mm d-1. RA was calculated for each month using the r.sun (Suri and Hofierka, 2004) routine in the GRASS geographic information system (GRASS, 2015).
+                <p>
+                For this study aridity was defined as P/PET where P was monthly precipitation and PET as defined by equation 1. The percentage change in aridity was calculated by the following equation (Feng and Fu, 2013):
+                <p>
+                Δ(P/PET)/(P/PET)≈ΔP/P−ΔPET/PET
+                <p>
+                Delta values for the future periods for tmin and tmax were calculated by subtracting historical values from future values.
+                <p>
+                Delta values for the future periods for precipitation and aridity are calculated as percent change from the historical (((future-historical) / historical) * 100).
+                <p>
+                <div id="aboutRCP">The <b>Representative Concentration Pathways (RCPs)</b> describe four different 21st century pathways of greenhouse gas (GHG) emissions and atmospheric concentrations, air pollutant emissions and land use. The word representative signifies that each RCP provides only one of many possible scenarios that would lead to the specific radiative forcing characteristics. RCPs usually refer to the portion of the concentration pathway extending up to the date 2100. The RCPs include (RCP2.6) - a stringent mitigation scenario that aims to keep global warming likely below 2°C above pre-industrial temperatures, where radiative forcing peaks at approximately 3 W/m2 before 2100 and then declines; (RCP4.5 and RCP6.0) - two intermediate scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100; and (RCP8.5) - one scenario with very high GHG emissions, which radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some amount of time.<sup><a href="#refs" title="Source: Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5).">3</a></sup></div>
 
-                <h3>Weather Forecast: </h3>
+                <h3 id="aboutWeatherData">Weather Forecast: </h3>
+
+                Weather is different from climate. A weather forecast refers to a prediction about the specific atmospheric conditions expected for a
+                location in the short-term future (hours to days).<sup><a href="#refs" title="Source: National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy">2</a></sup>
+                <p>
 
                 The near-term weather forecast data presented in the climate console streams directly from the following forecast distribution files generated by NOAA's <a target="_blank" href="http://www.cpc.ncep.noaa.gov/"> Climate Prediction Center</a>:
                 <p>
@@ -442,7 +488,24 @@
                 <a href="http://databasin.org/datasets/958719f2359e40b99ca683d1a473ba8d" target="_blank">View or Download this dataset on Data Basin</a>
                 -->
 
-                <h3> Site Sensitivity</h3>
+                <h3 id="aboutEEMSData">Condition & Impact Models </h3>
+
+                <p>
+                We used the Environmental Evaluation Modeling System (EEMS), a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI), to evaluate the potential impact of climate change throughout the study area.  We defined potential impact as a function of “site sensitivity” and the nature and degree to which a site may experience changes in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
+                <p>
+
+                Overview of the EEMS Modeling Process
+                <p>
+                EEMS is based on the Ecosystem Management Decision Support System (EMDS; Reynolds, 2006). With fuzzy logic modeling (a quick introduction to fuzzy logic modeling can be found at: http://tinyurl.com/ox76lhb), input variables are first converted into a common numeric domain or range (also referred to as fuzzy space). Fuzzy values are assigned to the input variables based on the relationship to a true/false proposition.  Values range between -1.0 (representing a fully false result) and +1.0 (representing a fully true result). For instance, input values of projected change in average minimum temperature can be tested against the proposition, “has high change from historical temperature” via a mathematical function with fuzzy values between +1.0 (the most true result) and -1.0 (the most false result), inclusive.
+
+                <p>
+                Fuzzy values are combined using logic operators in a hierarchical, tree-based logic structure to produce a result based on a single evaluation proposition (for instance “has a high degree of climate change”). Each cell in the study area is evaluated independently, and a map reflecting the value of each proposition across the landscape is produced.
+                <p>
+
+                We implemented the models on data in NetCDF Format across the same study area as the input files.
+                <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
+
+                <h3>Site Sensitivity</h3>
                 The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.
                 <p>
                 <a href="http://databasin.org/datasets/7478dab889544d66a3e0fe3d7644f1ad" target="_blank">View or Download this dataset on Data Basin</a>
@@ -477,6 +540,9 @@
                 <p>
                 <sup>2</sup><a href="http://cpo.noaa.gov/OutreachandEducation/ClimateLiteracy.aspx"> National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy</a>
                 <p>
+                <sup>3</sup> Stocker, T. F., D. Qin, G. K. Plattner, M. Tignor, S. K. Allen, J. Boschung, A. Nauels, Y. Xia, V. Bex, and P. M. Midgley. "Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5)." (2013)
+
+
                 <div style="height:800px"></div>
 
             </div>
@@ -550,10 +616,9 @@
 
                 </script>
 
-                <!--<div style="height:20px; cursor:help; float:right;position:relative;right:0px;top:0px;font-size:.8em"><a id="weatherInfoLink" >About the weather data</a></div>-->
+                <div style="height:20px; float:right;position:relative;right:0px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="" title="Click for information about the weather data">About the weather data</a></div>
 
                 <div id="noaa_3_month"></div>
-
 
                 <br>
                 <br>
@@ -563,6 +628,7 @@
             <div id="view5" class="views">
                 <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Fuzzy Logic Model Results</span></div>
                 <div id="column_chart"></div>
+                <p>
                 <div id="container">
                     <div id="log">
                         <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
@@ -578,11 +644,9 @@
                 </div>
 
                 </div>
+                <p>
+                <div style="height:20px; float:right;position:relative;right:20px;top:-30px;font-size:.8em"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
 
-            </div>
-
-            <div id="view6">
-                <div class="nearTermHeader" style="line-height:30px;">The State of California: <div style="font-size:.9em">Diversity, Change, and Adaptation</div></div>
             </div>
 
         </div>

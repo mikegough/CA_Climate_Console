@@ -155,8 +155,8 @@ function init(){
                 if (node.id.indexOf("Fz") >= 1) {
                     //Change renderer options. Clicking a color ramp selects the corresponding radio button.
                     //Whichever radio button is set to checked below sets the default renderer.
-                    label.innerHTML += '<span style="display:none"><input type="radio" checked name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
-                    label.innerHTML += '<span style="display:none"><input type="radio"  name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
+                    label.innerHTML += '<span style="display:none"><input type="radio" name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
+                    label.innerHTML += '<span style="display:none"><input type="radio" checked   name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
                     label.innerHTML += '<span title="Click to apply a classified renderer to the map" style="position:absolute; float:right; top:0px; right:12px"><img onclick=switchRenderer("' + node.id + '","classified") id="' + node.id + '_image" style="height:52px; width:10px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Legends/' + EEMSParams["models"]["inputs"][2] + '.png"></span>'
                     label.innerHTML += '<span title="Click to apply a stretched renderer to the map" style="position:absolute; float:right; top:-7px; right:-30px"><img onclick=switchRenderer("' + node.id + '","stretched") id="' + node.id + '_image" style="height:63px; width:40px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png"></span>'
                 } else {

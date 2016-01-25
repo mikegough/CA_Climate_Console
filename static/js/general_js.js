@@ -57,13 +57,30 @@
      //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
      gettingStartedIntro.setOptions({'showStepNumbers':false, 'showBullets': 'false', 'tooltipPosition': 'right'});
 
-    /*  If we decide to make the link go to the About tab.
+    /*  If we decide to make the link go to the About tab.*/
      $("#modelInfoLink").click(function() {
          document.getElementById("view3Link").click();
+         window.location.hash = '#aboutClimateData'
+         window.location.hash = ''
          return false;
      });
-     */
-         /* Hover over legend tip */
+
+     $("#weatherInfoLink").click(function() {
+         document.getElementById("view3Link").click();
+         window.location.hash = '#aboutWeatherData'
+         window.location.hash = ''
+         return false;
+     });
+
+     $("#EEMSInfoLink").click(function() {
+         document.getElementById("view3Link").click();
+         window.location.hash = '#aboutEEMSData'
+         window.location.hash = ''
+         return false;
+     });
+
+     /* Hover over legend tip */
+     /*
      var moveLeft = -350;
      var moveDown = 24;
 
@@ -104,6 +121,7 @@
              $("div#pop-up2").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
          }
      });
+     */
 
 });
 
@@ -849,7 +867,7 @@ function startCycle(){
             index++;
             change();
         },
-        1000);
+        2000);
     }
 
     $(function () {

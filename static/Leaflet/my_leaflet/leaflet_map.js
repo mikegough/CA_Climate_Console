@@ -132,7 +132,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
           //If its a classified renderer from the EEMS charts or a climate variable
           if (renderer=="classified" || climateVariable.indexOf("EEMS") < 0) {
               document.getElementsByClassName('info')[0].innerHTML =
-                  '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="' + static_url + 'img/dataBasinRedirect.png"></a></div>' +
+                  '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
+                  '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
                   '<div id="LegendHeader">' + legendTitle + '</div>' +
                       //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
                   '<img style="float:left" height="' + legendHeight + '" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + legendImage + '.png">' +
@@ -147,7 +148,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
           } else {
                 //Otherwise, go into the stretched directory
                 document.getElementsByClassName('info')[0].innerHTML =
-                '<div id="DataBasinRedirect"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg" title="Click to view or download this dataset on Data Basin" src="' + static_url + 'img/dataBasinRedirect.png"></a></div>' +
+                '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
+                '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
                 '<div id="LegendHeader">' + legendTitle + '</div>' +
                 '<img style="float:left" height="" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png">' +
                 '<div class="legendLabelsStretch">'
@@ -1050,17 +1052,17 @@ function updateClimateDivisionSymbology(){
 
             if (feature.properties.NAME == selectedClimateDivision){
                 if (selectedNearTermVariableToMap == 'temp'){
-                    return { fillColor: getNearTermColor(allTempDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:5, color: '#00FFFF',  dashArray: 0, fillOpacity: fillOpacityLevel}
+                    return { fillColor: getNearTermColor(allTempDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:5, color: '#00FFFF',  dashArray: 0, fillOpacity:fillOpacityLevel}
                 }
                 else if (selectedNearTermVariableToMap == 'precip') {
-                    return { fillColor: getNearTermColor(allPrecipDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:5, color: '#00FFFF',  dashArray: 0, fillOpacity: fillOpacityLevel}
+                    return { fillColor: getNearTermColor(allPrecipDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:5, color: '#00FFFF',  dashArray: 0, fillOpacity:fillOpacityLevel}
                 }
             } else{
                 if (selectedNearTermVariableToMap == 'temp'){
-                    return { fillColor: getNearTermColor(allTempDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:2, color: '#444444', dashArray: 0, fillOpacity: fillOpacityLevel }
+                    return { fillColor: getNearTermColor(allTempDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:2, color: '#444444', dashArray: 0, fillOpacity:fillOpacityLevel}
                 }
                 else if (selectedNearTermVariableToMap == 'precip') {
-                    return { fillColor: getNearTermColor(allPrecipDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:2, color: '#444444', dashArray: 0, fillOpacity: fillOpacityLevel}
+                    return { fillColor: getNearTermColor(allPrecipDeltaDict[feature.properties.NAME][selectedNearTermClimatePeriod-1]), weight:2, color: '#444444', dashArray: 0, fillOpacity:fillOpacityLevel}
                 }
             }
         },
@@ -1068,8 +1070,10 @@ function updateClimateDivisionSymbology(){
 
     });
 
+
     near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
     map.addLayer(near_term_climate_divisions)
+
 }
 
 function getNearTermColor(d) {
