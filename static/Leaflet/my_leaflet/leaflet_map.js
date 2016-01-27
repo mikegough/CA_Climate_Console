@@ -89,7 +89,15 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
 
-            DataBasinLayerIndex=climateParams["models"][modelName][2]
+
+            if (modelName == "PRISM") {
+                //For PRISM, the layer index comes from the season, s0 is the average and is the first layer in the Data Basin Dataset, s1 is PRISM JFM, etc. Get the index number from the layer name.
+                DataBasinLayerIndex = layerToAddName.substring(7, 8)
+            }
+            else {
+                DataBasinLayerIndex = climateParams["models"][modelName][2]
+            }
+
 
             //Create Climate Variable Label
             if (layerToAddName.indexOf('tma') != -1  ){

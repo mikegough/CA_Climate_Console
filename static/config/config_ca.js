@@ -24,8 +24,8 @@ climateParams = {
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models:{
-        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin index"]
-        "PRISM":["pm","black"],
+        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index"]
+        "PRISM":["pm","black","0"],
         "ACCESS":["a0", "#FF00FF","1"],
         "CanESM2":["c2","#DEB78B","6"],
         "CCSM4":["c4","#717573","2"],
