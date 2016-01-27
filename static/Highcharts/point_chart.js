@@ -316,6 +316,13 @@ function updateData(climateVariable, statistic, season) {
 
     var timePeriodCount=climateParams['timePeriods']
 
+    if (unitsForChart=='english') {
+        yAxisLabel = yAxisLabel.replace('mm', 'inches');
+        valueSuffix = valueSuffix.replace('mm', 'inches');
+        yAxisLabel = yAxisLabel.replace('°C', '°F');
+        valueSuffix = valueSuffix.replace('°C', '°F');
+    }
+
     for (model in climateParams['models']){
 
         modelAbbreviation=climateParams['models'][model][0]
@@ -331,10 +338,6 @@ function updateData(climateVariable, statistic, season) {
                 historicalDataToPlot=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]
                 PRISM_LayersToAdd=['pm'+climateVariable+season+'t0']
                 if (unitsForChart=='english'){
-                    yAxisLabel=yAxisLabel.replace('mm','inches');
-                    valueSuffix=valueSuffix.replace('mm','inches');
-                    yAxisLabel=yAxisLabel.replace('°C','°F');
-                    valueSuffix=valueSuffix.replace('°C','°F');
                     historicalDataToPlot=[EnglishUnitsConversion(historicalDataToPlot[0])]
                 }
             }
