@@ -35,7 +35,7 @@ dynamic_legend.onAdd = function (map) {
 dynamic_legend.addTo(map)
 
 //Swap legend on data point click
-function swapLegend(layerToAddName, layerToAdd, climateVariable) {
+function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
@@ -82,10 +82,14 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
         else {
 
             //Legend Title
-            modelName=layerToAddName.replace(/c2.*/,'CanESM2').replace(/c4.*/,'CCSM4').replace(/m5.*/,'MIROC5').replace(/ee.*/,'Ensemble').replace(/pm.*/,'PRISM')
-            modelName=modelName.replace(/g3.*/,'GFDL-CM3').replace(/hs.*/,'HadGEM2-ES').replace(/hc.*/,'HadGEM2-CC').replace(/a0.*/,'ACCESS1-0').replace(/cc.*/,'CESM1-BGC').replace(/cm.*/,'CMCC-CM').replace(/c5.*/,'CNRM-CM5')
+            //modelCode=layerToAddName.substring(0,1)
+
+            //modelName=layerToAddName.replace(/c2.*/,'CanESM2').replace(/c4.*/,'CCSM4').replace(/m5.*/,'MIROC5').replace(/ee.*/,'Ensemble').replace(/pm.*/,'PRISM')
+            //modelName=modelName.replace(/g3.*/,'GFDL-CM3').replace(/hs.*/,'HadGEM2-ES').replace(/hc.*/,'HadGEM2-CC').replace(/a0.*/,'ACCESS1-0').replace(/cc.*/,'CESM1-BGC').replace(/cm.*/,'CMCC-CM').replace(/c5.*/,'CNRM-CM5')
             timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
+
+            DataBasinLayerIndex=climateParams["models"][modelName][2]
 
             //Create Climate Variable Label
             if (layerToAddName.indexOf('tma') != -1  ){
@@ -132,7 +136,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
           //If its a classified renderer from the EEMS charts or a climate variable
           if (renderer=="classified" || climateVariable.indexOf("EEMS") < 0) {
               document.getElementsByClassName('info')[0].innerHTML =
-                  '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
+                  '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid + '&visibleLayers='+DataBasinLayerIndex+'"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
                   '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
                   '<div id="LegendHeader">' + legendTitle + '</div>' +
                       //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
@@ -148,7 +152,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable) {
           } else {
                 //Otherwise, go into the stretched directory
                 document.getElementsByClassName('info')[0].innerHTML =
-                '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/datasets/' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
+                '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
                 '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
                 '<div id="LegendHeader">' + legendTitle + '</div>' +
                 '<img style="float:left" height="" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png">' +

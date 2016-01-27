@@ -206,8 +206,9 @@ function createChart(climateVariable, statistic, season) {
                 events: {
                     click: function() {
                         layerToAddName = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
+                        modelName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
                         swapImageOverlay(layerToAddName)
-                        swapLegend(layerToAddName, null, climateVariable)
+                        swapLegend(layerToAddName, null, climateVariable,modelName)
                     }
                 }
             }
