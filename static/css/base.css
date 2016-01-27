@@ -346,6 +346,17 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     overflow-x:hidden;
 }
 
+.modelDescriptionTable {
+    cursor:default;
+    border:1px solid;
+    border-collapse:collapse;
+}
+
+.tg-yw4l {
+    border:1px solid;
+    font-size:10px;
+    cursor:default;
+}
 #view4{
     height:100%;
     margin-left:20px;
