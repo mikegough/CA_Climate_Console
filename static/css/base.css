@@ -427,13 +427,11 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     color:#F8981D;
     background-color:#444444 !important;
     */
-
-    color: #4E4E4E;
-    background-color:#C6C2CC !important;
-
-    /* For side Borders */
+    /* For side Borders, Set the Width */
     /* width:153px; */
     bottom:0px;
+    color: #4E4E4E;
+    background-color:#C6C2CC !important;
     border-color:#5D5D5D;
     border-width: 1px 0px 1px 0px;
     border-style: solid;
