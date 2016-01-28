@@ -421,10 +421,22 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     font-size:.9em;
     font-style:italic;
     font-weight:normal;
-    color:#F8981D;
     cursor:help;
     white-space:nowrap;
+    /*
+    color:#F8981D;
     background-color:#444444 !important;
+    */
+
+    color: #4E4E4E;
+    background-color:#C6C2CC !important;
+
+    /* For side Borders */
+    /* width:153px; */
+    bottom:0px;
+    border-color:#5D5D5D;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
 }
 
 #climate_quick_view_map_table{
