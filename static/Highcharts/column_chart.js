@@ -184,6 +184,7 @@ function createColumnChart(){
                                     //Update MEEMSE2.0 values
                                     //Clear out the div containing the model diagram
                                     $('#infovis').html('')
+                                    $('#MEEMSE_node_count_legend').css("visibility","visible")
                                     modelForTree=layerToAdd
                                     eems_file_name=EEMSParams['models'][modelForTree][6]
                                     top_node=EEMSParams['models'][modelForTree][7]

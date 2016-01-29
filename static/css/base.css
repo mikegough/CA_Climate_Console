@@ -9,6 +9,8 @@ body{
     font: 13px verdana;
     color: #000;
     height:100%;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 a{
@@ -253,7 +255,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #highChartsXaxisText{
-    text-align:right;
+    text-align:center;
     white-space:nowrap !important;
 }
 
@@ -274,9 +276,47 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     overflow:auto;
 }
 
-.bottom_spacing{
-    height:100px;
-    padding-bottom:5px;
+#MEEMSE_footer{
+    position: relative;
+    top: -20px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.7) none repeat scroll 0% 0%;"
+}
+#MEEMSE_node_count_legend{
+    visibility:hidden;
+    position:relative;
+    top:0px;
+    left:15px;
+    height:10px;
+    width:150px;
+    float:left;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#aaaaaa+0,aaaaaa+14,bbaaaa+14,bbaaaa+28,ccaaaa+28,ccaaaa+42,ddaaaa+42,ddaaaa+56,eeaaaa+56,eeaaaa+70,ffaaaa+70,ffaaaa+84,a6c8a6+84,a6c8a6+100 */
+}
+#MEEMSE_node_count_legend_table{
+    font-size:9px;
+    width:100%
+}
+#MEEMSE_node_count_legend_table td{
+    color:#606060;
+    text-align:center;
+    width:14%;
+    min-width:14%;
+    height:10px;
+    min-height:10px;
+    cursor:default;
+}
+
+#MEEMSE_node_count_legend_table th{
+    background-color:#EDEDED;
+}
+
+#EEMS_info_link_div {
+    height: 20px;
+    float: right;
+    position: relative;
+    right: 20px;
+    top: 17px;
+    font-size: .8em;
 }
 
 .info_icon{
@@ -329,6 +369,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     overflow-x:hidden;
 }
 
+#all_point_chart_goodies{
+    background-color:white;
+}
+
 #view2{
     height:93%;
     overflow-y:auto;
@@ -366,7 +410,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #view5{
-    height:100%;
+    position:relative;
+    height:99%;
     overflow-y:auto;
     overflow-x:hidden;
 }
@@ -386,6 +431,20 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     margin-bottom:30px;
     opacity:.4;
 }
+
+.tab_help{
+    cursor:pointer;
+    margin-left:5px;
+    margin-top:5px;
+    position:relative;
+    top:85px;
+    right:14px;
+    float:right;
+    height:18px;
+    z-index:9999;
+
+}
+
 
 #infovis-canvaswidget{
 }

@@ -553,7 +553,6 @@ function acquireNearTermClimate() {
         for (var i=2; i<allTextLines.length; i++) {
             allTempDataArray.push(allTextLines[i].split(/\s+/));
         }
-        alert("here is the all temp array:" + allTempDataArray)
 
         //Dictionary of all deltas For Setting Map Symbology
         //allTempDeltaDict[division][period]=value
