@@ -500,7 +500,10 @@
                 <p>
                 Delta values for the future periods for precipitation and aridity are calculated as percent change from the historical (((future-historical) / historical) * 100).
                 <p>
-                <div id="aboutRCP">The <b>Representative Concentration Pathways (RCPs)</b> describe four different 21st century pathways of greenhouse gas (GHG) emissions and atmospheric concentrations, air pollutant emissions and land use. The word representative signifies that each RCP provides only one of many possible scenarios that would lead to the specific radiative forcing characteristics. RCPs usually refer to the portion of the concentration pathway extending up to the date 2100. The RCPs include (RCP2.6) - a stringent mitigation scenario that aims to keep global warming likely below 2°C above pre-industrial temperatures, where radiative forcing peaks at approximately 3 W/m2 before 2100 and then declines; (RCP4.5 and RCP6.0) - two intermediate scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100; and (RCP8.5) - one scenario with very high GHG emissions, which radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some amount of time.<sup><a href="#refs" title="Source: Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5).">3</a></sup></div>
+                <div id="aboutRCP">
+                <!--The <b>Representative Concentration Pathways (RCPs)</b> describe four different 21st century pathways of greenhouse gas (GHG) emissions and atmospheric concentrations, air pollutant emissions and land use. The word representative signifies that each RCP provides only one of many possible scenarios that would lead to the specific radiative forcing characteristics. RCPs usually refer to the portion of the concentration pathway extending up to the date 2100. The RCPs include (RCP2.6) - a stringent mitigation scenario that aims to keep global warming likely below 2°C above pre-industrial temperatures, where radiative forcing peaks at approximately 3 W/m2 before 2100 and then declines; (RCP4.5 and RCP6.0) - two intermediate scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100; and (RCP8.5) - one scenario with very high GHG emissions, which radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some amount of time.<sup><a href="#refs" title="Source: Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5).">3</a></sup>-->
+                The <b>Representative Concentration Pathways (RCPs)</b> describe future concentrations and emissions of greenhouse gases, air pollutants and land-use change. These concentration pathways are named according to a radiative forcing target level for year 2100.  The word ‘representative’ signifies that each RCP scenario is only one of many possible scenarios found in the literature. The term ‘concentration’ is used because this is the primary product in climate models rather than emissions. Commonly used RCPs include 2.6, 4.5, 6.0 and 8.5. RCP2.6 is a stringent mitigation scenario that aims to keep global warming below 2°C above pre-industrial temperatures, where radiative forcing peaks at approximately 3 W/m2 before 2100 and then declines. RCP4.5 and RCP6.0 are two intermediate stabilization scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100. RCP8.5 (used here in the Climate Console) is a scenario with very high GHG emissions where radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some amount of time. (Van Vuuren et al. 2011<sup><a href="#refs" title="Source: The representative concentration pathways: an overview. Climatic change, 109: 5-31">3</a></sup>; Stocker et al. 2013<sup><a href="#refs" title="Source: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5)">4</a></sup>)
+                </div>
 
                 <h3 id="aboutWeatherData">Weather Forecast: </h3>
 
@@ -594,7 +597,9 @@
                 <p>
                 <sup>2</sup><a href="http://cpo.noaa.gov/OutreachandEducation/ClimateLiteracy.aspx"> National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy</a>
                 <p>
-                <sup>3</sup> Stocker, T. F., D. Qin, G. K. Plattner, M. Tignor, S. K. Allen, J. Boschung, A. Nauels, Y. Xia, V. Bex, and P. M. Midgley. "Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5)." (2013)
+                <sup>3</sup> Van Vuuren, D.P., Edmonds, J., Kainuma, M., Riahi, K., Thomson, A., Hibbard, K., Hurtt, G.C., Kram, T., Krey, V., Lamarque, J.F. and T. Masui. 2011. The representative concentration pathways: an overview. Climatic change, 109: 5-31.
+                <p>
+                <sup>4</sup> Stocker, T. F., D. Qin, G. K. Plattner, M. Tignor, S. K. Allen, J. Boschung, A. Nauels, Y. Xia, V. Bex, and P. M. Midgley. "Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5)." (2013)
 
 
                 <div style="height:800px"></div>
@@ -682,7 +687,6 @@
             <div id="view5" class="views">
                 <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Fuzzy Logic Model Results</span></div>
                 <div id="column_chart"></div>
-                <p>
                 <div id="container">
                     <div id="log">
                         <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
@@ -690,10 +694,9 @@
                             <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
                         </div>
                     </div>
-
                 <div id="infovis"></div>
 
-                <div id="right-container" style="visibility:hidden">
+                <div id="right-container" style="display:none">
                      <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
                 </div>
 

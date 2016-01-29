@@ -30,7 +30,7 @@ function createColumnChart(){
                     /*
                     width:477,
                     */
-                    width:420,
+                    width:445,
                     height:400,
                     marginRight:35,
                     marginBottom:200

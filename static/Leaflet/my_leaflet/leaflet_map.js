@@ -37,6 +37,8 @@ dynamic_legend.addTo(map)
 //Swap legend on data point click
 function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
+    DataBasinLayerIndex='0'
+
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
         document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
@@ -166,18 +168,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
                 '<img style="float:left" height="" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png">' +
                 '<div class="legendLabelsStretch">'
                 $(".legendLabelsStretch").append("Highest<br><br><br><br><br>Lowest");
-
-              /*
-                 if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
-                     for (i in legendLabels) {
-                         if (legendLabels[i] != 'Moderately High' && legendLabels[i] != 'Moderately Low') {
-                         } else{
-                             $(".legendLabels").append("<br>");
-                         }
-                     }
-                 }
-               */
-
 
           }
         }

@@ -255,7 +255,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #highChartsXaxisText{
-    text-align:center;
+    text-align:left;
     white-space:nowrap !important;
 }
 
@@ -278,7 +278,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 #MEEMSE_footer{
     position: relative;
-    top: -20px;
+    bottom: 15px;
     height: 50px;
     background: rgba(255, 255, 255, 0.7) none repeat scroll 0% 0%;"
 }
@@ -1634,7 +1634,7 @@ div.clickToMapInfo {
 }
 
 #container {
-    height:375px
+    height:358px
 }
 
 #showTop{
