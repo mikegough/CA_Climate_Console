@@ -310,6 +310,15 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     background-color:#EDEDED;
 }
 
+#climate_info_link_div {
+    height:20px;
+    float:right;
+    position:relative;
+    right:28px;
+    top:-20px;
+    font-size:.8em
+}
+
 #EEMS_info_link_div {
     height: 20px;
     float: right;
