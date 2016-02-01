@@ -549,7 +549,7 @@
                 <h3 id="aboutEEMSData">Condition & Impact Models </h3>
 
                 <p>
-                We used the Environmental Evaluation Modeling System (EEMS), a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI), to evaluate the potential impact of climate change throughout the study area.  We defined potential impact as a function of “site sensitivity” and the nature and degree to which a site may experience changes in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
+                We used the <a href="http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems" target="_blank" title="Click here for more information about EEMS">Environmental Evaluation Modeling System (EEMS)</a>, a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI), to evaluate the potential impact of climate change throughout the study area.  We defined potential impact as a function of “site sensitivity” and the nature and degree to which a site may experience changes in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
                 <p>
 
                 Overview of the EEMS Modeling Process
@@ -562,7 +562,14 @@
 
                 We implemented the models on data in NetCDF Format across the same study area as the input files.
                 <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
-
+                <p>
+                <img id="sample_eems_chart_img" src="{{STATIC_URL}}img/sample_eems_chart.png"  onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_eems_chart.png\" width=\"900px\">",{title: "Sample EEMS Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true})'>
+                The column chart on the <b>Condition & Impacts</b> tab shows the values for several EEMS models averaged over the selected area. The colors used in the chart correspond to the colors used in the map to represent these values. Clicking on a column displays the corresponding dataset used to generate the plotted value. <p>
+                <img id="sample_meemse_img" src="{{STATIC_URL}}img/sample_meemse.png" onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_meemse.png\" width=\"799px\">",{title: "Sample Model Diagram", center:true, width:"950px", modal:true, modalOpacity:.4,center: true})'> In addition, when you click on a column, you’ll see the model diagram appear below the chart. The model diagram is an interactive graphical representation of the model used to create each of the EEMS results shown in the chart. The model flows from the bottom up &mdash; meaning that input nodes appear below the output nodes they create. The text in the gray boxes indicate the operation used to combine the input data (e.g., <i>Fuzzy Union</i>).
+                <p>
+                Clicking on any node shows the corresponding dataset on the map. You can also choose to display the dataset using a classified or stretched renderer by clicking on the vertical color ramps that appear on the right hand side of each node.
+                When you click a node, the model diagram will expand to show you the inputs used to create the node you clicked on. Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes. Green nodes represent the active branch, with the lowest green node being the one that is visible in the map.
+                <p>
                 <h3>Site Sensitivity</h3>
                 The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.
                 <p>
@@ -739,7 +746,7 @@
 </div>
 
 <div id="footer" class="no-print">
-    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2015 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
+    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2016 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
 <script>
     $(function() {
