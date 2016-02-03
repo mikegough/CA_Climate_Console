@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 import urllib
 import re
-import netCDF4
+#import netCDF4
 import numpy as np
 import os
 #For converting string to dictionary
@@ -23,7 +23,8 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def index(request):
 
-    studyarea=request.GET.get('studyarea','ca')
+    studyarea = request.resolver_match.url_name
+    #studyarea=request.GET.get('studyarea','ca')
     template=request.GET.get('template','template1')
 
     #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
@@ -37,8 +38,8 @@ def index(request):
         WKT=request.GET.get('user_wkt')
         table=request.GET.get('reporting_units')
         categoricalFields=request.GET.get('name_field')
-        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
-        urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
+        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "static/data/noaa/climate/cpcllftd.dat")
+        #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "static/data/noaa/climate/cpcllfpd.dat")
         #Webfaction
         #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "/home/consbio/webapps/static_climate_console/data/noaa/climate/cpcllftd.dat")
         #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "/home/consbio/webapps/static_climate_console/data/noaa/climate/cpcllfpd.dat")
@@ -65,6 +66,15 @@ def index(request):
 
         template='ca'
         config_file="config_ca.js"
+
+    elif studyarea=='multi-lcc':
+
+        if table == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        template='multi-lcc'
+        config_file="config_multi-lcc.js"
 
     elif studyarea=='utah':
 
