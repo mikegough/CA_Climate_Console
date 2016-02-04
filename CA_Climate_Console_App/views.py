@@ -25,7 +25,9 @@ def index(request):
 
     studyarea = request.resolver_match.url_name
     #studyarea=request.GET.get('studyarea','ca')
+
     template=request.GET.get('template','template1')
+
 
     #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
 
@@ -70,7 +72,7 @@ def index(request):
     elif studyarea=='multi-lcc':
 
         if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
+            table="multi_lcc_reporting_units_llc_boundaries_2_simplify"
             categoricalFields="name"
 
         template='multi-lcc'
@@ -217,7 +219,18 @@ def index(request):
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
         #BAR COLORS
-        if studyarea=='drecp':
+        if studyarea=='multi-lcc':
+            resultsDict["intactness_avg"]=0
+            resultsDict["hisensfz_avg"]=0
+            resultsDict["eecefzt1_avg"]=0
+            resultsDict["eecefzt2_avg"]=0
+            resultsDict["eepifzt1_avg"]=0
+            resultsDict["eepifzt2_avg"]=0
+
+            columnChartColors=6*"#444444,"
+
+
+        elif studyarea=='drecp':
 
             columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
             columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")

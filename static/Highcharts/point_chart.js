@@ -436,7 +436,14 @@ function updateData(climateVariable, statistic, season) {
         }
 
         roundedConvertedValue=Number(convertedValue.toFixed(2));
-        return roundedConvertedValue
+        //If the configuration file contains a model abbreviation that is not in the database, the math above fails with a NaN. The chart will not plot this model.
+        if (isNaN(roundedConvertedValue)) {
+            console.log(modelAbbreviation + " is a model abbreviation that does not appear in the database")
+            return ''
+        }
+        else {
+            return roundedConvertedValue
+        }
     }
 
     chart.yAxis[0].setTitle({ text:yAxisLabel }, false);
