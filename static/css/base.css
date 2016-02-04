@@ -1272,6 +1272,7 @@ div.callout {
 
 /* Thermometer column and text */
  .thermometer {
+    top:-30px;
     white-space:nowrap;
     margin-top:25px;
     margin-left:18px;
@@ -1334,6 +1335,7 @@ div.callout {
 
 /* Rain gauge column and text */
 .rainGauge{
+    top:-28px;
     left:20px;
     background-color:white;
     white-space:nowrap;

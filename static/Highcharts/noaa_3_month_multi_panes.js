@@ -61,7 +61,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
     $('#noaa_3_month').highcharts({
         chart: {
             type:'spline',
-            height:'370',
+            height:'330',
             width:'430',
             marginTop:'20',
             alignTicks: false,
@@ -107,7 +107,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
                 //color: '#808080'
             }],
             top: 20,
-            height: 120,
+            height: 100,
             offset: 0,
             lineWidth: 2,
             opposite:false,
@@ -133,7 +133,7 @@ function createNoaa3Month(temp_array_selected_division, precip_array_selected_di
             }],
             opposite:false,
             top: 170,
-            height: 120,
+            height: 100,
             offset: 0,
             lineWidth: 2,
             plotLines: [{
