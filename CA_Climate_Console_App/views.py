@@ -2,14 +2,14 @@ from django.http import HttpResponse
 import urllib
 import re
 #import netCDF4
+
 import numpy as np
 import os
-#For converting string to dictionary
 import ast
-
 from django.shortcuts import render
 from django.db import connection
 import json
+
 #The encoder module is used to prevent excessive decimals from being generated when dumping to JSON object
 from json import encoder
 encoder.FLOAT_REPR = lambda o: format(o, '.2f')
@@ -26,8 +26,6 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
 
     studyarea = request.resolver_match.url_name
-    #studyarea=request.GET.get('studyarea','ca')
-
     template=request.GET.get('template','template1')
 
 
@@ -418,7 +416,7 @@ def generate_eems_tree(request):
            #If the eems command file has an explicit layer order defined, Add it to the alias separated by a dash. The layer index is used to open the appropriate layer in Data Basin.
            try:
                line.split(":")[2]
-               alias+="--" + line.split(":")[2].strip()
+               alias+=":" + line.split(":")[2].strip()
            except:
                pass
            if alias=='':

@@ -39,8 +39,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
     //layerToAdd is null for climate data
     if (layerToAdd != null) {
-        layerIndex = layerToAdd.split('--')[1]
-        layerToAdd = layerToAdd.split('--')[0]
+        layerIndex = layerToAdd.split(':')[1]
+        layerToAdd = layerToAdd.split(':')[0]
 
         if (typeof layerIndex == 'undefined' || layerIndex == '') {
             dbid_with_index = EEMSParams["models"][modelForTree][5]

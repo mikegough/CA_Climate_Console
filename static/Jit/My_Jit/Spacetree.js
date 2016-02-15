@@ -108,7 +108,7 @@ function init(){
         },
         
         onBeforeCompute: function(node){
-            loadingTitle=node.name.split('--')[0].replace('<br>',' ').replace('<br>',' ') +"..."
+            loadingTitle=node.name.split(':')[0].replace('<br>',' ').replace('<br>',' ') +"..."
             Log.write("Loading " + loadingTitle);
         },
         
@@ -145,8 +145,8 @@ function init(){
         onCreateLabel: function(label, node){
             label.id = node.id;
 
-            alias=node.name.split('--')[0]
-            layer_index=node.name.split('--')[1]
+            alias=node.name.split(':')[0]
+            layer_index=node.name.split(':')[1]
 
             if (typeof(node.data.short_desc) != 'undefined') {
                 label.innerHTML = alias + "<br>" + "<div class='EEMS_Tree_Operation' title='" + node.data.short_desc + "'> " + node.data.operation + "</div>";
