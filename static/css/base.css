@@ -415,8 +415,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #view3{
-    height:93%;
-    margin-top:20px;
+    height:92%;
+    margin-top:0px;
     margin-left:20px;
     padding-right:20px;
     overflow-y:auto;

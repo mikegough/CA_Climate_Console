@@ -37,6 +37,20 @@ dynamic_legend.addTo(map)
 //Swap legend on data point click
 function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
+    //layerToAdd is null for climate data
+    if (layerToAdd != null) {
+        layerIndex = layerToAdd.split('--')[1]
+        layerToAdd = layerToAdd.split('--')[0]
+
+        if (typeof layerIndex == 'undefined' || layerIndex == '') {
+            dbid_with_index = EEMSParams["models"][modelForTree][5]
+        }
+        else {
+            urlBase = EEMSParams["models"][modelForTree][5].split('&')[0]
+            dbid_with_index = urlBase + "&visibleLayers=" + layerIndex
+        }
+    }
+
     DataBasinLayerIndex='0'
 
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
@@ -54,7 +68,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
             legendHeight=EEMSParams["models"][layerToAddName][3]
             legendLabels=EEMSParams["models"][layerToAddName][4]
-            dbid=EEMSParams["models"][layerToAddName][5]
+            dbid=dbid_with_index
 
         }
 
@@ -65,7 +79,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
             legendHeight=EEMSParams["models"][layerToAddName][3]
             legendLabels=EEMSParams["models"][layerToAddName][4]
-            dbid=EEMSParams["models"][layerToAddName][5]
+            dbid=dbid_with_index
 
         }
 
@@ -73,11 +87,10 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         else if (climateVariable=='EEMSmodelTREE_Stretched'){
 
             legendTitle=layerToAdd
-            legendImage="/Legends/"+layerToAddName
+            legendImage="/Legends/"+layerToAddName +"_legend"
             legendHeight=""
             legendLabels=EEMSParams["models"]["inputs"][4]
-            dbid=EEMSParams["models"]["inputs"][5]
-
+            dbid=dbid_with_index
         }
 
         //Climate
@@ -142,11 +155,13 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             layerToAddName="climate"
             legendHeight=window[layerToAddName+"Params"].legendHeight
 
+            dbid = dbid + '&visibleLayers='+DataBasinLayerIndex
+
         }
           //If its a classified renderer from the EEMS charts or a climate variable
           if (renderer=="classified" || climateVariable.indexOf("EEMS") < 0) {
               document.getElementsByClassName('info')[0].innerHTML =
-                  '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid + '&visibleLayers='+DataBasinLayerIndex+'"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
+                  '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid +'"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
                   '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
                   '<div id="LegendHeader">' + legendTitle + '</div>' +
                       //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
@@ -170,7 +185,13 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
                 $(".legendLabelsStretch").append("Highest<br><br><br><br><br>Lowest");
 
           }
+
+          if (dbid == ''){
+              $('#DataBasinRedirect').hide()
+          }
+
         }
+
 }
 
 overlay_bounds = climateParams['overlayBounds'];

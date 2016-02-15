@@ -200,10 +200,10 @@ function createColumnChart(){
                                             response=JSON.parse(results)
                                             json=response['eems_tree_dict']
                                             top_node=response['top_node']
+                                            init()
                                             //json=$.parseJSON(json);
                                             //defineJSONtree()
                                             //alert(json)
-                                            init()
                                             //$("#"+st.root).click()
                                         }
 

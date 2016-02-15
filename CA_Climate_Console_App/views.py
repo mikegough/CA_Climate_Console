@@ -16,6 +16,8 @@ encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
 from django.views.decorators.gzip import gzip_page
 
+from collections import OrderedDict
+
 #Potential security hole.
 from django.views.decorators.csrf import csrf_exempt
 
@@ -413,11 +415,20 @@ def generate_eems_tree(request):
         for line in eems_alias_file_handle:
            fieldname=line.split(":")[0]
            alias=line.split(":")[1].strip()
+           #If the eems command file has an explicit layer order defined, Add it to the alias separated by a dash. The layer index is used to open the appropriate layer in Data Basin.
+           try:
+               line.split(":")[2]
+               alias+="--" + line.split(":")[2].strip()
+           except:
+               pass
            if alias=='':
                alias=fieldname
            aliases[fieldname]=alias
 
         eems_alias_file_handle.close()
+
+    #Alphabetical order. Perhaps use this as the basis for determining layer index
+    #aliases=OrderedDict(sorted(aliases.items(), key=lambda t: t[0]))
 
     class EEMSFileParser(object):
         """
@@ -714,8 +725,11 @@ def generate_eems_tree(request):
         JSON2.pop('nodes')
 
     #for making the aliases file
-    for k,v in JSON2.iteritems():
-        print k + ":" + k
+    SortedJSON2=OrderedDict(sorted(JSON2.items(), key=lambda t: t[0]))
+    count=0
+    for k,v in SortedJSON2.iteritems():
+        print k + ":" + k+":"+str(count)
+        count+=1
 
     #Expand the pointers to children for each key
     #each variable become it's own key containing a completed dictinonary of all its children

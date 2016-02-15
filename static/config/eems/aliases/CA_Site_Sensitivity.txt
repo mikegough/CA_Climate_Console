@@ -1,21 +1,21 @@
-HighSoilErodibilityFz:High Soil Erodibility
-SoilpH:Soil pH
-PotentialEvapoTrans:Potential Evapo Trans
-WindErodibilityGroup:Wind Erodibility Group
-HighWindErodibilityFz:High Wind Erodibility
-LowAvailableWaterCapacityFz:Low Available Water Capacity
-IsNotBarrenFz:Is Not Barren
-WaterErodibilityIndex:Water Erodibility Index
-Salinity:Salinity
-DepthToBedrock:Depth To Bedrock
-ExtremeSoilpHFz:Extreme Soil pH
-LowDepthToBedrockFz:Low Depth To Bedrock
-HighSiteSensitivityFz:Site Sensitivity
-AvailableWaterCapacity:Available Water Capacity
-HighPotentialSiteSensitivityFz:High Potential Site Sensitivity
-HighPotentialEvapoTransFz:High Potential EvapoTrans
-HighSoilSensitivityFz:High Soil Sensitivity
-HighSalinityFz:High Salinity
-LowSoilWaterFz:Low Soil Water
-NLCDClass:NLCD Class
-HighWaterErodibilityFz:High Water Erodibility
+AvailableWaterCapacity:Available Water Capacity:0
+DepthToBedrock:Depth To Bedrock:1
+ExtremeSoilpHFz:Extreme Soil pH:2
+HighPotentialEvapoTransFz:High Potential EvapoTrans:3
+HighPotentialSiteSensitivityFz:High Potential Site Sensitivity:4
+HighSalinityFz:High Salinity:5
+HighSiteSensitivityFz:Site Sensitivity:6
+HighSoilErodibilityFz:High Soil Erodibility:7
+HighSoilSensitivityFz:High Soil Sensitivity:8
+HighWaterErodibilityFz:High Water Erodibility:9
+HighWindErodibilityFz:High Wind Erodibility:10
+IsNotBarrenFz:Is Not Barren:11
+LowAvailableWaterCapacityFz:Low Available Water Capacity:12
+LowDepthToBedrockFz:Low Depth To Bedrock:13
+LowSoilWaterFz:Low Soil Water:14
+NLCDClass:NLCD Class:15
+PotentialEvapoTrans:Potential Evapo Trans:16
+Salinity:Salinity:17
+SoilpH:Soil pH:18
+WaterErodibilityIndex:Water Erodibility Index:19
+WindErodibilityGroup:Wind Erodibility Group:20

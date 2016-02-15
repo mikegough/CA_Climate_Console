@@ -108,7 +108,8 @@ function init(){
         },
         
         onBeforeCompute: function(node){
-            Log.write("Loading " + node.name.replace('<br>',' ').replace('<br>',' ') +"...");
+            loadingTitle=node.name.split('--')[0].replace('<br>',' ').replace('<br>',' ') +"..."
+            Log.write("Loading " + loadingTitle);
         },
         
         onAfterCompute: function(){
@@ -144,10 +145,13 @@ function init(){
         onCreateLabel: function(label, node){
             label.id = node.id;
 
+            alias=node.name.split('--')[0]
+            layer_index=node.name.split('--')[1]
+
             if (typeof(node.data.short_desc) != 'undefined') {
-                label.innerHTML = node.name + "<br>" + "<div class='EEMS_Tree_Operation' title='" + node.data.short_desc + "'> " + node.data.operation + "</div>";
+                label.innerHTML = alias + "<br>" + "<div class='EEMS_Tree_Operation' title='" + node.data.short_desc + "'> " + node.data.operation + "</div>";
             } else {
-                label.innerHTML = node.name +"<br>"+"<div class='EEMS_Tree_Operation' title='This is the operation used to create this node'> " + node.data.operation + "</div>";
+                label.innerHTML = alias +"<br>"+"<div class='EEMS_Tree_Operation' title='This is the operation used to create this node'> " + node.data.operation + "</div>";
             }
 
             if (EEMSParams['hasSubNodeImageOverlays']){
@@ -189,14 +193,15 @@ function init(){
 
                         //For stretched
                         if (renderer == 'stretched') {
-                            swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
+                            //swapLegend(node.id + "_legend", node.name, 'EEMSmodelTREE_Stretched')
+                            swapLegend(node.id, node.name, 'EEMSmodelTREE_Stretched')
                         }
                         //For classified (original)
                         else {
                             swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
                         }
                     }
-                    $('#legendHeader').html(node.name)
+                    $('#legendHeader').html(alias)
 
             	} else {
                     st.setRoot(node.id, 'animate');
