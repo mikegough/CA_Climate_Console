@@ -84,10 +84,20 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         }
 
         //JIT tree stretched
-        else if (climateVariable=='EEMSmodelTREE_Stretched'){
+        else if (climateVariable=='EEMSmodelTREE_Stretched') {
 
+            /*
             legendTitle=layerToAdd
             legendImage="/Legends/"+layerToAddName +"_legend"
+            legendHeight=""
+            legendLabels=EEMSParams["models"]["inputs"][4]
+            dbid=dbid_with_index
+            */
+
+            // Updated version. Legend name matched to filename.  Non-shared legends for non-fuzzy inputs.
+
+            legendTitle=layerToAdd
+            legendImage="/Legends/" + eems_file_name.split(".")[0] + "_" + layerToAddName +"_legend"
             legendHeight=""
             legendLabels=EEMSParams["models"]["inputs"][4]
             dbid=dbid_with_index

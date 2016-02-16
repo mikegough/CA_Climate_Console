@@ -1,0 +1,39 @@
+# Metadata:
+#   Project: DRECP 2015
+#   Model: High Potential Climate Impact
+#   Version: 2.0
+#   Author: Tim Sheehan
+#   RunDate: 2015-04-19 17:32:13.099571
+#   InputInfo: Ultimate parent data provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+# Indexes for joining in Arc
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/UtilityFiles/DRECP2015IndexFile.csv,
+    InFieldName = CSVIndex,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/PotentialImpact/2.0/Ensemble/2016to2045/PotentialImpactModel.csv
+    )
+
+
+# Climate
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2016to2045/ClimateExposureModel.csv,
+    InFieldName = HighClimateExposureFz,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/PotentialImpact/2.0/Ensemble/2016to2045/PotentialImpactModel.csv
+    )
+
+# Sensitivity
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv,
+    InFieldName = HighSiteSensitivityFz,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/PotentialImpact/2.0/Ensemble/2016to2045/PotentialImpactModel.csv
+    )
+
+HiPotentialClimateImpactFz = UNION(
+    InFieldNames = [
+        HighClimateExposureFz,
+        HighSiteSensitivityFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/PotentialImpact/2.0/Ensemble/2016to2045/PotentialImpactModel.csv
+    )
+

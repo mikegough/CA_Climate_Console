@@ -1,0 +1,309 @@
+# Metadata:
+#   Project: DRECP 2015
+#   Model: High Climate Exposure
+#   Version: 2.0
+#   Author: Tim Sheehan
+#   RunDate: 2015-04-19 16:41:40.987250
+#   InputInfo: Anomaly data provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+# Indexes for joining in Arc
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/UtilityFiles/DRECP2015IndexFile.csv,
+    InFieldName = CSVIndex,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+# Read in all the variables
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleAridityAnnualPctChg2046to2075.csv,
+    InFieldName = EnsembleAridityAnnualPctChg2046to2075,
+    NewFieldName = AridityAnnualPctChg,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMaxTempAnnualAnomaly2046to2075.csv,
+    InFieldName = EnsembleMaxTempAnnualAnomaly2046to2075,
+    NewFieldName = MaxTempAnnualAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMaxTempFallAnomaly2046to2075.csv,
+    InFieldName = EnsembleMaxTempFallAnomaly2046to2075,
+    NewFieldName = MaxTempFallAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMaxTempSpringAnomaly2046to2075.csv,
+    InFieldName = EnsembleMaxTempSpringAnomaly2046to2075,
+    NewFieldName = MaxTempSpringAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMaxTempSummerAnomaly2046to2075.csv,
+    InFieldName = EnsembleMaxTempSummerAnomaly2046to2075,
+    NewFieldName = MaxTempSummerAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMaxTempWinterAnomaly2046to2075.csv,
+    InFieldName = EnsembleMaxTempWinterAnomaly2046to2075,
+    NewFieldName = MaxTempWinterAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMinTempAnnualAnomaly2046to2075.csv,
+    InFieldName = EnsembleMinTempAnnualAnomaly2046to2075,
+    NewFieldName = MinTempAnnualAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMinTempFallAnomaly2046to2075.csv,
+    InFieldName = EnsembleMinTempFallAnomaly2046to2075,
+    NewFieldName = MinTempFallAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMinTempSpringAnomaly2046to2075.csv,
+    InFieldName = EnsembleMinTempSpringAnomaly2046to2075,
+    NewFieldName = MinTempSpringAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMinTempSummerAnomaly2046to2075.csv,
+    InFieldName = EnsembleMinTempSummerAnomaly2046to2075,
+    NewFieldName = MinTempSummerAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsembleMinTempWinterAnomaly2046to2075.csv,
+    InFieldName = EnsembleMinTempWinterAnomaly2046to2075,
+    NewFieldName = MinTempWinterAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsemblePrecipitationAnnualAnomaly2046to2075.csv,
+    InFieldName = EnsemblePrecipitationAnnualAnomaly2046to2075,
+    NewFieldName = PrecipitationAnnualAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsemblePrecipitationFallAnomaly2046to2075.csv,
+    InFieldName = EnsemblePrecipitationFallAnomaly2046to2075,
+    NewFieldName = PrecipitationFallAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsemblePrecipitationSpringAnomaly2046to2075.csv,
+    InFieldName = EnsemblePrecipitationSpringAnomaly2046to2075,
+    NewFieldName = PrecipitationSpringAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsemblePrecipitationSummerAnomaly2046to2075.csv,
+    InFieldName = EnsemblePrecipitationSummerAnomaly2046to2075,
+    NewFieldName = PrecipitationSummerAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+READ(
+    InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/Input/EnsemblePrecipitationWinterAnomaly2046to2075.csv,
+    InFieldName = EnsemblePrecipitationWinterAnomaly2046to2075,
+    NewFieldName = PrecipitationWinterAnomaly,
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+# Convert values to fuzzy
+
+HighAridityAnnualExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = AridityAnnualPctChg,
+    RawValues =   [-96, -48, -24,  -12, -6, 6,    12, 24,  48,  96],
+    FuzzyValues = [1,   0.5,   0, -0.5, -1, -1, -0.5,  0, 0.5, 1.0],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMaxTempAnnualExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempAnnualAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMaxTempFallExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempFallAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMaxTempSpringExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempSpringAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMaxTempSummerExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempSummerAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMaxTempWinterExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempWinterAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMinTempAnnualExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempAnnualAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMinTempFallExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempFallAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMinTempSpringExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempSpringAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMinTempSummerExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempSummerAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighMinTempWinterExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempWinterAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighPrecipitationAnnualExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipitationAnnualAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighPrecipitationFallExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipitationFallAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighPrecipitationSpringExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipitationSpringAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighPrecipitationSummerExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipitationSummerAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighPrecipitationWinterExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipitationWinterAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+# Implement logic tree
+
+HighSeasonalPrecipitationExposureFz = OR(
+    InFieldNames = [
+        HighPrecipitationWinterExposureFz,
+        HighPrecipitationSpringExposureFz,
+        HighPrecipitationSummerExposureFz,
+        HighPrecipitationFallExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighSeasonalMinTempExposureFz = OR(
+    InFieldNames = [
+        HighMinTempWinterExposureFz,
+        HighMinTempSpringExposureFz,
+        HighMinTempSummerExposureFz,
+        HighMinTempFallExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighSeasonalMaxTempExposureFz = OR(
+    InFieldNames = [
+        HighMaxTempWinterExposureFz,
+        HighMaxTempSpringExposureFz,
+        HighMaxTempSummerExposureFz,
+        HighMaxTempFallExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighSeasonalClimateExposureFz = OR(
+    InFieldNames = [
+        HighSeasonalPrecipitationExposureFz,
+        HighSeasonalMinTempExposureFz,
+        HighSeasonalMaxTempExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighAnnualClimateExposureFz = OR(
+    InFieldNames = [
+        HighPrecipitationAnnualExposureFz,
+        HighMinTempAnnualExposureFz,
+        HighMaxTempAnnualExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighDirectClimateExposureFz = OR(
+    InFieldNames = [
+        HighSeasonalClimateExposureFz,
+        HighAnnualClimateExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )
+
+HighClimateExposureFz = OR(
+    InFieldNames = [
+        HighDirectClimateExposureFz,
+        HighAridityAnnualExposureFz
+        ],
+    OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/ClimateExposure/2.0/Ensemble/2046to2075/ClimateExposureModel.csv
+    )

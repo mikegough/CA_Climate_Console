@@ -1,0 +1,162 @@
+# Metadata:
+#   Project: DRECP 2015
+#   Model: High Site Sensitivity
+#   Version: 2.0
+#   Author: Tim Sheehan
+#   RunDate: 2015-04-19 15:53:31.322365
+#   InputInfo: Input Data provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+
+# Indexes for joining in Arc
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/UtilityFiles/DRECP2015IndexFile.csv,
+  InFieldName = CSVIndex,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+# Soils data
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/AvailableWaterCapacity.csv,
+  InFieldName = AvailableWaterCapacity,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+LowAvailableWaterCapacityFz = CVTTOFUZZY(
+    InFieldName = AvailableWaterCapacity,
+    TrueThreshold = 0,
+    FalseThreshold = 10,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+    )
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/DepthToBedrock.csv,
+  InFieldName = DepthToBedrock,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+LowDepthToBedrockFz = CVTTOFUZZY(
+  InFieldName = DepthToBedrock,
+  TrueThreshold = 2,
+  FalseThreshold = 15,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+    )
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/PotentialEvapotranspirationNorm.csv,
+  InFieldName = PotentialEvapotranspirationNorm,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighPotentialEvapotranspirationFz = CVTTOFUZZY(
+  InFieldName = PotentialEvapotranspirationNorm,
+  TrueThreshold = 2,
+  FalseThreshold = -2,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/Salinity.csv,
+  InFieldName = Salinity,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighSalinityFz = CVTTOFUZZY(
+  InFieldName = Salinity,
+  TrueThreshold = 16,
+  FalseThreshold = 8,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/SoilpH.csv,
+  InFieldName = SoilpH,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+ExtremeSoilpHFz = CVTTOFUZZYCURVE(
+  InFieldName = SoilpH,
+  RawValues =   [
+      4.00,
+      5.50,
+      6.00,
+      6.50,
+      7.50,
+      8.00,
+      8.50,
+      10.0
+  ]
+  FuzzyValues =   [
+      1,     # 4.00
+      1,     # 5.50,
+      -0.5,  # 6.00,
+      -1,    # 6.50,
+      -1,    # 7.50,
+      -0.5,  # 8.00,
+      1,     # 8.50,
+      1      # 10.0
+  ],
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/WaterErodibilityIndex.csv,
+  InFieldName = WaterErodibilityIndex,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighWaterErodibilityFz = CVTTOFUZZY(
+  InFieldName = WaterErodibilityIndex,
+  TrueThreshold = 0.15,
+  FalseThreshold = 0,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+READ(
+  InFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/Input/WindErodibilityGroup.csv,
+  InFieldName = WindErodibilityGroup,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighWindErodibilityFz = CVTTOFUZZY(
+  InFieldName = WindErodibilityGroup,
+  TrueThreshold = 1,
+  FalseThreshold = 7,
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighSoilErodibilityFz = OR(
+  InFieldNames = [
+      HighWaterErodibilityFz,
+      HighWindErodibilityFz
+  ],
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighSoilSensitivityFz = OR(
+  InFieldNames = [
+      HighSoilErodibilityFz,
+      ExtremeSoilpHFz,
+      LowDepthToBedrockFz,
+      HighSalinityFz
+      ],
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+LowSoilWaterFz = UNION(
+  InFieldNames = [
+      HighPotentialEvapotranspirationFz,
+      LowAvailableWaterCapacityFz
+      ],
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
+HighSiteSensitivityFz = UNION(
+  InFieldNames = [
+      LowSoilWaterFz,
+      HighSoilSensitivityFz
+      ],
+  OutFileName = /Users/timsheehan/Projects/DRECP2015/EEMSModels/SiteSensitivity/2.0/DRECP2015SiteSensitivityModel.csv
+  )
+
