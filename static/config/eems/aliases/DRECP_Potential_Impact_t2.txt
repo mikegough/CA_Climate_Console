@@ -1,0 +1,3 @@
+HiPotentialClimateImpactFz:High Potential Climate Impact
+HighClimateExposureFz:High Climate Exposure
+HighSiteSensitivityFz:High Site Sensitivity

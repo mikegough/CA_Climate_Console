@@ -1,0 +1,39 @@
+AridityAnnualPctChg:Aridity Annual Pct Chg
+HighAnnualClimateExposureFz:High Annual Climate Exposure
+HighAridityAnnualExposureFz:High Aridity Annual Exposure
+HighClimateExposureFz:High Climate Exposure
+HighDirectClimateExposureFz:High Direct Climate Exposure
+HighMaxTempAnnualExposureFz:High Max Temp Annual Exposure
+HighMaxTempFallExposureFz:High Max Temp Fall Exposure
+HighMaxTempSpringExposureFz:High Max Temp Spring Exposure
+HighMaxTempSummerExposureFz:High Max Temp Summer Exposure
+HighMaxTempWinterExposureFz:High Max Temp Winter Exposure
+HighMinTempAnnualExposureFz:High Min Temp Annual Exposure
+HighMinTempFallExposureFz:High Min Temp Fall Exposure
+HighMinTempSpringExposureFz:High Min Temp Spring Exposure
+HighMinTempSummerExposureFz:High Min Temp Summer Exposure
+HighMinTempWinterExposureFz:High Min Temp Winter Exposure
+HighPrecipitationAnnualExposureFz:High Precipitation Annual Exposure
+HighPrecipitationFallExposureFz:High Precipitation Fall Exposure
+HighPrecipitationSpringExposureFz:High Precipitation Spring Exposure
+HighPrecipitationSummerExposureFz:High Precipitation Summer Exposure
+HighPrecipitationWinterExposureFz:High Precipitation WinterExposure
+HighSeasonalClimateExposureFz:High Seasonal Climate Exposure
+HighSeasonalMaxTempExposureFz:High Seasonal Max Temp Exposure
+HighSeasonalMinTempExposureFz:High Seasonal Min Temp Exposure
+HighSeasonalPrecipitationExposureFz:High Seasonal Precipitation Exposure
+MaxTempAnnualAnomaly:Max Temp Annual Anomaly
+MaxTempFallAnomaly:Max Temp Fall Anomaly
+MaxTempSpringAnomaly:Max Temp Spring Anomaly
+MaxTempSummerAnomaly:Max Temp Summer Anomaly
+MaxTempWinterAnomaly:Max Temp Winter Anomaly
+MinTempAnnualAnomaly:Min Temp Annual Anomaly
+MinTempFallAnomaly:Min Temp Fall Anomaly
+MinTempSpringAnomaly:Min Temp Spring Anomaly
+MinTempSummerAnomaly:Min Temp Summer Anomaly
+MinTempWinterAnomaly:Min Temp Winter Anomaly
+PrecipitationAnnualAnomaly:Precipitation Annual Anomaly
+PrecipitationFallAnomaly:Precipitation Fall Anomaly
+PrecipitationSpringAnomaly:Precipitation Spring Anomaly
+PrecipitationSummerAnomaly:Precipitation Summer Anomaly
+PrecipitationWinterAnomaly:Precipitation WinterAnomaly
