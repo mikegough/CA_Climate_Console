@@ -72,6 +72,9 @@ function init(){
         orientation:"top",
         //Higher numbers
         offsetY:120,
+        //To Show all nodes
+        //constrained:false,
+        //levelsToShow: 100,
         //set duration for the animation
         duration: 800,
         //set animation transition type
@@ -161,7 +164,7 @@ function init(){
                     //Whichever radio button is set to checked below sets the default renderer.
                     label.innerHTML += '<span style="display:none"><input type="radio" name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
                     label.innerHTML += '<span style="display:none"><input type="radio" checked   name="' + node.id + '"id="' + node.id + '_stretched" value="stretched">stretch</span>';
-                    label.innerHTML += '<span title="Click to apply a classified renderer to the map" style="position:absolute; float:right; top:0px; right:12px"><img onclick=switchRenderer("' + node.id + '","classified") id="' + node.id + '_image" style="height:51px; width:10px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Legends/' + EEMSParams["models"]["inputs"][2] + '.png"></span>'
+                    label.innerHTML += '<span title="Click to apply a classified renderer to the map" style="position:absolute; float:right; top:0px; right:12px"><img onclick=switchRenderer("' + node.id + '","classified") id="' + node.id + '_image" style="height:51px; width:10px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Legends/' + EEMSParams["models"][modelForTree][2] + '.png"></span>'
                     label.innerHTML += '<span title="Click to apply a stretched renderer to the map" style="position:absolute; float:right; top:-7px; right:-30px"><img onclick=switchRenderer("' + node.id + '","stretched") id="' + node.id + '_image" style="height:62px; width:40px" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png"></span>'
                 } else {
                     //Non-Fuzzy inputs don't have a classified renderer.
@@ -198,7 +201,7 @@ function init(){
                         }
                         //For classified (original)
                         else {
-                            swapLegend("inputs", node.name, 'EEMSmodelTREE_Standard')
+                            swapLegend(modelForTree, node.name, 'EEMSmodelTREE_Standard')
                         }
                     }
                     $('#legendHeader').html(alias)

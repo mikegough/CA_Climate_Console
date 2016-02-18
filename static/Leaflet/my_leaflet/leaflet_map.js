@@ -220,8 +220,15 @@ if (typeof climate_PNG_overlay != 'undefined') {
 function swapImageOverlay(layerName,modelType) {
 
         //Need different overlay bounds for EEMS Models
+        //The PNGs that come out of clover are not clipped to the data perfectly. So for those PNGs that come from the
+        //Automated ArcMap Script, a different extent is needed.
         if (modelType=="EEMSmodel"){
-            overlay_bounds = EEMSParams['overlayBounds'];
+            if (EEMSParams["models"][modelForTree][9] == '2') {
+                overlay_bounds = EEMSParams['overlayBounds2'];
+            }
+            else {
+                overlay_bounds = EEMSParams['overlayBounds'];
+            }
         }
         else{
             overlay_bounds = climateParams['overlayBounds'];

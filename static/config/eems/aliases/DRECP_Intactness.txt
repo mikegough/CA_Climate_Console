@@ -1,0 +1,34 @@
+BLM_OHV_Density:BLM OHV Density
+DRECP_AT_C_FragCorePct_AV_1KM_poly_MEAN:Fragstats (CorePct)
+DRECP_AT_C_FragNN_AV_1KM_poly_MEAN:Fragstats (Nearest Neighbor)
+DRECP_AT_C_FragNP_AV_1KM_poly_MEAN:Fragstats (Number of Patches)
+GTLF_Density:GTLF Density
+Geothermal_Wells_Density:Geothermal Wells Density
+Grazing_Density:Grazing Density
+HiCoreAreaFz:High Core Area
+HiCoreIntegrityFz:High Core Integrity
+HiTerrestIntactnessFz:High Terrestrial Intactness
+Intensive_Agriculture_Density:Intensive Agriculture Density
+Invasives_Density:Invasives Density
+LinDevSum:Lin Development Sum
+LoEnergyDevFz:Low Energy Development
+LoFragmentationFz:Low Fragmentation
+LoLinDensFz:Low Linear Dens
+LoMinPtDens:Low Mine Points Dens
+LoNaturalPatchesFz:Low Number of Patches
+LoNearestNeighborFz:Low Nearest Neighbor
+LoPermanentDevelopmentFz:Low Permanent Development
+LoPowerPlantDensityFz:Low Power Plant Density
+LoUrbanDevFz:Low Urban Development
+LoUrbanLoLinearFz:Low Urban & Linear Development
+LoVegStateImpactsFz:Low Veg State Impacts
+MinPtsSum:Mine Points Sum
+Mines_Density:Mines Density
+Oil_and_Gas_Wells_Density:Oil and Gas Wells Density
+Pipelines_Density:Pipelines Density
+Power_Plants_Density:Power Plants Density
+Urban_Development_Density:Urban Development Density
+Utility_Line_Density:Utility Line Density
+VegDeparture_selective_reclass:Veg Departure
+VegStateImpactsSum:Veg State Impacts Sum
+Wind_Turbines_Density:Wind Turbines Density
