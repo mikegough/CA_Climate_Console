@@ -28,7 +28,6 @@ def index(request):
     studyarea = request.resolver_match.url_name
     template=request.GET.get('template','template1')
 
-
     #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
 
     if request.method == 'POST':
@@ -45,7 +44,6 @@ def index(request):
         #Webfaction
         #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat", "/home/consbio/webapps/static_climate_console/data/noaa/climate/cpcllftd.dat")
         #urllib.urlretrieve ("http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat", "/home/consbio/webapps/static_climate_console/data/noaa/climate/cpcllfpd.dat")
-
 
     ############################################# INPUT PARAMETERS #####################################################
 
@@ -228,7 +226,6 @@ def index(request):
             resultsDict["eepifzt2_avg"]=0
 
             columnChartColors=6*"#444444,"
-
 
         elif studyarea=='drecp':
 

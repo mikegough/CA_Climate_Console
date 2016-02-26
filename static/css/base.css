@@ -66,6 +66,7 @@ a:hover {
     font-variant:small-caps;
     letter-spacing:5px;
     text-shadow: 1px 1px 8px #071D27;
+    z-index:9999;
 
 }
 
