@@ -135,10 +135,18 @@
         color: #CFBC9A;
     }
     #left_image {
-        height:100px;
-        margin-left:10px;
+        height:340px;
+        margin-left:0px;
         position: absolute;
-        top:8px;
+        left:-40px;
+        top:-5px;
+    }
+    #right_image {
+        height:117px;
+        margin-right:0px;
+        position: absolute;
+        top:-2px;
+        right:-40px;
     }
 </style>
 
@@ -166,7 +174,8 @@
     <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
       <span id="sub_title"><script>document.write(subTitle)</script></span>
     </div>
-    <div style="float:left;z-index:2"><img id="left_image" src="{{STATIC_URL}}img/lcc_logo.png"></div>
+    <div style="float:left;z-index:2"><img id="left_image" src="{{STATIC_URL}}img/hood.png"></div>
+    <div style="float:right;z-index:2"><img id="right_image" src="{{STATIC_URL}}img/basin.png"></div>
 </div>
 
 <span id="DataBasinLinkBox">
@@ -418,7 +427,7 @@
                 <p>
                 A climate trend is a progressive change in the state of the climate based on weather statistics evaluated over long periods, typically of at least 30 years.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
                 <p>
-                For information on climate models click on the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
+                For information on climate models click the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
 
                 <p>
                 Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008).  The PRISM data must be obtained directly from the PRISM group at http://www.prism.oregonstate.edu
