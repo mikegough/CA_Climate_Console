@@ -98,6 +98,23 @@
 
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
+<link rel="stylesheet" href="{{STATIC_URL}}deps/dojo/dijit/themes/claro/claro.css">
+
+<!-- Dojo for Video Popup -->
+<script>dojoConfig = {parseOnLoad: true}</script>
+<script src='{{STATIC_URL}}deps/dojo/dojo/dojo.js'></script>
+
+<script>
+    require(["dijit/Dialog", "dojo/domReady!"], function(Dialog){
+    myDialog = new Dialog({
+        title: "CBI Instructional Video",
+        content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/Eyhnq6-V6xs" frameborder="0" allowfullscreen></iframe></div>',
+        style: "width: 732px"
+        });
+    });
+
+</script>
+
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
 
@@ -125,7 +142,7 @@
 
 </head>
 
-<body>
+<body class="claro">
 
     <!-- Slide Out Menu -->
     <div id="SlideOutMenuDiv">
@@ -385,7 +402,7 @@
 
                 Click on the red icon below to view an instructional video on the California Climate Console. The video will open in a new tab.<br><br><br>
                 <div id="youTubeDiv">
-                    <a href="https://www.youtube.com/watch?v=Eyhnq6-V6xs&feature=youtu.be&list=PLMZNY90u2jS96Rgih08cSs1cFf-CqcSb" target="_blank"><img title="Click to view an instructional video" id="YouTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                    <img style="cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" id="YouTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
                 <!--
                 <h3>Interpreting the Box Plots: </h3>

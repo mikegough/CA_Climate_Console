@@ -1746,6 +1746,33 @@ div#pop-up2 {
     top:200px;
 }
 
+/* Dojo for video popup */
+.dijitDialogTitleBar{
+	color:#F89832 !important;
+	border:1px solid #444444 !important;
+	background-color:#444444 !important;
+	background-image:none !important;
+	font-weight:bold;
+}
+
+.dijitDialogTitle{
+	color:#F89832 !important
+}
+
+.dijitDialog {
+	border: 0px solid !important;
+}
+
+.dijitDialogPaneContent {
+	border-top: 0px !important;
+	background: #444444 repeat-x top left !Important;
+}
+
+.dijitDialogUnderlay {
+    display:none !important
+}
+
+
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */
 #footer a:active {color:#4D79B3;}  /* selected link */
