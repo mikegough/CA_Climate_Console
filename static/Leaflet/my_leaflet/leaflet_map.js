@@ -560,6 +560,42 @@ function create_post(newWKT) {
             $( ".select_form2" ).change(function() {
               gettingStartedIntro2.exit()
             });
+
+            //Selected Features Header on View1
+
+            $('#selectedFeaturesFullList').empty()
+            $("#closeSelectedFeaturesFullList").hide()
+
+            if (featureCount==1) {
+                $("#selectedFeaturesShortList").show()
+                $("#selectedFeaturesShortList").html(": " + response['categoricalValues'])
+                $("#additionalFeaturesCount").empty()
+                $('#selectedFeaturesFullList').hide()
+            }
+            else {
+                additionalFeatures=featureCount-1
+                $("#selectedFeaturesShortList").html(": " + response['categoricalValues'][0])
+                $("#additionalFeaturesCount").html("+ <a title='Click to view the full list of selected features'>" + additionalFeatures + " More</a>")
+                $("#additionalFeaturesCount").show()
+
+                $('#selectedFeaturesFullList').append('<br><div id="selectedFeaturesFullListTableContainer"></div>')
+
+                $('#selectedFeaturesFullListTableContainer').append('<table class="selectedFeaturesFullListTable" id="selectedFeaturesTable"></table>');
+                var selectedFeaturesTable=$('#selectedFeaturesFullListTableContainer').children();
+
+                var count = 1
+                listOfSelectedFeatures = ""
+                categoricalValuesArray = response['categoricalValues']
+
+                for (var i = 0, tot = categoricalValuesArray.length; i < tot; i++) {
+
+                    listOfSelectedFeatures = listOfSelectedFeatures + "<div class='selectedFeaturesText' onmouseout='mouseOutTextChangeBack()' onmouseover='mouseOverTextChangeColor(\"" + categoricalValuesArray[i] + "\")' id='" + categoricalValuesArray[i] + "' >" + count + ". " + categoricalValuesArray[i] + "<span class='inner'></span></div>";
+
+                    count = count + 1
+                }
+                selectedFeaturesTable.append("<tr><td>" + listOfSelectedFeatures + "</td></tr>")
+            }
+
         },
 
         // handle a non-successful response
@@ -572,6 +608,7 @@ function create_post(newWKT) {
 
     });
 }
+
 
 function onEachFeature(feature, layer) {
     layer.on({

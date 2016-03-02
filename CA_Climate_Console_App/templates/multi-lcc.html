@@ -148,6 +148,10 @@
         top:-2px;
         right:-40px;
     }
+    .select_form2{
+        margin-top: 12px !important
+    }
+
 </style>
 
 </head>
@@ -253,6 +257,15 @@
                 <!-- <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help.png" onclick="updateClimateHelpContent(); gettingStartedIntro2.goToStep(3).start()">-->
 
                 <div id="all_point_chart_goodies">
+
+                    <div id="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                        Currently Selected
+                        <span id="selectedFeaturesShortList"></span>
+                        <span id="additionalFeaturesCount"></span>
+                    </div>
+                    <span  id="closeSelectedFeaturesFullList"><a id="closeSelectedFeaturesFullListLink">x</a></span>
+                    <div id="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
 
                     <div class="select_container_2">
                        <form class="select_form2">

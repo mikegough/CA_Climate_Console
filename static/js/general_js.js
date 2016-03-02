@@ -79,6 +79,24 @@
          return false;
      });
 
+     // Selected Features Header on View1 (Link to more features)
+     $("#additionalFeaturesCount").click(function() {
+         $("#selectedFeaturesFullList").show()
+         $("#closeSelectedFeaturesFullList").show()
+         $("#selectedFeaturesShortList").hide()
+         $("#additionalFeaturesCount").hide()
+
+     });
+
+     // Selected Features Header on View1 (Close "X" icon)
+     $("#closeSelectedFeaturesFullListLink").click(function(){
+         $('#selectedFeaturesFullList').hide()
+         $("#closeSelectedFeaturesFullList").hide()
+         $("#selectedFeaturesShortList").show()
+         $("#additionalFeaturesCount").show()
+
+     })
+
      /* Hover over legend tip */
      /*
      var moveLeft = -350;

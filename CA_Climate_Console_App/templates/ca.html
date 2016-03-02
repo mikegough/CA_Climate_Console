@@ -243,6 +243,15 @@
 
                 <div id="all_point_chart_goodies">
 
+                    <div id="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                        Currently Selected
+                        <span id="selectedFeaturesShortList"></span>
+                        <span id="additionalFeaturesCount"></span>
+                    </div>
+                    <span  id="closeSelectedFeaturesFullList"><a id="closeSelectedFeaturesFullListLink">x</a></span>
+                    <div id="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
+
                     <div class="select_container_2">
                        <form class="select_form2">
                        <div class="styled-select2" id="ss1">
@@ -400,7 +409,7 @@
 
                </ol>
 
-                Click on the red icon below to view an instructional video on the California Climate Console. The video will open in a new tab.<br><br><br>
+                Click on the red icon below to view an instructional video on the California Climate Console. The video will open in a popup.<br><br><br>
                 <div id="youTubeDiv">
                     <img style="cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" id="YouTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>

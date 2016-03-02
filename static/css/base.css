@@ -179,7 +179,6 @@ ul.tabs li a{
 
 
 .styled-select2{
-    font-family: 13pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif !important;
     color: #444444 !important;
     margin-left:auto;
     margin-right:auto;
@@ -405,6 +404,54 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 #all_point_chart_goodies{
     background-color:white;
+}
+
+#additionalFeaturesCount{
+    cursor: pointer;
+}
+
+#selectedFeaturesListHeader {
+	padding: 10px;
+	padding-left: 30px;
+	color: rgb(80, 131, 176);
+	font-weight: bold;
+	border-bottom: 1px solid lightblue;
+    text-align:center;
+    background-color: #EDF7FF;
+}
+
+.selectedFeaturesClass{
+    color: rgb(80, 131, 176);
+    font: 17px/19px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
+}
+
+#selectedFeaturesTable{
+    margin-left:20px;
+    position:relative;
+    top:-15px;
+}
+
+#selectedFeaturesTable td{
+    color: rgb(80, 131, 176);
+    background-color: #EDF7FF;
+}
+
+#selectedFeaturesFullList {
+    border:1px solid #ADD8E6;
+    border-top:0px;
+    display:none;
+}
+
+#closeSelectedFeaturesFullList {
+	float: right;
+	position: relative;
+	right: 10px;
+	top: 1px;
+	font-size: 18px;
+	font-family: verdana;
+    display:none;
+	cursor: pointer;
+    z-index:1;
 }
 
 #view2{
@@ -1571,7 +1618,7 @@ div.callout {
 .selectedFeaturesText{
     vertical-align:bottom;
     white-space:nowrap;
-    width:100%;
+    width:5px;
 }
 
 .inner{
@@ -1761,6 +1808,7 @@ div#pop-up2 {
 
 .dijitDialog {
 	border: 0px solid !important;
+    z-index:99999 !important;
 }
 
 .dijitDialogPaneContent {
