@@ -566,7 +566,13 @@ function create_post(newWKT) {
             $('#selectedFeaturesFullList').empty()
             $("#closeSelectedFeaturesFullList").hide()
 
-            if (featureCount==1) {
+            if (activeReportingUnitsName.indexOf('User Defined') >= 0){
+                $("#selectedFeaturesShortList").show()
+                $("#selectedFeaturesShortList").html(": User Defined Area")
+                $("#additionalFeaturesCount").empty()
+                $('#selectedFeaturesFullList').hide()
+            }
+            else if (featureCount==1) {
                 $("#selectedFeaturesShortList").show()
                 $("#selectedFeaturesShortList").html(": " + response['categoricalValues'])
                 $("#additionalFeaturesCount").empty()
