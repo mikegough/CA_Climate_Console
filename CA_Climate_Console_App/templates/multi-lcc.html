@@ -159,6 +159,7 @@
 <body>
 
     <!-- Slide Out Menu -->
+    {% comment %}
     <div id="SlideOutMenuDiv">
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <!-- Links written in general_js.js -->
@@ -173,6 +174,8 @@
             </div>
         </div>
     </div>
+    {% endcomment %}
+
 
 <div id="header">
     <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
@@ -276,8 +279,10 @@
                        <option value="tmax" selected>Maximum Temperature</option>
                        <option value="tmin">Minimum Temperature</option>
                        <option value="prec">Precipitation</option>
+                       <!--
                        <option value="arid">Aridity</option>
                        <option value="pet">PET</option>
+                       -->
                        </select>
                        </div>
                        <div class="styled-select2" id="ss2">

@@ -73,7 +73,7 @@ function createChart(climateVariable, statistic, season) {
                 zoomType: 'xy',
                 type: 'scatter',
                 width: 477,
-                height:350,
+                height:320,
                 marginRight:35,
             },
             title: {
