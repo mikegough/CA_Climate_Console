@@ -80,7 +80,7 @@
      });
 
      $("#additionalFeaturesCount").click(function() {
-            $("#selectedFeaturesShortList").hide()
+            $('#selectedFeaturesFullList').empty()
             $("#selectedFeaturesShortList").hide()
             $("#closeSelectedFeaturesFullList").show()
             $("#additionalFeaturesCount").hide()
