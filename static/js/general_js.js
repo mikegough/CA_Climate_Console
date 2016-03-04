@@ -79,21 +79,40 @@
          return false;
      });
 
-     // Selected Features Header on View1 (Link to more features)
      $("#additionalFeaturesCount").click(function() {
-         $("#selectedFeaturesFullList").show()
-         $("#closeSelectedFeaturesFullList").show()
-         $("#selectedFeaturesShortList").hide()
-         $("#additionalFeaturesCount").hide()
+            $("#selectedFeaturesShortList").hide()
+            $("#selectedFeaturesShortList").hide()
+            $("#closeSelectedFeaturesFullList").show()
+            $("#additionalFeaturesCount").hide()
+
+            $('#selectedFeaturesFullList').append('<br><div id="selectedFeaturesFullListTableContainer"></div>')
+            $('#selectedFeaturesFullListTableContainer').append('<table class="selectedFeaturesFullListTable" id="selectedFeaturesTable"></table>');
+            var selectedFeaturesTable=$('#selectedFeaturesFullListTableContainer').children();
+
+            $('#selectedFeaturesFullList').show()
+
+            var count = 1
+            listOfSelectedFeatures = ""
+            categoricalValuesArray = response['categoricalValues']
+            //console.log(categoricalValuesArray)
+
+            for (var i = 0, tot = categoricalValuesArray.length; i < tot; i++) {
+
+                listOfSelectedFeatures = listOfSelectedFeatures + "<div class='selectedFeaturesText' onmouseout='mouseOutTextChangeBack()' onmouseover='mouseOverTextChangeColor(\"" + categoricalValuesArray[i] + "\")' id='" + categoricalValuesArray[i] + "' >" + count + ". " + categoricalValuesArray[i] + "<span class='inner'></span></div>";
+
+                count = count + 1
+            }
+
+            selectedFeaturesTable.append("<tr><td>" + listOfSelectedFeatures + "</td></tr>")
 
      });
 
-     // Selected Features Header on View1 (Close "X" icon)
      $("#closeSelectedFeaturesFullListLink").click(function(){
-         $('#selectedFeaturesFullList').hide()
          $("#closeSelectedFeaturesFullList").hide()
          $("#selectedFeaturesShortList").show()
          $("#additionalFeaturesCount").show()
+         $('#selectedFeaturesFullList').empty()
+         $('#selectedFeaturesFullList').hide()
 
      })
 
@@ -628,6 +647,7 @@ function acquireNearTermClimate() {
 
 }
 
+month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 function createDynamicMonthlyRadioButtons(){
 
     $(".nearTermClimateForm").empty()
@@ -639,8 +659,10 @@ function createDynamicMonthlyRadioButtons(){
 
     for (i=0; i<15; i++) {
         locale = "en-us",
-        month = firstDateInFile.toLocaleString(locale, { month: "short" });
-        year = firstDateInFile.toLocaleString(locale, { year: "numeric" });
+        //month = firstDateInFile.toLocaleString(locale, { month: "short" });
+        month = month_names_short[firstDateInFile.getMonth()]
+        //year = firstDateInFile.toLocaleString(locale, { year: "numeric" });
+        year = String(firstDateInFile.getFullYear())
         firstDateInFile.setMonth(firstDateInFile.getMonth()+1);
         month_list[i]=month
         year_list[i]=year
@@ -687,8 +709,8 @@ function generateNearTermClimateResults(period,division) {
         }
     }
 
-    temp_climatological_mean=temp_array[19]
-    temp_forecast_mean=temp_array[18]
+    temp_climatological_mean=Number(temp_array[19])
+    temp_forecast_mean=Number(temp_array[18])
     temp_change=temp_forecast_mean-temp_climatological_mean
     temp_change_rounded=Math.round(temp_change * 100) / 100
     temp_ninety_percent_confidence_interval=temp_array[6] + "&deg;F - "  + temp_array[16] + "&deg;F"

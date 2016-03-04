@@ -552,7 +552,7 @@
 
                     $(".nearTermClimateForm").change(function(){
                         //On Time Frame Change
-                        selectedNearTermClimatePeriod=this.period.value
+                        selectedNearTermClimatePeriod=$('input[name=period]:checked', '.nearTermClimateForm').val()
                         //Update Table
                         generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
                         //Update Map
