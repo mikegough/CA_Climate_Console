@@ -655,13 +655,14 @@ function createDynamicMonthlyRadioButtons(){
     month_list=[]
     year_list=[]
 
+    //The inintial lead of "1" in the file is automatically factored in since new Date(2016,2) returns March.
     firstDateInFile=new Date(firstYearInFile,firstMonthInFile)
 
     for (i=0; i<15; i++) {
-        locale = "en-us",
-        //month = firstDateInFile.toLocaleString(locale, { month: "short" });
+        //firstDateInFile.getMonth() below for March returns 2, which is the correct index for March in the short list array.
+        //If the first month in the file is a 2, the first value stored in the month variable will be a 3
+        //which is what is wanted because of the lead.
         month = month_names_short[firstDateInFile.getMonth()]
-        //year = firstDateInFile.toLocaleString(locale, { year: "numeric" });
         year = String(firstDateInFile.getFullYear())
         firstDateInFile.setMonth(firstDateInFile.getMonth()+1);
         month_list[i]=month
