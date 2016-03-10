@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-import urllib
 import re
 #import netCDF4
 
@@ -10,8 +9,8 @@ from django.shortcuts import render
 from django.db import connection
 import json
 
-#The encoder module is used to prevent excessive decimals from being generated when dumping to JSON object
 from json import encoder
+#Two decimal places when dumping to JSON
 encoder.FLOAT_REPR = lambda o: format(o, '.2f')
 
 from django.views.decorators.gzip import gzip_page
@@ -104,8 +103,7 @@ def index(request):
 
     ########################################### INITIALIZATION RESPONSE ################################################
     if not WKT:
-        initialize=1
-        context={'initialize': initialize,
+        context={'initialize': 1,
                  'config_file': config_file,
                  'count': 0}
         return render(request, template+'.html', context)
@@ -113,7 +111,6 @@ def index(request):
     #################################### OR DATABASE QUERY (SELECT FEATURES) ###########################################
     ############################################ BUILD SQL EXPRESSION ##################################################
     else:
-        initialize=0
 
         ################################### BUILD SELECT LIST (FIELDS & TABLES) ########################################
         selectList="SELECT "
@@ -271,12 +268,11 @@ def index(request):
             columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
             columnChartColor6="#4444444"
 
-
             columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
         ########################################### RETURN RESULTS #####################################################
 
-        context={'initialize': initialize,
+        context={'initialize': 0,
                  'WKT_SelectedPolys': WKT_SelectedPolys,
                  'count': count,
                  'resultsJSON': resultsJSON,
@@ -285,6 +281,7 @@ def index(request):
                  'error': 0,
                  'config_file':config_file,
                  }
+
     if request.method == 'POST':
         return HttpResponse(json.dumps(context))
     else:
