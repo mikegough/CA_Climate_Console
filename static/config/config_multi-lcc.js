@@ -10,9 +10,10 @@ zoomLevel=5
 
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
-    "LLC Boundaries": ["multi_lcc_reporting_units_llc_boundaries_2_simplify","name","Multi_LCC_Reporting_Units_LLC_Boundaries_2_simplify.json"],
+    "LCC Boundaries": ["multi_lcc_reporting_units_llc_boundaries_2_simplify","name","Multi_LCC_Reporting_Units_LLC_Boundaries_2_simplify.json"],
     "BLM Field Offices": ["multi_lcc_reporting_units_blm_field_office_2_simplify","name","Multi_LCC_Reporting_Units_BLM_Field_Office_for_JSON_2_simplify.json"],
-    "DOD Boundaries": ["multi_lcc_reporting_units_dod_lcc_5_simplify","name","Multi_LCC_Reporting_Units_DOD_LCC_5_simplify.json"],
+    "DOD Boundaries": ["multi_lcc_reporting_units_dod_lcc_5_simplify","name","Multi_LCC_Reporting_Units_DOD_LCC_5_simplify_delete_name_eq_military_land.json"],
+    "USFS National Forests": ["multi_lcc_reporting_units_usfs_2_simplify","name","Multi_LCC_Reporting_Units_USFS_2_simplify.json"],
 }
 
 climateParams = {

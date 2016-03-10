@@ -133,11 +133,31 @@
 
 <style>
     #poppyImage {
-        height: 175px;
         position: absolute;
+        height: 175px;
         left: -90px;
         top: -60px;
     }
+    #rightImage {
+        position: absolute;
+        right: -30px;
+        top: 0px;
+    }
+    .toolTitle, .toolTitle2 {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#003d5e+0,0d4a68+17,085677+100 */
+    background: #003d5e; /* Old browsers */
+    background: -moz-linear-gradient(left,  #003d5e 0%, #0d4a68 17%, #085677 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #003d5e 0%,#0d4a68 17%,#085677 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #003d5e 0%,#0d4a68 17%,#085677 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003d5e', endColorstr='#085677',GradientType=1 ); /* IE6-9 */
+    color: #FEAF23;
+    }
+
+    ul.tabs li.selected a, ul.tabs li.selected a:hover{
+        background-color:#0D4D6C;
+        color: #FEAF23;
+    }
+
 </style>
 
 </head>
@@ -165,6 +185,9 @@
       <span id="sub_title"><script>document.write(subTitle)</script></span>
     </div>
     <div style="float:left;z-index:2"><img id="poppyImage" src="{{STATIC_URL}}img/poppy_l.png"></div>
+    <!--
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/ocean_r.png"></div>
+    -->
 </div>
 
 <span id="DataBasinLinkBox">

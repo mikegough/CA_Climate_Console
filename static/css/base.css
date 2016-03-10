@@ -1164,8 +1164,8 @@ ul#mainNav a {
     color: #464646;
 	padding: 6px 8px;
     font: 17px/19px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
-	background: white;
 	background: rgba(255,255,255,0.8);
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#133c51+0,0d4a68+0,1b3847+0,0d4a68+23,165a7c+100 */
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	border-radius: 5px;
     max-width:700px;
@@ -1213,6 +1213,8 @@ ul#mainNav a {
     top:5px;
 
 }
+
+
 
 .leaflet-control-layers-expanded{
     padding-bottom:0px !important;
