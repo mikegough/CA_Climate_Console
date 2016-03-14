@@ -692,7 +692,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     vertical-align:middle;
     min-height:100px;
     height:100px;
-    padding:10px;
+    padding:9px;
+    padding-top:11px;
     /*
     width:33.33%;
     */
@@ -725,7 +726,6 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
-
 /*
 #climate_quick_view_table tr:last-child td{
     height: 20px !important;
@@ -753,7 +753,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 .quick_rain{
     color:#4575B5;
-    font-size:4em;
+    font-size:3em;
     position:relative;
     top:-7px;
 }

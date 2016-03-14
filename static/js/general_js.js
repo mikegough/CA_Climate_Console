@@ -513,11 +513,11 @@ function updateQuickViewTable(season){
 
             if (resultsJSON['eepreds0t1_avg'] < 0) {
                 $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
-                $('#increase_or_decrease_precip_t1').html("decrease")
+                $('#increase_or_decrease_precip_t1').html("fall below")
             }
             else {
                 $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
-                $('#increase_or_decrease_precip_t1').html("increase")
+                $('#increase_or_decrease_precip_t1').html("exceed")
             }
 
             if ((resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] < 0) || (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] > 0)) {
@@ -531,7 +531,7 @@ function updateQuickViewTable(season){
             }
             if (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] < 0) {
                 $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
-                $('#increase_or_decrease_precip_t2').html("increase ")
+                $('#increase_or_decrease_precip_t2').html("exceed ")
             }
 }
 
