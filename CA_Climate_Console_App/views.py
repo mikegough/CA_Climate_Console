@@ -285,6 +285,219 @@ def index(request):
 
 @gzip_page
 @csrf_exempt
+def view2(request):
+
+    studyarea = request.resolver_match.url_name
+    template=request.GET.get('template','template1')
+
+    WKT = request.POST.get('wktPOST')
+    table=request.POST.get('reporting_units')
+    categoricalFields=request.POST.get('name_field')
+
+    ############################################# INPUT PARAMETERS #####################################################
+
+    stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
+
+    if table == None:
+        table="multi_lcc_reporting_units_usfs_2_simplify"
+        categoricalFields="name"
+
+    template='multi-lcc'
+    config_file="config_multi-lcc.js"
+
+    ########################################### INITIALIZATION RESPONSE ################################################
+    if not WKT:
+        context={'initialize': 1,
+                 'config_file': config_file,
+                 'count': 0}
+        return render(request, template+'.html', context)
+
+    #################################### OR DATABASE QUERY (SELECT FEATURES) ###########################################
+    ############################################ BUILD SQL EXPRESSION ##################################################
+    else:
+        cursor = connection.cursor()
+
+        if "POINT" in WKT:
+
+            table="multi_lcc_reporting_units_llc_boundaries_2_simplify"
+
+            WKT=WKT.replace('%', ' ')
+            WKT="SRID=4326;"+WKT
+
+            spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_2_simplify'
+            query_layer='multi_lcc_reporting_units_usfs_2_simplify'
+
+            spatial_filter_shape_query="SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom)"
+            cursor.execute(spatial_filter_shape_query)
+            spatial_filter_shape=cursor.fetchone()[0]
+            print spatial_filter_shape
+
+            #Sub query to get the clicked shape used to be the spatial fitler
+            spatial_filter_shape_sub_query="(SELECT geom from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom))"
+
+            #Query to get all tabular data
+            tabular_query="SELECT distinct a.name, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1 from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
+
+            cursor.execute(tabular_query)
+
+            tabular_data={}
+
+
+            for row in cursor:
+                feature_name=row[0]
+                data=[]
+                tmax_delta=float(row[1])
+                tmin_delta=float(row[2])
+                prec_delta=float(row[3])
+                data.extend([tmax_delta, tmin_delta, prec_delta])
+
+                tabular_data[feature_name]=data
+
+            tabularResultsJSON=json.dumps(tabular_data)
+
+
+
+        ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
+
+        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
+        cursor.execute(field_name_query);
+        statsFieldsTuple=cursor.fetchone()
+        statsFields = ",".join(statsFieldsTuple)
+
+        ################################### BUILD SELECT LIST (FIELDS & TABLES) ########################################
+        selectList="SELECT "
+
+        if ('POINT' in WKT):
+            #Point selection. No Area Weighted Average in the query. Performance gains are minimal even with 900 fields.
+            for field in statsFields.split(','):
+                selectList+=field + " as " + field + "_" + "avg, "
+            if categoricalFields:
+                selectList+=categoricalFields + " as categorical_values, "
+            selectList+=" 1 as count, "
+            selectList+="ST_AsText(ST_SnapToGrid(ST_Force_2D(geom), .0001)) as outline_of_selected_features"
+
+        else:
+            #Area or line based selection, requiring Area Weighted Average
+            for field in statsFields.split(','):
+                    selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+            selectList+="count(*) as count "
+            #Aggregates. Count, Unique CSV from categorical fields, Outline of selected features.
+            if categoricalFields:
+                selectList+=", string_agg(" + categoricalFields + ", ',') as categorical_values"
+            #Sum of the area of selected features for area weighted average. Maybe report later.
+            #selectList+="sum(shape_area) as sum_area, "
+            selectList+=", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
+
+        tableList=" FROM " + table
+
+        selectFieldsFromTable = selectList + tableList
+
+        ############################ "WHERE" (ADD ASPATIAL SEARCH CONDITIONS) ##########################################
+        if "POINT" not in WKT:
+
+            #queryField=request.GET.get('queryField')
+            #operator=request.GET.get('operator').strip()
+            #stringOrValue=request.GET.get('stringOrValue').lower().strip()
+
+            stringOrValue='WKT'
+            queryField='name'
+            operator='='
+            print WKT
+
+            selectStatement=selectFieldsFromTable + " where " + queryField + " " + operator + " '" + WKT + "'"
+
+            print selectStatement
+
+        ########################## or "WHERE" (ADD SPATIAL SEARCH CONDITIONS) ##########################################
+        else:
+
+            operator=None
+            selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + table + ".geom)"
+
+        ######################################## EXECUTE DATABASE QUERY ################################################
+
+        if operator == "LIKE":
+            cursor.execute(selectStatement,['%' + stringOrValue + '%'] )
+        else:
+            cursor.execute(selectStatement)
+
+        ################################# STORE COLUMN, VALUE PAIRS IN A DICT ##########################################
+
+        resultsDict={}
+
+        #Get field names
+        columns = [colName[0] for colName in cursor.description]
+
+        try:
+            for row in cursor:
+                for i in range(len(row)):
+                    if isinstance(row[i], basestring):
+                        resultsDict[columns[i]] = row[i].strip()
+                    else:
+                        resultsDict[columns[i]] =(float(round(row[i],2)))
+        except:
+            print "Error: No features selected"
+            raise SystemExit(0)
+            #return render(request, template+'.html')
+
+
+        if "POINT" not in WKT:
+            spatial_filter_shape=resultsDict['outline_of_selected_features']
+            tabularResultsJSON=''
+
+        if categoricalFields:
+            categoricalValues=[]
+            categoricalValues.extend(resultsDict['categorical_values'].split(','))
+            categoricalValues=list(set(categoricalValues))
+            categoricalValues.sort()
+        else:
+            categoricalValues=[' ']
+
+        #Remove these from the Dictionary before dumping to a JSON object (causing error & no need to send twice).
+        resultsDict.pop('outline_of_selected_features',0)
+        resultsDict.pop('categorical_values',0)
+
+        count=int(resultsDict["count"])
+
+        #Take fieldname,value pairs from the dict and dump to a JSON string.
+        resultsJSON=json.dumps(resultsDict)
+        #return HttpResponse(str(resultsDict.keys())+ str(resultsDict.values()))
+        #return HttpResponse(resultsDict['tm_c4_2_avg'])
+
+        ##################################### SET ADDITIONAL VARIABLES #################################################
+
+
+        resultsDict["intactness_avg"]=0
+        resultsDict["hisensfz_avg"]=0
+        resultsDict["eecefzt1_avg"]=0
+        resultsDict["eecefzt2_avg"]=0
+        resultsDict["eepifzt1_avg"]=0
+        resultsDict["eepifzt2_avg"]=0
+
+        columnChartColors=6*"#444444,"
+
+
+
+        ########################################### RETURN RESULTS #####################################################
+
+        context={'initialize': 0,
+                 'WKT_SelectedPolys': spatial_filter_shape,
+                 'count': count,
+                 'resultsJSON': resultsJSON,
+                 'categoricalValues': categoricalValues,
+                 'columnChartColors': columnChartColors,
+                 'error': 0,
+                 'config_file':config_file,
+                 'tabularResultsJSON': tabularResultsJSON,
+                 }
+
+    if request.method == 'POST':
+        return HttpResponse(json.dumps(context))
+    else:
+        return render(request, template+'.html', context)
+
+@gzip_page
+@csrf_exempt
 def downscale(request):
     userWKT = request.POST.get('input')
     #print userWKT

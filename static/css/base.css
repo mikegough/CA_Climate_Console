@@ -503,6 +503,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #view5{
+    padding-top:0px;
     position:relative;
     height:99%;
     overflow-y:auto;
@@ -836,7 +837,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #dynamicDataTableDiv{
-    width:96%;
+    width:100%;
 }
 
 #dynamicEEMSDataTableDiv{
@@ -882,7 +883,11 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     border: solid black 1px !important;
 }
 
-.dynamicDataTable td:first-child { width: 90px ;}
+.dynamicDataTable td:first-child {
+    white-space:nowrap;
+    min-width: 245px;
+    padding-left:10px;
+}
 
 tr.active td {
    background-color: #00FFFF;

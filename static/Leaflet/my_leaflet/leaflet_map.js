@@ -433,11 +433,11 @@ function create_post(newWKT) {
             timesRun=initialize+1
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
-            //console.log(response.resultsJSON)
-
 
             response=JSON.parse(json)
             resultsJSON=JSON.parse(response.resultsJSON)
+
+
 
             //Update Utah with the new field code naming convention
 
@@ -601,6 +601,13 @@ function create_post(newWKT) {
                 }
                 selectedFeaturesTable.append("<tr><td>" + listOfSelectedFeatures + "</td></tr>")
             }
+
+            if (typeof response.tabularResultsJSON != 'undefined' && response.tabularResultsJSON != '')  {
+
+                tabularResultsJSON = JSON.parse(response.tabularResultsJSON)
+                createDynamicDataTable()
+            }
+
 
         },
 
