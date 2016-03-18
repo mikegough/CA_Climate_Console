@@ -1,0 +1,140 @@
+#map_and_charts_container {
+	height: -moz-calc(100% - 151px);
+	height: -webkit-calc(100% - 151px);
+	height: calc(100% - 151px);
+	border-bottom: 2px solid #C0D0E0;
+	overflow-y: hidden;
+	margin-bottom: 20px;
+}
+
+#tabs{
+    display:none;
+}
+
+div.tabcontents {
+	border-top: 0px;
+	border-bottom: 0px;
+	padding: 0px;
+	background-color: #FFF;
+	height:110%;
+}
+
+#tab_container {
+	border-left: 2px solid #C0D0E0
+}
+
+
+#detailedView {
+    width:478px;
+    float:right;
+    padding-top:0px;
+}
+
+#selectedFeaturesListHeader {
+	height: 17px;
+	font: 12px verdana;
+	text-align: left;
+	padding: 10px;
+	color: rgb(80, 131, 176);
+	font-weight: bold;
+	border-bottom: 2px solid #C0D0E0;
+	background-color: #EDF7FF;
+	padding-top: 15px;
+}
+
+.quick_therm_tmin_small {
+	color: #4575B5;
+	font-size: 1.5em;
+}
+
+.quick_therm_tmax_small {
+	color: #DB3F02;
+	font-size: 1.5em;
+}
+
+.quick_rain_small {
+	color: #4575B5;
+	font-size: 1.8em;
+	left:-5px;
+	position:relative;
+}
+
+#dynamicDataTableDiv{
+	width: 100%;
+	top: 0;
+	border-right: 2px solid #C0D0E0;
+	height: 100%;
+}
+
+#dynamicEEMSDataTableDiv{
+    width:96%;
+
+}
+
+.dynamicDataTable {
+	width: 100%;
+	border-collapse: collapse;
+	position: absolute;
+	width: 478px;
+}
+
+.dynamicDataTable tr:hover {
+    background-color:#D7D7D7 !important;
+}
+
+.dynamicDataTable th,td {
+    cursor:pointer;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #006da9;
+}
+
+.dynamicDataTable th:first-child {
+	padding-left:10px
+}
+
+.dynamicDataTable th{
+    height:40px;
+    font: 12px verdana;
+    text-align:left;
+	padding: 10px;
+	padding-left:0px;
+	color: rgb(80, 131, 176);
+	font-weight: bold;
+	border-bottom: 2px solid #C0D0E0;
+	background-color: #EDF7FF;
+}
+
+.dynamicDataTable tr{
+    border-collapse: collapse;
+    border: solid black 0px !important;
+}
+
+.dynamicDataTable td{
+	vertical-align:top;
+    font: 12px verdana;
+    border: solid black 0px !important;
+}
+
+.dynamicDataTable td:first-child {
+	width:200px;
+    max-width: 200px;
+	min-width: 200px;
+    padding-left:10px;
+	white-space:normal;
+}
+
+.rowClass1{
+   background-color:white;
+}
+
+.rowClass2{
+  background-color:#F7F7F7;
+}
+
+tr.active td {
+	background-color: #00FFFF !important;
+}
+

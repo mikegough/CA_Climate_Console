@@ -330,7 +330,6 @@ def view2(request):
             spatial_filter_shape_query="SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom)"
             cursor.execute(spatial_filter_shape_query)
             spatial_filter_shape=cursor.fetchone()[0]
-            print spatial_filter_shape
 
             #Sub query to get the clicked shape used to be the spatial fitler
             spatial_filter_shape_sub_query="(SELECT geom from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom))"
@@ -386,7 +385,7 @@ def view2(request):
                 selectList+=", string_agg(" + categoricalFields + ", ',') as categorical_values"
             #Sum of the area of selected features for area weighted average. Maybe report later.
             #selectList+="sum(shape_area) as sum_area, "
-            selectList+=", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
+            selectList+=", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features, ST_AsText(ST_Centroid(st_union(geom))) as centroid"
 
         tableList=" FROM " + table
 
@@ -402,11 +401,9 @@ def view2(request):
             stringOrValue='WKT'
             queryField='name'
             operator='='
-            print WKT
 
             selectStatement=selectFieldsFromTable + " where " + queryField + " " + operator + " '" + WKT + "'"
 
-            print selectStatement
 
         ########################## or "WHERE" (ADD SPATIAL SEARCH CONDITIONS) ##########################################
         else:
@@ -464,6 +461,7 @@ def view2(request):
         #return HttpResponse(str(resultsDict.keys())+ str(resultsDict.values()))
         #return HttpResponse(resultsDict['tm_c4_2_avg'])
 
+
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
 
@@ -480,6 +478,13 @@ def view2(request):
 
         ########################################### RETURN RESULTS #####################################################
 
+        try:
+            centroid=resultsDict['centroid']
+        except:
+            centroid=0
+
+        print centroid
+
         context={'initialize': 0,
                  'WKT_SelectedPolys': spatial_filter_shape,
                  'count': count,
@@ -489,6 +494,7 @@ def view2(request):
                  'error': 0,
                  'config_file':config_file,
                  'tabularResultsJSON': tabularResultsJSON,
+                 'centroid': centroid,
                  }
 
     if request.method == 'POST':

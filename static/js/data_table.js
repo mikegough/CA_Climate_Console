@@ -1,3 +1,5 @@
+$("div.leaflet-top:nth-child(1)").hide()
+
 var defaultQueryLayerStyle = {
     color: 'gray',
     fillColor:'green',
@@ -45,33 +47,53 @@ function selectFeatureFromTable(name) {
     reporting_units='multi_lcc_reporting_units_usfs_2_simplify'
     create_post(name,reporting_units)
     document.getElementById("view5Link").click()
+    $("#map").css("width","calc(100% - 960px)")
+    $("#detailedView").css("display","block")
+    $("#tab_container").css("width","958px")
+    $("#dataTableDiv").css("width","478px")
+    $("#detailedView").css("width","478px")
+    $("#detailedView").css("float","right")
+    $(".loading").css("width", "958px")
 
 }
 
+
 function createDynamicDataTable(){
 
-    $('#view1').empty()
+    $('#dataTableDiv').empty()
     $('#getRawValuesButton').css('display','None')
     //$('#view5').append("<br><h3>Climate Data:</h3>")
     resultsJSONsorted=sortObject(tabularResultsJSON)
 
-    $('#view1').append('<div id="dynamicDataTableDiv"></div>')
+    $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
     $('#dynamicDataTableDiv').append('<table class="dynamicDataTable"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append("<tr><th>Name</th><th>TMAX</th><th>TMIN</th><th>Precip</th></tr>")
+    table.append('<tr><th>Name</th><th></td><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> TMAX</th><th><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span> TMIN</th><th><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Precip</th></tr>')
 
-    $('#view1').append('<div id="dynamicEEMSDataTableDiv"></div>')
+    $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
     $('#dynamicEEMSDataTableDiv').append('<table class="dynamicDataTable"></table>');
     console.log
 
     var tr;
     reporting_units='multi_lcc_reporting_units_usfs_2_simplify'
 
+    rowClass="rowClass1"
+    loop_count=0
+
     $.each(resultsJSONsorted,function(key,value_list){
-        tr = $('<tr/>');
-        tr.append("<td onclick='selectFeatureFromTable(&quot;"+key+"&quot;)' onmouseover='mouseOverShowFeature(&quot;"+ key +"&quot;)' onmouseout='mouseOutDeselect()'>" + key + "</td>")
+        loop_count=loop_count+1
+        if (loop_count % 2 == 0) {
+            rowClass='rowClass1'
+        }
+        else {
+            rowClass='rowClass2'
+        }
+
+        tr = $('<tr class="'+rowClass+'"/>');
+        tr.append("<td  onclick='selectFeatureFromTable(&quot;"+key+"&quot;)' onmouseover='mouseOverShowFeature(&quot;"+ key +"&quot;)' onmouseout='mouseOutDeselect()'>" + key + "</td>")
         $.each(value_list, function(index, value) {
             tr.append("<td>" + value + "</td>")
+
         })
         table.append(tr)
     });
@@ -100,3 +122,4 @@ function sortObject(o) {
     }
     return sorted;
 }
+

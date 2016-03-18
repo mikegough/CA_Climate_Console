@@ -437,6 +437,29 @@ function create_post(newWKT) {
             response=JSON.parse(json)
             resultsJSON=JSON.parse(response.resultsJSON)
 
+            centroid=resultsJSON['centroid']
+
+            if (centroid != 0 && typeof centroid != 'undefined') {
+                centerLat = centroid.split("(")[1].split(" ")[1].replace(")", "")
+                centerLon = parseFloat(centroid.split("(")[1].split(" ")[0])+2.5
+                centerCoords = []
+
+                centerCoords.push(centerLat)
+                centerCoords.push(centerLon)
+
+                map.setView(centerCoords, 7);
+            }
+            else {
+
+                    $("#map").css("width","")
+                    $("#detailedView").css("display","none")
+                    $("#tab_container").css("width","")
+                    $("#dataTableDiv").css("width","")
+                    $("#detailedView").css("width","")
+                    $("#detailedView").css("float","")
+                    $(".loading").css("width", "")
+
+            }
 
 
             //Update Utah with the new field code naming convention
@@ -574,13 +597,13 @@ function create_post(newWKT) {
             }
             else if (featureCount==1) {
                 $("#selectedFeaturesShortList").show()
-                $("#selectedFeaturesShortList").html(": " + response['categoricalValues'])
+                $("#selectedFeaturesShortList").html(response['categoricalValues'])
                 $("#additionalFeaturesCount").empty()
                 $('#selectedFeaturesFullList').hide()
             }
             else {
                 additionalFeatures=featureCount-1
-                $("#selectedFeaturesShortList").html(": " + response['categoricalValues'][0])
+                $("#selectedFeaturesShortList").html(response['categoricalValues'][0])
                 $("#additionalFeaturesCount").html("+ <a title='Click to view the full list of selected features'>" + additionalFeatures + " More</a>")
                 $("#additionalFeaturesCount").show()
 
@@ -602,12 +625,13 @@ function create_post(newWKT) {
                 selectedFeaturesTable.append("<tr><td>" + listOfSelectedFeatures + "</td></tr>")
             }
 
+
             if (typeof response.tabularResultsJSON != 'undefined' && response.tabularResultsJSON != '')  {
 
                 tabularResultsJSON = JSON.parse(response.tabularResultsJSON)
                 createDynamicDataTable()
-            }
 
+            }
 
         },
 
