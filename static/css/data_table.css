@@ -12,9 +12,66 @@
 	position: fixed;
 	left: 5px;
 	z-index: 9999;
-	color:#5083B0;
-	font-weight:bold;
+	color: #5083B0;
+	font-weight: bold;
+	font-family: Verdana;
+	font-size: 1.25em;
 }
+
+#selectedFeaturesListHeader {
+	height: 24px;
+	font: 15px verdana;
+	padding: 10px;
+	color: rgb(80, 131, 176);
+	font-weight: bold;
+	border-bottom: 2px solid #C0D0E0;
+	background-color: #F7F7F7;
+	padding-top: 15px;
+	text-align: center;
+}
+
+#climate_quick_view {
+	width: 100%;
+	text-align: center;
+	margin-top: 0px;
+}
+
+#climate_quick_view_table {
+	width: 100%;
+	font-weight: normal;
+	border: 0px solid #C0D0E0;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	border-top: none;
+}
+
+#climate_quick_view_table th {
+	font-family: "Verdana";
+	height: 43px;
+	font-size: .8em;
+	background-color: #EDF7FF;
+	border: 2px;
+	color: rgb(80, 131, 176);
+	font-weight: bold !important;
+}
+
+#climate_quick_view_table td {
+	border: 2px solid #C0D0E0;
+	color: #606060;
+	/* text-align: center; */
+	text-align: left;
+	vertical-align: middle;
+	min-height: 100px;
+	height: 100px;
+	padding: 9px;
+	padding-top: 11px;
+	/* width: 33.33%; */
+	font-size: 13px;
+	cursor: default;
+	border-left: 0px;
+}
+
 
 .ui-opacity {
 	right: 975px;
@@ -41,18 +98,7 @@ div.tabcontents {
     width:478px;
     float:right;
     padding-top:0px;
-}
-
-#selectedFeaturesListHeader {
-	height: 17px;
-	font: 12px verdana;
-	text-align: left;
-	padding: 10px;
-	color: rgb(80, 131, 176);
-	font-weight: bold;
-	border-bottom: 2px solid #C0D0E0;
-	background-color: #EDF7FF;
-	padding-top: 15px;
+	box-shadow: -1px -1px 30px #171717;
 }
 
 .quick_therm_tmin_small {
@@ -75,7 +121,7 @@ div.tabcontents {
 #dynamicDataTableDiv{
 	width: 100%;
 	top: 0;
-	border-right: 2px solid #C0D0E0;
+	/*border-right: 2px solid #C0D0E0;*/
 	height: 100%;
 }
 
@@ -87,8 +133,8 @@ div.tabcontents {
 .dynamicDataTable {
 	width: 100%;
 	border-collapse: collapse;
-	position: absolute;
-	width: 478px;
+	/* position: absolute; */
+	width: 479px;
 }
 
 
@@ -100,6 +146,14 @@ div.tabcontents {
     padding-right: 5px;
     color: #006da9;
 }
+
+.dynamicDataTableHeader{
+	height: 50px !important;
+	font-size: 0.9em !important;
+	background-color: rgb(247, 247, 247) !important;
+	text-align: center !important;
+}
+
 
 .dynamicDataTable tr:hover {
 	background-color:#2C88CD !important;
