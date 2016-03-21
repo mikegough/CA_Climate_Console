@@ -34,28 +34,29 @@
          $('#downscaled_coords').html(initialDownscaleMarkerLon + ", " + initialDownscaleMarkerLat)
      }
 
-     //enable intro.js  on the control layers
-     gettingStartedIntro=introJs();
+     //If using introJs, the function needs to be called in the script section at the bottom of the template.
+     if (typeof introJs  == "function") {
 
-     $('.leaflet-control-layers-expanded').each(function(i) {
-         $(this).attr('data-step','1')
-         $(this).attr('data-intro','<b>Reporting units</b> define the ecological or administrative boundaries for which the climate projections will be calculated. By selecting counties, for example, you will be able to examine the climate projections for a specified county or counties of interest.')
-     });
+         $('.leaflet-control-layers-expanded').each(function (i) {
+             $(this).attr('data-step', '1')
+             $(this).attr('data-intro', '<b>Reporting units</b> define the ecological or administrative boundaries for which the climate projections will be calculated. By selecting counties, for example, you will be able to examine the climate projections for a specified county or counties of interest.')
+         });
 
-     $('.leaflet-draw').each(function(i) {
-         $(this).attr('data-step','2')
-         //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-         $(this).attr('data-intro','A <b>feature</b> refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features (selected features will be those that intersect the drawn shape), or simply click on a single feature of interest in the map.')
-     });
+         $('.leaflet-draw').each(function (i) {
+             $(this).attr('data-step', '2')
+             //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+             $(this).attr('data-intro', 'A <b>feature</b> refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features (selected features will be those that intersect the drawn shape), or simply click on a single feature of interest in the map.')
+         });
 
-     $('.leaflet-geonames-search').each(function(i) {
-         $(this).attr('data-step','3')
-         //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-         $(this).attr('data-intro','You can also click here to select a feature based on the location of a specified place name.')
-     });
+         $('.leaflet-geonames-search').each(function (i) {
+             $(this).attr('data-step', '3')
+             //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
+             $(this).attr('data-intro', 'You can also click here to select a feature based on the location of a specified place name.')
+         });
 
-     //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
-     gettingStartedIntro.setOptions({'showStepNumbers':false, 'showBullets': 'false', 'tooltipPosition': 'right'});
+         //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
+         gettingStartedIntro.setOptions({'showStepNumbers': false, 'showBullets': 'false', 'tooltipPosition': 'right'});
+     }
 
     /*  If we decide to make the link go to the About tab.*/
      $("#modelInfoLink").click(function() {

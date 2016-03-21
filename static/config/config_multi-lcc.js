@@ -1,5 +1,5 @@
-title="Multi-LCC"
-subTitle="Climate Projections for the Western United States"
+title="Protected Areas"
+subTitle="Climate Projections for Landscapes of the Western United States"
 studyAreaBoundary="CA_Boundary_5_simplify.json"
 initialLat=39
 initialLon=-116

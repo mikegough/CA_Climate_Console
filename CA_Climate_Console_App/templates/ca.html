@@ -129,6 +129,7 @@
     var last_poly="{{WKT_SelectedPolys}}"
     columnChartColors="{{columnChartColors}}"
     unitsForChart="metric"
+
 </script>
 
 <style>
@@ -812,6 +813,7 @@
 <div id="footer" class="no-print">
     <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2016 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
+
 <script>
     $(function() {
       //Calls the selectBoxIt method on your HTML select box.
@@ -823,6 +825,8 @@
         aggressiveChange: true
     });
 
+    //enable intro.js  on the control layers
+    gettingStartedIntro=introJs();
 </script>
 
 <!-- div for the mouseover legend items text -->

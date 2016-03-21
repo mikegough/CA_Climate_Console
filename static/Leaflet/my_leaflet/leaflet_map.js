@@ -545,7 +545,7 @@ function create_post(newWKT) {
             }
             createColumnChart()
 
-            if (typeof first_query_complete == 'undefined') {
+            if (typeof first_query_complete == 'undefined' &&  typeof introJs == 'function') {
 
                 gettingStartedIntro2 = introJs();
                 gettingStartedIntro2.setOptions({

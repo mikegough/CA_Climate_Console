@@ -7,6 +7,19 @@
 	margin-bottom: 20px;
 }
 
+.info2 {
+	top: 130px;
+	position: fixed;
+	left: 5px;
+	z-index: 9999;
+	color:#5083B0;
+	font-weight:bold;
+}
+
+.ui-opacity {
+	right: 975px;
+}
+
 #tabs{
     display:none;
 }
@@ -78,9 +91,6 @@ div.tabcontents {
 	width: 478px;
 }
 
-.dynamicDataTable tr:hover {
-    background-color:#D7D7D7 !important;
-}
 
 .dynamicDataTable th,td {
     cursor:pointer;
@@ -89,6 +99,15 @@ div.tabcontents {
     padding-left: 5px;
     padding-right: 5px;
     color: #006da9;
+}
+
+.dynamicDataTable tr:hover {
+	background-color:#2C88CD !important;
+	color:white !important;
+}
+
+.dynamicDataTable tr:hover td{
+	color:white !important;
 }
 
 .dynamicDataTable th:first-child {
