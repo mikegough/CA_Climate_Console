@@ -1,11 +1,11 @@
-$(document).ready(function(){
-
+$(document).ready(function() {
+    /*$("div.leaflet-top:nth-child(1)").hide()*/
     document.title = title + " Climate Dashboard"
-})
+});
 
-$("div.leaflet-top:nth-child(1)").hide()
-
+/*
 $(".info2").html("Select an LCC Boundary")
+*/
 
 var defaultQueryLayerStyle = {
     color: 'gray',
@@ -13,7 +13,7 @@ var defaultQueryLayerStyle = {
     weight:1,
     dashArray: 0,
     fillOpacity:.5,
-    opacity:.5
+    opacity:.5,
 };
 
 var hoverQueryLayerStyle = {
@@ -25,6 +25,7 @@ var hoverQueryLayerStyle = {
     opacity: '0'
 
 }
+
 
 function mouseOverShowFeature(hovername) {
     text_hover_layer=query_layer
@@ -53,7 +54,7 @@ function selectFeatureFromTable(name) {
     results_poly.bringToFront()
     reporting_units='multi_lcc_reporting_units_usfs_2_simplify'
     create_post(name,reporting_units)
-    document.getElementById("view5Link").click()
+    //document.getElementById("view5Link").click()
     $("#map").css("width","calc(100% - 960px)")
     $("#detailedView").css("display","block")
     $("#tab_container").css("width","958px")

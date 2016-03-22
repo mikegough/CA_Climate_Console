@@ -6,6 +6,20 @@
 	border-bottom:2px solid #444444;
 }
 
+#SlideOutMenuDiv{
+	display:none;
+}
+
+.toolTitle, div.leaflet-control-layers:nth-child(2), .toolTitle2, .leaflet-geonames-search{
+	display:none
+}
+
+.leaflet-draw{
+	margin-top: 45px !important;
+	margin-left: 15px !important;
+}
+
+
 #map_and_charts_container {
 	height: -moz-calc(100% - 151px);
 	height: -webkit-calc(100% - 151px);
@@ -23,7 +37,8 @@
 	color: #5083B0;
 	font-weight: bold;
 	font-family: Verdana;
-	font-size: 1.25em;
+	font-size: 16px;
+	display:block !important;
 }
 
 .loading{
@@ -44,7 +59,8 @@
 
 #selectedFeaturesListHeader {
 	height: 25px;
-	font: 15px verdana;
+	font: 16px verdana;
+	letter-spacing: 1.5px !important;
 	padding: 10px;
 	color: white;
 	font-weight: bold;
@@ -210,7 +226,7 @@ div.tabcontents {
 .dynamicDataTableHeader{
 	text-align: center !important;
 	height: 50px !important;
-	font-size: 0.9em !important;
+	font-size: 16px !important;
 	background-color: rgb(76, 158, 217) !important;
 	color: rgb(255, 255, 255) !important;
 	letter-spacing: 1.5px !important;

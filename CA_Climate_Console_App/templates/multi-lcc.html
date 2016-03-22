@@ -105,7 +105,7 @@
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/data_table.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/data_table.css">
 
 <!-- My JS -->
 <script src="{{STATIC_URL}}js/general_js.js"></script>
@@ -162,7 +162,6 @@
 <body>
 
     <!-- Slide Out Menu -->
-    {% comment %}
     <div id="SlideOutMenuDiv">
         <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
             <!-- Links written in general_js.js -->
@@ -177,8 +176,6 @@
             </div>
         </div>
     </div>
-    {% endcomment %}
-
 
 <div id="header">
     <div id="title"><script>document.write(title)</script> <span id="title2">Climate Dashboard</span><br>
@@ -202,6 +199,10 @@
 <div id="map_and_charts_container">
 
     <div id="map"></div>
+    <script>
+        $("div.leaflet-top:nth-child(1)").hide()
+    </script>
+    <span id="showTop"></span>
 
     <div title="Adjust the opacity of this layer" id='control' class='ui-opacity'>
       <div id='handle' class='handle'></div>
@@ -217,22 +218,24 @@
 
     <div id="initialization_container">
             <div id="initialization_text">
-                <h3> Welcome to the <script>document.write(title)</script> Climate Dashboard</h3>
-                The climate dashboard is a web application designed for exploring climate change projections for a selected area of interest.
-                <h3> Getting Started </h3>
-                    <div style="margin-left:10px">
-                        1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">
-                        <p>
-                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
-                        <p>
-                        2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">
-                        <p>
-                            <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
-                        <p>
-                        3. Explore results generated for the selected area.<br><span style="margin-left:18px;">(Results will appear here)</span>
-                        <p>
-                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                <!--<h3> Welcome to the <script>document.write(title)</script> Climate Dashboard</h3>-->
+                <h3> Welcome to the Climate Dashboard</h3>
+                The climate dashboard is a web application designed for exploring climate change projections for protected areas within an LCC boundary or a specified area of interest.
+                <h3> Getting Started: </h3>
+                    <div class="intro_steps">
+                        A) Click on an LCC boundary of interest in the map
                     </div>
+                    <div style="margin-top:40px; margin-left:auto;margin-right:auto;text-align:center">
+                        <img style="width:250px" src="{{STATIC_URL}}img/map_click2.png">
+                    </div>
+                    <br>
+                    <div class="intro_steps">
+                        <b>Or...</b><p>
+                        B) Use the drawing tools to define an area of interest
+                    </div>
+                <div style="margin-top:40px; margin-left:auto;margin-right:auto;text-align:center">
+                    <img style="width:280px" src="{{STATIC_URL}}img/map_select.png">
+                </div>
             </div>
     </div>
 
