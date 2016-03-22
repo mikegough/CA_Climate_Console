@@ -1,3 +1,11 @@
+#sub_title{
+	font-size:18px;
+}
+
+#header {
+	border-bottom:2px solid #444444;
+}
+
 #map_and_charts_container {
 	height: -moz-calc(100% - 151px);
 	height: -webkit-calc(100% - 151px);
@@ -18,16 +26,33 @@
 	font-size: 1.25em;
 }
 
+.loading{
+    display: none;
+    float: right;
+    position: absolute;
+    right: 0px;
+    width: 479px;
+    height: 100%;
+    z-index: 9999999;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20%;
+	background-color:white;
+	opacity:.8;
+}
+
 #selectedFeaturesListHeader {
-	height: 24px;
+	height: 25px;
 	font: 15px verdana;
 	padding: 10px;
-	color: rgb(80, 131, 176);
+	color: white;
 	font-weight: bold;
-	border-bottom: 2px solid #C0D0E0;
-	background-color: #F7F7F7;
+	background-color: #287EBD;
 	padding-top: 15px;
 	text-align: center;
+	font-variant: small-caps;
+	font-style: italic;
 }
 
 #climate_quick_view {
@@ -48,7 +73,7 @@
 
 #climate_quick_view_table th {
 	font-family: "Verdana";
-	height: 43px;
+	height: 42px;
 	font-size: .8em;
 	background-color: #EDF7FF;
 	border: 2px;
@@ -91,14 +116,16 @@ div.tabcontents {
 
 #tab_container {
 	border-left: 2px solid #C0D0E0
+	z-index:0;
 }
-
 
 #detailedView {
     width:478px;
     float:right;
     padding-top:0px;
-	box-shadow: -1px -1px 30px #171717;
+	box-shadow: -1px -1px 40px #2D2D2D;
+	border-bottom-left-radius:20px;
+	background-color:white;
 }
 
 .quick_therm_tmin_small {
@@ -118,11 +145,17 @@ div.tabcontents {
 	position:relative;
 }
 
+#dataTableDiv {
+	width:460px;
+}
+
 #dynamicDataTableDiv{
-	width: 100%;
+	width:500px;
 	top: 0;
 	/*border-right: 2px solid #C0D0E0;*/
-	height: 100%;
+	height: 90%;
+	overflow-y:auto;
+	overflow-x:hidden;
 }
 
 #dynamicEEMSDataTableDiv{
@@ -134,24 +167,18 @@ div.tabcontents {
 	width: 100%;
 	border-collapse: collapse;
 	/* position: absolute; */
-	width: 479px;
+	width: 480px;
+	overflow-y:scroll;
 }
 
 
 .dynamicDataTable th,td {
     cursor:pointer;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 4px;
+    padding-bottom: 4px;
     padding-left: 5px;
     padding-right: 5px;
     color: #006da9;
-}
-
-.dynamicDataTableHeader{
-	height: 50px !important;
-	font-size: 0.9em !important;
-	background-color: rgb(247, 247, 247) !important;
-	text-align: center !important;
 }
 
 
@@ -179,6 +206,20 @@ div.tabcontents {
 	border-bottom: 2px solid #C0D0E0;
 	background-color: #EDF7FF;
 }
+
+.dynamicDataTableHeader{
+	text-align: center !important;
+	height: 50px !important;
+	font-size: 0.9em !important;
+	background-color: rgb(76, 158, 217) !important;
+	color: rgb(255, 255, 255) !important;
+	letter-spacing: 1.5px !important;
+	font-variant: small-caps !important;
+	font-style: italic !important;
+	border-bottom: none !important;
+}
+
+
 
 .dynamicDataTable tr{
     border-collapse: collapse;

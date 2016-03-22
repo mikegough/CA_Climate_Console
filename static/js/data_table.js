@@ -57,7 +57,7 @@ function selectFeatureFromTable(name) {
     $("#map").css("width","calc(100% - 960px)")
     $("#detailedView").css("display","block")
     $("#tab_container").css("width","958px")
-    $("#dataTableDiv").css("width","478px")
+    $("#dataTableDiv").css("width","460px")
     $("#detailedView").css("width","478px")
     $("#detailedView").css("float","right")
     $(".loading").css("width", "958px")
