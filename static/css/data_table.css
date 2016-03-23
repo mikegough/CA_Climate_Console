@@ -57,7 +57,7 @@
 	opacity:.8;
 }
 
-#selectedFeaturesListHeader {
+.selectedFeaturesListHeader {
 	height: 25px;
 	font: 16px verdana;
 	letter-spacing: 1.5px !important;
@@ -169,7 +169,7 @@ div.tabcontents {
 	width:500px;
 	top: 0;
 	/*border-right: 2px solid #C0D0E0;*/
-	height: 90%;
+	height: 85%;
 	overflow-y:auto;
 	overflow-x:hidden;
 }
@@ -179,7 +179,7 @@ div.tabcontents {
 
 }
 
-.dynamicDataTable {
+#dynamicDataTable {
 	width: 100%;
 	border-collapse: collapse;
 	/* position: absolute; */
@@ -188,7 +188,7 @@ div.tabcontents {
 }
 
 
-.dynamicDataTable th,td {
+#dynamicDataTable th,td {
     cursor:pointer;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -198,20 +198,20 @@ div.tabcontents {
 }
 
 
-.dynamicDataTable tr:hover {
+#dynamicDataTable tr:hover {
 	background-color:#2C88CD !important;
 	color:white !important;
 }
 
-.dynamicDataTable tr:hover td{
+#dynamicDataTable tr:hover td{
 	color:white !important;
 }
 
-.dynamicDataTable th:first-child {
+#dynamicDataTable th:first-child {
 	padding-left:10px
 }
 
-.dynamicDataTable th{
+#dynamicDataTable th{
     height:40px;
     font: 12px verdana;
     text-align:left;
@@ -237,18 +237,18 @@ div.tabcontents {
 
 
 
-.dynamicDataTable tr{
+#dynamicDataTable tr{
     border-collapse: collapse;
     border: solid black 0px !important;
 }
 
-.dynamicDataTable td{
+#dynamicDataTable td{
 	vertical-align:top;
     font: 12px verdana;
     border: solid black 0px !important;
 }
 
-.dynamicDataTable td:first-child {
+#dynamicDataTable td:first-child {
 	width:200px;
     max-width: 200px;
 	min-width: 200px;

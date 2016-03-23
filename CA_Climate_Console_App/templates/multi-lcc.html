@@ -26,6 +26,7 @@
 <script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/terrestrial_intactness.json"></script>
 <script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/ecological_values.json"></script>
 
+
 <!-- Leaflet -->
 <!--<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>-->
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -56,6 +57,8 @@
 
 <!-- Jquery-->
 <script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
+
+<script type="text/javascript" src="{{STATIC_URL}}deps/TableSorter/jquery.tablesorter.js"></script>
 
 <!-- Tabs -->
 <script src="{{STATIC_URL}}deps/TabContent/tabcontent.js" type="text/javascript"></script>
@@ -271,8 +274,7 @@
                     <!-- Good idea but problematic when dropdowns are changed. Text is no longer applicable -->
                     <!-- <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help.png" onclick="updateClimateHelpContent(); gettingStartedIntro2.goToStep(3).start()">-->
 
-
-                        <div id="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                        <div class="selectedFeaturesListHeader">
                             <!-- Detailed Report: -->
                             <span id="selectedFeaturesShortList"></span>
                             <span id="additionalFeaturesCount"></span>
@@ -406,10 +408,12 @@
                     <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
 
                 </div>
-                    <div id="dataTableDiv">
-                        <div id="dataTable">
-                        </div>
+                <div class="selectedFeaturesListHeader">Projected Change </div>
+
+                <div id="dataTableDiv">
+                    <div id="dataTable">
                     </div>
+                </div>
             </div>
 
             <div id="view3" class="views">

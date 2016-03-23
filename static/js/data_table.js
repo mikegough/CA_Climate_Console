@@ -1,6 +1,8 @@
 $(document).ready(function() {
     /*$("div.leaflet-top:nth-child(1)").hide()*/
+    $("#dynamicDataTable").tablesorter();
     document.title = title + " Climate Dashboard"
+
 });
 
 /*
@@ -74,13 +76,12 @@ function createDynamicDataTable(){
     resultsJSONsorted=sortObject(tabularResultsJSON)
 
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
-    $('#dynamicDataTableDiv').append('<table class="dynamicDataTable"></table>');
+    $('#dynamicDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append('<tr><th class="dynamicDataTableHeader" colspan="4">Projected Change</th></tr>')
-    table.append('<tr><th>Protected Area</th><th></td><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> TMAX</th><th><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span> TMIN</th><th><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Precip</th></tr>')
+    table.append('<thead><tr><th>Protected Area</th><th></td><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> TMAX</th><th><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span> TMIN</th><th><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Precip</th></tr></thead>')
 
     $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
-    $('#dynamicEEMSDataTableDiv').append('<table class="dynamicDataTable"></table>');
+    $('#dynamicEEMSDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     console.log
 
     var tr;
@@ -108,9 +109,17 @@ function createDynamicDataTable(){
     });
 
     //Used to highlight selected record. Needs to after the dynamic table is created.
-    $('.dynamicDataTable tr').click(function () {
-        $('.dynamicDataTable tr').removeClass("active");
+    $('#dynamicDataTable tr').click(function () {
+        $('#dynamicDataTable tr').removeClass("active");
         $(this).addClass("active");
+    });
+
+    //Set default table sort order
+    $("#dynamicDataTable").tablesorter({
+
+        // default sortInitialOrder setting
+        sortInitialOrder: "desc",
+
     });
 
 }
