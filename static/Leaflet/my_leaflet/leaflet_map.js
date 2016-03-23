@@ -576,13 +576,13 @@ function create_post(newWKT) {
                 });
                 //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
                 gettingStartedIntro2.goToStep(4).start()
+
+                $( ".select_form2" ).change(function() {
+                  gettingStartedIntro2.exit()
+                });
             }
 
             first_query_complete = true
-
-            $( ".select_form2" ).change(function() {
-              gettingStartedIntro2.exit()
-            });
 
             //Selected Features Header on View1
 
