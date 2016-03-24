@@ -19,6 +19,11 @@ var defaultStyle = {
     opacity:1
 };
 
+var hoverStyle = {
+    weight:5,
+    fillOpacity:.15,
+};
+
 var defaultQueryLayerStyle = {
     color: 'gray',
     fillColor:'green',
@@ -29,11 +34,11 @@ var defaultQueryLayerStyle = {
 };
 
 var hoverQueryLayerStyle = {
-    color:'#00B700',
+    color:'#01FEFE',
     fillColor:'#2C88CD',
     fillOpacity:.9,
     weight:1,
-    dashArray: '3',
+    dashArray: '4',
     opacity: '0'
 
 }
