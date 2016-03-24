@@ -27,6 +27,7 @@
 	border-bottom: 2px solid #C0D0E0;
 	overflow-y: hidden;
 	margin-bottom: 20px;
+	overflow-x:auto;
 }
 
 .info2 {

@@ -2,12 +2,22 @@ $(document).ready(function() {
     /*$("div.leaflet-top:nth-child(1)").hide()*/
     $("#dynamicDataTable").tablesorter();
     document.title = title + " Climate Dashboard"
+    layer0.setStyle(defaultStyle)
+    layer0.bringToFront()
 
 });
 
 /*
 $(".info2").html("Select an LCC Boundary")
 */
+
+var defaultStyle = {
+    color: '#F8981D',
+    weight:3,
+    dashArray: 0,
+    fillOpacity:0,
+    opacity:1
+};
 
 var defaultQueryLayerStyle = {
     color: 'gray',
