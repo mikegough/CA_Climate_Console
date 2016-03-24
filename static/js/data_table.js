@@ -119,6 +119,8 @@ function createDynamicDataTable(){
 
         // default sortInitialOrder setting
         sortInitialOrder: "desc",
+        widgets: ['zebra'],
+         widgetZebra: {css: ["rowClass1","rowClass2"]}
 
     });
 
