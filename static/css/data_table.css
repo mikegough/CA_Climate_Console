@@ -19,7 +19,6 @@
 	margin-left: 15px !important;
 }
 
-
 #map_and_charts_container {
 	height: -moz-calc(100% - 151px);
 	height: -webkit-calc(100% - 151px);
@@ -28,6 +27,13 @@
 	overflow-y: hidden;
 	margin-bottom: 20px;
 	overflow-x:auto;
+}
+
+/*Legend */
+.info{
+	font-size: 12px;
+	color:#343434;
+	font-family: Verdana;
 }
 
 .info2 {

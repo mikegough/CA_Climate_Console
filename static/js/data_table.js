@@ -5,7 +5,18 @@ $(document).ready(function() {
     layer0.setStyle(defaultStyle)
     layer0.bringToFront()
 
+    $('input[type=radio][name=pa_visibility]').change(function() {
+        if (this.value == 'on') {
+            protected_areas_overlay.addTo(map).bringToBack();
+        }
+        else if (this.value == 'off') {
+           map.removeLayer(protected_areas_overlay)
+        }
+    });
+
 });
+
+
 
 /*
 $(".info2").html("Select an LCC Boundary")
@@ -21,16 +32,17 @@ var defaultStyle = {
 
 var hoverStyle = {
     weight:5,
-    fillOpacity:.15,
+    fillColor:"#FFFFFF",
+    fillOpacity:.1,
 };
 
 var defaultQueryLayerStyle = {
     color: 'gray',
-    fillColor:'green',
+    fillColor:'#2C71A5',
     weight:1,
     dashArray: 0,
-    fillOpacity:.5,
-    opacity:.5,
+    fillOpacity:.7,
+    opacity:0,
 };
 
 var hoverQueryLayerStyle = {
@@ -42,9 +54,56 @@ var hoverQueryLayerStyle = {
     opacity: '0'
 
 }
+/*
 
+var defaultQueryLayerStyle = {
+    color: '#23B25F',
+    radius:4
+};
+
+var hoverQueryLayerStyle = {
+    radius: 10,
+    color: "#4575B5",
+    fillOpacity: 0.85
+}
+*/
 
 function mouseOverShowFeature(hovername) {
+
+        query_layer.then(function(data) {
+
+        hoverFeature = L.geoJson(data, {
+            filter: function(feature, layer) {
+                return feature.properties.ID_For_Zon==OID_Index[hovername];
+            }
+        });
+        hoverFeature.setStyle(defaultQueryLayerStyle)
+        hoverFeature.addTo(map)
+    });
+}
+
+/*
+
+function mouseOverShowFeature(hovername) {
+    text_hover_layer=query_layer
+    if (text_hover_layer != null) {
+
+        text_hover_layer.eachLayer(function(dist){
+            if (dist.toGeoJSON().properties.OBJECTID == OID_Index[hovername]) {
+                dist.setStyle(hoverQueryLayerStyle)
+                if (!L.Browser.ie && !L.Browser.opera) {
+                    dist.bringToFront();
+                }
+            }
+        });
+    }
+}
+
+*/
+
+/*
+function mouseOverShowFeature(hovername) {
+    //query_layer=static_url + 'Leaflet/myJSON/'+ hovername.replace(" ", "_") +".json"
     text_hover_layer=query_layer
     if (text_hover_layer != null) {
 
@@ -59,17 +118,20 @@ function mouseOverShowFeature(hovername) {
     }
 }
 
+*/
 function mouseOutDeselect() {
     //Loop through the array of all layers and remove them
-     query_layer.setStyle(defaultQueryLayerStyle)
+    //query_layer.setStyle(defaultQueryLayerStyle)
+    map.removeLayer(hoverFeature)
     results_poly.bringToFront()
 }
 
 function selectFeatureFromTable(name) {
+
     //Loop through the array of all layers and remove them
-    query_layer.setStyle(defaultQueryLayerStyle)
+    //query_layer.setStyle(defaultQueryLayerStyle)
     results_poly.bringToFront()
-    reporting_units='multi_lcc_reporting_units_usfs_2_simplify'
+    reporting_units='multi_lcc_query_layer_protected_areas_5_simplify'
     create_post(name,reporting_units)
     //document.getElementById("view5Link").click()
     $("#map").css("width","calc(100% - 960px)")
@@ -80,10 +142,60 @@ function selectFeatureFromTable(name) {
     $("#detailedView").css("float","right")
     $(".loading").css("width", "958px")
 
+    $(document).ajaxComplete(function(){
+        results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:.5, opacity:1})
+    });
+
+
 }
 
+function getMaskIndex(){
+
+     LCC_Name=response['categoricalValues']
+     switch(LCC_Name) {
+         case "Great Northern":
+             return 2
+             break;
+         case "Great Basin":
+             return 3
+             break;
+         case "North Pacific":
+             return 1
+             break;
+         case "California":
+             return 0
+             break;
+     }
+
+}
 
 function createDynamicDataTable(){
+
+
+    $(document).ajaxComplete(function(){
+        results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:0, opacity:1})
+    });
+
+
+    if (typeof mask != 'undefined') {
+        map.removeLayer(mask)
+
+    }
+
+    function loadMask(){
+     mask = omnivore.topojson(static_url+'Leaflet/myJSON/Multi_LCC_Reporting_Units_LCC_Boundaries_remove_small_polys_2_simplify.json')
+        .on('ready', function(){
+            if (typeof current_mask != 'undefined') {map.removeLayer(current_mask)}
+            mask_index=getMaskIndex()
+            current_mask=L.mask(this.getLayers()[mask_index].getLatLngs()).addTo(map);
+            current_mask.setStyle({color:'#00FFFF', fillColor:'#000000', weight: 5, dashArray: 0, fillOpacity:.2, opacity:0})
+
+        });
+    }
+
+    //loadMask()
+
+    //map.addLayer(query_layer);
 
     $('#dataTableDiv').empty()
     $('#getRawValuesButton').css('display','None')
@@ -100,7 +212,6 @@ function createDynamicDataTable(){
     console.log
 
     var tr;
-    reporting_units='multi_lcc_reporting_units_usfs_2_simplify'
 
     rowClass="rowClass1"
     loop_count=0
@@ -158,3 +269,10 @@ function sortObject(o) {
     return sorted;
 }
 
+
+onekmBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
+var protected_areas_url= static_url+'Leaflet/myPNG/other/multi_lcc/multi_lcc_protected_areas2.png';
+var protected_areas_overlay= L.imageOverlay(protected_areas_url, onekmBounds);
+protected_areas_overlay.addTo(map).setOpacity(.7);
+
+$('.info').html("Protected Areas<form id='toggle_protected_areas' style='margin-bottom:0' action=''><input type='radio' name='pa_visibility' checked value='on'>On</input><input type='radio' name='pa_visibility' value='off'>Off</input></form><img src='" + static_url+ "Leaflet/my_leaflet/legends/Protected_Areas.png'>")

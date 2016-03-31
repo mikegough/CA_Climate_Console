@@ -26,7 +26,6 @@
 <script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/terrestrial_intactness.json"></script>
 <script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/ecological_values.json"></script>
 
-
 <!-- Leaflet -->
 <!--<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>-->
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -38,6 +37,9 @@
 <!-- Leaflet.draw -->
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.css" />
+
+<!-- Leaflet Mask -->
+<script src="{{STATIC_URL}}deps/Leaflet_Mask/L.Mask.js"></script>
 
 <!-- leaflet.grouped-layer-control-->
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.css" />
@@ -820,6 +822,11 @@
 <div id="footer" class="no-print">
     <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2016 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
+
+<script src="{{STATIC_URL}}Leaflet/myJSON/Multi_LCC_Query_Layer_Protected_Areas_points.json"></script>
+
+<script src="{{STATIC_URL}}config/oid_index_multi-lcc.js"></script>
+
 <script>
     $(function() {
       //Calls the selectBoxIt method on your HTML select box.
@@ -831,14 +838,8 @@
         aggressiveChange: true
     });
 
-    var query_layer= omnivore.topojson(static_url + 'Leaflet/myJSON/' + 'Multi_LCC_Reporting_Units_USFS_2_simplify.json')
-    .on('ready', function (layer) {
-        this.eachLayer(function (dist) {
-            dist.setStyle(defaultQueryLayerStyle)
-        })
-    }).addTo(map)
-
-
+    //Load JSON-encoded data from the server using a GET HTTP request.
+    query_layer=$.getJSON(static_url + 'Leaflet/myJSON/' + 'Multi_LCC_Query_Layer_Protected_Areas_ArcGIS_simplify_GeoJSON.json')
 
 </script>
 

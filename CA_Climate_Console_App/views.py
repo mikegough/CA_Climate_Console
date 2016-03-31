@@ -300,7 +300,7 @@ def view2(request):
     stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
     if table == None:
-        table="multi_lcc_reporting_units_usfs_2_simplify"
+        table="multi_lcc_query_layer_protected_areas_5_simplify"
         categoricalFields="name"
 
     template='multi-lcc'
@@ -328,7 +328,7 @@ def view2(request):
             WKT="SRID=4326;"+WKT
 
             spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_2_simplify'
-            query_layer='multi_lcc_reporting_units_usfs_2_simplify'
+            query_layer='multi_lcc_query_layer_protected_areas_5_simplify'
 
             if "POINT" in WKT:
                 #Get geometery of LCC Boundary
@@ -429,6 +429,8 @@ def view2(request):
             operator='='
 
             selectStatement=selectFieldsFromTable + " where " + queryField + " " + operator + " '" + WKT + "'"
+
+            print selectStatement
 
             ######################################## EXECUTE DATABASE QUERY ################################################
 
