@@ -2,7 +2,7 @@
 	font-size:18px;
 }
 
-#header {
+.header {
 	border-bottom:2px solid #444444;
 }
 
@@ -78,6 +78,21 @@
 	font-style: italic;
 }
 
+.tabTable{
+	width: 100%;
+	font-weight: normal;
+	border: 0px solid #C0D0E0;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	border-top: 2px solid #C0D0E0;
+}
+
+.flt{
+	width:99%;
+}
+
+
 #climate_quick_view {
 	width: 100%;
 	text-align: center;
@@ -91,7 +106,7 @@
 	border-collapse: collapse;
 	margin-left: auto;
 	margin-right: auto;
-	border-top: none;
+	border-top: 2px solid #C0D0E0;
 }
 
 #climate_quick_view_table th {
@@ -126,7 +141,7 @@
 }
 
 #tabs{
-    display:none;
+    /*display:none;*/
 }
 
 div.tabcontents {
@@ -143,12 +158,40 @@ div.tabcontents {
 }
 
 #detailedView {
-    width:478px;
-    float:right;
-    padding-top:0px;
+	position: relative;
+	z-index: 2;
+	width: 478px;
+	float: right;
+	padding-top: 0px;
 	box-shadow: -1px -1px 40px #2D2D2D;
-	border-bottom-left-radius:20px;
-	background-color:white;
+	border-bottom-left-radius: 20px;
+	background-color: white;
+	height: 100%;
+	overflow-y: auto;
+}
+
+#clickToSort {
+	position: absolute;
+	color: rgb(80, 131, 176);
+	font-size: 13px;
+	top: 50px;
+	background-color: #EDF7FF;
+	padding: 5px;
+	width: 150px;
+	height: 20px;
+	padding-right: 0px;
+	z-index: 2;
+	left: 290px;
+	border-left: 2px solid #C0D0E0;
+	border-right: 2px solid #C0D0E0;
+	border-top: 2px solid #C0D0E0;
+}
+
+#clickToSortArrow{
+	width: 30px;
+	float: right;
+	right: 20px;
+	position: relative;
 }
 
 .quick_therm_tmin_small {
@@ -194,6 +237,19 @@ div.tabcontents {
 	overflow-y:scroll;
 }
 
+#dynamicDataTable thead {
+	position: fixed;
+	margin-bottom: 300px;
+	max-width:480px;
+	z-index:1;
+}
+
+#dynamicDataTable tbody {
+	/* doesn't work in Chrome */
+	top: 83px;
+	z-index: 0;
+	position: relative;
+}
 
 #dynamicDataTable th,td {
     cursor:pointer;
@@ -202,8 +258,14 @@ div.tabcontents {
     padding-left: 5px;
     padding-right: 5px;
     color: #006da9;
+	vertical-align:bottom;
 }
 
+.fltrow {
+	background-color: #E0E0E0;
+	height: 31px;
+	border-bottom: solid #C0D0E0 2px !important;
+}
 
 #dynamicDataTable tr:hover {
 	background-color:#2C88CD !important;
@@ -218,16 +280,17 @@ div.tabcontents {
 	padding-left:10px
 }
 
-#dynamicDataTable th{
-    height:40px;
-    font: 12px verdana;
-    text-align:left;
-	padding: 10px;
-	padding-left:0px;
+#dynamicDataTable th {
+	height: 41px;
+	font: 12px verdana;
+	text-align: left;
+	padding: 9px;
+	padding-left: 0px;
 	color: rgb(80, 131, 176);
 	font-weight: bold;
 	border-bottom: 2px solid #C0D0E0;
 	background-color: #EDF7FF;
+	white-space: nowrap;
 }
 
 .dynamicDataTableHeader{
@@ -243,25 +306,50 @@ div.tabcontents {
 }
 
 
-
 #dynamicDataTable tr{
     border-collapse: collapse;
-    border: solid black 0px !important;
 }
 
 #dynamicDataTable td{
-	vertical-align:top;
+	vertical-align:bottom;
     font: 12px verdana;
     border: solid black 0px !important;
+	width:80px;
 }
 
+/* tbody hack
+#dynamicDataTable tr:nth-child(2) td:first-child {
+	height:50px;
+
+}
+*/
+
 #dynamicDataTable td:first-child {
-	width:200px;
-    max-width: 200px;
-	min-width: 200px;
+	width:130px;
+    max-width: 130px;
+	min-width: 130px;
     padding-left:10px;
 	white-space:normal;
 }
+
+#dynamicDataTable td:nth-child(2) {
+	width:100px;
+	max-width: 100px;
+	min-width: 100px;
+	white-space:normal;
+}
+
+.tableHeader {
+	font-family: "Verdana";
+	height: 42px;
+	font-size: .8em;
+	background-color: #EDF7FF;
+	border-top: 2px solid #C0D0E0;
+	border-bottom: 2px solid #C0D0E0;
+	color: rgb(80, 131, 176);
+	font-weight: bold !important;
+}
+
 
 .rowClass1{
    background-color:white;
@@ -273,5 +361,46 @@ div.tabcontents {
 
 tr.active td {
 	background-color: #00FFFF !important;
+}
+
+ul.tabs {
+	background: RGBA(187, 187, 187, 0.45)
+}
+
+ul.tabs li.selected a, ul.tabs li.selected a:hover {
+	position: relative;
+	top: 0px;
+	font-weight: bold;
+	background: #203358;
+	color: #CFBC9A;
+}
+
+ul.tabs li.selected a, ul.tabs li.selected a:hover {
+	position: relative;
+	font-weight: bold;
+	background: #EDF7FF;
+	color: rgb(80, 131, 176) !important;
+	top: 2px;
+	border:none
+	z-index:99;
+	border-top: 2px solid #C0D0E0;
+	border-left: 2px solid #C0D0E0 !important;
+	border-right: 2px solid #C0D0E0 !important;
+}
+
+ul.tabs li a {
+	font: normal 12px Verdana;
+	text-decoration: none;
+	position: relative;
+	padding: 8px 20px;
+	border-right: none;
+	/* color: #000; */
+	color: #646464 !important;
+	background: #FFF;
+	outline: none;
+	border-left: 1px solid #C0D0E0 !important;
+	border-right: 1px solid #C0D0E0 !important;
+	border-bottom:none;
+	border-top:none;
 }
 
