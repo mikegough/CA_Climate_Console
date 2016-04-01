@@ -82,24 +82,6 @@ function mouseOverShowFeature(hovername) {
     });
 }
 
-/*
-
-function mouseOverShowFeature(hovername) {
-    text_hover_layer=query_layer
-    if (text_hover_layer != null) {
-
-        text_hover_layer.eachLayer(function(dist){
-            if (dist.toGeoJSON().properties.OBJECTID == OID_Index[hovername]) {
-                dist.setStyle(hoverQueryLayerStyle)
-                if (!L.Browser.ie && !L.Browser.opera) {
-                    dist.bringToFront();
-                }
-            }
-        });
-    }
-}
-
-*/
 
 /*
 function mouseOverShowFeature(hovername) {
@@ -108,6 +90,7 @@ function mouseOverShowFeature(hovername) {
     if (text_hover_layer != null) {
 
         text_hover_layer.eachLayer(function(dist){
+            //if (dist.toGeoJSON().properties.OBJECTID == OID_Index[hovername]) {
             if (dist.toGeoJSON().properties.NAME == hovername) {
                 dist.setStyle(hoverQueryLayerStyle)
                 if (!L.Browser.ie && !L.Browser.opera) {
@@ -171,6 +154,10 @@ function getMaskIndex(){
 
 function createDynamicDataTable(){
 
+    if ($('#dynamicDataTable').length > 0) {
+        TF_RemoveFilterGrid("dynamicDataTable")
+    }
+
 
     $(document).ajaxComplete(function(){
         results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:0, opacity:1})
@@ -205,7 +192,7 @@ function createDynamicDataTable(){
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
     $('#dynamicDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append('<thead><tr><th>Protected Area</th><th></td><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> TMAX</th><th><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span> TMIN</th><th><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Precip</th></tr></thead>')
+    table.append('<thead><tr><th>Protected Area</th><th>Type</th><th></td><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> TMAX</th><th><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span> TMIN</th><th><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Precip</th></tr></thead>')
 
     $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
     $('#dynamicEEMSDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
@@ -250,6 +237,15 @@ function createDynamicDataTable(){
 
     });
 
+    var table1Filters = {
+        col_0: "select",
+        col_1: "select",
+        col_2: "none",
+        col_3: "none",
+        col_4: "none"
+    }
+
+    setFilterGrid("dynamicDataTable",0,table1Filters);
 }
 
 function sortObject(o) {
@@ -273,6 +269,7 @@ function sortObject(o) {
 onekmBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
 var protected_areas_url= static_url+'Leaflet/myPNG/other/multi_lcc/multi_lcc_protected_areas2.png';
 var protected_areas_overlay= L.imageOverlay(protected_areas_url, onekmBounds);
-protected_areas_overlay.addTo(map).setOpacity(.7);
+protected_areas_overlay.addTo(map).setOpacity(.7).bringToBack();
 
 $('.info').html("Protected Areas<form id='toggle_protected_areas' style='margin-bottom:0' action=''><input type='radio' name='pa_visibility' checked value='on'>On</input><input type='radio' name='pa_visibility' value='off'>Off</input></form><img src='" + static_url+ "Leaflet/my_leaflet/legends/Protected_Areas.png'>")
+

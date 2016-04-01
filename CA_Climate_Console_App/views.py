@@ -301,7 +301,7 @@ def view2(request):
 
     if table == None:
         table="multi_lcc_query_layer_protected_areas_5_simplify"
-        categoricalFields="name"
+        categoricalFields="name,ru_type"
 
     template='multi-lcc'
     config_file="config_multi-lcc.js"
@@ -350,7 +350,7 @@ def view2(request):
                 spatial_filter_name="User Defined Area"
 
             #Get all protected areas within LCC boundary
-            tabular_query="SELECT distinct a.name, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1 from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
+            tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1 from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
 
             print tabular_query
 
@@ -362,10 +362,11 @@ def view2(request):
             for row in cursor:
                 feature_name=row[0]
                 data=[]
-                tmax_delta=float(row[1])
-                tmin_delta=float(row[2])
-                prec_delta=float(row[3])
-                data.extend([tmax_delta, tmin_delta, prec_delta])
+                ru_type=row[1]
+                tmax_delta=float(row[2])
+                tmin_delta=float(row[3])
+                prec_delta=float(row[4])
+                data.extend([ru_type, tmax_delta, tmin_delta, prec_delta])
 
                 tabular_data[feature_name]=data
 
@@ -479,6 +480,7 @@ def view2(request):
             resultsJSON=json.dumps(resultsDict)
             #return HttpResponse(str(resultsDict.keys())+ str(resultsDict.values()))
             #return HttpResponse(resultsDict['tm_c4_2_avg'])
+            print resultsJSON
 
 
             ##################################### SET ADDITIONAL VARIABLES #################################################
