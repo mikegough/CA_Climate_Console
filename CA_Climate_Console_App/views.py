@@ -300,7 +300,9 @@ def view2(request):
     stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
     if table == None:
-        table="multi_lcc_query_layer_protected_areas_5_simplify"
+        #table="multi_lcc_query_layer_protected_areas_5_simplify"
+        #table="multi_lcc_query_layer_protected_areas_no_simplify"
+        table="multi_lcc_query_layer_protected_areas_soils_5_simplify"
         categoricalFields="name,ru_type"
 
     template='multi-lcc'
@@ -328,7 +330,10 @@ def view2(request):
             WKT="SRID=4326;"+WKT
 
             spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_2_simplify'
-            query_layer='multi_lcc_query_layer_protected_areas_5_simplify'
+            #query_layer='multi_lcc_query_layer_protected_areas_5_simplify'
+            #query_layer="multi_lcc_query_layer_protected_areas_no_simplify"
+            query_layer="multi_lcc_query_layer_protected_areas_soils_5_simplify"
+            print query_layer
 
             if "POINT" in WKT:
                 #Get geometery of LCC Boundary
@@ -397,6 +402,8 @@ def view2(request):
             ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
             field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
+
+            print field_name_query
             cursor.execute(field_name_query);
             statsFieldsTuple=cursor.fetchone()
             statsFields = ",".join(statsFieldsTuple)

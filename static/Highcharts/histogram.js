@@ -9,17 +9,30 @@ function createColumnChart(){
     valuesToPlot=[]
     layersToAddNames=[]
 
+    var cellCount=0
+
     for (EEMSModel in EEMSParams["models"]){
         if (typeof resultsJSON[EEMSModel+"_avg"] != 'undefined') {
-            valuesToPlot.push(resultsJSON[EEMSModel + "_avg"])
-            dtj
+            cellCount=cellCount+resultsJSON[EEMSModel+"_avg"]
+        }
+    }
+
+    for (EEMSModel in EEMSParams["models"]){
+        if (typeof resultsJSON[EEMSModel+"_avg"] != 'undefined') {
+            //%
+            valuesToPlot.push(Math.round(resultsJSON[EEMSModel + "_avg"]/cellCount * 100))
+            //Acres
+            //valuesToPlot.push(Math.round(resultsJSON[EEMSModel + "_avg"]* 247.1044))
         }
         layersToAddNames.push(EEMSModel)
     }
+
+    /*
     valuesToPlot=[43,23,21,34,54,33]
     if (valuesToPlot.length == 0) {
         valuesToPlot = [0, 0, 0, 0, 0,0]
     }
+    */
 
     //var minVal = -1;
     //var maxVal = 1;
@@ -60,10 +73,11 @@ function createColumnChart(){
                         },
                         title: {
                             margin:20,
-                            text: "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'],
+                            //text: "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'],
+                            text: "<br>Protected Area: " + response['categoricalValues'],
                         },
                         subtitle: {
-                            text: "<br>EEMS Model Results<br>",
+                            text: "<br>Soil Sensitivity<br>",
                             margin:20,
                             marginBottom:100,
                         },
@@ -107,7 +121,7 @@ function createColumnChart(){
                        staggerLines:1,
                        //fix for overlapping labels
                        //useHTML:false
-                       useHTML:true
+                       useHTML:false
                     }
                 },
 
@@ -116,7 +130,7 @@ function createColumnChart(){
                     //min: minVal,
                     //max: maxVal,
                     title: {
-                        text: ''
+                        text: 'Percent Area (%)'
                     },
                     labels: {
                        formatter: function () {
@@ -131,7 +145,7 @@ function createColumnChart(){
                     }
                 },
                tooltip: {
-                   useHTML:false,
+                   useHTML:true,
                    backgroundColor: '#E9E6E0',
                    borderWidth: 1,
                    shadow: true,
@@ -140,16 +154,17 @@ function createColumnChart(){
                   // pointFormat: '<span style="font-size:14px"><b>{point.y}</b> </span>' + valueSuffix + '<br><i>(Click to Map)</i>',
 
                    formatter: function() {
-                        return this.key.replace(/\s*\<.*?\>\s*/g, '') +
-                        '<br><span style="font-size:14px"><b>'+ this.point.y + '</b> </span><br><i>(Click to Map)</i>'
+                        //return this.key.replace(/\s*\<.*?\>\s*/g, '') +
+                        //return this.key +
+                         return '<span style="font-size:14px"><b>'+ this.point.y + ' %</b> </span>'
                     }
                 },
                 plotOptions: {
                     column: {
                         pointPadding:.1,
                         borderWidth: 1,
-                        //colors: ['#364D22', '#4D79B3', '#734D21', '#FF5C0F', '#B11B1B']
-                        colors: columnChartColors
+                        colors: ["#3462CF", "#8B97CC", "#DADBC5", "#F7D59E", "#E08865", "#C44539"]
+                        //colors: columnChartColors
                     },
                     series: {
                         colorByPoint:true,

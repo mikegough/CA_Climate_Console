@@ -16,12 +16,6 @@ $(document).ready(function() {
 
 });
 
-
-
-/*
-$(".info2").html("Select an LCC Boundary")
-*/
-
 var defaultStyle = {
     color: '#F8981D',
     weight:3,
@@ -114,7 +108,7 @@ function selectFeatureFromTable(name) {
     //Loop through the array of all layers and remove them
     //query_layer.setStyle(defaultQueryLayerStyle)
     results_poly.bringToFront()
-    reporting_units='multi_lcc_query_layer_protected_areas_5_simplify'
+    reporting_units='multi_lcc_query_layer_protected_areas_soils_5_simplify'
     create_post(name,reporting_units)
     //document.getElementById("view5Link").click()
     $("#map").css("width","calc(100% - 960px)")
@@ -127,6 +121,13 @@ function selectFeatureFromTable(name) {
 
     $(document).ajaxComplete(function(){
         results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:.5, opacity:1})
+        $('#AboutSelectedProtectedArea').html(response['categoricalValues'] + " is a protected area....")
+        //$('#AboutSelectedProtectedArea').html(response['categoricalValues'] + " is a protected area centered at <a target='_blank' href='http://www.google.com/maps/place/"+centerLat+","+centerLon+"'>" + centerLat + centerLon +"</a>")
+        /*
+         $.get(static_url+"config/html/mlcc/" + response['categoricalValues']+".html", function (data) {
+         $("#AboutSelectedProtectedArea").html(data);
+         });
+         */
     });
 
 

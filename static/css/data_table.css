@@ -71,10 +71,10 @@
 	padding: 10px;
 	color: white;
 	font-weight: bold;
-	background-color: #287EBD;
 	padding-top: 15px;
 	text-align: center;
 	font-variant: small-caps;
+	background-color:#4C9ED9;
 	font-style: italic;
 }
 
@@ -86,6 +86,23 @@
 	margin-left: auto;
 	margin-right: auto;
 	border-top: 2px solid #C0D0E0;
+}
+
+#AboutSelectedProtectedArea {
+	font-family: "Verdana";
+	font-size: 1em;
+	background-color: #EDF7FF;
+	border-top: 2px solid #C0D0E0;
+	color: rgb(80, 131, 176);
+	padding: 20px;
+	height:50%;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#edf7ff+0,ffffff+100 */
+    background: #edf7ff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #edf7ff 0%, #ffffff 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #edf7ff 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #edf7ff 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf7ff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
 }
 
 .flt{
@@ -173,7 +190,7 @@ div.tabcontents {
 #clickToSort {
 	position: absolute;
 	color: rgb(80, 131, 176);
-	font-size: 13px;
+	font-size: 12px;
 	top: 50px;
 	background-color: #EDF7FF;
 	padding: 5px;
@@ -185,13 +202,16 @@ div.tabcontents {
 	border-left: 2px solid #C0D0E0;
 	border-right: 2px solid #C0D0E0;
 	border-top: 2px solid #C0D0E0;
+	/* padding-top: 2px; */
+	line-height: 20px;
 }
 
-#clickToSortArrow{
-	width: 30px;
+#clickToSortArrow {
+	width: 24px;
 	float: right;
-	right: 20px;
+	right: 5px;
 	position: relative;
+	top: 6px;
 }
 
 .quick_therm_tmin_small {
