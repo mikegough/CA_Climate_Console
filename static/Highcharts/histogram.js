@@ -117,7 +117,7 @@ function createColumnChart(){
                     categories: attributes,
                     labels: {
                        rotation:0,
-                       style: { fontSize: '11px', fontWeight: 'normal', textAlign: 'left', cursor: 'pointer', textOverflow:'none'},
+                       style: { fontSize: '11px', fontWeight: 'normal', textAlign: 'left', cursor: 'default', textOverflow:'none'},
                        staggerLines:1,
                        //fix for overlapping labels
                        //useHTML:false
@@ -184,7 +184,8 @@ function createColumnChart(){
                     name: ' ',
                     layersToAdd:layersToAddNames,
                     data: valuesToPlot,
-                    cursor: 'pointer',
+                    cursor: 'default',
+                    /*
                     point: {
                             events: {
                                 click: function() {
@@ -219,15 +220,6 @@ function createColumnChart(){
                                     });
 
 
-                                    //Change column properties on click (problem is that when selecting a new feature, these properties no longer apply to the selected column)
-                                    /*
-                                     for (var i = 0; i < this.series.data.length; i++) {
-                                         this.series.data[i].update({ borderColor: '#444444'}, true, false);
-                                         this.series.data[i].graphic.attr({'stroke-width': 1}, true, false);
-                                     }
-                                        this.update({ borderColor: '#00FFFF'}, true, false)
-                                        this.graphic.attr({'stroke-width': 2 })
-                                     */
 
                                      //Define the json variable based on the layerToAdd  Name
                                      //defineJSONtree()
@@ -259,19 +251,11 @@ function createColumnChart(){
                                          // toggleLayer(layerToAdd)
                                     }
 
-                                    //function for deselecting points when a column is selected.
-                                    //Another issue: selecting a new polygon recreates the chart and deselects the selected column
-                                    /*
-                                    var other_chart = $('#point_chart').highcharts()
-                                    other_chart.series[0].data[0].select();
-                                    other_chart.series[1].data[0].select();
-                                    other_chart.series[2].data[0].select();
-                                    other_chart.series[3].data[0].select();
-                                    */
-
                                 }
                             }
+
                     },
+                    */
                     allowPointSelect: false,
                         states: {
                             select: {

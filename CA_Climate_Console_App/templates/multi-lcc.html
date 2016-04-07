@@ -274,9 +274,9 @@
                     <!--data-persist="true" keeps the current tab active on page refresh-->
                     <ul class="tabs" id="tabs" data-persist="false">
                         <!--<li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>-->
-                        <li><a id="view1Link" href="#view98">Climate</a></li>
-                        <li><a id="view5Link" href="#view99">Soils</a></li>
-                        <li><a id="view3Link" href="#view100"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
+                        <li><a id="view98Link" href="#view98">Climate</a></li>
+                        <li><a id="view99Link" href="#view99">Soils</a></li>
+                        <li><a id="view100Link" href="#view100"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
                         <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
                         <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
                         <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
@@ -424,7 +424,12 @@
                     </div>
                 </div>
 
-                <div class="selectedFeaturesListHeader">Projected Change
+
+                <div class="selectedFeaturesListHeader" id="Header1">Projected Change
+                    <div id="timePeriodRadioDiv" style="z-index:99">
+                        <input type="radio" name="time_period_for_table" value="1">2016-2045</input><br>
+                        <input type="radio" name="time_period_for_table" value="1">2045-2075</input>
+                    </div>
                     <div id="clickToSort"> Click To Sort
                         <img id="clickToSortArrow" src="{{STATIC_URL}}img/click_to_sort_arrow.png">
                     </div>

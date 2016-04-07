@@ -216,8 +216,15 @@ if (typeof climate_PNG_overlay != 'undefined') {
     climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 }
 
+base_data_PNG_overlay=""
+
 //Function used by the Climate chart to add PNGs. Obviates the need to manually define each image overlay object.
 function swapImageOverlay(layerName,modelType) {
+
+        //This is for multi-lcc overlays.
+        if (map.hasLayer(base_data_PNG_overlay)){
+            map.removeLayer(base_data_PNG_overlay)
+        }
 
         //Need different overlay bounds for EEMS Models
         //The PNGs that come out of clover are not clipped to the data perfectly. So for those PNGs that come from the

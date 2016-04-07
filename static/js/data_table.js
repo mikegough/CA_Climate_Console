@@ -5,15 +5,6 @@ $(document).ready(function() {
     layer0.setStyle(defaultStyle)
     layer0.bringToFront()
 
-    $('input[type=radio][name=pa_visibility]').change(function() {
-        if (this.value == 'on') {
-            protected_areas_overlay.addTo(map).bringToBack();
-        }
-        else if (this.value == 'off') {
-           map.removeLayer(protected_areas_overlay)
-        }
-    });
-
 });
 
 var defaultStyle = {
@@ -40,13 +31,11 @@ var defaultQueryLayerStyle = {
 };
 
 var hoverQueryLayerStyle = {
-    color:'#01FEFE',
+    color:'#00FFFF',
     fillColor:'#2C88CD',
     fillOpacity:.9,
     weight:1,
-    dashArray: '4',
-    opacity: '0'
-
+    opacity: 1
 }
 /*
 
@@ -71,7 +60,7 @@ function mouseOverShowFeature(hovername) {
                 return feature.properties.ID_For_Zon==OID_Index[hovername];
             }
         });
-        hoverFeature.setStyle(defaultQueryLayerStyle)
+        hoverFeature.setStyle(hoverQueryLayerStyle)
         hoverFeature.addTo(map)
     });
 }
@@ -203,19 +192,39 @@ function createDynamicDataTable(){
 
     rowClass="rowClass1"
     loop_count=0
+    start_index=0
 
-    $.each(resultsJSONsorted,function(key,value_list){
-        loop_count=loop_count+1
+    //object_to_show={}
+    //array_to_show=[]
+    //object_to_show["array_to_show"]=array_to_show;
+    //object_to_show[array_to_showarray_to_show.push(value_list[0], value_list[start_index + 1], value_list[start_index + 2], value_list[start_index + 3])
+
+
+    time_period_for_table=1
+
+    if (time_period_for_table==1) {
+        start_index=1
+        end_index=4
+    }
+    else if (time_period_for_table==2) {
+        start_index=4
+        end_index=7
+    }
+
+    $.each(resultsJSONsorted, function (key, value_list) {
+
+        loop_count = loop_count + 1
         if (loop_count % 2 == 0) {
-            rowClass='rowClass1'
+            rowClass = 'rowClass1'
         }
         else {
-            rowClass='rowClass2'
+            rowClass = 'rowClass2'
         }
 
-        tr = $('<tr class="'+rowClass+'"/>');
-        tr.append("<td  onclick='selectFeatureFromTable(&quot;"+key+"&quot;)' onmouseover='mouseOverShowFeature(&quot;"+ key +"&quot;)' onmouseout='mouseOutDeselect()'>" + key + "</td>")
-        $.each(value_list, function(index, value) {
+        tr = $('<tr class="' + rowClass + '"/>');
+        tr.append("<td  onclick='selectFeatureFromTable(&quot;" + key + "&quot;)' onmouseover='mouseOverShowFeature(&quot;" + key + "&quot;)' onmouseout='mouseOutDeselect()'>" + key + "</td>")
+        tr.append("<td>" + value_list[0] + "</td>")
+        $.each(value_list.slice(start_index,end_index), function (index, value) {
             tr.append("<td>" + value + "</td>")
 
         })
@@ -234,19 +243,22 @@ function createDynamicDataTable(){
         // default sortInitialOrder setting
         sortInitialOrder: "desc",
         widgets: ['zebra'],
-         widgetZebra: {css: ["rowClass1","rowClass2"]}
+        widgetZebra: {css: ["rowClass1","rowClass2"]},
 
     });
 
     var table1Filters = {
-        col_0: "select",
         col_1: "select",
         col_2: "none",
         col_3: "none",
-        col_4: "none"
+        col_4: "none",
+        display_all_text: "Filter by Type",
+        col_1_text: "Filter by Name"
     }
 
     setFilterGrid("dynamicDataTable",0,table1Filters);
+    //Problem when combining with dropdown filter (No Matches).
+    //$("#flt0_dynamicDataTable").attr("value", "Filter by Name")
 }
 
 function sortObject(o) {
@@ -267,10 +279,57 @@ function sortObject(o) {
 }
 
 
-onekmBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
-var protected_areas_url= static_url+'Leaflet/myPNG/other/multi_lcc/multi_lcc_protected_areas2.png';
-var protected_areas_overlay= L.imageOverlay(protected_areas_url, onekmBounds);
-protected_areas_overlay.addTo(map).setOpacity(.7).bringToBack();
+///Image Overlays
+baseDataBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
 
-$('.info').html("Protected Areas<form id='toggle_protected_areas' style='margin-bottom:0' action=''><input type='radio' name='pa_visibility' checked value='on'>On</input><input type='radio' name='pa_visibility' value='off'>Off</input></form><img src='" + static_url+ "Leaflet/my_leaflet/legends/Protected_Areas.png'>")
+base_data_PNG_overlay=""
 
+function swapBaseDataOverlay(PNG,modelType) {
+
+        $("#control").hide()
+
+        if (map.hasLayer(base_data_PNG_overlay)){
+            map.removeLayer(base_data_PNG_overlay)
+        }
+        if (map.hasLayer(climate_PNG_overlay)){
+            map.removeLayer(climate_PNG_overlay)
+        }
+        base_data_PNG_overlay_url = static_url + "Leaflet/myPNG/other/multi_lcc/" + PNG;
+
+        base_data_PNG_overlay=L.imageOverlay(base_data_PNG_overlay_url, baseDataBounds);
+
+        base_data_PNG_overlay.addTo(map).setOpacity(.7).bringToBack();
+        base_data_PNG_overlay.bringToBack()
+        //$('.info').html("Protected Areas<form id='toggle_protected_areas' style='margin-bottom:0' action=''><input type='radio' name='pa_visibility' checked value='on'>On</input><input type='radio' name='pa_visibility' value='off'>Off</input></form><img src='" + static_url+ "Leaflet/my_leaflet/legends/Protected_Areas.png'>")
+
+        $('.info').html("<div id='base_data_visibility_radio'><input type='radio' name='base_data_visibility' checked value='on'>On</input><input type='radio' name='base_data_visibility' value='off'>Off</input></div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + PNG +"'>")
+
+        // allLayers is not used in this app. If image overlays can come from a different source (e.g., bar chart.)
+        // define allLayers as a list of those layers to be removed when this function is called.
+        /*
+        var arrayLength = allLayers.length;
+        for (var i = 0; i < arrayLength; i++) {
+                map.removeLayer(allLayers[i])
+        }
+        */
+        $('input[type=radio][name=base_data_visibility]').change(function() {
+            if (this.value == 'on') {
+                base_data_PNG_overlay.addTo(map).bringToBack();
+            }
+            else if (this.value == 'off') {
+                map.removeLayer(base_data_PNG_overlay)
+            }
+        });
+
+}
+
+
+swapBaseDataOverlay('multi_lcc_protected_areas2.png')
+
+$("#view99Link").click(function() {
+        swapBaseDataOverlay('multi_lcc_soil_sensitivity_300dpi.png')
+ })
+
+$("#view98Link").click(function() {
+    swapBaseDataOverlay('multi_lcc_protected_areas2.png')
+})

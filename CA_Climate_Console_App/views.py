@@ -355,7 +355,7 @@ def view2(request):
                 spatial_filter_name="User Defined Area"
 
             #Get all protected areas within LCC boundary
-            tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1 from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
+            tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1, a.eetmads0t2, a.eetmids0t1, a.eepreds0t2 from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
 
             print tabular_query
 
@@ -368,10 +368,13 @@ def view2(request):
                 feature_name=row[0]
                 data=[]
                 ru_type=row[1]
-                tmax_delta=float(row[2])
-                tmin_delta=float(row[3])
-                prec_delta=float(row[4])
-                data.extend([ru_type, tmax_delta, tmin_delta, prec_delta])
+                tmax_delta_t1=float(row[2])
+                tmin_delta_t1=float(row[3])
+                prec_delta_t1=float(row[4])
+                tmax_delta_t2=float(row[5])
+                tmin_delta_t2=float(row[6])
+                prec_delta_t2=float(row[7])
+                data.extend([ru_type, tmax_delta_t1, tmin_delta_t1, prec_delta_t1, tmax_delta_t2, tmin_delta_t2, prec_delta_t2])
 
                 tabular_data[feature_name]=data
 
