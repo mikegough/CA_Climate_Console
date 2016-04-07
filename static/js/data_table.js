@@ -182,7 +182,7 @@ function createDynamicDataTable(time_period_for_table){
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
     $('#dynamicDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append('<thead><tr><th>Protected Area</th><th>Type</th><th></td><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> TMAX</th><th><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span> TMIN</th><th><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Precip</th></tr></thead>')
+    table.append('<thead><div><th>Protected Area</th><th>Type</th><th><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> Tmax</div></th><th><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin</th></div><th><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec</div></th><th><div class="dataHeader">&nbsp&nbspAcres</div></th></tr></thead>')
 
     $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
     $('#dynamicEEMSDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
@@ -226,6 +226,7 @@ function createDynamicDataTable(time_period_for_table){
             tr.append("<td>" + value + "</td>")
 
         })
+        tr.append("<td>" + value_list[7] + "</td>")
         table.append(tr)
     });
 
@@ -250,6 +251,7 @@ function createDynamicDataTable(time_period_for_table){
         col_2: "none",
         col_3: "none",
         col_4: "none",
+        col_5: "none",
         display_all_text: "Filter by Type",
         col_1_text: "Filter by Name"
     }
@@ -334,6 +336,11 @@ $("#view98Link").click(function() {
 
 function changeTimePeriod(time_period){
     time_period_for_table=time_period
+    createDynamicDataTable(time_period_for_table)
+}
+
+function changeUnitsForTable(units){
+    changeUnits(units)
     createDynamicDataTable(time_period_for_table)
 }
 

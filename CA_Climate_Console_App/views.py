@@ -374,7 +374,7 @@ def view2(request):
                 tmax_delta_t2=float(row[5])
                 tmin_delta_t2=float(row[6])
                 prec_delta_t2=float(row[7])
-                gis_acres=float(row[8])
+                gis_acres=round(row[8],0)
                 data.extend([ru_type, tmax_delta_t1, tmin_delta_t1, prec_delta_t1, tmax_delta_t2, tmin_delta_t2, prec_delta_t2, gis_acres])
 
                 tabular_data[feature_name]=data
