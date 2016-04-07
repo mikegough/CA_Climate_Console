@@ -142,7 +142,7 @@ function getMaskIndex(){
 
 }
 
-function createDynamicDataTable(){
+function createDynamicDataTable(time_period_for_table){
 
     if ($('#dynamicDataTable').length > 0) {
         TF_RemoveFilterGrid("dynamicDataTable")
@@ -199,8 +199,6 @@ function createDynamicDataTable(){
     //object_to_show["array_to_show"]=array_to_show;
     //object_to_show[array_to_showarray_to_show.push(value_list[0], value_list[start_index + 1], value_list[start_index + 2], value_list[start_index + 3])
 
-
-    time_period_for_table=1
 
     if (time_period_for_table==1) {
         start_index=1
@@ -333,3 +331,9 @@ $("#view99Link").click(function() {
 $("#view98Link").click(function() {
     swapBaseDataOverlay('multi_lcc_protected_areas2.png')
 })
+
+function changeTimePeriod(time_period){
+    time_period_for_table=time_period
+    createDynamicDataTable(time_period_for_table)
+}
+

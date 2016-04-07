@@ -366,8 +366,8 @@
                                 <div class="styled-select2" id="ss2">
                                     <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
                                         <!-- Annual Averages -->
-                                        <option class="avg" value="avg" selected >Average</option>
-                                        <option class="delta" value="delta">Change</option>
+                                        <option class="avg" value="avg">Average</option>
+                                        <option class="delta" value="delta" selected>Change</option>
                                         <!-- <option class="anom" value="anom">Anomaly</option> -->
                                     </select>
                                 </div>
@@ -427,8 +427,8 @@
 
                 <div class="selectedFeaturesListHeader" id="Header1">Projected Change
                     <div id="timePeriodRadioDiv" style="z-index:99">
-                        <input type="radio" name="time_period_for_table" value="1">2016-2045</input><br>
-                        <input type="radio" name="time_period_for_table" value="1">2045-2075</input>
+                        <input type="radio" onchange="changeTimePeriod(1)" name="time_period_for_table" value="1" checked="checked">2016-2045</input><br>
+                        <input type="radio" onchange="changeTimePeriod(2)" name="time_period_for_table" value="1">2045-2075</input>
                     </div>
                     <div id="clickToSort"> Click To Sort
                         <img id="clickToSortArrow" src="{{STATIC_URL}}img/click_to_sort_arrow.png">

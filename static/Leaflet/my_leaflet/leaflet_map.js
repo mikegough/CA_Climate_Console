@@ -636,7 +636,10 @@ function create_post(newWKT) {
             if (typeof response.tabularResultsJSON != 'undefined' && response.tabularResultsJSON != '')  {
 
                 tabularResultsJSON = JSON.parse(response.tabularResultsJSON)
-                createDynamicDataTable()
+                if (typeof time_period_for_table == 'undefined') {
+                    time_period_for_table = 1
+                }
+                createDynamicDataTable(time_period_for_table)
 
             }
 
