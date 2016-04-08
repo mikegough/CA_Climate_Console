@@ -142,7 +142,7 @@ function getMaskIndex(){
 
 }
 
-function createDynamicDataTable(time_period_for_table){
+function createDynamicDataTable(time_period_for_table, units_for_table){
 
     if ($('#dynamicDataTable').length > 0) {
         TF_RemoveFilterGrid("dynamicDataTable")
@@ -182,7 +182,7 @@ function createDynamicDataTable(time_period_for_table){
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
     $('#dynamicDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append('<thead><div><th>Protected Area</th><th>Type</th><th><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span> Tmax</div></th><th><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin</th></div><th><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec</div></th><th><div class="dataHeader">&nbsp&nbspAcres</div></th></tr></thead>')
+    table.append('<thead><div><th>Protected Area</th><th>Type</th><th><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(F)</div></div></th><th><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(F)</div></th></div><th><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th><th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th></tr></thead>')
 
     $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
     $('#dynamicEEMSDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
@@ -202,11 +202,9 @@ function createDynamicDataTable(time_period_for_table){
 
     if (time_period_for_table==1) {
         start_index=1
-        end_index=4
     }
     else if (time_period_for_table==2) {
         start_index=4
-        end_index=7
     }
 
     $.each(resultsJSONsorted, function (key, value_list) {
@@ -222,12 +220,35 @@ function createDynamicDataTable(time_period_for_table){
         tr = $('<tr class="' + rowClass + '"/>');
         tr.append("<td  onclick='selectFeatureFromTable(&quot;" + key + "&quot;)' onmouseover='mouseOverShowFeature(&quot;" + key + "&quot;)' onmouseout='mouseOutDeselect()'>" + key + "</td>")
         tr.append("<td>" + value_list[0] + "</td>")
-        $.each(value_list.slice(start_index,end_index), function (index, value) {
-            tr.append("<td>" + value + "</td>")
 
+        /* Meh...with unit conversion, easier to do outside of a loop
+         $.each(value_list.slice(start_index,end_index), function (index, value) {
+            tr.append("<td>" + value + "</td>")
         })
-        tr.append("<td>" + value_list[7] + "</td>")
+        */
+
+        if (units_for_table=="metric") {
+            //Temperature (C)
+            tr.append("<td>" + value_list[start_index] + "</td>")
+            tr.append("<td>" + value_list[start_index+1] + "</td>")
+            //Precipitation (%)
+            tr.append("<td>" + value_list[start_index+2] + "</td>")
+            //Area (km2)
+            tr.append("<td>" + Math.round((value_list[7] * 0.004046859) * 100) / 100  + "</td>")
+        }
+
+        else if (units_for_table=="english") {
+            //Temperature (F)
+            tr.append("<td>" + Math.round((value_list[start_index] *1.8) * 100) / 100 + "</td>")
+            tr.append("<td>" + Math.round((value_list[start_index+1] *1.8) * 100) / 100 + "</td>")
+            //Precipitation (%)
+            tr.append("<td>" + value_list[start_index+2] + "</td>")
+            //Area (Acres)
+            tr.append("<td>" + value_list[7] + "</td>")
+        }
+
         table.append(tr)
+
     });
 
     //Used to highlight selected record. Needs to after the dynamic table is created.
@@ -336,11 +357,14 @@ $("#view98Link").click(function() {
 
 function changeTimePeriod(time_period){
     time_period_for_table=time_period
-    createDynamicDataTable(time_period_for_table)
+    createDynamicDataTable(time_period_for_table,units_for_table)
 }
 
 function changeUnitsForTable(units){
+    units_for_table=units
+    createDynamicDataTable(time_period_for_table,units_for_table)
+    //Main chart
     changeUnits(units)
-    createDynamicDataTable(time_period_for_table)
 }
+
 

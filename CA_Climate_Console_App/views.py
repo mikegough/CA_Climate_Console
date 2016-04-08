@@ -355,7 +355,7 @@ def view2(request):
                 spatial_filter_name="User Defined Area"
 
             #Get all protected areas within LCC boundary
-            tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1, a.eetmads0t2, a.eetmids0t1, a.eepreds0t2, a.gis_acres from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
+            tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1, a.eetmads0t2, a.eetmids0t2, a.eepreds0t2, a.gis_acres from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
 
             print tabular_query
 

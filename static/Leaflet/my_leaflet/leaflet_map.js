@@ -639,7 +639,10 @@ function create_post(newWKT) {
                 if (typeof time_period_for_table == 'undefined') {
                     time_period_for_table = 1
                 }
-                createDynamicDataTable(time_period_for_table)
+                if (typeof units_for_table == 'undefined') {
+                    units_for_table = "english"
+                }
+                createDynamicDataTable(time_period_for_table,units_for_table)
 
             }
 
