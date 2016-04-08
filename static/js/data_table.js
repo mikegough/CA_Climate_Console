@@ -199,14 +199,6 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
     //object_to_show["array_to_show"]=array_to_show;
     //object_to_show[array_to_showarray_to_show.push(value_list[0], value_list[start_index + 1], value_list[start_index + 2], value_list[start_index + 3])
 
-
-    if (time_period_for_table==1) {
-        start_index=1
-    }
-    else if (time_period_for_table==2) {
-        start_index=4
-    }
-
     $.each(resultsJSONsorted, function (key, value_list) {
 
         loop_count = loop_count + 1
@@ -227,16 +219,35 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         })
         */
 
-        if (units_for_table=="metric") {
-            //Temperature (C)
-            tr.append("<td>" + value_list[start_index] + "</td>")
-            tr.append("<td>" + value_list[start_index+1] + "</td>")
-            //Precipitation (%)
-            tr.append("<td>" + value_list[start_index+2] + "</td>")
-            //Area (km2)
-            tr.append("<td>" + Math.round((value_list[7] * 0.004046859) * 100) / 100  + "</td>")
-        }
+        //T1
+        //Temperature (C)
+        tr.append("<td>" + value_list[1] + "</td>")
+        tr.append("<td>" + value_list[2] + "</td>")
+        //Precipitation (%)
+        tr.append("<td>" + value_list[3] + "</td>")
 
+        //T2
+        //Temperature (C)
+        tr.append("<td>" + value_list[4] + "</td>")
+        tr.append("<td>" + value_list[5] + "</td>")
+        //Precipitation (%)
+
+        tr.append("<td>" + value_list[6] + "</td>")
+        //Area (km2)
+
+        //tr.append("<td>" + Math.round((value_list[7] * 0.004046859) * 100) / 100  + "</td>")
+
+        tr.append("<td>" + Math.round((value_list[7]) * 100) / 100  + "</td>")
+
+        /*
+        if (time_period_for_table==1) {
+            $('td:nth-child(1)').hide();
+            $('td:nth-child(2)').hide();
+            $('td:nth-child(3)').hide();
+        }
+        */
+
+        /*
         else if (units_for_table=="english") {
             //Temperature (F)
             tr.append("<td>" + Math.round((value_list[start_index] *1.8) * 100) / 100 + "</td>")
@@ -246,8 +257,10 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
             //Area (Acres)
             tr.append("<td>" + value_list[7] + "</td>")
         }
+        */
 
         table.append(tr)
+
 
     });
 
@@ -273,6 +286,9 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         col_3: "none",
         col_4: "none",
         col_5: "none",
+        col_6: "none",
+        col_7: "none",
+        col_8: "none",
         display_all_text: "Filter by Type",
         col_1_text: "Filter by Name"
     }
@@ -280,6 +296,27 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
     setFilterGrid("dynamicDataTable",0,table1Filters);
     //Problem when combining with dropdown filter (No Matches).
     //$("#flt0_dynamicDataTable").attr("value", "Filter by Name")
+
+    if (time_period_for_table==1) {
+        $('td:nth-child(3)').show();
+        $('td:nth-child(4)').show();
+        $('td:nth-child(5)').show();
+
+        $('td:nth-child(6)').hide();
+        $('td:nth-child(7)').hide();
+        $('td:nth-child(8)').hide();
+    }
+    else if (time_period_for_table==2) {
+        $('td:nth-child(3)').hide();
+        $('td:nth-child(4)').hide();
+        $('td:nth-child(5)').hide();
+
+        $('td:nth-child(6)').show();
+        $('td:nth-child(7)').show();
+        $('td:nth-child(8)').show();
+    }
+
+
 }
 
 function sortObject(o) {
@@ -357,14 +394,56 @@ $("#view98Link").click(function() {
 
 function changeTimePeriod(time_period){
     time_period_for_table=time_period
-    createDynamicDataTable(time_period_for_table,units_for_table)
+    //createDynamicDataTable(time_period_for_table,units_for_table)
+    if (time_period_for_table==1) {
+        $('td:nth-child(3)').show();
+        $('td:nth-child(4)').show();
+        $('td:nth-child(5)').show();
+
+        $('td:nth-child(6)').hide();
+        $('td:nth-child(7)').hide();
+        $('td:nth-child(8)').hide();
+    }
+    else if (time_period_for_table==2) {
+        $('td:nth-child(3)').hide();
+        $('td:nth-child(4)').hide();
+        $('td:nth-child(5)').hide();
+
+        $('td:nth-child(6)').show();
+        $('td:nth-child(7)').show();
+        $('td:nth-child(8)').show();
+    }
 }
 
 function changeUnitsForTable(units){
-    units_for_table=units
-    createDynamicDataTable(time_period_for_table,units_for_table)
-    //Main chart
+
     changeUnits(units)
+
+    var temperatureColumns=[3,4,6,7]
+    var areaColumn=9
+
+    if (units=="english") {
+        $('#dynamicDataTable tr').not('thead tr').each(function (i, row) {
+            $.each(temperatureColumns, function(index,colNum){
+                var metricTempValue = $(row).find('td:nth-child('+colNum+')').text();
+                $(row).find('td:nth-child('+colNum+')').text((metricTempValue * 1.8).toFixed(2));
+            })
+
+            var metricAreaValue = $(row).find('td:nth-child('+areaColumn+')').text();
+            $(row).find('td:nth-child('+areaColumn+')').text((metricAreaValue * 247.1044).toFixed(0));
+        });
+    }
+
+    else if (units=="metric") {
+        $('#dynamicDataTable tr').not('thead tr').each(function (i, row) {
+            $.each(temperatureColumns, function(index,colNum){
+                var englishTempValue = $(row).find('td:nth-child('+colNum+')').text();
+                $(row).find('td:nth-child('+colNum+')').text((englishTempValue / 1.8).toFixed(2));
+            })
+            var englishAreaValue = $(row).find('td:nth-child('+areaColumn+')').text();
+            $(row).find('td:nth-child('+areaColumn+')').text((englishAreaValue * 0.004046859).toFixed(2));
+        });
+    }
 }
 
 
