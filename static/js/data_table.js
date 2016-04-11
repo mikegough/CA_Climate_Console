@@ -7,6 +7,13 @@ $(document).ready(function() {
 
 });
 
+var myTextExtraction = function(node)
+{
+    console.log($(node).find("span").text()[0])
+    return $(node).find("span").text()[0];
+
+}
+
 var defaultStyle = {
     color: '#F8981D',
     weight:3,
@@ -184,22 +191,29 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
     $('#dynamicDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append('<thead><div><th>Protected Area</th><th>Type</th><th><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(&deg;F)</div></div></th><th><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(&deg;F)</div></th></div><th><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th><th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th></tr></thead>')
+
+    //Time Period 1 & Time Period 2 Headers needed in order for the sorting to work.
+    table.append('<thead>' +
+        '<th>Protected Area</th>' +
+        '<th>Type</th>' +
+        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(&deg;F)</div></div></th>' +
+        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(&deg;F)</div></th>' +
+        '<th class="t1_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
+        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(&deg;F)</div></div></th>' +
+        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(&deg;F)</div></th>' +
+        '<th class="t2_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
+        '<th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th>' +
+
+        '</tr></thead>')
 
     $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
     $('#dynamicEEMSDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
-    console.log
 
     var tr;
 
     rowClass="rowClass1"
     loop_count=0
     start_index=0
-
-    //object_to_show={}
-    //array_to_show=[]
-    //object_to_show["array_to_show"]=array_to_show;
-    //object_to_show[array_to_showarray_to_show.push(value_list[0], value_list[start_index + 1], value_list[start_index + 2], value_list[start_index + 3])
 
     $.each(resultsJSONsorted, function (key, value_list) {
 
@@ -222,14 +236,14 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
         //Tmax
         tr.append("<td>" +
+            "<span class='english'>" + (value_list[1]*1.8).toFixed(2) +"</span>" +
             "<span class='metric'>" + value_list[1] + "</span>" +
-            "<span class='english'>" + (value_list[1]*1.8).toFixed(2) +
             "</td>")
 
         //Tmin
         tr.append("<td>" +
+            "<span class='english'>" + (value_list[2]*1.8).toFixed(2) +"</span>" +
             "<span class='metric'>" + value_list[2] + "</span>" +
-            "<span class='english'>" + (value_list[2]*1.8).toFixed(2) +
             "</td>")
 
         //Precipitation (%)
@@ -238,13 +252,13 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         /////////////////////////  Time Period 2 /////////////////////////////
         //Temperature (C)
         tr.append("<td>" +
+            "<span class='english'>" + (value_list[4]*1.8).toFixed(2) +"</span>" +
             "<span class='metric'>" + value_list[4] + "</span>" +
-            "<span class='english'>" + (value_list[4]*1.8).toFixed(2) +
             "</td>")
 
         tr.append("<td>" +
+            "<span class='english'>" + (value_list[5]*1.8).toFixed(2) +"</span>" +
             "<span class='metric'>" + value_list[5] + "</span>" +
-            "<span class='english'>" + (value_list[5]*1.8).toFixed(2) +
             "</td>")
 
         //Precipitation (%)
@@ -252,9 +266,10 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
         /////////////////////////  Area (T1 & T2) /////////////////////////////
 
+        //tr.append("<td>" + Number(value_list[7]) +
         tr.append("<td>" +
-            "<span class='metric'>" + (value_list[7] * 0.004046859).toFixed(1) + "</span>" +
-            "<span class='english'>" + (value_list[7]).toFixed(0) +
+            "<span class='english'>" + Number((value_list[7]).toFixed(0)) + "</span>" +
+            "<span class='metric'>" + Number((value_list[7] * 0.004046859).toFixed(1)) + "</span>" +
             "</td>")
 
         table.append(tr)
@@ -273,7 +288,6 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         sortInitialOrder: "desc",
         widgets: ['zebra'],
         widgetZebra: {css: ["rowClass1","rowClass2"]},
-
     });
 
     var table1Filters = {
@@ -354,7 +368,6 @@ function swapBaseDataOverlay(PNG,modelType) {
 
         base_data_PNG_overlay.addTo(map).setOpacity(.7).bringToBack();
         base_data_PNG_overlay.bringToBack()
-        //$('.info').html("Protected Areas<form id='toggle_protected_areas' style='margin-bottom:0' action=''><input type='radio' name='pa_visibility' checked value='on'>On</input><input type='radio' name='pa_visibility' value='off'>Off</input></form><img src='" + static_url+ "Leaflet/my_leaflet/legends/Protected_Areas.png'>")
 
         $('.info').html("<div id='base_data_visibility_radio'><input type='radio' name='base_data_visibility' checked value='on'>On</input><input type='radio' name='base_data_visibility' value='off'>Off</input></div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + PNG +"'>")
 
@@ -401,6 +414,10 @@ function changeTimePeriod(time_period){
         $('td:nth-child(6)').hide();
         $('td:nth-child(7)').hide();
         $('td:nth-child(8)').hide();
+
+        //Show/Hide Headers
+        $('.t1_header').show();
+        $('.t2_header').hide();
     }
     else if (time_period_for_table==2) {
         $('td:nth-child(3)').hide();
@@ -410,6 +427,10 @@ function changeTimePeriod(time_period){
         $('td:nth-child(6)').show();
         $('td:nth-child(7)').show();
         $('td:nth-child(8)').show();
+
+        //Show/Hide Headers
+        $('.t2_header').show();
+        $('.t1_header').hide();
     }
 }
 

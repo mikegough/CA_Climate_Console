@@ -300,6 +300,10 @@ div.tabcontents {
 	display:none
 }
 
+.t2_header{
+	display:none
+}
+
 
 #dynamicDataTable {
 	width: 100%;
