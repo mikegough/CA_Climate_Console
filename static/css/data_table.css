@@ -161,7 +161,7 @@
 
 #climate_quick_view_table th {
 	font-family: "Verdana";
-	height: 42px;
+	height: 51px;
 	font-size: .8em;
 	background-color: #EDF7FF;
 	border: 2px;
@@ -296,6 +296,11 @@ div.tabcontents {
 
 }
 
+.metric{
+	display:none
+}
+
+
 #dynamicDataTable {
 	width: 100%;
 	border-collapse: collapse;
@@ -404,7 +409,7 @@ div.tabcontents {
 
 .dataHeader{
 	position:relative;
-	left:-9px;
+	left:0px;
 }
 
 #dynamicDataTable td:first-child {
@@ -434,7 +439,6 @@ div.tabcontents {
 	color: rgb(80, 131, 176);
 	font-weight: bold !important;
 }
-
 
 .rowClass1{
    background-color:white;

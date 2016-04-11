@@ -119,6 +119,8 @@ function selectFeatureFromTable(name) {
          */
     });
 
+    //Change Units on Point Chart. Required for initial load.
+    changeUnits(units_for_table)
 
 }
 
@@ -182,7 +184,7 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
     $('#dynamicDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
     var table=$('#dynamicDataTableDiv').children();
-    table.append('<thead><div><th>Protected Area</th><th>Type</th><th><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(F)</div></div></th><th><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(F)</div></th></div><th><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th><th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th></tr></thead>')
+    table.append('<thead><div><th>Protected Area</th><th>Type</th><th><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(&deg;F)</div></div></th><th><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(&deg;F)</div></th></div><th><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th><th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th></tr></thead>')
 
     $('#dataTableDiv').append('<div id="dynamicEEMSDataTableDiv"></div>')
     $('#dynamicEEMSDataTableDiv').append('<table id="dynamicDataTable" class="tablesorter"></table>');
@@ -210,57 +212,52 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         }
 
         tr = $('<tr class="' + rowClass + '"/>');
+        //Protected Area Name
         tr.append("<td  onclick='selectFeatureFromTable(&quot;" + key + "&quot;)' onmouseover='mouseOverShowFeature(&quot;" + key + "&quot;)' onmouseout='mouseOutDeselect()'>" + key + "</td>")
+
+        //Protected Area Type
         tr.append("<td>" + value_list[0] + "</td>")
 
-        /* Meh...with unit conversion, easier to do outside of a loop
-         $.each(value_list.slice(start_index,end_index), function (index, value) {
-            tr.append("<td>" + value + "</td>")
-        })
-        */
+        /////////////////////////  Time Period 1 /////////////////////////////
 
-        //T1
-        //Temperature (C)
-        tr.append("<td>" + value_list[1] + "</td>")
-        tr.append("<td>" + value_list[2] + "</td>")
+        //Tmax
+        tr.append("<td>" +
+            "<span class='metric'>" + value_list[1] + "</span>" +
+            "<span class='english'>" + (value_list[1]*1.8).toFixed(2) +
+            "</td>")
+
+        //Tmin
+        tr.append("<td>" +
+            "<span class='metric'>" + value_list[2] + "</span>" +
+            "<span class='english'>" + (value_list[2]*1.8).toFixed(2) +
+            "</td>")
+
         //Precipitation (%)
         tr.append("<td>" + value_list[3] + "</td>")
 
-        //T2
+        /////////////////////////  Time Period 2 /////////////////////////////
         //Temperature (C)
-        tr.append("<td>" + value_list[4] + "</td>")
-        tr.append("<td>" + value_list[5] + "</td>")
+        tr.append("<td>" +
+            "<span class='metric'>" + value_list[4] + "</span>" +
+            "<span class='english'>" + (value_list[4]*1.8).toFixed(2) +
+            "</td>")
+
+        tr.append("<td>" +
+            "<span class='metric'>" + value_list[5] + "</span>" +
+            "<span class='english'>" + (value_list[5]*1.8).toFixed(2) +
+            "</td>")
+
         //Precipitation (%)
-
         tr.append("<td>" + value_list[6] + "</td>")
-        //Area (km2)
 
-        //tr.append("<td>" + Math.round((value_list[7] * 0.004046859) * 100) / 100  + "</td>")
+        /////////////////////////  Area (T1 & T2) /////////////////////////////
 
-        tr.append("<td>" + Math.round((value_list[7]) * 100) / 100  + "</td>")
-
-        /*
-        if (time_period_for_table==1) {
-            $('td:nth-child(1)').hide();
-            $('td:nth-child(2)').hide();
-            $('td:nth-child(3)').hide();
-        }
-        */
-
-        /*
-        else if (units_for_table=="english") {
-            //Temperature (F)
-            tr.append("<td>" + Math.round((value_list[start_index] *1.8) * 100) / 100 + "</td>")
-            tr.append("<td>" + Math.round((value_list[start_index+1] *1.8) * 100) / 100 + "</td>")
-            //Precipitation (%)
-            tr.append("<td>" + value_list[start_index+2] + "</td>")
-            //Area (Acres)
-            tr.append("<td>" + value_list[7] + "</td>")
-        }
-        */
+        tr.append("<td>" +
+            "<span class='metric'>" + (value_list[7] * 0.004046859).toFixed(1) + "</span>" +
+            "<span class='english'>" + (value_list[7]).toFixed(0) +
+            "</td>")
 
         table.append(tr)
-
 
     });
 
@@ -272,7 +269,6 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
     //Set default table sort order
     $("#dynamicDataTable").tablesorter({
-
         // default sortInitialOrder setting
         sortInitialOrder: "desc",
         widgets: ['zebra'],
@@ -392,7 +388,9 @@ $("#view98Link").click(function() {
     swapBaseDataOverlay('multi_lcc_protected_areas2.png')
 })
 
+//Changing Time Period Hides TDs
 function changeTimePeriod(time_period){
+
     time_period_for_table=time_period
     //createDynamicDataTable(time_period_for_table,units_for_table)
     if (time_period_for_table==1) {
@@ -415,34 +413,25 @@ function changeTimePeriod(time_period){
     }
 }
 
-function changeUnitsForTable(units){
+//Changing Units Hides <spans> in TD
+function changeUnitsForTable(units) {
+    units_for_table=units
+    changeUnits(units_for_table)
+    if (units == 'english') {
+        $(".english").show()
+        $(".metric").hide()
 
-    changeUnits(units)
-
-    var temperatureColumns=[3,4,6,7]
-    var areaColumn=9
-
-    if (units=="english") {
-        $('#dynamicDataTable tr').not('thead tr').each(function (i, row) {
-            $.each(temperatureColumns, function(index,colNum){
-                var metricTempValue = $(row).find('td:nth-child('+colNum+')').text();
-                $(row).find('td:nth-child('+colNum+')').text((metricTempValue * 1.8).toFixed(2));
-            })
-
-            var metricAreaValue = $(row).find('td:nth-child('+areaColumn+')').text();
-            $(row).find('td:nth-child('+areaColumn+')').text((metricAreaValue * 247.1044).toFixed(0));
-        });
+        $("#units_tmax").html("(&deg;F)")
+        $("#units_tmin").html("(&deg;F)")
+        $("#units_area").html("(Acres)")
     }
+    else if (units == 'metric') {
+        $(".metric").show()
+        $(".english").hide()
 
-    else if (units=="metric") {
-        $('#dynamicDataTable tr').not('thead tr').each(function (i, row) {
-            $.each(temperatureColumns, function(index,colNum){
-                var englishTempValue = $(row).find('td:nth-child('+colNum+')').text();
-                $(row).find('td:nth-child('+colNum+')').text((englishTempValue / 1.8).toFixed(2));
-            })
-            var englishAreaValue = $(row).find('td:nth-child('+areaColumn+')').text();
-            $(row).find('td:nth-child('+areaColumn+')').text((englishAreaValue * 0.004046859).toFixed(2));
-        });
+        $("#units_tmax").html("(&deg;C)")
+        $("#units_tmin").html("(&deg;C)")
+        $("#units_area").html("&nbsp;(km<sup>2</sup>)")
     }
 }
 
