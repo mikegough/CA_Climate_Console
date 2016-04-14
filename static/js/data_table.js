@@ -4,6 +4,13 @@ $(document).ready(function() {
     document.title = title + " Climate Dashboard"
     layer0.setStyle(defaultStyle)
     layer0.bringToFront()
+    //Need to set the radio buttons back to the default after a refresh otherwise they get out of sync with data in tables/charts.
+    $('#timePeriodRadioDiv').each(function(){
+        $('input[type=radio]', this).get(0).checked = true;
+    });
+    $('#unitsRadioDiv').each(function(){
+        $('input[type=radio]', this).get(0).checked = true;
+    });
 
 });
 
@@ -44,19 +51,6 @@ var hoverQueryLayerStyle = {
     weight:1,
     opacity: 1
 }
-/*
-
-var defaultQueryLayerStyle = {
-    color: '#23B25F',
-    radius:4
-};
-
-var hoverQueryLayerStyle = {
-    radius: 10,
-    color: "#4575B5",
-    fillOpacity: 0.85
-}
-*/
 
 function mouseOverShowFeature(hovername) {
 
@@ -72,26 +66,6 @@ function mouseOverShowFeature(hovername) {
     });
 }
 
-
-/*
-function mouseOverShowFeature(hovername) {
-    //query_layer=static_url + 'Leaflet/myJSON/'+ hovername.replace(" ", "_") +".json"
-    text_hover_layer=query_layer
-    if (text_hover_layer != null) {
-
-        text_hover_layer.eachLayer(function(dist){
-            //if (dist.toGeoJSON().properties.OBJECTID == OID_Index[hovername]) {
-            if (dist.toGeoJSON().properties.NAME == hovername) {
-                dist.setStyle(hoverQueryLayerStyle)
-                if (!L.Browser.ie && !L.Browser.opera) {
-                    dist.bringToFront();
-                }
-            }
-        });
-    }
-}
-
-*/
 function mouseOutDeselect() {
     //Loop through the array of all layers and remove them
     //query_layer.setStyle(defaultQueryLayerStyle)
@@ -180,7 +154,6 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
     }
 
     //loadMask()
-
     //map.addLayer(query_layer);
 
     $('#dataTableDiv').empty()
@@ -196,11 +169,11 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
     table.append('<thead>' +
         '<th>Protected Area</th>' +
         '<th>Type</th>' +
-        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(&deg;F)</div></div></th>' +
-        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(&deg;F)</div></th>' +
+        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t1">(&deg;F)</div></div></th>' +
+        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t1">(&deg;F)</div></th>' +
         '<th class="t1_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
-        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax">(&deg;F)</div></div></th>' +
-        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin">(&deg;F)</div></th>' +
+        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t2">(&deg;F)</div></div></th>' +
+        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t2">(&deg;F)</div></th>' +
         '<th class="t2_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
         '<th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th>' +
 
@@ -348,11 +321,10 @@ function sortObject(o) {
 
 
 ///Image Overlays
-baseDataBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
 
 base_data_PNG_overlay=""
 
-function swapBaseDataOverlay(PNG,modelType) {
+function swapBaseDataOverlay(PNG,bounds,modelType) {
 
         $("#control").hide()
 
@@ -364,12 +336,18 @@ function swapBaseDataOverlay(PNG,modelType) {
         }
         base_data_PNG_overlay_url = static_url + "Leaflet/myPNG/other/multi_lcc/" + PNG;
 
-        base_data_PNG_overlay=L.imageOverlay(base_data_PNG_overlay_url, baseDataBounds);
+        base_data_PNG_overlay=L.imageOverlay(base_data_PNG_overlay_url, bounds);
 
         base_data_PNG_overlay.addTo(map).setOpacity(.7).bringToBack();
         base_data_PNG_overlay.bringToBack()
 
-        $('.info').html("<div id='base_data_visibility_radio'><input type='radio' name='base_data_visibility' checked value='on'>On</input><input type='radio' name='base_data_visibility' value='off'>Off</input></div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + PNG +"'>")
+        //Radio Buttons
+        //$('.info').html("<div id='base_data_visibility_radio'><input type='radio' name='base_data_visibility' checked value='on'>On</input><input type='radio' name='base_data_visibility' value='off'>Off</input></div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + PNG +"'>")
+
+        //Checkbox
+        $('.info').html("<div id='base_data_visibility_radio'>" +
+            "<input type='checkbox' name='base_data_visibility' checked value='on'>Show on Map</input>"  +
+            "</div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + PNG +"'>")
 
         // allLayers is not used in this app. If image overlays can come from a different source (e.g., bar chart.)
         // define allLayers as a list of those layers to be removed when this function is called.
@@ -379,6 +357,7 @@ function swapBaseDataOverlay(PNG,modelType) {
                 map.removeLayer(allLayers[i])
         }
         */
+
         $('input[type=radio][name=base_data_visibility]').change(function() {
             if (this.value == 'on') {
                 base_data_PNG_overlay.addTo(map).bringToBack();
@@ -388,17 +367,30 @@ function swapBaseDataOverlay(PNG,modelType) {
             }
         });
 
+        $('input[type=checkbox][name=base_data_visibility]').change(function() {
+           var ischecked = $(this).is(':checked');
+           if(ischecked){
+                base_data_PNG_overlay.addTo(map).bringToBack();
+            }
+            else {
+                map.removeLayer(base_data_PNG_overlay)
+            }
+        });
+
 }
 
 
-swapBaseDataOverlay('multi_lcc_protected_areas2.png')
+var baseDataBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
+swapBaseDataOverlay('multi_lcc_protected_areas2.png',baseDataBounds)
 
 $("#view99Link").click(function() {
-        swapBaseDataOverlay('multi_lcc_soil_sensitivity_300dpi.png')
+    var baseDataBounds = [[49.0009868862815,-124.737501543016], [32.5295807355456,-105.450672392969]];
+    swapBaseDataOverlay('multi_lcc_soil_sensitivity_300dpi.png',baseDataBounds)
  })
 
 $("#view98Link").click(function() {
-    swapBaseDataOverlay('multi_lcc_protected_areas2.png')
+    var baseDataBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
+    swapBaseDataOverlay('multi_lcc_protected_areas2.png',baseDataBounds)
 })
 
 //Changing Time Period Hides TDs
@@ -442,16 +434,20 @@ function changeUnitsForTable(units) {
         $(".english").show()
         $(".metric").hide()
 
-        $("#units_tmax").html("(&deg;F)")
-        $("#units_tmin").html("(&deg;F)")
+        $("#units_tmax_t1").html("(&deg;F)")
+        $("#units_tmin_t1").html("(&deg;F)")
+        $("#units_tmax_t2").html("(&deg;F)")
+        $("#units_tmin_t2").html("(&deg;F)")
         $("#units_area").html("(Acres)")
     }
     else if (units == 'metric') {
         $(".metric").show()
         $(".english").hide()
 
-        $("#units_tmax").html("(&deg;C)")
-        $("#units_tmin").html("(&deg;C)")
+        $("#units_tmax_t1").html("(&deg;C)")
+        $("#units_tmin_t1").html("(&deg;C)")
+        $("#units_tmax_t2").html("(&deg;C)")
+        $("#units_tmin_t2").html("(&deg;C)")
         $("#units_area").html("&nbsp;(km<sup>2</sup>)")
     }
 }
