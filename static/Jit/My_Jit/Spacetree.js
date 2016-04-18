@@ -61,10 +61,6 @@ function setLabelScaling() {
 
 function init(){
    JitInitializationComplete=true
-    //init data
-   //defineJSONtree()
-    //end
-    //init Spacetree
     //Create a new ST instance
     st = new $jit.ST({
         //id of viz container element
@@ -98,7 +94,6 @@ function init(){
             overridable: true,
             //align:'center',
             alpha:1
-
         },
         
         Edge: {
