@@ -24,6 +24,8 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def index(request):
 
+    has_ecosystem_services=1
+
     studyarea = request.resolver_match.url_name
     template=request.GET.get('template','template1')
 
@@ -266,6 +268,12 @@ def index(request):
 
             columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
+
+        if has_ecosystem_services:
+            ecosystem_services_data=get_ecosystem_services_data(WKT)
+        else:
+            ecosystem_services_data=''
+
         ########################################### RETURN RESULTS #####################################################
 
         context={'initialize': 0,
@@ -276,6 +284,7 @@ def index(request):
                  'columnChartColors': columnChartColors,
                  'error': 0,
                  'config_file':config_file,
+                 'ecosystem_services_data':ecosystem_services_data
                  }
 
     if request.method == 'POST':
@@ -1025,6 +1034,61 @@ def generate_eems_tree(request):
     }
 
     return HttpResponse(json.dumps(context))
+
+def get_ecosystem_services_data(WKT):
+
+    cursor = connection.cursor()
+
+    table='ca_reporting_units_huc5_watersheds_ecosystem_services_vtype'
+    field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
+
+    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and data_type = 'text'  and column_name not in (" + field_exclusions + ");"
+    cursor.execute(field_name_query)
+
+    statsFieldsTuple=cursor.fetchone()
+    statsFields = ",".join(statsFieldsTuple)
+
+    cursor = connection.cursor()
+    selectList="SELECT "
+
+    for field in statsFields.split(','):
+        selectList+=field + " as " + field +", "
+       #Area or line based selection, requiring Area Weighted Average
+       #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+
+    #Extra comma
+    selectList=selectList.rstrip(', ')
+
+    tableList=" FROM " + table
+
+    selectFieldsFromTable = selectList + tableList
+
+    selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + table + ".geom)"
+
+    print selectStatement
+
+    cursor.execute(selectStatement)
+
+    resultsDict={}
+
+    #Get field names
+    columns = [colName[0] for colName in cursor.description]
+
+    try:
+        for row in cursor:
+            for i in range(len(row)):
+                if isinstance(row[i], basestring):
+                    resultsDict[columns[i]] = row[i].strip()
+                else:
+                    resultsDict[columns[i]] =(float(round(row[i],2)))
+    except:
+        print "Error: No features selected"
+        raise SystemExit(0)
+
+    #Take fieldname,value pairs from the dict and dump to a JSON string.
+    veg_composition_data=json.dumps(resultsDict)
+
+    return veg_composition_data
 
 def getColor(value, parameter):
     """Colors used in the highcharts chart"""

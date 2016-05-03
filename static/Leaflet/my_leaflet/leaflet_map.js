@@ -646,6 +646,8 @@ function create_post(newWKT) {
 
             }
 
+            createAreaChart()
+
         },
 
         // handle a non-successful response

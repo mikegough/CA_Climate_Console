@@ -7,6 +7,7 @@ initialDownscaleMarkerLat=35.28
 initialDownscaleMarkerLon=-116.54
 selectedClimateDivision='94'
 zoomLevel=7
+areaChart=true
 
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]

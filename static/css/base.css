@@ -146,6 +146,7 @@ a:hover {
     font-family: arial,sans-serif;
 }
 
+
 #tab_container{
     float:right;
     height:100%;
@@ -153,6 +154,8 @@ a:hover {
     border-left: 2px solid #444444;
     position:relative;
     right:0px;
+    top:0px;
+    overflow-x:hidden;
 }
 
 ul.tabs li a{
@@ -244,6 +247,12 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     margin-top:35px;
     margin-left:20px;
 }
+
+#area_chart{
+    margin-top:35px;
+    margin-left:20px;
+}
+
 
 #time_period_translation {
     text-align:right;
@@ -480,6 +489,18 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     border-collapse:collapse;
 }
 
+
+.tinyHeader{
+    font-size:9px;
+    padding:0px;
+}
+
+.tableDescriptions{
+    font-weight:bold;
+    font-size:.8em;
+}
+
+
 #YouTubeIcon{
     height:70px;
 }
@@ -513,9 +534,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #view6{
-    height:100%;
-    margin-left:20px;
-    padding-right:20px;
+    height:95%;
     overflow-y:auto;
     overflow-x:hidden;
 }
