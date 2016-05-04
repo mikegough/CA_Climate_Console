@@ -646,7 +646,10 @@ function create_post(newWKT) {
 
             }
 
-            createAreaChart()
+            if (typeof areaChart != 'undefined' && areaChart != false) {
+
+                createAreaChart()
+            }
 
         },
 
