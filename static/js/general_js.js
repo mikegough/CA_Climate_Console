@@ -865,6 +865,7 @@ $(window).load(function(){
         $("#view2").css("opacity", ".1");
         $("#view3").css("opacity", ".1");
         $("#view5").css("opacity", ".1");
+        $("#view6").css("opacity", ".1");
         $("#initialization_container").css("background-color", "white");
         $("#initialization_text").css("opacity", "0");
         $(".loading").css("display", "block");
@@ -875,6 +876,7 @@ $(window).load(function(){
         $("#view2").css("opacity", "1");
         $("#view3").css("opacity", "1");
         $("#view5").css("opacity", "1");
+        $("#view6").css("opacity", "1");
         $(".loading").css("display", "none");
         //Handles case where initial selection is made using draw tools, and no features selected. Show getting started info again.
         $("#initialization_text").css("opacity", "1");
