@@ -1039,55 +1039,61 @@ def get_ecosystem_services_data(WKT):
 
     cursor = connection.cursor()
 
-    table='ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4'
-    table='ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm'
+    tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
+
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
 
-    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
-    cursor.execute(field_name_query)
+    resultsDictMultiTable={}
 
-    statsFieldsTuple=cursor.fetchone()
-    statsFields = ",".join(statsFieldsTuple)
+    for table in tables:
 
-    cursor = connection.cursor()
-    selectList="SELECT "
+        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+        cursor.execute(field_name_query)
 
-    for field in statsFields.split(','):
-        selectList+=field + " as " + field +", "
-       #Area or line based selection, requiring Area Weighted Average
-       #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+        statsFieldsTuple=cursor.fetchone()
+        statsFields = ",".join(statsFieldsTuple)
 
-    #Extra comma
-    selectList=selectList.rstrip(', ')
+        cursor = connection.cursor()
+        selectList="SELECT "
 
-    tableList=" FROM " + table
+        for field in statsFields.split(','):
+            selectList+=field + " as " + field +", "
+           #Area or line based selection, requiring Area Weighted Average
+           #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
 
-    selectFieldsFromTable = selectList + tableList
+        #Extra comma
+        selectList=selectList.rstrip(', ')
 
-    selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + table + ".geom)"
+        tableList=" FROM " + table
 
-    print selectStatement
+        selectFieldsFromTable = selectList + tableList
 
-    cursor.execute(selectStatement)
+        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + table + ".geom)"
 
-    resultsDict={}
+        print selectStatement
 
-    #Get field names
-    columns = [colName[0] for colName in cursor.description]
+        cursor.execute(selectStatement)
 
-    try:
-        for row in cursor:
-            for i in range(len(row)):
-                if isinstance(row[i], basestring):
-                    resultsDict[columns[i]] = row[i].strip()
-                else:
-                    resultsDict[columns[i]] =(float(round(row[i],2)))
-    except:
-        print "Error: No features selected"
-        raise SystemExit(0)
+        resultsDict={}
+
+        #Get field names
+        columns = [colName[0] for colName in cursor.description]
+
+        try:
+            for row in cursor:
+                for i in range(len(row)):
+                    if isinstance(row[i], basestring):
+                        resultsDict[columns[i]] = row[i].strip()
+                    else:
+                        resultsDict[columns[i]] =(float(round(row[i],2)))
+        except:
+            print "Error: No features selected"
+            raise SystemExit(0)
+
+        resultsDictMultiTable[table]=resultsDict
 
     #Take fieldname,value pairs from the dict and dump to a JSON string.
-    veg_composition_data=json.dumps(resultsDict)
+    veg_composition_data=json.dumps(resultsDictMultiTable)
 
     return veg_composition_data
 

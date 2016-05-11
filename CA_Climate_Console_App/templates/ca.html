@@ -105,6 +105,7 @@
 <link rel="stylesheet" href="{{STATIC_URL}}deps/dojo/dijit/themes/claro/claro.css">
 
 <!-- Dojo for Video Popup -->
+    <!--
 <script>dojoConfig = {parseOnLoad: true}</script>
 <script src='{{STATIC_URL}}deps/dojo/dojo/dojo.js'></script>
 
@@ -118,6 +119,7 @@
     });
 
 </script>
+-->
 
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
@@ -969,14 +971,14 @@
                 <div class="select_container_2">
                     <form class="select_form2">
                         <div class="styled-select2" id="ecosystem_services_model_div">
-                            <span id="ESClimateModelLabel"> Climate Model: </span>
+                            <div id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Climate Model <span class="verticalSeparatorLine">|</span> </div>
                             <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                            <select id="ecosystem_services_selection_Form" onchange='changeEcoServModel(this.value)'>
+                            <select id="ecoServSelectionForm" onchange='createAreaChart(this.value)'>
                                 <!-- Annual Averages -->
-                                <option value="tmax" selected>CCSM4 (Warm/Dry)</option>
-                                <option value="tmin">CNRM-CMS (Warm/Wet)</option>
-                                <option value="prec">CanESM2 (Hot/Wet)</option>
-                                <option value="arid">HadGem2-ES (Hot/Dry)</option>
+                                <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm">CNRM-CMS (Warm/Wet)</option>
+                                <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2">CanESM2 (Hot/Wet)</option>
+                                <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es">HadGem2-ES (Hot/Dry)</option>
                             </select>
                         </div>
                     </form>
