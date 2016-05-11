@@ -1,5 +1,11 @@
 function createAreaChart(model) {
 
+    splitTableName=model.split("_")
+    actualModelName=splitTableName[splitTableName.length-1]
+
+
+    years=_.range(2011,2101,10)
+
     $(function () {
         $('#area_chart').highcharts({
             chart: {
@@ -29,7 +35,7 @@ function createAreaChart(model) {
                 text: ''
             },
             xAxis: {
-                categories: _.range(2011,2101,10),
+                categories: years,
                 tickmarkPlacement: 'on',
                 title: {
                     enabled: false
@@ -52,12 +58,22 @@ function createAreaChart(model) {
                     marker: {
                         lineWidth: 1,
                         lineColor: '#ffffff'
-                    }
+                    },
                 },
                  series: {
+                    cursor: 'pointer',
                     marker: {
                         enabled: false
-                    }
+                    },
+                     /*
+                      events: {
+                        mouseOver: function() {
+                          var layerToAddName = this.x;
+                          console.log(layerToAddName)
+                          swapImageOverlay("a0pets0t2");
+                        }
+                      }
+                      */
                 }
             },
         });
@@ -143,6 +159,17 @@ function createAreaChart(model) {
             name: veg_name,
             color: veg_color,
             data: ArrayData,
+            point: {
+                events: {
+                    mouseOver: function() {
+                        layerToAddName = "VTYPE_" + actualModelName + "_" + years[this.x]; // onclick get the x index and use it to find the URL
+                        vegClassName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
+                        console.log(layerToAddName)
+                        swapImageOverlay(layerToAddName)
+                        //swapLegend(layerToAddName, null, "Veg","Veg")
+                    }
+                }
+            }
         })
     }
 
