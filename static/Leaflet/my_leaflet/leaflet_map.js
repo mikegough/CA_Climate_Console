@@ -632,6 +632,16 @@ function create_post(newWKT) {
                 selectedFeaturesTable.append("<tr><td>" + listOfSelectedFeatures + "</td></tr>")
             }
 
+            /* Multi LCC Dashboard specific functions */
+            if(document.getElementById("dynamicDataTable") !== null) {
+                var infoFile = encodeURI(static_url + "config/html/mlcc/" + response['categoricalValues'] + ".html")
+                $.get(infoFile).done(function () {
+                    $('#AboutSelectedProtectedArea').load(infoFile, function () {
+                    });
+                }).fail(function () {
+                    $('#AboutSelectedProtectedArea').html("No additional information is available for this protected area.")
+                });
+            }
 
             if (typeof response.tabularResultsJSON != 'undefined' && response.tabularResultsJSON != '')  {
 
@@ -648,7 +658,7 @@ function create_post(newWKT) {
 
             if (typeof areaChart != 'undefined' && areaChart != false) {
 
-                createAreaChart()
+                createAreaChart(document.getElementById("ecoServSelectionForm").value)
             }
 
         },
@@ -663,7 +673,6 @@ function create_post(newWKT) {
 
     });
 }
-
 
 function onEachFeature(feature, layer) {
     layer.on({
