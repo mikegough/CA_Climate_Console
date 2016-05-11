@@ -1039,10 +1039,11 @@ def get_ecosystem_services_data(WKT):
 
     cursor = connection.cursor()
 
-    table='ca_reporting_units_huc5_watersheds_ecosystem_services_vtype'
+    table='ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4'
+    table='ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm'
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
 
-    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and data_type = 'text'  and column_name not in (" + field_exclusions + ");"
+    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
     cursor.execute(field_name_query)
 
     statsFieldsTuple=cursor.fetchone()

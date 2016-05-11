@@ -155,14 +155,13 @@ a:hover {
     position:relative;
     right:0px;
     top:0px;
-    overflow-x:hidden;
 }
 
 ul.tabs li a{
     border-right: 1px solid #444444;
     border-left: 1px solid #444444;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:8px;
+    padding-right:8px;
 }
 
 .select_container2{
@@ -1849,6 +1848,11 @@ div#pop-up2 {
 .dijitDialogUnderlay {
     display:none !important
 }
+
+#ESClimateModelLabel{
+    line-height:2,
+}
+
 
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */

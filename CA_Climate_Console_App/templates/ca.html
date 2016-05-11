@@ -966,6 +966,20 @@
 
             <div id="view6">
                 <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
+                <div class="select_container_2">
+                    <form class="select_form2">
+                        <div class="styled-select2" id="ecosystem_services_model_div">
+                            <span id="ESClimateModelLabel"> Climate Model: </span>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="ecosystem_services_selection_Form" onchange='changeEcoServModel(this.value)'>
+                                <!-- Annual Averages -->
+                                <option value="tmax" selected>CCSM4 (Warm/Dry)</option>
+                                <option value="tmin">CNRM-CMS (Warm/Wet)</option>
+                                <option value="prec">CanESM2 (Hot/Wet)</option>
+                                <option value="arid">HadGem2-ES (Hot/Dry)</option>
+                            </select>
+                        </div>
+                    </form>
                 <div id="area_chart"></div>
             </div>
 

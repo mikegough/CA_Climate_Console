@@ -126,7 +126,7 @@
 	font-size: 1em;
 	background-color: #EDF7FF;
 	border-top: 2px solid #C0D0E0;
-	color: rgb(80, 131, 176);
+	color: #595959;
 	padding: 20px;
 	height:50%;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#edf7ff+0,ffffff+100 */
@@ -135,7 +135,28 @@
     background: -webkit-linear-gradient(top,  #edf7ff 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom,  #edf7ff 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edf7ff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
 
+.descriptionTable{
+	width:450px;
+	margin-top:15px;
+	cursor:pointer;
+}
+
+.descriptionTable td {
+	color: #595959;
+	font-size: .8em;
+	vertical-align: top;
+	cursor:default;
+}
+
+.descriptionTable td:first-child {
+}
+
+.descriptionTable td:nth-child(3) {
+	width:200px;
+	min-width:200px;
+	max-width:200px;
 }
 
 .flt{
@@ -495,3 +516,21 @@ ul.tabs li a {
 	border-top:none;
 }
 
+.descriptionCategoryLabel{
+	font-weight:bold;
+	color:rgb(80, 131, 176);
+}
+
+.ProtectedAreaImage {
+	position:relative;
+	top:0px;
+	width:190px;
+	box-shadow: 2px 6px 7px 1px rgba(0,0,0,0.2)
+}
+
+.ImageNotAvailable {
+	position:relative;
+	top:0px;
+	width:110px;
+	margin-left:10px;
+}

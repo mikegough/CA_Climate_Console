@@ -91,8 +91,7 @@ function selectFeatureFromTable(name) {
 
     $(document).ajaxComplete(function(){
         results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:.5, opacity:1})
-        $('#AboutSelectedProtectedArea').html(response['categoricalValues'] + " is a protected area....")
-        //$('#AboutSelectedProtectedArea').html(response['categoricalValues'] + " is a protected area centered at <a target='_blank' href='http://www.google.com/maps/place/"+centerLat+","+centerLon+"'>" + centerLat + centerLon +"</a>")
+        //$('#AboutSelectedProtectedArea').html(response['categoricalValues'] + " is a protected area....")
         /*
          $.get(static_url+"config/html/mlcc/" + response['categoricalValues']+".html", function (data) {
          $("#AboutSelectedProtectedArea").html(data);
