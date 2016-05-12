@@ -1873,6 +1873,10 @@ div#pop-up2 {
     border-left:0px;
 }
 
+#area_chart .highcharts-legend-item{
+    opacity:.8 !important
+}
+
 
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */

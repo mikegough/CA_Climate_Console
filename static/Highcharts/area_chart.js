@@ -24,12 +24,13 @@ function createAreaChart(model) {
             legend: {
                 width: 460,
                 itemWidth: 230,
-                x:50
+                x:50,
                 /*
                 align:'right',
                 verticalAlign:'top',
                 layout: 'vertical',
                 */
+                opacity:.9
             },
             subtitle: {
                 text: ''
@@ -47,7 +48,8 @@ function createAreaChart(model) {
                 }
             },
             tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} km<sup>2</sup>)<br/>',
+                //pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} km<sup>2</sup>)<br/>',
+                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.0f}%</b> <br/>',
                 shared: true
             },
             plotOptions: {
@@ -62,6 +64,7 @@ function createAreaChart(model) {
                 },
                  series: {
                     cursor: 'pointer',
+                    fillOpacity:.80,
                     marker: {
                         enabled: false
                     },
@@ -140,7 +143,7 @@ function createAreaChart(model) {
                 break;
             case 'value_10':
                 var veg_type = 'Developed/Mined'
-                color='#363636';
+                color='#202020';
                 break;
             default :
                 var veg_type = 'other'
