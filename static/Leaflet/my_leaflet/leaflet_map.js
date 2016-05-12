@@ -1327,7 +1327,7 @@ function activateMapForEcosystemServices(){
     $("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
     $('div.leaflet-top:nth-child(1)').on({
         mouseover: function() {
-            alertify.alert('These options are currently not available for ecosytem services')
+            alertify.alert('These options are currently unavailable for ecosytem services. Click on a watershed to explore the ecosystem services charts for the selected area.')
         },
         mouseout: function() {
             event.preventDefault();
