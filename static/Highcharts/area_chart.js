@@ -13,7 +13,7 @@ function createAreaChart(model) {
                 width: 440,
                 marginLeft: 40,
                 marginRight: 30,
-                marginTop:5,
+                marginTop:10,
             },
             title: {
                 text: ''

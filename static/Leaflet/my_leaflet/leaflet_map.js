@@ -686,7 +686,7 @@ function onEachFeature(feature, layer) {
 function selectFeature(e){
 
     user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
-    create_post(user_wkt, reporting_units)
+    create_post(user_wkt)
 }
 
 function highlightFeature(e) {
@@ -941,6 +941,10 @@ geoSearch.addTo(map)
 
 
 function activateMapForDefault(){
+
+    $("div.leaflet-top:nth-child(1)") .fadeTo(500, 1)
+    $('div.leaflet-top:nth-child(1)').unbind('mouseover mouseout');
+    $('div.leaflet-top:nth-child(1)').unbind('click');
 
     $(document).ajaxStart(function(){
         //show spinner
@@ -1314,3 +1318,27 @@ $(".get-markers").on("click", getAllMarkers);
 
 
 //************************************ End Near-Term Forecast ********************************************************//
+
+//**************************************** Ecosystem Services ********************************************************//
+
+function activateMapForEcosystemServices(){
+    //Only Watersheds are currently available
+    //Click the watersheds base-layer radio button (5th one down)
+    $("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
+    $('div.leaflet-top:nth-child(1)').on({
+        mouseover: function() {
+            alertify.alert('These options are currently not available for ecosytem services')
+        },
+        mouseout: function() {
+            event.preventDefault();
+        }
+    })
+    $('div.leaflet-top:nth-child(1)').click(function(event){
+        event.stopPropagation();
+    });
+
+    $('input:radio[name=leaflet-base-layers]:nth(4)').click()
+    reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'
+    create_post(user_wkt)
+}
+
