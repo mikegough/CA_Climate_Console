@@ -1329,7 +1329,7 @@ function activateMapForEcosystemServices(){
         mouseover: function() {
             alertify.alert('These options are currently unavailable for ecosytem services. Click on a watershed to explore the ecosystem services charts for the selected area.')
         },
-        mouseout: function() {
+        mouseout: function(event) {
             event.preventDefault();
         }
     })

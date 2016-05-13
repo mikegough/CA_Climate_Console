@@ -9,7 +9,7 @@ function createAreaChart(model) {
     $(function () {
         $('#area_chart').highcharts({
             chart: {
-                type: 'area',
+                type: 'areaspline',
                 width: 440,
                 marginLeft: 40,
                 marginRight: 30,
@@ -30,7 +30,7 @@ function createAreaChart(model) {
                 verticalAlign:'top',
                 layout: 'vertical',
                 */
-                opacity:.9
+                opacity:.85
             },
             subtitle: {
                 text: ''
@@ -53,18 +53,18 @@ function createAreaChart(model) {
                 shared: true
             },
             plotOptions: {
-                area: {
+                areaspline: {
                     stacking: 'percent',
                     lineColor: '#ffffff',
-                    lineWidth: 1,
+                    lineWidth: 0,
+                    fillOpacity:1,
                     marker: {
-                        lineWidth: 1,
+                        lineWidth: 0,
                         lineColor: '#ffffff'
                     },
                 },
                  series: {
                     cursor: 'pointer',
-                    fillOpacity:.80,
                     marker: {
                         enabled: false
                     },
@@ -143,7 +143,7 @@ function createAreaChart(model) {
                 break;
             case 'value_10':
                 var veg_type = 'Developed/Mined'
-                color='#202020';
+                color='#464646';
                 break;
             default :
                 var veg_type = 'other'
@@ -162,6 +162,8 @@ function createAreaChart(model) {
             name: veg_name,
             color: veg_color,
             data: ArrayData,
+            lineWidth:0,
+            stacking: 'percent',
             point: {
                 events: {
                     mouseOver: function() {
