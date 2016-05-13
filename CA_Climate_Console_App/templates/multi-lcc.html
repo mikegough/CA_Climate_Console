@@ -224,22 +224,40 @@
             <div id="initialization_text">
                 <!--<h3> Welcome to the <script>document.write(title)</script> Climate Dashboard</h3>-->
                 <h3> Welcome to the Climate Dashboard</h3>
-                The climate dashboard is a web application designed for exploring climate change projections for protected areas within an LCC boundary or a specified area of interest.
+                Protected Lands are the cornerstone around which local, regional and landscape conservation strategies are developed. These lands are designated to preserve functioning natural ecosystems and act as refuges for species.  Additionally, protected lands provide public access to recreation and preservation of natural historic sites. In the face of a changing climate, how will these lands be impacted?
+                <p>
+                The Protected Areas Climate Dashboard allows you to explore future climate projections and soil site sensitivity for federally held protected lands across the California, Pacific Northwest, Great Basin and Great Northern Landscape Conservation Cooperative (LCC) boundaries.
+                <br>
                 <h3> Getting Started: </h3>
                     <div class="intro_steps">
-                        Click on an LCC boundary of interest in the map
+                        <table id="multiLCCIntroStepsTable">
+                            <tr>
+                                <td>
+                                    Click on an LCC &nbsp; &nbsp; &nbsp; boundary of interest
+                                    <br>
+                                    <br>
+                                </td>
+                                <td></td>
+                                <td>
+                                    Use the drawing tools to define an area of interest
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img style="width:150px" src="{{STATIC_URL}}img/map_click2.png">
+                                </td>
+                                <td><h3>OR</h3></td>
+                                <td>
+                                    <img style="width:155px" src="{{STATIC_URL}}img/map_select.png">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    <div style="margin-top:40px; margin-left:auto;margin-right:auto;text-align:center">
-                        <img style="width:250px" src="{{STATIC_URL}}img/map_click2.png">
-                    </div>
-                    <br>
-                    <br>
-                    <div class="intro_steps">
-                        Or use the drawing tools to define an area of interest
-                    </div>
-                    <div style="margin-top:30px; margin-left:auto;margin-right:auto;text-align:center">
-                        <img style="width:280px" src="{{STATIC_URL}}img/map_select.png">
-                    </div>
+                <br>
+                This will select all the Protected Areas within your selected geography. You can now begin to visualize and sort individual protected areas by change in temperature and precipitation.
+
             </div>
     </div>
 

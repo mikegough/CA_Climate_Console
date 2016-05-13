@@ -534,3 +534,23 @@ ul.tabs li a {
 	width:110px;
 	margin-left:10px;
 }
+
+#multiLCCIntroStepsTable {
+	margin-left: 5px;
+	width: 440px;
+	vertical-align: middle !important;
+	text-align: center;
+}
+
+#multiLCCIntroStepsTable td{
+	vertical-align:middle !important;
+	cursor:default !important;
+}
+
+#multiLCCIntroStepsTable tr:first-child{
+	text-align:left
+}
+
+#multiLCCIntroStepsTable tr:first-child td{
+	padding-left:6px;
+}
