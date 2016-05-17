@@ -252,6 +252,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     margin-left:20px;
 }
 
+#spline_chart{
+    margin-top:10px;
+    margin-left:15px;
+}
 
 #time_period_translation {
     text-align:right;

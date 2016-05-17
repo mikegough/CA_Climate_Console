@@ -659,6 +659,7 @@ function create_post(newWKT) {
             if (typeof areaChart != 'undefined' && areaChart != false) {
 
                 createAreaChart(document.getElementById("ecoServSelectionForm").value)
+                createSplineChart(document.getElementById("ecoServSelectionForm").value)
             }
 
         },
