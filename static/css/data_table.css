@@ -330,6 +330,7 @@ div.tabcontents {
 	/* position: absolute; */
 	width: 480px;
 	overflow-y:scroll;
+	position:relative;
 }
 
 #dynamicDataTable thead {
@@ -341,9 +342,9 @@ div.tabcontents {
 
 #dynamicDataTable tbody {
 	/* doesn't work in Chrome */
-	top: 83px;
 	z-index: 0;
-	position: relative;
+	position: absolute;
+	margin-top:80px
 }
 
 #dynamicDataTable th,td {
