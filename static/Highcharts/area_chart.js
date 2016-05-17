@@ -90,7 +90,7 @@ function createAreaChart(model) {
     //years=Array.apply(null, {length: 30}).map(Number.call, Number)
 
     var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
-    var data_for_chart = ecosystem_services_data[model]
+    var data_for_chart = ecosystem_services_data["vegetation_composition"][model]
 
     /*
     for (var key in ecosystem_services_data) {

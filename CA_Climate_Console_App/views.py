@@ -1037,48 +1037,33 @@ def generate_eems_tree(request):
 
 def get_ecosystem_services_data(WKT):
 
+    #VTYPE
     cursor = connection.cursor()
-
-    tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
-
+    vtype_tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
-
     resultsDictMultiTable={}
-
-    for table in tables:
-
-        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+    resultsDictMultiTable["vegetation_composition"]={}
+    for vtype_table in vtype_tables:
+        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
         cursor.execute(field_name_query)
-
         statsFieldsTuple=cursor.fetchone()
         statsFields = ",".join(statsFieldsTuple)
-
         cursor = connection.cursor()
         selectList="SELECT "
-
         for field in statsFields.split(','):
             selectList+=field + " as " + field +", "
            #Area or line based selection, requiring Area Weighted Average
            #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
-
         #Extra comma
         selectList=selectList.rstrip(', ')
-
-        tableList=" FROM " + table
-
-        selectFieldsFromTable = selectList + tableList
-
-        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + table + ".geom)"
-
+        vtype_tableList=" FROM " + vtype_table
+        selectFieldsFromTable = selectList + vtype_tableList
+        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
         print selectStatement
-
         cursor.execute(selectStatement)
-
         resultsDict={}
-
         #Get field names
         columns = [colName[0] for colName in cursor.description]
-
         try:
             for row in cursor:
                 for i in range(len(row)):
@@ -1090,7 +1075,46 @@ def get_ecosystem_services_data(WKT):
             print "Error: No features selected"
             raise SystemExit(0)
 
-        resultsDictMultiTable[table]=resultsDict
+        resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
+
+    #Continuous7
+    continuous7_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4']
+    field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
+    resultsDictMultiTable["continuous7"]={}
+    for continuous7_table in continuous7_tables:
+        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous7_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+        cursor.execute(field_name_query)
+        statsFieldsTuple=cursor.fetchone()
+        statsFields = ",".join(statsFieldsTuple)
+        cursor = connection.cursor()
+        selectList="SELECT "
+        for field in statsFields.split(','):
+            selectList+=field + " as " + field +", "
+            #Area or line based selection, requiring Area Weighted Average
+            #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+        #Extra comma
+        selectList=selectList.rstrip(', ')
+        continuous7_tableList=" FROM " + continuous7_table
+        selectFieldsFromTable = selectList + continuous7_tableList
+        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous7_table + ".geom)"
+        print selectStatement
+        cursor.execute(selectStatement)
+        resultsDict={}
+        #Get field names
+        columns = [colName[0] for colName in cursor.description]
+        try:
+            for row in cursor:
+                for i in range(len(row)):
+                    if isinstance(row[i], basestring):
+                        resultsDict[columns[i]] = row[i].strip()
+                    else:
+                        resultsDict[columns[i]] =(float(round(row[i],2)))
+        except:
+            print "Error: No features selected"
+            raise SystemExit(0)
+
+        resultsDictMultiTable["continuous7"][continuous7_table]=resultsDict
+
 
     #Take fieldname,value pairs from the dict and dump to a JSON string.
     veg_composition_data=json.dumps(resultsDictMultiTable)
