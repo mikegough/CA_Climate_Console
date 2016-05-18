@@ -11,7 +11,7 @@ function createAreaChart(model) {
             chart: {
                 type: 'areaspline',
                 width: 440,
-                height:375,
+                height:360,
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,

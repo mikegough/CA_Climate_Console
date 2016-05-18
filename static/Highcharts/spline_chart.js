@@ -18,12 +18,19 @@ function createSplineChart(model) {
     });
 
     $(function () {
+
+        //This formats numbers in the tooltip with a comma separator.
+        Highcharts.setOptions({
+		lang: {
+			thousandsSep: ','
+		}});
+
         $('#spline_chart').highcharts({
             chart: {
                 zoomType: 'xy',
                 width: 460,
-                height:310,
-                marginTop:40,
+                height:290,
+                marginTop:30,
                 marginLeft:70,
             },
             title: {
@@ -37,7 +44,7 @@ function createSplineChart(model) {
                 contextButton: {
                     align: 'right',
                     x:0,
-                    y:-8,
+                    y:-13,
                     }
                 }
             },
