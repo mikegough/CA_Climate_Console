@@ -1326,6 +1326,7 @@ function activateMapForEcosystemServices(){
     //Only Watersheds are currently available
     //Click the watersheds base-layer radio button (5th one down)
     $("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
+    /*
     $('div.leaflet-top:nth-child(1)').on({
         mouseover: function() {
             alertify.alert('These options are currently unavailable for ecosytem services. Click on a watershed to explore the ecosystem services charts for the selected area.')
@@ -1337,6 +1338,7 @@ function activateMapForEcosystemServices(){
     $('div.leaflet-top:nth-child(1)').click(function(event){
         event.stopPropagation();
     });
+    */
 
     $('input:radio[name=leaflet-base-layers]:nth(4)').click()
     reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'

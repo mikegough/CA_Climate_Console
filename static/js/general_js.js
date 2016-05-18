@@ -865,7 +865,7 @@ $(window).load(function(){
         $("#view2").css("opacity", ".1");
         $("#view3").css("opacity", ".1");
         $("#view5").css("opacity", ".1");
-        $("#view6").css("opacity", ".1");
+        $("#view6").css("opacity", "0");
         $("#initialization_container").css("background-color", "white");
         $("#initialization_text").css("opacity", "0");
         $(".loading").css("display", "block");

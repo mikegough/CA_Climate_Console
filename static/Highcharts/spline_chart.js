@@ -22,8 +22,8 @@ function createSplineChart(model) {
         $('#spline_chart').highcharts({
             chart: {
                 zoomType: 'xy',
-                width: 450,
-                height:350,
+                width: 440,
+                height:320,
                 marginTop:40,
             },
             title: {
