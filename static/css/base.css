@@ -249,12 +249,18 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 #area_chart{
     margin-top:0px;
-    margin-left:20px;
+    margin-left:15px;
 }
 
 #spline_chart{
     margin-top:10px;
-    margin-left:15px;
+    margin-left:0px;
+}
+
+/*export button*/
+#spline_chart .highcharts-button{
+    position:relative;
+    top:-20px;
 }
 
 #time_period_translation {

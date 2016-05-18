@@ -1,30 +1,30 @@
 function createSplineChart(model) {
 
-    modified_model_name=model.replace("_vtype_","_").replace("hadgem2es","hadgem2_es").replace("cnrmcm5","cnrm_cm5")
-    years = _.range(2011, 2101, 10)
+    var modified_model_name=model.replace("_vtype_","_").replace("hadgem2es","hadgem2_es").replace("cnrmcm5","cnrm_cm5")
+    var years = _.range(2011, 2101, 10)
 
-    ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
+    var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
 
-    c_ecosys_data_string = ecosystem_services_data["continuous7"][modified_model_name]["c_ecosys"]
-    nbp_data_string = ecosystem_services_data["continuous7"][modified_model_name]["nbp"]
+    var c_ecosys_data_string = ecosystem_services_data["continuous7"][modified_model_name]["c_ecosys"]
+    var nbp_data_string = ecosystem_services_data["continuous7"][modified_model_name]["nbp"]
 
-    c_ecosys_data = $.map(c_ecosys_data_string.split(','), function(value){
+    var c_ecosys_data = $.map(c_ecosys_data_string.split(','), function(value){
         return parseInt(value, 10);
             // or return +value; which handles float values as well
     });
 
-    nbp_data = $.map(nbp_data_string.split(','), function(value){
+    var nbp_data = $.map(nbp_data_string.split(','), function(value){
         return parseInt(value, 10);
-        // or return +value; which handles float values as well
     });
 
     $(function () {
         $('#spline_chart').highcharts({
             chart: {
                 zoomType: 'xy',
-                width: 440,
-                height:320,
+                width: 460,
+                height:310,
                 marginTop:40,
+                marginLeft:70,
             },
             title: {
                 text: ''
@@ -34,47 +34,61 @@ function createSplineChart(model) {
             },
             exporting: {
             buttons: {
-                exportButton: {
+                contextButton: {
                     align: 'right',
-                    x: 40
-                }
+                    x:0,
+                    y:-8,
+                    }
                 }
             },
             subtitle: {
                 text: ''
             },
-            xAxis: [{
+            xAxis: {
                 categories:years,
                 tickmarkPlacement: 'on',
                 title: {
                     enabled: false
                 },
-                crosshair: true
-            }],
-            yAxis: [{ // Primary yAxis
+                //crosshair: true,
+                options : {
+                    minPadding: 0,
+                    maxPadding: 0,
+                    startOnTick: true,
+                    endOnTick:true
+                 },
                 labels: {
-                    format: '{value} gC/m<sup>2</sup>',
+                    reserveSpace:false,
+                    enabled: true,
+                    rotation: 0,
+                }
+            },
+            yAxis: [{ // Primary yAxis left hand side
+                labels: {
+                    format: '{value}',
                     style: {
                         //Green
                         color:'#1A5336',
-                    }
+                    },
                 },
                 title: {
-                    text: '',
+                    text: 'gC/m2',
+                    x:10
                 },
 
-            }, { // Secondary yAxis
+            }, { // Secondary yAxis, right hand side (opposite = true)
+                opposite: true,
                 gridLineWidth: 0,
-                title: {
-                    text: '',
-                },
                 labels: {
-                    format: '{value} gC/m<sup>2</sup>',
+                    x:5,
+                    format: '{value}',
                     style: {
                         color:'#6A4F33',
                     }
                 },
-                opposite: true
+                title: {
+                    text: '',
+                },
 
             },
 

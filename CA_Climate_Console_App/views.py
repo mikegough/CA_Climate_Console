@@ -1052,8 +1052,6 @@ def get_ecosystem_services_data(WKT):
         selectList="SELECT "
         for field in statsFields.split(','):
             selectList+=field + " as " + field +", "
-           #Area or line based selection, requiring Area Weighted Average
-           #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
         #Extra comma
         selectList=selectList.rstrip(', ')
         vtype_tableList=" FROM " + vtype_table
@@ -1090,8 +1088,6 @@ def get_ecosystem_services_data(WKT):
         selectList="SELECT "
         for field in statsFields.split(','):
             selectList+=field + " as " + field +", "
-            #Area or line based selection, requiring Area Weighted Average
-            #selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
         #Extra comma
         selectList=selectList.rstrip(', ')
         continuous7_tableList=" FROM " + continuous7_table
@@ -1114,7 +1110,6 @@ def get_ecosystem_services_data(WKT):
             raise SystemExit(0)
 
         resultsDictMultiTable["continuous7"][continuous7_table]=resultsDict
-
 
     #Take fieldname,value pairs from the dict and dump to a JSON string.
     veg_composition_data=json.dumps(resultsDictMultiTable)
