@@ -1076,7 +1076,7 @@ def get_ecosystem_services_data(WKT):
         resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
 
     #Continuous7
-    continuous7_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4']
+    continuous7_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
     resultsDictMultiTable["continuous7"]={}
     for continuous7_table in continuous7_tables:

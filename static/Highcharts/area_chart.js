@@ -230,7 +230,7 @@ function createAreaChart(model) {
                 //Date in png Name is days since 1850
                 var endDate = new Date(ui.value, 01, 1);
                 var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                swapImageOverlay("vtype_agg_vtype_agg__" + pngCloverYear, "EcosystemServices")
+                swapImageOverlay("vtype_agg_" + actualModelName +"__"+ pngCloverYear, "EcosystemServices")
             }
           }
         });

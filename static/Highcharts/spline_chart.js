@@ -1,6 +1,6 @@
 function createSplineChart(model) {
 
-    var modified_model_name=model.replace("_vtype_","_").replace("hadgem2es","hadgem2_es").replace("cnrmcm5","cnrm_cm5")
+    var modified_model_name=model.replace("_vtype_","_")
     var years = _.range(2011, 2101, 10)
 
     var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
