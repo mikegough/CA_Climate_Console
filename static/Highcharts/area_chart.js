@@ -1,5 +1,10 @@
 function createAreaChart(model) {
 
+    //Initilization year for slider
+    if (typeof vegCompositionSliderStartYear == 'undefined'){
+        vegCompositionSliderStartYear=2001
+    }
+
     splitTableName=model.split("_")
     actualModelName=splitTableName[splitTableName.length-1]
 
@@ -15,6 +20,7 @@ function createAreaChart(model) {
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,
+                marginBottom:150
             },
             title: {
                 text: ''
@@ -31,7 +37,7 @@ function createAreaChart(model) {
                 verticalAlign:'top',
                 layout: 'vertical',
                 */
-                opacity:.85
+                opacity:.85,
             },
             subtitle: {
                 text: ''
@@ -40,7 +46,8 @@ function createAreaChart(model) {
                 categories: years,
                 tickmarkPlacement: 'on',
                 title: {
-                    enabled: false
+                    text:'<div id="vegMapSlider"></div>',
+                    useHTML:true
                 }
             },
             yAxis: {
@@ -49,9 +56,36 @@ function createAreaChart(model) {
                 }
             },
             tooltip: {
+                zIndex:9999999,
                 //pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} km<sup>2</sup>)<br/>',
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.0f}%</b> <br/>',
-                shared: true
+                backgroundColor: "rgba(255,255,255,1)",
+                borderWidth:0,
+                shadow:false,
+                shared: true,
+                useHTML:true,
+                style: {
+                    padding: 0,
+                    border:0
+                },
+                formatter: function () {
+                    var points = this.points;
+                    var pointsLength = points.length;
+                    var tooltipMarkup = '<div id="areaChartTooltipContainer">';
+                    tooltipMarkup += pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+                    var index;
+                    var y_value;
+
+                    for(index = 0; index < pointsLength; index += 1) {
+                        //For actual value: y_value = (points[index].y)
+                        y_value = (points[index].percentage).toFixed(0);
+                        console.log(points[index])
+
+                      tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + y_value  + '%</b><br/>';
+                    }
+                   tooltipMarkup += '</div>';
+
+                   return tooltipMarkup;
+                }
             },
             plotOptions: {
                 areaspline: {
@@ -170,14 +204,41 @@ function createAreaChart(model) {
                     mouseOver: function() {
                         layerToAddName = "VTYPE_" + actualModelName + "_" + years[this.x]; // onclick get the x index and use it to find the URL
                         vegClassName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
-                        console.log(layerToAddName)
-                        swapImageOverlay(layerToAddName)
+                        //console.log(layerToAddName)
+                        //swapImageOverlay(layerToAddName)
                         //swapLegend(layerToAddName, null, "Veg","Veg")
-                    }
+                    },
                 }
             }
         })
     }
+
+    $(function() {
+        $( "#vegMapSlider" ).slider({
+          value:vegCompositionSliderStartYear,
+          min: 2001,
+          max: 2091,
+          step: 10,
+          slide: function( event, ui ) {
+            vegCompositionSliderStartYear=ui.value
+            $( "#amount" ).val( "$" + ui.value );
+            document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+            if (ui.value==2001){
+                swapImageOverlay("single_transparent_pixel")
+            }
+            else {
+                //Date in png Name is days since 1850
+                var endDate = new Date(ui.value, 01, 1);
+                var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                swapImageOverlay("vtype_agg_vtype_agg__" + pngCloverYear, "EcosystemServices")
+            }
+          }
+        });
+        $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+  });
+
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var startDate = new Date(1850,01,1);
 
 }
 

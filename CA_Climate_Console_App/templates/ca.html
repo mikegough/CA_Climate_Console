@@ -57,6 +57,11 @@
 <!-- Jquery-->
 <script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
 
+<!-- JQuery Slider -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 <!-- Tabs -->
 <script src="{{STATIC_URL}}deps/TabContent/tabcontent.js" type="text/javascript"></script>
 <link href="{{STATIC_URL}}deps/TabContent/tabcontent.css" rel="stylesheet" type="text/css" />
@@ -444,8 +449,7 @@
                        <!--
                         <li>Click the "variability" link in the point chart description to view box plots of the data.
                         -->
-
-               </ol>
+                    </ol>
 
                 <h3>Instructional Video:</h3>
 
@@ -983,7 +987,9 @@
                             </select>
                         </div>
                     </form>
-                <div id="area_chart"></div>
+                    <div id="area_chart"></div>
+                    <div id="vegMapSliderContainer">
+                    </div>
                     <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Net Biological Production & Total Carbon</div>
                 <div id="spline_chart"></div>
             </div>

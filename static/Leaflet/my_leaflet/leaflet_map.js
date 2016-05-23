@@ -237,6 +237,11 @@ function swapImageOverlay(layerName,modelType) {
                 overlay_bounds = EEMSParams['overlayBounds'];
             }
         }
+        else if (modelType=="EcosystemServices"){
+
+            overlay_bounds = ecosystemServicesParams['overlayBounds'];
+
+        }
         else{
             overlay_bounds = climateParams['overlayBounds'];
         }
@@ -1323,9 +1328,11 @@ $(".get-markers").on("click", getAllMarkers);
 //**************************************** Ecosystem Services ********************************************************//
 
 function activateMapForEcosystemServices(){
+
     //Only Watersheds are currently available
     //Click the watersheds base-layer radio button (5th one down)
-    $("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
+    //$("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
+    $("div.leaflet-top:nth-child(1)").hide()
     /*
     $('div.leaflet-top:nth-child(1)').on({
         mouseover: function() {
@@ -1343,5 +1350,47 @@ function activateMapForEcosystemServices(){
     $('input:radio[name=leaflet-base-layers]:nth(4)').click()
     reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'
     create_post(user_wkt)
+
+   activeReportingUnits.eachLayer(function (layer) {
+        layer.setStyle({
+            color :'#48A1D1',
+            weight:1,
+            opacity:.6
+        })
+    });
+
+    defaultStyle = {
+        color :'#48A1D1',
+        weight:1,
+        opacity:.6,
+        dashArray: 0,
+        fillOpacity:0,
+    };
+
+    $(function() {
+        $( "#vegMapSlider" ).slider({
+            value:2001,
+            min: 2001,
+            max: 2091,
+            step: 10,
+            slide: function( event, ui ) {
+                $( "#amount" ).val( "$" + ui.value );
+                document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+                if (ui.value==2001){
+                    swapImageOverlay("single_transparent_pixel")
+                }
+                else {
+                    //Date in png Name is days since 1850
+                    var endDate = new Date(ui.value, 01, 1);
+                    var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                    swapImageOverlay("vtype_agg_vtype_agg__" + pngCloverYear, "EcosystemServices")
+                }
+            }
+        });
+        $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+    });
+
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var startDate = new Date(1850,01,1);
 }
 

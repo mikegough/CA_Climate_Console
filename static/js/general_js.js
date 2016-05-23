@@ -1064,6 +1064,4 @@ function animateClickToMapInfoBox(){
     $('.clickToMapInfo').delay(1000).animate({"right":"100px"},900);
     $('.clickToMapInfo').animate({"right":"80px"},600);
 }
- // Apply events to text elements (SVG) and spans within the legend (VML + modern browsers with useHTML option).
-
 

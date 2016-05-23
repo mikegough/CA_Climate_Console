@@ -1886,6 +1886,59 @@ div#pop-up2 {
     opacity:.85
 }
 
+/*
+#vegMapSliderContainer {
+    position: relative;
+    top:0px;
+    height:0px;
+}
+*/
+#vegMapSlider {
+	position: relative;
+	top: 0;
+	width: 367px;
+	margin-right: auto;
+	margin-left: auto;
+	z-index: 1;
+	right: 22px;
+    cursor:pointer !important
+}
+.label {
+    z-index: 1 !important;
+}
+
+#area_chart .highcharts-tooltip span {
+    background-color: white;
+    opacity: .8;
+    z-index: 9999 !important;
+}
+
+#area_chart .highcharts-tooltip{
+    padding:0px
+}
+
+#areaChartTooltipContainer {
+	border: 1px solid orange;
+	padding: 5px;
+	box-shadow: 2px 2px 8px #636363;
+}
+
+/*Time Slider */
+
+.ui-slider-handle{
+    cursor:pointer !important
+}
+
+/*
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	background: url('../img/preciseSliderThumbFocus.png') 50% 50% repeat-x !important;
+	font-weight: normal;
+	border: 0;
+	width: 16px;
+	height: 20px;
+	top: -5px;
+}
+*/
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */
