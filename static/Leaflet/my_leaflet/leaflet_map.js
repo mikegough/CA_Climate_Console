@@ -1327,6 +1327,14 @@ $(".get-markers").on("click", getAllMarkers);
 
 function activateMapForEcosystemServices(){
 
+    $(document).ajaxStart(function(){
+        //show spinner
+        $(".loading").css("display", "block");
+    });
+
+    map.removeLayer(near_term_climate_divisions)
+    document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+
     //Only Watersheds are currently available
     //Click the watersheds base-layer radio button (5th one down)
     //$("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
