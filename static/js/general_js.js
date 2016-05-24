@@ -1065,3 +1065,8 @@ function animateClickToMapInfoBox(){
     $('.clickToMapInfo').animate({"right":"80px"},600);
 }
 
+function updateEcosystemServicesCharts(dropDownValue) {
+    createAreaChart(dropDownValue, "changeDropDown");
+    createSplineChart(dropDownValue)
+}
+

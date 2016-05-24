@@ -238,9 +238,7 @@ function swapImageOverlay(layerName,modelType) {
             }
         }
         else if (modelType=="EcosystemServices"){
-
             overlay_bounds = ecosystemServicesParams['overlayBounds'];
-
         }
         else{
             overlay_bounds = climateParams['overlayBounds'];
@@ -663,7 +661,7 @@ function create_post(newWKT) {
 
             if (typeof areaChart != 'undefined' && areaChart != false) {
 
-                createAreaChart(document.getElementById("ecoServSelectionForm").value)
+                createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
                 createSplineChart(document.getElementById("ecoServSelectionForm").value)
             }
 
@@ -1366,31 +1364,5 @@ function activateMapForEcosystemServices(){
         dashArray: 0,
         fillOpacity:0,
     };
-
-    $(function() {
-        $( "#vegMapSlider" ).slider({
-            value:2001,
-            min: 2001,
-            max: 2091,
-            step: 10,
-            slide: function( event, ui ) {
-                $( "#amount" ).val( "$" + ui.value );
-                document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
-                if (ui.value==2001){
-                    swapImageOverlay("single_transparent_pixel")
-                }
-                else {
-                    //Date in png Name is days since 1850
-                    var endDate = new Date(ui.value, 01, 1);
-                    var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                    swapImageOverlay("vtype_agg_vtype_agg__" + pngCloverYear, "EcosystemServices")
-                }
-            }
-        });
-        $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
-    });
-
-    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-    var startDate = new Date(1850,01,1);
 }
 

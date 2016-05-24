@@ -1,4 +1,4 @@
-function createAreaChart(model) {
+function createAreaChart(model,updateSource) {
 
     //Initilization year for slider
     if (typeof vegCompositionSliderStartYear == 'undefined'){
@@ -78,7 +78,6 @@ function createAreaChart(model) {
                     for(index = 0; index < pointsLength; index += 1) {
                         //For actual value: y_value = (points[index].y)
                         y_value = (points[index].percentage).toFixed(0);
-                        console.log(points[index])
 
                       tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + y_value  + '%</b><br/>';
                     }
@@ -213,6 +212,14 @@ function createAreaChart(model) {
         })
     }
 
+
+    if (updateSource != "mapClick") {
+            swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+    }
+
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var startDate = new Date(1850,01,1);
+
     $(function() {
         $( "#vegMapSlider" ).slider({
           value:vegCompositionSliderStartYear,
@@ -229,16 +236,15 @@ function createAreaChart(model) {
             else {
                 //Date in png Name is days since 1850
                 var endDate = new Date(ui.value, 01, 1);
-                var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
                 swapImageOverlay("vtype_agg_" + actualModelName +"__"+ pngCloverYear, "EcosystemServices")
             }
           }
         });
-        $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+        //$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
   });
 
-    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-    var startDate = new Date(1850,01,1);
 
 }
+
 
