@@ -20,7 +20,8 @@ function createAreaChart(model,updateSource) {
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,
-                marginBottom:150
+                /*screws up placement of legend in chrome. */
+                /*marginBottom:150*/
             },
             title: {
                 text: ''
@@ -32,6 +33,7 @@ function createAreaChart(model,updateSource) {
                 width: 460,
                 itemWidth: 230,
                 x:50,
+                margin:25,
                 /*
                 align:'right',
                 verticalAlign:'top',

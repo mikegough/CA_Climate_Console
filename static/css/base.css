@@ -1854,13 +1854,9 @@ div#pop-up2 {
 }
 
 #ecoServClimateModelLabel {
-	display: inline;
-	border-right: 0px none;
-	padding: 7px 1px 7px 10px;
-	/* padding-left: 10px; */
-	border-radius: 6px 0px 0px 6px;
-	left: 7px;
-	white-space: nowrap;
+    border-radius: 6px 0px 0px 6px;
+    padding-left: 10px;
+    border-right: 0px;
 }
 
 .verticalSeparatorLine{
@@ -1875,6 +1871,12 @@ div#pop-up2 {
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
     border-left:0px;
+    left:-5px;
+}
+
+#area_chart .highcharts-legend{
+    position:relative;
+    top:10px;
 }
 
 #area_chart .highcharts-legend-item{
@@ -1886,16 +1888,10 @@ div#pop-up2 {
     opacity:.85
 }
 
-/*
-#vegMapSliderContainer {
-    position: relative;
-    top:0px;
-    height:0px;
-}
-*/
 #vegMapSlider {
 	position: relative;
-	top: 0;
+	top: 5px;
+    opacity:.85;
 	width: 367px;
 	margin-right: auto;
 	margin-left: auto;
