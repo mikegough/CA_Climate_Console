@@ -1,5 +1,6 @@
  $(document).ready(function(){
 
+
      var currentDate=new Date()
      currentYear=currentDate.getFullYear()
 
@@ -61,22 +62,37 @@
     /*  If we decide to make the link go to the About tab.*/
      $("#modelInfoLink").click(function() {
          document.getElementById("view3Link").click();
-         window.location.hash = '#aboutClimateData'
-         window.location.hash = ''
+         //Only want to calculate this once
+         if (typeof aboutClimateDataAnchor == 'undefined') {
+             //fix for page reload
+             $("#view3").scrollTop(0);
+             aboutClimateDataAnchor = $("#aboutClimateData").offset().top - $("#view3").offset().top - 10
+         }
+         $("#view3").scrollTop(aboutClimateDataAnchor);
          return false;
      });
 
      $("#weatherInfoLink").click(function() {
          document.getElementById("view3Link").click();
-         window.location.hash = '#aboutWeatherData'
-         window.location.hash = ''
+         //Only want to calculate this once
+         if (typeof aboutWeatherDataAnchor == 'undefined') {
+             //fix for page reload
+             $("#view3").scrollTop(0);
+             aboutWeatherDataAnchor = $("#aboutWeatherData").offset().top - $("#view3").offset().top - 10
+         }
+         $("#view3").scrollTop(aboutWeatherDataAnchor);
          return false;
      });
 
      $("#EEMSInfoLink").click(function() {
          document.getElementById("view3Link").click();
-         window.location.hash = '#aboutEEMSData'
-         window.location.hash = ''
+         //Only want to calculate this once
+         if (typeof aboutEEMSDataAnchor == 'undefined') {
+             //fix for page reload
+             $("#view3").scrollTop(0);
+             aboutEEMSDataAnchor = $("#aboutEEMSData").offset().top - $("#view3").offset().top - 10
+         }
+         $("#view3").scrollTop(aboutEEMSDataAnchor);
          return false;
      });
 
