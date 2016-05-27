@@ -14,6 +14,17 @@ $(document).ready(function() {
 
 });
 
+$(".leaflet-control-layers-base").css("display","none")
+
+//Soils
+PNG_Bounds = [[49.0009868862815,-124.737501543016], [32.5295807355456,-105.450672392969]];
+PNG_Overlay='multi_lcc_soil_sensitivity_300dpi.png'
+
+//Protected Areas Service
+serviceURL="http://ec2-52-39-66-59.us-west-2.compute.amazonaws.com/services/multi_lcc_protected_areas/tiles/{z}/{x}/{y}.png"
+serviceLegendName="multi_lcc_protected_areas2.png"
+serviceOpacity=.8
+
 var myTextExtraction = function(node)
 {
     console.log($(node).find("span").text()[0])
@@ -77,11 +88,19 @@ function mouseOutDeselect() {
 
 function selectFeatureFromTable(name) {
 
+    // Check checkbox for results_poly
+    $( "#results_poly_visibility" ).prop( "checked", true );
+
+    //layerControlDashboard.removeLayer(results_poly)
+
     //Loop through the array of all layers and remove them
     //query_layer.setStyle(defaultQueryLayerStyle)
-    results_poly.bringToFront()
+    if (map.hasLayer(results_poly)){
+        results_poly.bringToFront()
+    }
     reporting_units='multi_lcc_query_layer_protected_areas_soils_5_simplify'
     create_post(name,reporting_units)
+
     //document.getElementById("view5Link").click()
     $("#map").css("width","calc(100% - 960px)")
     $("#detailedView").css("display","block")
@@ -99,12 +118,12 @@ function selectFeatureFromTable(name) {
          $("#AboutSelectedProtectedArea").html(data);
          });
          */
+        //Change Units on Point Chart. Required for initial load.
     });
 
-    //Change Units on Point Chart. Required for initial load.
     changeUnits(units_for_table)
 
-    $('input[type=checkbox][name=results_poly_visibility]').change(function() {
+     $('input[type=checkbox][name=results_poly_visibility]').change(function() {
         var ischecked = $(this).is(':checked');
         if(ischecked){
             results_poly.addTo(map)
@@ -116,6 +135,7 @@ function selectFeatureFromTable(name) {
 
 
     $(".layerToggleControl").css("display","block")
+    $("#results_visibility_radio").css("display","block")
 
 }
 
@@ -140,6 +160,9 @@ function getMaskIndex(){
 }
 
 function createDynamicDataTable(time_period_for_table, units_for_table){
+
+    // Back to protected areas when a new map selection is made. Fixes floating transparency slider.
+    swapMapService(serviceURL,serviceLegendName)
 
     if ($('#dynamicDataTable').length > 0) {
         TF_RemoveFilterGrid("dynamicDataTable")
@@ -338,22 +361,33 @@ function sortObject(o) {
 
 base_data_PNG_overlay=""
 
-function swapBaseDataOverlay(PNG,bounds,modelType) {
+function swapPNGOverlay(PNG,bounds,modelType) {
 
-        $("#control").hide()
+        //$("#control").hide()
 
+        if (map.hasLayer(mapService)){
+            map.removeLayer(mapService)
+        }
         if (map.hasLayer(base_data_PNG_overlay)){
             map.removeLayer(base_data_PNG_overlay)
         }
         if (map.hasLayer(climate_PNG_overlay)){
             map.removeLayer(climate_PNG_overlay)
         }
+
         base_data_PNG_overlay_url = static_url + "Leaflet/myPNG/other/multi_lcc/" + PNG;
 
         base_data_PNG_overlay=L.imageOverlay(base_data_PNG_overlay_url, bounds);
 
         base_data_PNG_overlay.addTo(map).setOpacity(.7).bringToBack();
         base_data_PNG_overlay.bringToBack()
+
+        elements=document.getElementsByClassName('ui-opacity')
+        //Transparency slider
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].style.display = elements[i].style.display = 'inline';
+        }
+        base_data_PNG_overlay.setOpacity(1 - (handle.offsetTop / 200))
 
         //Radio Buttons
         //$('.info').html("<div id='base_data_visibility_radio'><input type='radio' name='base_data_visibility' checked value='on'>On</input><input type='radio' name='base_data_visibility' value='off'>Off</input></div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + PNG +"'>")
@@ -391,22 +425,56 @@ function swapBaseDataOverlay(PNG,bounds,modelType) {
             }
         });
 
+}
 
+function swapMapService(serviceURL,serviceLegendName) {
+
+    $("#control").hide()
+
+    if (typeof mapService != 'undefined' && map.hasLayer(mapService)){
+        map.removeLayer(mapService)
+    }
+    if (map.hasLayer(base_data_PNG_overlay)){
+        map.removeLayer(base_data_PNG_overlay)
+    }
+    if (map.hasLayer(climate_PNG_overlay)){
+        map.removeLayer(climate_PNG_overlay)
+    }
+
+    mapServiceURL=serviceURL
+    mapService=L.tileLayer(serviceURL,{opacity:serviceOpacity}).addTo(map).bringToFront()
+
+    $('.info').html("<div id='base_data_visibility_radio'>" +
+        "<input type='checkbox' name='map_service_visibility' checked value='on'>Show on Map</input>"  +
+        "</div><img class='dashboard_legend' src='" + static_url+ "Leaflet/my_leaflet/legends/" + serviceLegendName +"'>")
+
+    $('input[type=checkbox][name=map_service_visibility]').change(function() {
+        var ischecked = $(this).is(':checked');
+        if(ischecked){
+            mapService.addTo(map).bringToFront()
+        }
+        else {
+            map.removeLayer(mapService)
+        }
+    });
 }
 
 
-var baseDataBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
-swapBaseDataOverlay('multi_lcc_protected_areas2.png',baseDataBounds)
+//var PNG_Bounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
+//swapBaseDataOverlay('multi_lcc_protected_areas2.png',PNG_Bounds)
 
-$("#view99Link").click(function() {
-    var baseDataBounds = [[49.0009868862815,-124.737501543016], [32.5295807355456,-105.450672392969]];
-    swapBaseDataOverlay('multi_lcc_soil_sensitivity_300dpi.png',baseDataBounds)
- })
+//Initial Map Service
+swapMapService(serviceURL,serviceLegendName)
 
 $("#view98Link").click(function() {
-    var baseDataBounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
-    swapBaseDataOverlay('multi_lcc_protected_areas2.png',baseDataBounds)
+    //var PNG_Bounds = [[49.0023040716397,-124.762157363724], [32.5362189626958,-105.482414210877]];
+    //swapBaseDataOverlay('multi_lcc_protected_areas2.png',PNG_Bounds)
+    swapMapService("http://ec2-52-39-66-59.us-west-2.compute.amazonaws.com/services/multi_lcc_protected_areas/tiles/{z}/{x}/{y}.png","multi_lcc_protected_areas2.png")
 })
+
+$("#view99Link").click(function() {
+    swapPNGOverlay(PNG_Overlay,PNG_Bounds)
+ })
 
 //Changing Time Period Hides TDs
 function changeTimePeriod(time_period){
@@ -467,6 +535,22 @@ function changeUnitsForTable(units) {
     }
 }
 
+/*Function override. This function was originally defined in general_js.
+There was a problem when a user would click on a climate layer and then go back to clicking on a protected area in the table:
+The legend would disappear. So this adds one additional check, to only swap the legend if there is a climate layer on and the user
+changes the units */
+
+function changeUnits(units){
+    unitsForChart=units;
+    if (typeof layerToAddName != 'undefined' && map.hasLayer(climate_PNG_overlay)){
+
+        swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value, modelName);
+    }
+    updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
+
+    updateQuickViewTable(document.getElementById("season_selection_form").value)
+}
+/*
 var layerToggle = L.Control.extend({
     options: {position: 'bottomright'},
 
@@ -478,4 +562,7 @@ var layerToggle = L.Control.extend({
 });
 
 map.addControl(new layerToggle());
+*/
+
+$("#leaflet-control-layers-group-0").append("<div id='results_visibility_radio'><hr>" + "<input type='checkbox' id='results_poly_visibility' name='results_poly_visibility' checked value='on'><b>Current Selection</b></div>");
 

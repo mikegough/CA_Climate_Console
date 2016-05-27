@@ -96,6 +96,18 @@
          return false;
      });
 
+     $("#EcosystemServicesInfoLink").click(function() {
+         document.getElementById("view3Link").click();
+         //Only want to calculate this once
+         if (typeof aboutEcosystemServicesDataAnchor == 'undefined') {
+             //fix for page reload
+             $("#view3").scrollTop(0);
+             aboutEcosystemServicesDataAnchor = $("#aboutEcosystemServicesData").offset().top - $("#view3").offset().top - 10
+         }
+         $("#view3").scrollTop(aboutEcosystemServicesDataAnchor);
+         return false;
+     });
+
      $("#additionalFeaturesCount").click(function() {
             $('#selectedFeaturesFullList').empty()
             $("#selectedFeaturesShortList").hide()

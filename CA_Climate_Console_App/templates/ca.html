@@ -732,6 +732,74 @@
                 <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
                 <p>
 
+                <h3 id="aboutEcosystemServicesData">Ecosystem Services: </h3>
+                The ecosystem services data are derived from MC2 results generated for CA at 30 arc-secs, using imposed land-use from
+                Ben Sleeter. We ran from 1895-2010 using PRISM data, and from 2011-2099 using data
+                downscaled by Bridget Thrasher using BCSD, for 9 models (there was no vpr data available
+                for CMCC-CMS, the 10th model which was intended to be in the ensemble, and therefore
+                no way to run MC2). All of the futures use RCP8.5 CO2 levels.
+                <p/>
+
+                The resulting veg types were aggregated from MC2 categories to coarser categories:
+                <p/>
+                0:undefined
+                <br>1:taiga/tundra
+                <br>2:conifer forest
+                <br>3:mixed forest
+                <br>4:broadleaf forest
+                <br>5:shrubland/woodland/savanna
+                <br>6:grassland
+                <br>7:arid land
+                <br>8:annual agriculture
+                <br>9:perennial agriculture
+                <br>10:developed/mined
+
+                <p/>
+                Decadal modes of veg type were calculated, starting in 1901 (1901-1910, 1911-1920, etc).
+                The final decade (2091-2099) is a year short, simply because most models did not have
+                data for 2100. Values for the 'year' coordinate variable are the start of each decade.
+                <p/>
+
+                Decadal means of continuous (all but vtype) variables were calculated in the same way,
+                for the variables specified for the CA project:
+                <p/>
+
+                <ol>
+                <li>NBP
+                <li>C_ECOSYS
+                <li>C_FOREST
+                <li>C_DEAD_ABOVEGR
+                <li>CONSUMED
+                <li>H2O_STREAM_FLOW
+                <li>cwd(climaticwaterdeficit)
+                </ol>
+                <p/>
+
+                Climatic water deficit was calculated from PET - AET. PET was calculated outside
+                of MC2, using the same Linacre method as is used in Century, and AET was taken
+                from the MC2 results.
+                <p/>
+
+                Ben Sleeter's land-use data includes perennial agriculture, which we simulated in MC2
+                by clearing all vegetation in the year of conversion to agriculture, allowing growth
+                for 5 years, and then harvesting half of NPP from above-ground woody components. After
+                40 years, perennial agriculture was cleared and the cycle started over. Above-ground grass
+                was removed yearly.
+                <p/>
+
+                Ben also calculated backcast timber harvests to provide a smooth ramp to the present.
+                He did this by running his state-transition model backward from 2000. Since clearcuts
+                are represented as transitions between years, this produced no clearcuts for 2000.
+                As the clearcut simulation was a simple interpolation, we shifted it forward by a year
+                to provide representative year-2000 clearcut data (and no clearcuts in 1896).
+                <p/>
+
+                This version of MC2 uses the NRCS runoff curve method of calculating runoff, using
+                values from the runoff curve tables for middle-of-the-road conditions which seemed
+                to best match MC2 vegetation and land-use classes.
+                <p/>
+                Postprocessing of the data for use in the Climate Console involved projecting to California Teale Albers (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
+
                 <a name="refs"></a>
                 <h3>References:</h3>
                 <sup>1</sup><a href="http://pics.uvic.ca/"> Pacific Institute for Climate Solutions</a>
@@ -911,7 +979,7 @@
 
                 </script>
 
-                <div style="height:20px; float:right;position:relative;right:0px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="" title="Click for information about the weather data">About the weather data</a></div>
+                <div style="height:20px; float:right;position:relative;right:10px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="" title="Click for information about the weather data">About the weather data</a></div>
 
                 <br>
                 <div class="nearTermHeader">One Year Forecast at a Glance</div>
@@ -992,6 +1060,7 @@
                     </div>
                     <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Net Biological Production & Total Carbon</div>
                 <div id="spline_chart"></div>
+                <div style="height:20px; float:right;position:relative;right:25px;top:0px;font-size:.8em"><a id="EcosystemServicesInfoLink" href="" title="Click for information about the ecosystem Services data">About the ecosystem services data</a></div>
             </div>
 
         </div>

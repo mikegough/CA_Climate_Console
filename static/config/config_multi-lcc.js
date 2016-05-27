@@ -1,6 +1,6 @@
 title="Protected Areas"
 subTitle="Climate Projections for Landscapes of the Western United States"
-studyAreaBoundary="CA_Boundary_5_simplify.json"
+studyAreaBoundary=""
 initialLat=39
 initialLon=-116
 initialDownscaleMarkerLat=35.28

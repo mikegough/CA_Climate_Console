@@ -383,28 +383,41 @@ var overlayMaps = {
     //"Selected Features":results_poly
 }
 
-var groupedOverlays = {
-    // Option to have reporting units in the upper right hand layer widget.
-    /*
-    "Reporting Units": {
-        "Counties": counties,
-    },
-    */
-    "Base Maps": {
-        'Light Gray Base': lightGray,
-        'World Topo Map': worldTopo,
-        'USA Topo Map': USATopo,
-        'Street Map': streetMap,
-        'Imagery': imagery,
-        'Open Street Map': OpenStreetMap,
-    },
-    "": {
+if (studyAreaBoundary != "") {
+    var groupedOverlays = {
+        // Option to have reporting units in the upper right hand layer widget.
+        /*
+         "Reporting Units": {
+         "Counties": counties,
+         },
+         */
+        "Base Maps": {
+            'Light Gray Base': lightGray,
+            'World Topo Map': worldTopo,
+            'USA Topo Map': USATopo,
+            'Street Map': streetMap,
+            'Imagery': imagery,
+            'Open Street Map': OpenStreetMap,
+        },
+        "": {
 
-        //"Selected Features": results_poly,
-        "Study Area Boundary": study_area_boundary,
-        //"Study Area Boundary": study_area_boundary.addTo(map),
+            //"Selected Features": results_poly,
+            "Study Area Boundary": study_area_boundary,
+            //"Study Area Boundary": study_area_boundary.addTo(map),
+        }
+    };
+}else {
+    var groupedOverlays = {
+        "Base Maps": {
+            'Light Gray Base': lightGray,
+            'World Topo Map': worldTopo,
+            'USA Topo Map': USATopo,
+            'Street Map': streetMap,
+            'Imagery': imagery,
+            'Open Street Map': OpenStreetMap,
+        },
     }
-};
+}
 
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
 
@@ -713,7 +726,7 @@ function resetHighlight(e) {
     else {
         info2.update('');
     }
-    if (typeof results_poly != 'undefined') {
+    if (typeof results_poly != 'undefined' && map.hasLayer(results_poly)) {
         results_poly.bringToFront()
     }
 }

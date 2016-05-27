@@ -179,7 +179,7 @@ function createAreaChart(model,updateSource) {
                 break;
             case 'value_10':
                 var veg_type = 'Developed/Mined'
-                color='#464646';
+                color='#2D2D2D';
                 break;
             default :
                 var veg_type = 'other'

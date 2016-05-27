@@ -287,8 +287,12 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 .modelDiagram{
-    height:95%;
+    height:80%;
     overflow:auto;
+}
+
+.modelDiagram img{
+    margin-bottom:15%;
 }
 
 #MEEMSE_footer{

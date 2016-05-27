@@ -325,12 +325,13 @@ div.tabcontents {
 }
 
 #dynamicDataTable {
-	width: 100%;
 	border-collapse: collapse;
 	/* position: absolute; */
+	height:100%;
 	width: 480px;
 	overflow-y:scroll;
 	position:relative;
+
 }
 
 #dynamicDataTable thead {
@@ -554,4 +555,62 @@ ul.tabs li a {
 
 #multiLCCIntroStepsTable tr:first-child td{
 	padding-left:6px;
+}
+
+table.scroll {
+    /* width: 100%; */ /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    border: 2px solid black;
+}
+
+table.tablesorter tbody,
+table.tablesorter thead { display: block; }
+
+table.tablesorter tbody {
+    height: calc(100% - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*
+
+.layerToggleControl {
+	display:none;
+	color: #4E4E4E;
+	padding: 6px 8px;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	max-width: 700px;
+	width:198px;
+	top:8px;
+}
+
+#results_visibility_radio {
+	padding-left: 6px;
+}
+
+#results_poly_visibility {
+	position: relative;
+	left: 8px;
+	font-size: 9px;
+	font-family: arial;
+	top: 2px;
+}
+
+#result_poly_show_on_map_label {
+	font-size: 11px;
+	font-family: arial;
+	right: 0px;
+	position: relative;
+	float: right;
+	top: 4px;
+	left: 2px;
+}
+
+*/
+
+#results_visibility_radio{
+	display: none;
 }
