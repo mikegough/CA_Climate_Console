@@ -1339,7 +1339,12 @@ $(".get-markers").on("click", getAllMarkers);
 
 function activateMapForEcosystemServices(){
 
-    swapImageOverlay("vtype_agg_" + "ccsm4" +"__"+ "58804", "EcosystemServices")
+    if (typeof pngCloverYear !=  "undefined") {
+        swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+    }
+    else {
+        swapImageOverlay("vtype_agg_" + "ccsm4" + "__" + "58804", "EcosystemServices")
+    }
 
     $(document).ajaxStart(function(){
         //show spinner

@@ -1896,14 +1896,15 @@ div#pop-up2 {
 	position: relative;
 	top: 5px;
 	opacity: .85;
-	width: 327px;
+	width: 329px;
 	margin-right: auto;
 	margin-left: auto;
 	z-index: 1;
-	left: -2px;
 	cursor: pointer !important;
+	left: -2px;
+}
 
-}.label {
+.label {
     z-index: 1 !important;
 }
 
