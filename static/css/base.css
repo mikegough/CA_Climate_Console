@@ -1895,15 +1895,15 @@ div#pop-up2 {
 #vegMapSlider {
 	position: relative;
 	top: 5px;
-    opacity:.85;
-	width: 367px;
+	opacity: .85;
+	width: 327px;
 	margin-right: auto;
 	margin-left: auto;
 	z-index: 1;
-	right: 22px;
-    cursor:pointer !important
-}
-.label {
+	left: -2px;
+	cursor: pointer !important;
+
+}.label {
     z-index: 1 !important;
 }
 

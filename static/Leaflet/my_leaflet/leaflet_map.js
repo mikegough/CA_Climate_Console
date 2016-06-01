@@ -484,7 +484,6 @@ function create_post(newWKT) {
 
             }
 
-
             //Update Utah with the new field code naming convention
 
             if (title == 'Utah/COP') {
@@ -1339,6 +1338,8 @@ $(".get-markers").on("click", getAllMarkers);
 //**************************************** Ecosystem Services ********************************************************//
 
 function activateMapForEcosystemServices(){
+
+    swapImageOverlay("vtype_agg_" + "ccsm4" +"__"+ "58804", "EcosystemServices")
 
     $(document).ajaxStart(function(){
         //show spinner

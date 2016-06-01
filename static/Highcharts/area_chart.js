@@ -225,13 +225,14 @@ function createAreaChart(model,updateSource) {
     $(function() {
         $( "#vegMapSlider" ).slider({
           value:vegCompositionSliderStartYear,
-          min: 2001,
+          min: 2011,
           max: 2091,
           step: 10,
           slide: function( event, ui ) {
             vegCompositionSliderStartYear=ui.value
             $( "#amount" ).val( "$" + ui.value );
             document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+            //Or whatever is decided for off
             if (ui.value==2001){
                 swapImageOverlay("single_transparent_pixel")
             }

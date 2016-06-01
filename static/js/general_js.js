@@ -1,6 +1,5 @@
  $(document).ready(function(){
 
-
      var currentDate=new Date()
      currentYear=currentDate.getFullYear()
 
