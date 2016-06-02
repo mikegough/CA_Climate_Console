@@ -245,6 +245,7 @@ function createAreaChart(model,updateSource) {
                 //Date in png Name is days since 1850
                 var endDate = new Date(ui.value, 01, 1);
                 pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                console.log(pngCloverYear)
                 swapImageOverlay("vtype_agg_" + actualModelName +"__"+ pngCloverYear, "EcosystemServices")
             }
           }
@@ -255,4 +256,27 @@ function createAreaChart(model,updateSource) {
 
 }
 
+animationState ="on"
+function animateMap(){
+    var dateRange=_.range(2011,2101,10)
+    var startDate = new Date(1850,01,1);
+    $.each(dateRange, function(index, value){
+        //Twice for performance/memory reasons
+        if (animationState != "off"){
+            setTimeout(function () {
+                if (animationState != "off") {
+                    currentYear = value
+                    endDate = new Date(currentYear, 01, 1);
+                    pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
+                    swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+                    console.log(currentYear)
+                    $("#vegMapSlider").slider('value', currentYear);
+                }
+            }, (index + 1) * 900);
+            if (index == dateRange.length - 1) {
+                setTimeout(animateMap, (index + 1) * 900);
+            }
+        }
+    })
+}
 
