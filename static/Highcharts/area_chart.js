@@ -55,6 +55,11 @@ function createAreaChart(model,updateSource) {
             yAxis: {
                 title: {
                     text: 'Percent'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + '%';
+                    }
                 }
             },
             tooltip: {

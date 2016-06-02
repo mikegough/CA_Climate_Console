@@ -1339,18 +1339,6 @@ $(".get-markers").on("click", getAllMarkers);
 
 function activateMapForEcosystemServices(){
 
-    if (typeof pngCloverYear !=  "undefined") {
-        swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
-    }
-    else {
-        swapImageOverlay("vtype_agg_" + "ccsm4" + "__" + "58804", "EcosystemServices")
-    }
-
-    $(document).ajaxStart(function(){
-        //show spinner
-        $(".loading").css("display", "block");
-    });
-
     map.removeLayer(near_term_climate_divisions)
     document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
 
@@ -1375,6 +1363,21 @@ function activateMapForEcosystemServices(){
     $('input:radio[name=leaflet-base-layers]:nth(4)').click()
     reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'
     create_post(user_wkt)
+
+    swapImageOverlay("single_transparent_pixel")
+
+    if (typeof pngCloverYear !=  "undefined"){
+        swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+    }
+    else {
+        swapImageOverlay("vtype_agg_" + "ccsm4" + "__" + "58804", "EcosystemServices")
+    }
+
+    $(document).ajaxStart(function(){
+        //show spinner
+        $(".loading").css("display", "block");
+    });
+
 
    activeReportingUnits.eachLayer(function (layer) {
         layer.setStyle({
