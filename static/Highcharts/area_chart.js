@@ -280,3 +280,42 @@ function animateMap(){
     })
 }
 
+$(function() {
+     //Mouse over and click functions on the start/stop buttons.
+
+     $('#startDiv2').on({
+         mouseover: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/start_hover.png');
+         },
+         mouseleave: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/start.png');
+         },
+         click: function(){
+             $(this).off('mouseleave');
+             $(this).css('background-image', 'url(' + static_url + 'img/start_hover.png');
+             $('#stopDiv2').css('background-image', 'url(' + static_url + 'img/stop.png');
+         }
+     });
+
+     $('#stopDiv2').on({
+         mouseover: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/stop_hover.png');
+         },
+         mouseleave: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/stop.png');
+         },
+         click: function(){
+             //Uncomment line below to make the stop button stay on after a click
+             //$(this).off('mouseleave');
+             $(this).css('background-image', 'url(' + static_url + 'img/stop_hover.png');
+             $('#startDiv2').css('background-image', 'url(' + static_url + 'img/start.png');
+             //Need this in order to make the mouseout work on the start button again for some reason.
+             $('#startDiv2').on({
+                 mouseleave: function(){
+                     $(this).css('background-image', 'url(' + static_url + 'img/start.png');
+                 }
+             });
+         }
+     });
+ });
+

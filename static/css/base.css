@@ -860,6 +860,46 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 }
 
+#playButtons2{
+	position: absolute;
+	top: 373px;
+	z-index: 999;
+	left: 2px;
+}
+
+#startDiv2{
+    margin-top:5px;
+    margin-bottom:8px;
+    border-radius:50px;
+    cursor:pointer;
+    position:relative;
+    top:5px;
+    left:4px;
+    display:inline-block;
+    height:28px;
+    width:28px;
+    background:url('../img/start.png');
+    background-size:25px;
+    background-repeat:no-repeat;
+
+}
+
+#stopDiv2{
+    margin-top:5px;
+    margin-bottom:8px;
+    border-radius:50px;
+    cursor:pointer;
+    position:relative;
+    top:5px;
+    display:inline-block;
+    height:28px;
+    width:28px;
+    background:url('../img/stop.png');
+    background-size:25px;
+    background-repeat:no-repeat;
+
+}
+
 #stopDiv:focus{
     outline:0;
 }
