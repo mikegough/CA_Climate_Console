@@ -1,4 +1,7 @@
 function createAreaChart(model,updateSource) {
+    if (typeof pngCloverYear == "undefined"){
+        pngCloverYear = 58804
+    }
 
     //Initilization year for slider
     if (typeof vegCompositionSliderStartYear == 'undefined'){
@@ -247,7 +250,6 @@ function createAreaChart(model,updateSource) {
                 //Date in png Name is days since 1850
                 var endDate = new Date(ui.value, 01, 1);
                 pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                console.log(pngCloverYear)
                 swapImageOverlay("vtype_agg_" + actualModelName +"__"+ pngCloverYear, "EcosystemServices")
             }
           }
@@ -265,9 +267,8 @@ var delayTime = 1000
 function animateMap(){
     var dateRange=_.range(datePause,2101,10)
     var startDate = new Date(1850,01,1);
-    $.each(dateRange, function(index, value){
+    $.each(dateRange, function(index, currentYear){
         timeouts.push(setTimeout(function () {
-            currentYear = value
             datePause = currentYear
             endDate = new Date(currentYear, 01, 1);
             pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
