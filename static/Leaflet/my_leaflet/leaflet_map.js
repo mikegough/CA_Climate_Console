@@ -958,6 +958,25 @@ geoSearch.addTo(map)
 
 function activateMapForDefault(){
 
+    activeReportingUnits.eachLayer(function (layer) {
+        layer.setStyle({
+            color :'#F8981D',
+            weight:2,
+            dashArray: 0,
+            fillOpacity:0,
+            opacity:1
+        })
+    });
+
+    defaultStyle = {
+        color: '#F8981D',
+        weight:2,
+        dashArray: 0,
+        fillOpacity:0,
+        opacity:1
+    };
+
+
     $("div.leaflet-top:nth-child(1)") .fadeTo(500, 1)
     $('div.leaflet-top:nth-child(1)').unbind('mouseover mouseout');
     $('div.leaflet-top:nth-child(1)').unbind('click');

@@ -860,11 +860,12 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 }
 
-#playButtons2{
+#playButtons2 {
 	position: absolute;
-	top: 373px;
-	z-index: 999;
+	z-index: 1;
 	left: 2px;
+	float: left;
+	top: 372px;
 }
 
 #startDiv2{
@@ -1941,7 +1942,7 @@ div#pop-up2 {
 	margin-left: auto;
 	z-index: 1;
 	cursor: pointer !important;
-	left: -2px;
+	left: 0px;
 }
 
 .label {

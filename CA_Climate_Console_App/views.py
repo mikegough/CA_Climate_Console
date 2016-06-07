@@ -630,7 +630,7 @@ def generate_eems_tree(request):
 
     eems_file_directory="static/config/eems"
     #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicityly type the path.
-    eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
+    #eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
 
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
     eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')

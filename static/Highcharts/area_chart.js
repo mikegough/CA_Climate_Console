@@ -32,7 +32,7 @@ function createAreaChart(model,updateSource) {
             legend: {
                 width: 460,
                 itemWidth: 230,
-                x:50,
+                x:57,
                 margin:25,
                 /*
                 align:'right',
