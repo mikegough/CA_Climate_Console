@@ -861,11 +861,11 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #playButtons2 {
-	position: absolute;
+	position: relative;
 	z-index: 1;
 	left: 2px;
 	float: left;
-	top: 372px;
+	top: -145px;
 }
 
 #startDiv2{
