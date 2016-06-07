@@ -86,7 +86,9 @@ function createAreaChart(model,updateSource) {
                         //For actual value: y_value = (points[index].y)
                         y_value = (points[index].percentage).toFixed(0);
 
-                      tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + y_value  + '%</b><br/>';
+                        if (y_value > 0) {
+                            tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + y_value + '%</b><br/>';
+                        }
                     }
                    tooltipMarkup += '</div>';
 
