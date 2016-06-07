@@ -75,12 +75,16 @@ function createSplineChart(model) {
                     format: '{value}',
                     style: {
                         //Green
-                        color:'#1A5336',
+                        color:'#008040',
                     },
                 },
                 title: {
                     text: 'gC/m2',
-                    x:10
+                    x:10,
+                    style: {
+                        //Green
+                        color:'#008040',
+                    },
                 },
 
             }, { // Secondary yAxis, right hand side (opposite = true)
@@ -146,7 +150,7 @@ function createSplineChart(model) {
             {
                 name: 'Net Biological Production',
                 type: 'spline',
-                color:'#206844',
+                color:'#008040',
                 data: nbp_data,
                 tooltip: {
                     valueSuffix: ' gC/m2'
@@ -161,6 +165,7 @@ function createSplineChart(model) {
                     enabled: false,
                 },
                 dashStyle: 'shortdot',
+                lineWidth:3,
                 tooltip: {
                     valueSuffix: ' gC/m2'
                 }
