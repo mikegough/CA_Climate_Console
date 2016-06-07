@@ -256,27 +256,27 @@ function createAreaChart(model,updateSource) {
 
 }
 
-animationState ="on"
+//array to store the setTimeout functions for each year. Needed since JS is single threaded. Need to destroy the [] on stop button push.
+var timeouts = [];
+var datePause = 2011
+var delayTime = 1000
 function animateMap(){
-    var dateRange=_.range(2011,2101,10)
+    var dateRange=_.range(datePause,2101,10)
     var startDate = new Date(1850,01,1);
     $.each(dateRange, function(index, value){
-        //Twice for performance/memory reasons
-        if (animationState != "off"){
-            setTimeout(function () {
-                if (animationState != "off") {
-                    currentYear = value
-                    endDate = new Date(currentYear, 01, 1);
-                    pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
-                    swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
-                    console.log(currentYear)
-                    $("#vegMapSlider").slider('value', currentYear);
-                }
-            }, (index + 1) * 900);
+        timeouts.push(setTimeout(function () {
+            currentYear = value
+            datePause = currentYear
+            endDate = new Date(currentYear, 01, 1);
+            pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
+            swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+            $("#vegMapSlider").slider('value', currentYear);
+            //Last year. Restart
             if (index == dateRange.length - 1) {
-                setTimeout(animateMap, (index + 1) * 900);
+                datePause = 2011
+                animateMap()
             }
-        }
+        }, (index + 1) * delayTime));
     })
 }
 

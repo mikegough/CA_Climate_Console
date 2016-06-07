@@ -965,14 +965,15 @@ $('#stop').click(function(e){
 
 $('#start2').click(function(e){
     e.preventDefault();
-    animationState = "on"
     animateMap()
 });
 
 $('#stop2').click(function(e){
     e.preventDefault();
-    animationState = "off"
-    animateMap()
+     $.each(timeouts, function (_, id) {
+       clearTimeout(id);
+    });
+    timeouts = [];
 })
 
 
