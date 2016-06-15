@@ -1906,9 +1906,10 @@ div#pop-up2 {
 	display: inline-block;
 }
 
-#spline_variable_dropdown{
-    width: 101%;
-    white-space: nowrap;
+#spline_variable_dropdown {
+	white-space: nowrap;
+	width: 445px;
+	margin-left: 8px;
 }
 
 #ecoServClimateModelLabel {
@@ -1984,15 +1985,30 @@ div#pop-up2 {
     cursor:pointer !important
 }
 
-#AdditionalESVariablesY1{
-	float: left;
-	margin-left: 15px;
-    margin-bottom: 10px;
+#AdditionalESVariablesY1 .selectboxit-container .selectboxit {
+	width: 220px !important;
 }
 
-#AdditionalESVariablesY2{
-    float: right;
-    margin-right: 15px;
+#AdditionalESVariablesY2 .selectboxit-container .selectboxit {
+    width: 208px !important;
+}
+#AdditionalESVariablesY1 .selectboxit .selectboxit-option-icon-container {
+	margin-left: 1px !important;
+}
+
+#AdditionalESVariablesY2 .selectboxit .selectboxit-option-icon-container {
+    margin-left: 1px !important;
+}
+
+#AdditionalESVariablesY1 {
+	float: left;
+	margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+#AdditionalESVariablesY2 {
+	float: right;
+	margin-right: 0px;
 }
 
 /*

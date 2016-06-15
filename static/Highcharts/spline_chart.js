@@ -74,7 +74,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
             chart: {
                 zoomType: 'xy',
                 width: 460,
-                height:290,
+                height:255,
                 marginTop:30,
                 marginLeft:65,
             },
@@ -89,7 +89,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 contextButton: {
                     align: 'right',
                     x:0,
-                    y:-13,
+                    y:-5,
                     }
                 }
             },
