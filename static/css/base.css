@@ -253,8 +253,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #spline_chart{
-    margin-top:7px;
-    margin-left:0px;
+	margin-top: 7px;
+	margin-left: 10px;
+	width: 450px;
+    display:inline;
 }
 
 #time_period_translation {
@@ -1898,9 +1900,20 @@ div#pop-up2 {
     display:none !important
 }
 
+#view6_contents {
+	position: relative;
+	top: -10px;
+	display: inline-block;
+}
+
+#spline_variable_dropdown{
+    width: 101%;
+    white-space: nowrap;
+}
+
 #ecoServClimateModelLabel {
     border-radius: 6px 0px 0px 6px;
-    padding-left: 10px;
+    padding-left: 20px;
     border-right: 0px;
 }
 
@@ -1969,6 +1982,17 @@ div#pop-up2 {
 
 .ui-slider-handle{
     cursor:pointer !important
+}
+
+#AdditionalESVariablesY1{
+	float: left;
+	margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+#AdditionalESVariablesY2{
+    float: right;
+    margin-right: 15px;
 }
 
 /*

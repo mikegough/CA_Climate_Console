@@ -1,19 +1,64 @@
-function createSplineChart(model) {
+function createSplineChart(model,y1_variable,y2_variable) {
+
+    var carbonColor="#5A6956"
+    var carbonColor="#646061"
+    var carbonColor="#649B51"
+    var carbonColor="#5F8251"
+    chartSettings = {
+        variables: {
+            // "MODEL Name": ["chart color", "units"]
+            "c_ecosys": [carbonColor, "gC/m2"],
+            "c_forest": [carbonColor, "gC/m2"],
+            "nbp": [carbonColor,"gC/m2"],
+            "c_dead_abo": [carbonColor,"gC/m2"],
+            "consumed": ["#EA5800","gC/m2"],
+            "h2o_stream": ["#146DD0","mm"],
+            "cwd": ["#146DD0", "mm"],
+        }
+    }
+
+    //variable name (e.g., c_ecosys)
+    y1_element = document.getElementById("y1_axis_choices")
+    y2_element = document.getElementById("y2_axis_choices")
+
+    y1_variable = y1_element.value
+    y2_variable = y2_element.value
+
+    //variable label (e.g., Total Ecosystem Carbon)
+    y1_label = y1_element.options[y1_element.selectedIndex].innerHTML;
+    y2_label = y2_element.options[y2_element.selectedIndex].innerHTML;
+
+    if (typeof y1_variable == 'undefined'){
+        y1_variable = "c_ecosys"
+    }
+
+    if (typeof y2_variable == 'undefined') {
+        y2_variable = "consumed"
+    }
+
+    if (y2_variable == "consumed") {
+        y2_color = "red"
+    }
+    else {
+        y2_color = "#146DD0"
+    }
 
     var modified_model_name=model.replace("_vtype_","_")
     var years = _.range(2011, 2101, 10)
 
+    console.log(modified_model_name)
+
     var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
 
-    var c_ecosys_data_string = ecosystem_services_data["continuous7"][modified_model_name]["c_ecosys"]
-    var nbp_data_string = ecosystem_services_data["continuous7"][modified_model_name]["nbp"]
+    var y1_data_string = ecosystem_services_data["continuous7"][modified_model_name][y1_variable]
+    var y2_data_string = ecosystem_services_data["continuous7"][modified_model_name][y2_variable]
 
-    var c_ecosys_data = $.map(c_ecosys_data_string.split(','), function(value){
+    var y1_data = $.map(y1_data_string.split(','), function(value){
         return parseInt(value, 10);
             // or return +value; which handles float values as well
     });
 
-    var nbp_data = $.map(nbp_data_string.split(','), function(value){
+    var y2_data = $.map(y2_data_string.split(','), function(value){
         return parseInt(value, 10);
     });
 
@@ -31,7 +76,7 @@ function createSplineChart(model) {
                 width: 460,
                 height:290,
                 marginTop:30,
-                marginLeft:70,
+                marginLeft:65,
             },
             title: {
                 text: ''
@@ -73,17 +118,17 @@ function createSplineChart(model) {
             yAxis: [{ // Primary yAxis left hand side
                 labels: {
                     format: '{value}',
+                    x:3,
                     style: {
-                        //Green
-                        color:'#008040',
+                        color: chartSettings["variables"][y1_variable][0],
                     },
                 },
                 title: {
-                    text: 'gC/m2',
-                    x:10,
+                    text: chartSettings["variables"][y1_variable][1],
+                    x:0,
                     style: {
-                        //Green
-                        color:'#008040',
+                        // Brown
+                        color: chartSettings["variables"][y1_variable][0],
                     },
                 },
 
@@ -91,14 +136,18 @@ function createSplineChart(model) {
                 opposite: true,
                 gridLineWidth: 0,
                 labels: {
-                    x:5,
+                    x:0,
                     format: '{value}',
                     style: {
-                        color:'#6A4F33',
+                        color: chartSettings["variables"][y2_variable][0],
                     }
                 },
                 title: {
-                    text: '',
+                    text: chartSettings["variables"][y2_variable][1],
+                    style: {
+                        // Brown
+                        color: chartSettings["variables"][y2_variable][0],
+                    },
                 },
 
             },
@@ -148,19 +197,19 @@ function createSplineChart(model) {
 
             }*/
             {
-                name: 'Net Biological Production',
+                name: y1_label,
                 type: 'spline',
-                color:'#008040',
-                data: nbp_data,
+                color: chartSettings["variables"][y1_variable][0],
+                data: y1_data,
                 tooltip: {
                     valueSuffix: ' gC/m2'
                 }
             }, {
-                name: 'Total Ecosystem Carbon',
+                name: y2_label,
                 type: 'spline',
                 yAxis: 1,
-                color:'#6A4F33',
-                data: c_ecosys_data,
+                color: chartSettings["variables"][y2_variable][0],
+                data: y2_data,
                 marker: {
                     enabled: false,
                 },

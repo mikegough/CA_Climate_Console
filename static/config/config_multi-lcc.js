@@ -1,5 +1,5 @@
-title="Protected Areas"
-subTitle="Climate Projections for Landscapes of the Western United States"
+title="Landscape"
+subTitle="Climate Projections for Federally and Tribally Protected Lands of the West"
 studyAreaBoundary=""
 initialLat=39
 initialLon=-116

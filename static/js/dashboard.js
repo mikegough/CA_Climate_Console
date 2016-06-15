@@ -204,10 +204,10 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
     //Time Period 1 & Time Period 2 Headers needed in order for the sorting to work.
     table.append('<thead>' +
-        '<th>Protected Area</th>' +
+        '<th title = "Name of the protected area">Name</th>' +
         '<th>Type</th>' +
-        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t1">(&deg;F)</div></div></th>' +
-        '<th class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t1">(&deg;F)</div></th>' +
+        '<th title = "Protected area type" class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t1">(&deg;F)</div></div></th>' +
+        '<th title = "The value in this field represents the projected change in the annual maximum temperature averaged across the selected time period" class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t1">(&deg;F)</div></th>' +
         '<th class="t1_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
         '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t2">(&deg;F)</div></div></th>' +
         '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t2">(&deg;F)</div></th>' +
@@ -278,8 +278,8 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
         //tr.append("<td>" + Number(value_list[7]) +
         tr.append("<td>" +
-            "<span class='english'>" + Number((value_list[7]).toFixed(0)) + "</span>" +
-            "<span class='metric'>" + Number((value_list[7] * 0.004046859).toFixed(1)) + "</span>" +
+            "<span class='english'>" + Number((value_list[7]).toFixed(0)).toLocaleString() + "</span>" +
+            "<span class='metric'>" + Number((value_list[7] * 0.004046859).toFixed(1)).toLocaleString() + "</span>" +
             "</td>")
 
         table.append(tr)
