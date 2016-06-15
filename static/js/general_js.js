@@ -970,6 +970,7 @@ $('#start2').click(function(e){
 
 $('#stop2').click(function(e){
     e.preventDefault();
+    animationState = "off"
      $.each(timeouts, function (_, id) {
        clearTimeout(id);
     });

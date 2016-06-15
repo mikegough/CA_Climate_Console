@@ -121,6 +121,16 @@
         content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/Eyhnq6-V6xs" frameborder="0" allowfullscreen></iframe></div>',
         style: "width: 732px"
         });
+    myDialog2 = new Dialog({
+        title: "CBI Instructional Video",
+        content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/67bI2DJmqJQ" frameborder="0" allowfullscreen></iframe></div>',
+        style: "width: 732px"
+        });
+    myDialog3= new Dialog({
+        title: "CBI Instructional Video",
+        content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/xzwcpYgRml4" frameborder="0" allowfullscreen></iframe></div>',
+        style: "width: 732px"
+        });
     });
 
 </script>
@@ -248,8 +258,8 @@
                         <br>
                         Click the play button below to view an instructional video
                         <p>
-                        <div id="youTubeDiv">
-                            <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" id="YouTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                        <div class="youTubeDiv">
+                            <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                         </div>
                     </div>
             </div>
@@ -451,9 +461,9 @@
 
                 <h3>Instructional Video:</h3>
 
-                Click on the red icon below to view an instructional video on the California Climate Console. The video will open in a popup.<br><br><br>
-                <div id="youTubeDiv">
-                    <img style="cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" id="YouTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                Click on the play button below to view an instructional video on the California Climate Console. The video will open in a popup.<br><br><br>
+                <div class="youTubeDiv">
+                    <img style="cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
                 <!--
                 <h3>Interpreting the Box Plots: </h3>
@@ -465,13 +475,15 @@
                 <sup>2</sup>The lower quartile (Q1) represents the middle value between the minimum and the median. 75% of the data fall above this line. 25% of the data fall below it.
                 </div>
                 -->
-                <br>
-
                 <h3 id="aboutClimateData">Climate: </h3>
                 Climate refers to the statistical properties of weather over periods ranging from months to decades or more, and includes average conditions, and the range of variability, as well as the frequency of extreme events.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
                 <p>
                 A climate trend is a progressive change in the state of the climate based on weather statistics evaluated over long periods, typically of at least 30 years.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
-                <p>
+                    <p>
+                To learn about the differences between climate and weather, click on the play button below.
+                <div class="youTubeDiv">
+                    <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog2.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
                 For information on climate models click the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
                 Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
@@ -642,6 +654,10 @@
                 Weather is different from climate. A weather forecast refers to a prediction about the specific atmospheric conditions expected for a
                 location in the short-term future (hours to days).<sup><a href="#refs" title="Source: National Oceanic and Atmospheric Administration (NOAA), Climate Program Office, Climate Literacy">2</a></sup>
                 <p>
+                 To learn about the differences between climate and weather, click on the play button below.
+                <div class="youTubeDiv">
+                    <img style="cursor:pointer" onclick="myDialog2.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
 
                 The near-term weather forecast data presented in the climate console streams directly from the following forecast distribution files generated by NOAA's <a target="_blank" href="http://www.cpc.ncep.noaa.gov/"> Climate Prediction Center</a>:
                 <p>
@@ -690,8 +706,13 @@
                 <p>
                 Fuzzy values are combined using logic operators in a hierarchical, tree-based logic structure to produce a result based on a single evaluation proposition (for instance “has a high degree of climate change”). Each cell in the study area is evaluated independently, and a map reflecting the value of each proposition across the landscape is produced.
                 <p>
-
                 We implemented the models on data in NetCDF Format across the same study area as the input files.
+                <p>
+                To learn more about logic models, click on the play button below.
+                <div class="youTubeDiv">
+                    <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog3.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
+
                 <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
                 <p>
                 <img id="sample_eems_chart_img" src="{{STATIC_URL}}img/sample_eems_chart.png"  onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_eems_chart.png\" width=\"900px\">",{title: "Sample EEMS Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true})'>
