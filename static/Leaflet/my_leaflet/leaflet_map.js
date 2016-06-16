@@ -825,6 +825,10 @@ document.onmousemove = function(e) {
     if (climate_PNG_overlay_url != '') {
         climate_PNG_overlay.setOpacity(fillOpacityLevel);
     }
+
+    if (typeof base_data_PNG_overlay_url != 'undefined' && base_data_PNG_overlay_url != '') {
+        base_data_PNG_overlay.setOpacity(fillOpacityLevel);
+    }
     // Adjust opacity on climateDivisions.
     near_term_climate_divisions.setStyle({fillOpacity: fillOpacityLevel});
 };

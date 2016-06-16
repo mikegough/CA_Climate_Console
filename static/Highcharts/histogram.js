@@ -3,6 +3,8 @@ for (EEMSModel in EEMSParams["models"]){
     attributes.push(EEMSParams['models'][EEMSModel][1])
 }
 
+var labels=["Very Low", "Low", "Medium Low", "Medium High", "High", "Very High"]
+var labelRank=["first", "second", "third", "forth", "fifth", "sixth"]
 
 function createColumnChart(){
 
@@ -39,6 +41,23 @@ function createColumnChart(){
 
     columnChartColors=columnChartColorsCSV.split(',')
 
+    if ( $( "#percentInVeryLow" ).length ) {
+        var largest = Math.max.apply(Math, valuesToPlot);
+        var index = valuesToPlot.indexOf(largest);
+
+        if (isNaN(valuesToPlot[index])){
+            $("#nothingToReport").show()
+            $("#soilSensitivityInfo").hide()
+        }
+        else {
+
+            $("#nothingToReport").hide()
+            $("#soilSensitivityInfo").show()
+            var example = "the " + labelRank[index] + " column indicates that " + valuesToPlot[index] + "% of the selected area's landscape has a " + labels[index] + " level of sensitivity to climate change."
+            $("#percentInVeryLow").html(example)
+        }
+    }
+
     $(function () {
         $('#column_chart').highcharts({
               chart: {
@@ -47,9 +66,9 @@ function createColumnChart(){
                     width:477,
                     */
                     width:445,
-                    height:400,
+                    height:250,
                     marginRight:35,
-                    marginBottom:200
+                    marginBottom:50
 
                 },
                 credits: {
@@ -126,7 +145,7 @@ function createColumnChart(){
                 },
 
                 yAxis: {
-                    tickInterval:1,
+                    tickInterval:25,
                     //min: minVal,
                     //max: maxVal,
                     title: {

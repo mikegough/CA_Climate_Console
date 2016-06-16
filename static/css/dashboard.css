@@ -637,6 +637,20 @@ table.tablesorter tbody {
     top: 10px;
 }
 
+#soilSensitivityInfo{
+	margin:10px 30px 5px 30px;
+}
+
+#nothingToReport{
+	margin:10px 30px 5px 30px;
+	color:red;
+}
+
+#soilSensitivityThumb{
+    width: 420px;
+    margin-top: 10px;
+}
+
 #results_visibility_radio{
 	display: none;
 }
