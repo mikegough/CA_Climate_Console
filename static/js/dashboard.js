@@ -195,7 +195,7 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
     $('#dataTableDiv').empty()
     $('#getRawValuesButton').css('display','None')
-    //$('#view5').append("<br><h3>Climate Data:</h3>")
+    //$('#view5').append("<br><h3>Climate Data:</h3>"=
     resultsJSONsorted=sortObject(tabularResultsJSON)
 
     $('#dataTableDiv').append('<div id="dynamicDataTableDiv"></div>')
@@ -204,15 +204,15 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
     //Time Period 1 & Time Period 2 Headers needed in order for the sorting to work.
     table.append('<thead>' +
-        '<th title = "Name of the protected area">Name</th>' +
-        '<th>Type</th>' +
-        '<th title = "Protected area type" class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t1">(&deg;F)</div></div></th>' +
-        '<th title = "The value in this field represents the projected change in the annual maximum temperature averaged across the selected time period" class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t1">(&deg;F)</div></th>' +
-        '<th class="t1_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
+        '<th title = "Name of the protected area. Click to sort.">Name</th>' +
+        '<th title = "Protected area type. Click to sort." >Type</th>' +
+        '<th title = "The value in this field represents the projected change in the annual maximum temperature from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of 9 models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t1">(&deg;F)</div></div></th>' +
+        '<th title = "The value in this field represents the projected change in the annual minimum temperature from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of 9 models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t1">(&deg;F)</div></th>' +
+        '<th title = "The value in this field represents the projected change in precipitation from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of 9 models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t1_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
         '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t2">(&deg;F)</div></div></th>' +
         '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t2">(&deg;F)</div></th>' +
         '<th class="t2_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
-        '<th><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th>' +
+        '<th title="Approximate size of the selected protected area. Click to sort."><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th>' +
 
         '</tr></thead>')
 

@@ -366,7 +366,6 @@ def view2(request):
             #Get all protected areas within LCC boundary
             tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1, a.eetmads0t2, a.eetmids0t2, a.eepreds0t2, a.gis_acres from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
 
-            print tabular_query
 
             cursor.execute(tabular_query)
 
@@ -390,8 +389,11 @@ def view2(request):
 
             tabularResultsJSON=json.dumps(tabular_data)
 
-            #Required in the front end.
-            resultsJSON=json.dumps({})
+            #If empty, resultsJSON is null and response is unsuccessfull, thus triggering the "No Features Selected" error.
+            if tabular_data:
+                #Required in the front end.
+                resultsJSON=json.dumps({})
+
             columnChartColors=''
 
             context={'initialize': 0,

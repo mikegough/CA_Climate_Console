@@ -2,7 +2,6 @@
 	font-size: 19px;
 	letter-spacing: 1px;
 }
-
 .header {
 	border-bottom:2px solid #444444;
 }
@@ -84,16 +83,30 @@
 	padding: 10px;
 	color: white;
 	font-weight: bold;
-	padding-top: 15px;
 	font-variant: small-caps;
 	background-color: #4C9ED9;
 	font-style: italic;
 	text-align:center;
+	padding-bottom:12px;
 }
 
 #Header1 {
 	text-align: left;
 	padding-left: 45px;
+	line-height:13px;
+	padding-top:13px
+}
+
+.changeHeader {
+}
+
+.changeSubheader{
+	font-size: 0.7em;
+	margin-left: 25px;
+	font-weight:normal;
+	margin-top:3px;
+	position:relative;
+	top:2px;
 }
 
 #timePeriodRadioDiv {
@@ -347,6 +360,10 @@ div.tabcontents {
 	z-index: 0;
 	position: absolute;
 	margin-top:80px
+}
+
+#dynamicDataTable th {
+	cursor: help !important;
 }
 
 #dynamicDataTable th,td {

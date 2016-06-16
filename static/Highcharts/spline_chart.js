@@ -12,7 +12,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
             "nbp": [carbonColor,"gC/m2"],
             "c_dead_abo": [carbonColor,"gC/m2"],
             "consumed": ["#EA5800","gC/m2"],
-            "h2o_stream": ["#146DD0","mm"],
+            "h2o_stream": ["#146DD0","mm/year"],
             "cwd": ["#146DD0", "mm"],
         }
     }
