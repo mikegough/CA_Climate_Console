@@ -628,6 +628,14 @@ table.tablesorter tbody {
 }
 
 */
+#info2{
+	display: inline;
+    cursor: help;
+    width: 22px;
+    position: absolute;
+    margin-left: 0px;
+    top: 10px;
+}
 
 #results_visibility_radio{
 	display: none;

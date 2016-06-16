@@ -295,7 +295,7 @@
                         <!--<li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>-->
                         <li><a id="view98Link" href="#view98">Climate</a></li>
                         <li><a id="view99Link" href="#view99">Soils</a></li>
-                        <li><a id="view100Link" href="#view100"><img src="{{STATIC_URL}}img/info.png"> About</a></li>
+                        <li><a id="view100Link" href="#view100"><img style="position:relative; top:4px; left:3px;" src="{{STATIC_URL}}img/info2.png"> About</a></li>
                         <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
                         <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
                         <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
@@ -428,7 +428,9 @@
 
                     </div> <!--all_point_chart_goodies -->
 
-                    <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
+                    <!--
+                        <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
+                    -->
 
                     </div>
                     <div id="view99">
@@ -446,7 +448,9 @@
                 </div>
 
 
-                <div class="selectedFeaturesListHeader" id="Header1"><span class="changeHeader">Projected Change</span><br><span class="changeSubheader">(Under RCP 8.5)</span>
+                <div class="selectedFeaturesListHeader" id="Header1"><span class="changeHeader">Projected Change </span>
+                    <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of 9 models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that proteced area, including climate projections for individual models and a soil sensitivity profile." src="{{STATIC_URL}}img/info2.png">
+                    <br><span class="changeSubheader">(Under RCP 8.5)</span>
                     <div id="timePeriodRadioDiv" style="z-index:99">
                         <input type="radio" onchange="changeTimePeriod(1)" name="time_period_for_table" value="1" checked="checked">2016-2045</input><br>
                         <input type="radio" onchange="changeTimePeriod(2)" name="time_period_for_table" value="2">2045-2075</input>
