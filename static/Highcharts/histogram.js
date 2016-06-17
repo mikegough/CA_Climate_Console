@@ -66,9 +66,9 @@ function createColumnChart(){
                     width:477,
                     */
                     width:445,
-                    height:250,
+                    height:230,
                     marginRight:35,
-                    marginBottom:50
+                    marginBottom:40
 
                 },
                 credits: {

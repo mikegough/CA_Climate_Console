@@ -639,6 +639,8 @@ table.tablesorter tbody {
 
 #soilSensitivityInfo{
 	margin:10px 30px 5px 30px;
+	font: 13px verdana;
+	color: #555555;
 }
 
 #nothingToReport{

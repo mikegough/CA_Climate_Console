@@ -38,9 +38,6 @@
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.css" />
 
-<!-- Leaflet Mask -->
-<script src="{{STATIC_URL}}deps/Leaflet_Mask/L.Mask.js"></script>
-
 <!-- leaflet.grouped-layer-control-->
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.css" />
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.js"></script>
@@ -445,7 +442,7 @@
                         <div id="nothingToReport" style="display:none">Site Sensitivity information is not available for the selected protected area.</div>
                         <div id="soilSensitivityInfo">
                          The chart above displays the <span style="font-weight:bold; cursor:help" title="The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential.">Site Sensitivity</span> profile for the selected protected area.
-                            The value of each column represents the percent of the selected area falling within site sensitivity class indicated on the x-axis. For example, <span id="percentInVeryLow"></span>
+                            The value of each column represents the percent of the selected area falling within the site sensitivity class indicated on the x-axis. For example, <span id="percentInVeryLow"></span>
                             <!--The value of each column indicates the percent area falling within the sensitivity class specified on the x-Axis.
                             <!--The value of each column indicates the percentage of the selected area having the specified level of sensitivity to climate change (ranging from Very Low to Very High).
                             -->
@@ -466,7 +463,7 @@
 
 
                 <div class="selectedFeaturesListHeader" id="Header1"><span class="changeHeader">Projected Change </span>
-                    <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of 9 models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that proteced area, including climate projections for individual models and a soil sensitivity profile." src="{{STATIC_URL}}img/info2.png">
+                    <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that protected area, including climate projections for individual models and a soil sensitivity profile." src="{{STATIC_URL}}img/info2.png">
                     <br><span class="changeSubheader">(Under RCP 8.5)</span>
                     <div id="timePeriodRadioDiv" style="z-index:99">
                         <input type="radio" onchange="changeTimePeriod(1)" name="time_period_for_table" value="1" checked="checked">2016-2045</input><br>
