@@ -278,8 +278,8 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
 
         //tr.append("<td>" + Number(value_list[7]) +
         tr.append("<td>" +
-            "<span class='english'>" + Number((value_list[7]).toFixed(0)).toLocaleString() + "</span>" +
-            "<span class='metric'>" + Number((value_list[7] * 0.004046859).toFixed(1)).toLocaleString() + "</span>" +
+            "<span class='english'>" + Number((value_list[7]).toFixed(0)) + "</span>" +
+            "<span class='metric'>" + Number((value_list[7] * 0.004046859).toFixed(1))+ "</span>" +
             "</td>")
 
         table.append(tr)
@@ -304,6 +304,9 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         widgets: ['zebra'],
         widgetZebra: {css: ["rowClass1","rowClass2"]},
     });
+
+    //Gives a thousands separator to the values in the area field, while still allowing it to sort properly.
+    $("table#dynamicDataTable td span").digits();
 
     var table1Filters = {
         col_1: "select",
@@ -570,4 +573,12 @@ map.addControl(new layerToggle());
 */
 
 $("#leaflet-control-layers-group-0").append("<div id='results_visibility_radio'><hr>" + "<input type='checkbox' id='results_poly_visibility' name='results_poly_visibility' checked value='on'><b>Current Selection</b></div>");
+
+//Function to add comma thousands separator to values in the area field while still allowing it to sort properly.
+$.fn.digits = function(){
+    return this.each(function(){
+        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+    })
+}
+
 
