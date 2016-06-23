@@ -7,8 +7,16 @@ var map = L.map("map", {
     drawcontrol:false,
 }).setView(latlng,zoomLevel);
 
+// Hack for map.on('click',onClick) is also fired when zoombox #1884
+// Prevents zoombox from also doing a map click.
+var mousedownPoint; // global
+map.on('mousedown', function (e) {
+  mousedownPoint = e.containerPoint;
+});
+
 //SCALE BAR
 L.control.scale({maxWidth:200}).addTo(map);
+
 
 //BEGIN TEXT UPPER LEFT ("Selection Tools")
 var toolTitle = L.Control.extend({
@@ -700,9 +708,11 @@ function onEachFeature(feature, layer) {
 }
 
 function selectFeature(e){
-
-    user_wkt="POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
-    create_post(user_wkt)
+     // Hack for  map.on('click',onClick) is also fired when zoombox #1884
+     if (e.containerPoint.equals(mousedownPoint)) {
+         user_wkt = "POINT(" + e.latlng.lng + " " + e.latlng.lat + ")";
+         create_post(user_wkt)
+     }
 }
 
 function highlightFeature(e) {
@@ -849,6 +859,15 @@ L.control.zoom({
     position:'topright'
 }).addTo(map);
 
+
+var control = L.control.zoomBox({
+    modal: false,  // If false (default), it deactivates after each use.
+    // If true, zoomBox control stays active until you click on the control to deactivate.
+    position: "topright",
+    // className: "customClass"  // Class to use to provide icon instead of Font Awesome
+});
+
+map.addControl(control);
 
 //BEGIN TEXT UPPER LEFT ("Selection Tools")
 
@@ -1418,4 +1437,5 @@ function activateMapForEcosystemServices(){
         fillOpacity:0,
     };
 }
+
 
