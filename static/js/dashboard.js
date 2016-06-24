@@ -56,10 +56,10 @@ var defaultQueryLayerStyle = {
 };
 
 var hoverQueryLayerStyle = {
-    color:'#00FFFF',
+    color:'#2C88CD',
     fillColor:'#2C88CD',
     fillOpacity:.9,
-    weight:1,
+    weight:5,
     opacity: 1
 }
 
@@ -69,11 +69,26 @@ function mouseOverShowFeature(hovername) {
 
         hoverFeature = L.geoJson(data, {
             filter: function(feature, layer) {
-                return feature.properties.ID_For_Zon==OID_Index[hovername];
+                //return feature.properties.ID_For_Zon==OID_Index[hovername];
+                return feature.properties.gridcode==OID_Index[hovername];
+            },
+            //Option to show markers only on smaller features.
+            /*
+            onEachFeature: function (feature, layer) {
+                hoverFeatureArea=feature.properties.GIS_ACRES
             }
+            */
         });
+
         hoverFeature.setStyle(hoverQueryLayerStyle)
         hoverFeature.addTo(map)
+
+        bounds = hoverFeature.getBounds();
+        //This handles cases where there isn't a matching field in the json file,
+        if  (Object.keys(bounds).length > 0) {
+            center = bounds.getCenter();
+            marker = L.marker(center).addTo(map);
+        }
     });
 }
 
@@ -83,6 +98,9 @@ function mouseOutDeselect() {
     map.removeLayer(hoverFeature)
     if (map.hasLayer(results_poly)) {
         results_poly.bringToFront()
+    }
+    if (typeof marker != "undefined" && map.hasLayer(marker)) {
+        map.removeLayer(marker)
     }
 }
 
