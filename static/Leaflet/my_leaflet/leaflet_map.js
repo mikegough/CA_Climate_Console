@@ -483,7 +483,9 @@ function create_post(newWKT) {
             else {
 
                     $("#map").css("width","")
+                    $("#dataTableContainer").css("display","block")
                     $("#detailedView").css("display","none")
+                    $("#about").css("display","none")
                     $("#tab_container").css("width","")
                     $("#dataTableDiv").css("width","")
                     $("#detailedView").css("width","")

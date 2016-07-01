@@ -656,3 +656,39 @@ table.tablesorter tbody {
 #results_visibility_radio{
 	display: none;
 }
+
+.info2{
+	max-width:300px;
+
+}
+
+.leaflet-draw {
+    position:absolute;
+    top: 25px;
+}
+
+#about{
+	position: relative;
+	width: 480px;
+	float: right;
+	padding-top: 0px;
+	box-shadow: -1px -1px 40px #2D2D2D;
+	border-bottom-left-radius: 20px;
+	background-color: white;
+	height: 98%;
+	overflow-y: auto;
+	z-index:0;
+}
+
+#backArrow {
+	cursor:pointer;
+	float: left;
+	width: 25px;
+}
+
+#aboutText{
+	padding:20px;
+	padding-top:5px;
+	color:#606060;
+	margin-bottom:30px;
+}

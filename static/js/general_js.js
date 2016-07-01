@@ -989,15 +989,15 @@ preload([
 $('#cbp-spmenu-s3').html("\
    			<h3>Climate Tools & Links</h3>\
 			<a href='/ca'>California Climate Console</a>\
-            <a href='http://climate.databasin.org/'>CBI Climate Center</a>\
+            <a href='http://climate.databasin.org/' target='_blank'>CBI Climate Center</a>\
             <a href='javascript:void(0);' id='close_explore'>&#10006</a>\
             \
 			<a href='/drecp'>DRECP Climate Console</a>\
-            <a href='http://cal-adapt.org/'>Cal-Adapt</a>\
+            <a href='http://cal-adapt.org/' target='_blank'>Cal-Adapt</a>\
             <a href=''> &nbsp</a>\
             \
 			<!--<a href='?studyarea=utah'>Utah/Colorado Plateau Climate Console</a>-->\
-            <a href='http://climate.calcommons.org/'>Climate Commons</a>\
+            <a href='http://climate.calcommons.org/' target='_blank'>Climate Commons</a>\
             <a href=''> &nbsp</a>\
     "
 )

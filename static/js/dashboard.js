@@ -600,3 +600,15 @@ $.fn.digits = function(){
 }
 
 
+$("#info2").on("click",function(){
+        $("#dataTableContainer").css("display","none")
+        $("#about").css("display","block")
+        $("#about").css("float","right")
+    }
+)
+
+$("#backArrow").on("click",function(){
+        $("#dataTableContainer").css("display","block")
+        $("#about").css("display","none")
+    }
+)
