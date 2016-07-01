@@ -692,3 +692,10 @@ table.tablesorter tbody {
 	color:#606060;
 	margin-bottom:30px;
 }
+
+.variableChangeName{
+	display: inline-block;
+	width: 38px;
+	position: relative;
+	font-weight: bold;
+}

@@ -472,8 +472,21 @@
                         <img id="backArrow" title="Click to return to the previous page" src="{{STATIC_URL}}img/back_arrow.png"> About the Climate Data
                     </div>
                     <div id="aboutText">
-                        <h3>Projected Change</h3>
-                        The values in the projected change table represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5).
+                        <h3>Projected Change Table</h3>
+                        The values in the projected change table represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period (2016-2045 or 2046-2075). These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5).
+                        <p>
+                        <div class="variableChangeName">Tmax</div> = Projected Change in Maximum Temperature<br>
+                        <div class="variableChangeName">Tmin</div> = Projected Change in Minimum Temperature<br>
+                        <div class="variableChangeName">Prec</div> = Projected Change in Precipitation<br>
+                        <p>
+
+                        <h3>Detailed view</h3>
+
+                        Clicking on a protected area name in the projected change table will display detailed information for that protected area in a panel on the right, including a point chart that captures climate projections for individual models and a soil sensitivity profile. The point chart shows the historical climate conditions for the period (1971-2000) within the selected area, as well as the modeled projections for the two future time periods. Model averages (ensembles) are shown in red.
+                        <p>
+                        Clicking any point in the chart will display the corresponding dataset in the map.
+                        <p>
+                        The table above the point chart provides a quick snapshot of the changes that are projected to occur within the selected area according to the model averages (ensembles).
 
                         <h3>Derivation of Climate and Soil Variables</h3>
                         <p>
@@ -529,6 +542,10 @@
                         <p>
                         <h3>Processing of Soil Data</h3>
                         All soil variables were downloaded at the scale of the conterminous United States and processed in ESRI ArcInfo workstation (ESRI 2014). The polygon data were converted to a raster dataset with a cell size of 0.0083333333 decimal degrees. The data were then clipped to the geographic extent of the study area and exported in the NetCDF format.
+                        <p>
+
+                        <h3>Post-Processing</h3>
+                        Each dataset used in the Climate Console was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means for each dataset were subsequently calculated for each of the reporting units and loaded into a PostGIS database.
 
                     </div>
 
@@ -536,7 +553,7 @@
 
                 <div id="dataTableContainer">
                     <div class="selectedFeaturesListHeader" id="Header1"><span class="changeHeader">Projected Change </span>
-                        <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that protected area, including climate projections for individual models and a soil sensitivity profile." src="{{STATIC_URL}}img/info2.png">
+                        <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that protected area, including climate projections for individual models and a soil sensitivity profile. Click this icon for additional information." src="{{STATIC_URL}}img/info2.png">
                         <br><span class="changeSubheader">(Under RCP 8.5)</span>
                         <div id="timePeriodRadioDiv" style="z-index:99">
                             <input type="radio" onchange="changeTimePeriod(1)" name="time_period_for_table" value="1" checked="checked">2016-2045</input><br>
