@@ -630,7 +630,7 @@ def generate_eems_tree(request):
     print eems_file_name
     top_node=request.POST.get("top_node")
 
-    eems_file_directory="static/config/eems"
+    #eems_file_directory="static/config/eems"
     #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicityly type the path.
     eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
 
@@ -1029,6 +1029,11 @@ def generate_eems_tree(request):
     eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
 
     eems_file_handle.close()
+
+    # To write json tree to file
+    #eems_json_file=open("F:/Projects2/EEMS_Online/json_models/" + top_node +".json",'w')
+    #eems_json_file.write(json.dumps(eems_tree_dict, indent=4, sort_keys=True))
+    #eems_json_file.close()
 
     context={
         'eems_tree_dict': eems_tree_dict,

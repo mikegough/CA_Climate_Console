@@ -494,13 +494,13 @@
                         The information below provides an overview of the process used to create the climate and soil datasets for the Landscape Climate Dashboard.
 
                         <h3>Climate Data Selection</h3>
-                        Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten nine General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012). These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States (Rupp et al. 2013, Sheffield et al., 2013)., for the specific needs of California water resource planning (O'Daly et al. 2015)
+                        Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected nine General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012). These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the western United States (Rupp et al. 2013, Sheffield et al., 2013).
 
                         <p>
-                        The ten nine GCM/ESMs capture a wide range of projected change for both annual average temperature and annual precipitation (Figure 2 ) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011; van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
+                        The nine GCM/ESMs capture a wide range of projected change for both annual average temperature and annual precipitation (Figure 2) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011; van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
 
                         <p>
-                        We then obtained downscaled climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire spatial extent of Californiathe western United States. Two thirty-year time series, 2016-2045 and 2046-2075, were extracted to represent projected future climates. A multi-model ensemble mean of the ten nine downscaled climate models was calculated for each of the climate variables discussed below for each thirty-year period.
+                        We then obtained downscaled climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire spatial extent of the western United States. Two thirty-year time series, 2016-2045 and 2046-2075, were extracted to represent projected future climates. A multi-model ensemble mean of the nine downscaled climate models was calculated for each of the climate variables discussed below for each thirty-year period.
                         <p>
                         <h3>Description of Climate Model Datasets</h3>
                         The LT71m PRISM dataset is monthly long-term time series consisting of monthly-modeled values for precipitation (rain + melted snow) and maximum, minimum, and mean temperatures. The LT71m dataset uses only station networks that have at least some stations with ≥ 20 years of observed data. The data were derived using the climatologically-aided interpolation (CAI) method using the 1971-2000 monthly climatologies (Daly et al. 2008).
@@ -511,30 +511,14 @@
                         All PRISM data used for the historical period were converted from the ESRI ASCII raster format (ESRI 2014) to the Network Common Data Form (NetCDF; Rew et al. 1997; UNIDATA 2015). We discovered that when the NEX data were processed by Thrasher, et al. (2013) the left lower corners of the PRISM data were used as the center coordinates for processing the NEX NetCDF files. Therefore, the origin of the NEX US-DCP30 data had to be altered to conform to the PRISM data. The NEX grids were adjusted by one-half grid cell (0.004166666667 decimal degrees) so that the two datasets would be spatially aligned and consistent.
 
                         <p>
-                        Once all of the data were in the NetCDF format and spatially aligned, the climate variables, maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec) were extracted from the both CONUS datasets for the spatial extent of Californiathe western United States. The multi-model ensemble was then created for each base climate variable by taking the un-weighted mean of the projections from the ten nine GCM/EMSs.
+                        Once all of the data were in the NetCDF format and spatially aligned, the climate variables, maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec) were extracted from the both CONUS datasets for the spatial extent of the western United States. The multi-model ensemble was then created for each base climate variable by taking the un-weighted mean of the projections from the nine GCM/EMSs.
 
                         <h3>Calculation of Climate Variables</h3>
                         The climate variables (tmax, tmin, and prec) for each of the time periods (1971-2000, 2016-2045, and 2046-2075) were obtained by first calculating the annual averages for the temperature values and the annual total precipitation. Then the mean value was calculated for each time period.
                         <p>
-                        Two derived climate variables, potential evapotranspiration (PET) and aridity, were also calculated for the historical and future scenarios. PET was calculated using the 1985 version of the Hargreaves potential evaporation equation (Hargreaves & Allen 2003):
+                        All climate variables for the historic and the ten future projections (nine climate models and the ensemble) were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014) and are listed in Table 2.
                         <p>
-
-                            PET = 0.0023 x 0.408RA x (Tavg + 17.8) x TD 0.5 	(1)
-                        <p>
-                        where RA is extraterrestrial radiation expressed in (MJ m-2 d-1), Tavg (oC) is average daily temperature, and TD (oC) is the temperature range. The constant 0.408 is the inverse of latent heat flux of vaporization at 20 oC, is used to convert extraterrestrial radiation units from MJ m-2 d-1 to mm d-1. RA was calculated using the r.sun (Šúri & Hofierka 2004) routine in the GRASS geographic information system (GRASS 2015)
-                        <p>
-
-                        For this study aridity was defined as P/PET where P is annual precipitation and PET is defined by equation 1. The percentage change in aridity was calculated by the following form (Feng & Fu 2013):
-                        <p>
-
-                            ∆(P/PET)⁄((P/PET) )≈∆P/P-∆PET/PET∙ 	(2)
-                        <p>
-                        All climate variables for the historic and the eleven ten future projections (ten nine climate models and the ensemble) were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014) and are listed in Table 2.
-
-                        <p>
-
                         The delta values for the future periods for tmin and tmax were calculated by subtracting historical values from future values. However, the delta values for the future periods for precipitation and aridity are calculated as percent change from the historical (((future-historical) / historical) * 100).
-
                         <p>
                         <h3>Soil Data for EEMS Analysis</h3>
                         Soil data for this analysis were obtained from the CONUS Multi-Layer Soil Characteristics dataset (Miller & White 1998) and the STATSGO soil database (Soil Survey Staff 2015). All variables used are listed in Table 3.
@@ -545,7 +529,7 @@
                         <p>
 
                         <h3>Post-Processing</h3>
-                        Each dataset used in the Climate Console was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means for each dataset were subsequently calculated for each of the reporting units and loaded into a PostGIS database.
+                        Each dataset used in the Climate Dashboard was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means for each dataset were subsequently calculated for each of the reporting units and loaded into a PostGIS database.
 
                     </div>
 

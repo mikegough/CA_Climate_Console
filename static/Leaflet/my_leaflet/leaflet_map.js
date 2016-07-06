@@ -861,7 +861,7 @@ L.control.zoom({
     position:'topright'
 }).addTo(map);
 
-
+/*
 var control = L.control.zoomBox({
     modal: false,  // If false (default), it deactivates after each use.
     // If true, zoomBox control stays active until you click on the control to deactivate.
@@ -870,6 +870,7 @@ var control = L.control.zoomBox({
 });
 
 map.addControl(control);
+*/
 
 //BEGIN TEXT UPPER LEFT ("Selection Tools")
 
