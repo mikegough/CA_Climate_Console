@@ -227,9 +227,9 @@ function createDynamicDataTable(time_period_for_table, units_for_table){
         '<th title = "The value in this field represents the projected change in annual maximum temperature from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t1_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t1">(&deg;F)</div></div></th>' +
         '<th title = "The value in this field represents the projected change in annual minimum temperature from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t1_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t1">(&deg;F)</div></th>' +
         '<th title = "The value in this field represents the projected change in precipitation from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t1_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
-        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t2">(&deg;F)</div></div></th>' +
-        '<th class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t2">(&deg;F)</div></th>' +
-        '<th class="t2_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
+        '<th title = "The value in this field represents the projected change in annual maximum temperature from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t2_header"><div class="dataHeader"><span class="quick_therm_tmax_small"><i class="wi wi-thermometer"></i></span>Tmax<div class="units" id="units_tmax_t2">(&deg;F)</div></div></th>' +
+        '<th title = "The value in this field represents the projected change in annual minimum temperature from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t2_header"><div class="dataHeader"><span class="quick_therm_tmin_small"><i class="wi wi-thermometer"></i></span>Tmin<div class="units" id="units_tmin_t2">(&deg;F)</div></th>' +
+        '<th title = "The value in this field represents the projected change in precipitation from the historical period 1971-2000 averaged across the selected area and the selected time period. This value is based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under RCP8.5. Click to sort." class="t2_header"><div class="dataHeader"><span class="quick_rain_small"><i class="wi wi-rain-mix"></i></span>Prec<div class="units" id="units_prec">(%)</div></div></th>' +
         '<th title="Approximate size of the selected protected area. Click to sort."><div class="dataHeader">&nbsp&nbspArea<br><div class="units" id="units_area">(Acres)</div></div></th>' +
 
         '</tr></thead>')
@@ -508,26 +508,26 @@ function changeTimePeriod(time_period){
     time_period_for_table=time_period
     //createDynamicDataTable(time_period_for_table,units_for_table)
     if (time_period_for_table==1) {
-        $('td:nth-child(3)').show();
-        $('td:nth-child(4)').show();
-        $('td:nth-child(5)').show();
+        $('#dynamicDataTable td:nth-child(3)').show();
+        $('#dynamicDataTable td:nth-child(4)').show();
+        $('#dynamicDataTable td:nth-child(5)').show();
 
-        $('td:nth-child(6)').hide();
-        $('td:nth-child(7)').hide();
-        $('td:nth-child(8)').hide();
+        $('#dynamicDataTable td:nth-child(6)').hide();
+        $('#dynamicDataTable td:nth-child(7)').hide();
+        $('#dynamicDataTable td:nth-child(8)').hide();
 
         //Show/Hide Headers
         $('.t1_header').show();
         $('.t2_header').hide();
     }
     else if (time_period_for_table==2) {
-        $('td:nth-child(3)').hide();
-        $('td:nth-child(4)').hide();
-        $('td:nth-child(5)').hide();
+        $('#dynamicDataTable td:nth-child(3)').hide();
+        $('#dynamicDataTable td:nth-child(4)').hide();
+        $('#dynamicDataTable td:nth-child(5)').hide();
 
-        $('td:nth-child(6)').show();
-        $('td:nth-child(7)').show();
-        $('td:nth-child(8)').show();
+        $('#dynamicDataTable td:nth-child(6)').show();
+        $('#dynamicDataTable td:nth-child(7)').show();
+        $('#dynamicDataTable td:nth-child(8)').show();
 
         //Show/Hide Headers
         $('.t2_header').show();
