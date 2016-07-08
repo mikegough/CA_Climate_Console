@@ -610,16 +610,16 @@
                 </div>
                  <div id="MEEMSE_footer">
                     <div id="MEEMSE_node_count_legend">
-                        <table id="MEEMSE_node_count_legend_table">
+                        <span title="Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes.">
+                        <table class="MEEMSE_node_count_legend_table">
                             <tr>
-                                <td rowspan="2">Input<br>Count</td>
+                                <td rowspan="2" style="width: 200px; min-width: 55px; text-align: right; padding-right: 8px;">Number of<br>Inputs</td>
                                 <td>0</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
                                 <td>4</td>
                                 <td>5</td>
-                                <td>Active</td>
                             </tr>
                             <tr>
                                 <td style="background-color:#AAAAAA"></td>
@@ -628,16 +628,21 @@
                                 <td style="background-color:#DDAAAA"></td>
                                 <td style="background-color:#EEAAAA"></td>
                                 <td style="background-color:#FFAAAA"></td>
-                                <td style="background-color:#A6C8A6"></td>
                             </tr>
                         </table>
+                        </span>
+                        <span title="Green nodes represent the active branch (the branch for which the input nodes are displayed), with the lowest green node being the one that is visible in the map.">
+                        <table class="MEEMSE_node_count_legend_table" style="width:70px">
+                            <tr>
+                            <td style="min-width: 58px; line-height:7px; text-align:right">Active</td>
+                            <td style="min-width:8px; background-color:#A6C8A6"></td>
+                            </tr>
+                        </table>
+                        </span>
                     </div>
-
                     <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
-
                  </div>
-
-
+                <br>
             </div>
 
         </div>

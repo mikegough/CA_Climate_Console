@@ -36,7 +36,7 @@ a:hover {
     height:115px;
     width:101%;
     background-color:#1B6186;
-    border-bottom:2px solid #444444;
+    border-bottom:2px solid #526059;
     text-align:center;
     margin-left:auto;
     margin-right:auto;
@@ -313,21 +313,22 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     float:left;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#aaaaaa+0,aaaaaa+14,bbaaaa+14,bbaaaa+28,ccaaaa+28,ccaaaa+42,ddaaaa+42,ddaaaa+56,eeaaaa+56,eeaaaa+70,ffaaaa+70,ffaaaa+84,a6c8a6+84,a6c8a6+100 */
 }
-#MEEMSE_node_count_legend_table{
+.MEEMSE_node_count_legend_table{
     font-size:9px;
     width:100%
 }
-#MEEMSE_node_count_legend_table td{
+
+.MEEMSE_node_count_legend_table td{
+    cursor:help;
     color:#606060;
     text-align:center;
     width:14%;
     min-width:14%;
     height:10px;
     min-height:10px;
-    cursor:default;
 }
 
-#MEEMSE_node_count_legend_table th{
+.MEEMSE_node_count_legend_table th{
     background-color:#EDEDED;
 }
 
@@ -427,13 +428,12 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     background-color:white;
 }
 
-#additionalFeaturesCount{
+.additionalFeaturesCount{
     cursor: pointer;
 }
 
-#selectedFeaturesListHeader {
+.selectedFeaturesListHeader {
 	padding: 10px;
-	padding-left: 30px;
 	color: rgb(80, 131, 176);
 	font-weight: bold;
 	border-bottom: 1px solid lightblue;
@@ -446,24 +446,28 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     font: 17px/19px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
 }
 
-#selectedFeaturesTable{
+.selectedFeaturesTable{
     margin-left:20px;
     position:relative;
     top:-15px;
 }
 
-#selectedFeaturesTable td{
+.selectedFeaturesTable td{
     color: rgb(80, 131, 176);
     background-color: #EDF7FF;
 }
 
-#selectedFeaturesFullList {
+.selectedFeaturesFullList {
     border:1px solid #ADD8E6;
     border-top:0px;
     display:none;
 }
 
-#closeSelectedFeaturesFullList {
+.selectedFeaturesFullList td{
+    font-size:13px;
+}
+
+.closeSelectedFeaturesFullList {
 	float: right;
 	position: relative;
 	right: 10px;
@@ -1914,9 +1918,12 @@ div#pop-up2 {
 	margin-left: 8px;
 }
 
+#ecosystem_services_model_div {
+    margin-left:5px
+}
 #ecoServClimateModelLabel {
     border-radius: 6px 0px 0px 6px;
-    padding-left: 20px;
+    padding-left: 43px;
     border-right: 0px;
 }
 

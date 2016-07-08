@@ -108,17 +108,17 @@
          return false;
      });
 
-     $("#additionalFeaturesCount").click(function() {
-            $('#selectedFeaturesFullList').empty()
-            $("#selectedFeaturesShortList").hide()
-            $("#closeSelectedFeaturesFullList").show()
-            $("#additionalFeaturesCount").hide()
+     $(".additionalFeaturesCount").click(function() {
+            $('.selectedFeaturesFullList').empty()
+            $(".selectedFeaturesShortList").hide()
+            $(".closeSelectedFeaturesFullList").show()
+            $(".additionalFeaturesCount").hide()
 
-            $('#selectedFeaturesFullList').append('<br><div id="selectedFeaturesFullListTableContainer"></div>')
-            $('#selectedFeaturesFullListTableContainer').append('<table class="selectedFeaturesFullListTable" id="selectedFeaturesTable"></table>');
-            var selectedFeaturesTable=$('#selectedFeaturesFullListTableContainer').children();
+            $('.selectedFeaturesFullList').append('<br><div class="selectedFeaturesFullListTableContainer"></div>')
+            $('.selectedFeaturesFullListTableContainer').append('<table class="selectedFeaturesFullListTable" class="selectedFeaturesTable"></table>');
+            var selectedFeaturesTable=$('.selectedFeaturesFullListTableContainer').children();
 
-            $('#selectedFeaturesFullList').show()
+            $('.selectedFeaturesFullList').show()
 
             var count = 1
             listOfSelectedFeatures = ""
@@ -136,12 +136,12 @@
 
      });
 
-     $("#closeSelectedFeaturesFullListLink").click(function(){
-         $("#closeSelectedFeaturesFullList").hide()
-         $("#selectedFeaturesShortList").show()
-         $("#additionalFeaturesCount").show()
-         $('#selectedFeaturesFullList').empty()
-         $('#selectedFeaturesFullList').hide()
+     $(".closeSelectedFeaturesFullListLink").click(function(){
+         $(".closeSelectedFeaturesFullList").hide()
+         $(".selectedFeaturesShortList").show()
+         $(".additionalFeaturesCount").show()
+         $('.selectedFeaturesFullList').empty()
+         $('.selectedFeaturesFullList').hide()
 
      })
 

@@ -286,18 +286,18 @@
 
                         <div class="selectedFeaturesListHeader">
                             <!-- Detailed Report: -->
-                            <span id="selectedFeaturesShortList"></span>
-                            <span id="additionalFeaturesCount"></span>
+                            <span class="selectedFeaturesShortList"></span>
+                            <span class="additionalFeaturesCount"></span>
                         </div>
-                        <span  id="closeSelectedFeaturesFullList"><a id="closeSelectedFeaturesFullListLink">x</a></span>
-                        <div id="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+                        <span  class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                        <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
 
                     <!--data-persist="true" keeps the current tab active on page refresh-->
                     <ul class="tabs" id="tabs" data-persist="false">
                         <!--<li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>-->
                         <li><a id="view98Link" href="#view98">Climate</a></li>
                         <li><a id="view99Link" href="#view99">Soils</a></li>
-                        <li><a id="view100Link" href="#view100"><img style="position:relative; top:4px; left:3px;" src="{{STATIC_URL}}img/info2.png"> About</a></li>
+                        <li><a id="view100Link" href="#view100">About this Protected Area</a></li>
                         <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
                         <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
                         <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
@@ -472,7 +472,7 @@
                         <img id="backArrow" title="Click to return to the previous page" src="{{STATIC_URL}}img/back_arrow.png"> About the Climate Data
                     </div>
                     <div id="aboutText">
-                        <h3>Projected Change Table</h3>
+                        <h3>Projected Change</h3>
                         The values in the projected change table represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period (2016-2045 or 2046-2075). These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5).
                         <p>
                         <div class="variableChangeName">Tmax</div> = Projected Change in Maximum Temperature<br>
