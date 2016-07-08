@@ -889,7 +889,6 @@ $(window).load(function(){
 
      //Comment out to prevent spinner on click. Uncomment in the map draw function.
     $(document).ajaxStart(function(){
-        $("#view1").css("opacity", ".1");
         // wrap view1 in a span to fix chrome bug where the quickview table's opacity wouldn't change.
         $("#view1_contents").css("opacity", ".1");
         $("#view2").css("opacity", ".1");
@@ -902,7 +901,6 @@ $(window).load(function(){
     });
 
     $(document).ajaxComplete(function(){
-        $("#view1").css("opacity", "1");
         $("#view1_contents").css("opacity", "1");
         $("#view2").css("opacity", "1");
         $("#view3").css("opacity", "1");
