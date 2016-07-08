@@ -46,7 +46,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
     var modified_model_name=model.replace("_vtype_","_")
     var years = _.range(2011, 2101, 10)
 
-    console.log(modified_model_name)
+    //console.log(modified_model_name)
 
     var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
 

@@ -236,126 +236,126 @@
             -->
 
             <div id="view1" class="views">
+                <span id="view1_contents" style="display:inline-block">
 
+                    <div id="all_point_chart_goodies">
 
-                <div id="all_point_chart_goodies">
+                            <div class="select_container_2">
+                                                       <form class="select_form2">
+                                                       <div class="styled-select2" id="ss1">
+                                                       <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                                                       <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                                                       <!-- Annual Averages -->
+                                                       <option value="tmax" selected>Maximum Temperature</option>
+                                                       <option value="tmin">Minimum Temperature</option>
+                                                       <option value="prec">Precipitation</option>
+                                                       <option value="arid">Aridity</option>
+                                                       <option value="pet">PET</option>
+                                                       </select>
+                                                       </div>
+                                                       <div class="styled-select2" id="ss2">
+                                                       <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
+                                                       <!-- Annual Averages -->
+                                                       <option class="avg" value="avg" selected >Average</option>
+                                                       <option class="delta" value="delta">Change</option>
+                                                       <!-- <option class="anom" value="anom">Anomaly</option> -->
+                                                       </select>
+                                                       </div>
+                                                       <div class="styled-select2" id="ss3">
+                                                       <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value);; updateQuickViewTable(document.getElementById("season_selection_form").value)'>
+                                                       <!-- Annual Averages -->
+                                                       <option value="s0" selected >Annual</option>
+                                                       <option value="s1">Jan-Feb-Mar</option>
+                                                       <option value="s2">Apr-May-Jun</option>
+                                                       <option value="s3">Jul-Aug-Sep</option>
+                                                       <option value="s4">Oct-Nov-Dec</option>
+                                                       </select>
+                                                       </div>
+                                                       <div id="units_selector">
+                                                       <b>Units:</b>
+                                                       <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                                                       <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
+                                                       </div>
+                                                       </form>
+                                                       </div>
 
-                        <div class="select_container_2">
-                                                   <form class="select_form2">
-                                                   <div class="styled-select2" id="ss1">
-                                                   <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                                                   <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
-                                                   <!-- Annual Averages -->
-                                                   <option value="tmax" selected>Maximum Temperature</option>
-                                                   <option value="tmin">Minimum Temperature</option>
-                                                   <option value="prec">Precipitation</option>
-                                                   <option value="arid">Aridity</option>
-                                                   <option value="pet">PET</option>
-                                                   </select>
-                                                   </div>
-                                                   <div class="styled-select2" id="ss2">
-                                                   <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
-                                                   <!-- Annual Averages -->
-                                                   <option class="avg" value="avg" selected >Average</option>
-                                                   <option class="delta" value="delta">Change</option>
-                                                   <!-- <option class="anom" value="anom">Anomaly</option> -->
-                                                   </select>
-                                                   </div>
-                                                   <div class="styled-select2" id="ss3">
-                                                   <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value);; updateQuickViewTable(document.getElementById("season_selection_form").value)'>
-                                                   <!-- Annual Averages -->
-                                                   <option value="s0" selected >Annual</option>
-                                                   <option value="s1">Jan-Feb-Mar</option>
-                                                   <option value="s2">Apr-May-Jun</option>
-                                                   <option value="s3">Jul-Aug-Sep</option>
-                                                   <option value="s4">Oct-Nov-Dec</option>
-                                                   </select>
-                                                   </div>
-                                                   <div id="units_selector">
-                                                   <b>Units:</b>
-                                                   <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
-                                                   <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
-                                                   </div>
-                                                   </form>
-                                                   </div>
+                            <br>
 
-                        <br>
+                            <script>
+                                if (initialize==1){
+                                    document.getElementById('initialization_container').style.display="block";
+                                    document.getElementById('tab_container').style.display="none";
+                                }
+                            </script>
 
-                        <script>
-                            if (initialize==1){
-                                document.getElementById('initialization_container').style.display="block";
-                                document.getElementById('tab_container').style.display="none";
-                            }
-                        </script>
+                            <div id="point_chart"></div>
 
-                        <div id="point_chart"></div>
+                            <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
 
-                        <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
+                            <div style="display:none" id="point_chart_description"></div>
 
-                        <div style="display:none" id="point_chart_description"></div>
+                        </div>
+
+                        <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
+
+                    <div id="climate_quick_view">
+
+                        <table id="climate_quick_view_table">
+                            <tr>
+                                <th colspan="2">
+                                    <!--<span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>-->
+                                    <span style="font-weight:normal;font-size:1em">Projected Change (Model Averages, <span id="seasonLabel">Annual</span>)</span>
+
+                                </th>
+                            </tr>
+
+                            <!-- TMAX -->
+                            <tr>
+                                <td style="max-width:30px;text-align:center">
+                                    <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
+                                </td>
+                                <td>
+                                    The average max temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
+                                    <p>
+                                    <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                    <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                </td>
+                            </tr>
+
+                            <!-- TMIN -->
+                            <tr>
+                                <td style="max-width:30px; text-align:center">
+                                    <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
+                                </td>
+                                <td>
+                                    The average min temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
+                                    <p>
+                                    <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                    <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                </td>
+                            </tr>
+
+                            <!-- PRECIP -->
+                            <tr>
+                                <td>
+                                    <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
+                                </td>
+                                <td>
+                                    The average precipitation in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_precip_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_precip_units">mm</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_precip_units">mm</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                    <p>
+                                    <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
+                                </td>
+                            </tr>
+                        </table>
 
                     </div>
-
-                    <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
-
-                <div id="climate_quick_view">
-
-                    <table id="climate_quick_view_table">
-                        <tr>
-                            <th colspan="2">
-                                <!--<span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>-->
-                                <span style="font-weight:normal;font-size:1em">Projected Change (Model Averages, <span id="seasonLabel">Annual</span>)</span>
-
-                            </th>
-                        </tr>
-
-                        <!-- TMAX -->
-                        <tr>
-                            <td style="max-width:30px;text-align:center">
-                                <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
-                            </td>
-                            <td>
-                                The average max temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
-                                <p>
-                                <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
-                                <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
-                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
-                            </td>
-                        </tr>
-
-                        <!-- TMIN -->
-                        <tr>
-                            <td style="max-width:30px; text-align:center">
-                                <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
-                            </td>
-                            <td>
-                                The average min temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
-                                <p>
-                                <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
-                                <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
-                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
-                            </td>
-                        </tr>
-
-                        <!-- PRECIP -->
-                        <tr>
-                            <td>
-                                <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
-                            </td>
-                            <td>
-                                The average precipitation in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_precip_t1"></span> the historical average by
-                                <p>
-                                <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_precip_units">mm</span> over the next 30 years<br>
-                                <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_precip_units">mm</span> over the 30 years after that
-                                <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
-                                <p>
-                                <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
-                            </td>
-                        </tr>
-                    </table>
-
-                </div>
-
+                </span>
             </div>
 
 
