@@ -73,6 +73,15 @@ def index(request):
         template='multi-lcc'
         config_file="config_multi-lcc.js"
 
+    elif studyarea=='sagebrush':
+
+        if table == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        template='sagebrush'
+        config_file="config_sagebrush.js"
+
     elif studyarea=='utah':
 
         if table == None:
@@ -212,7 +221,7 @@ def index(request):
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
         #BAR COLORS
-        if studyarea=='multi-lcc':
+        if studyarea=='sagebrush':
             resultsDict["intactness_avg"]=0
             resultsDict["hisensfz_avg"]=0
             resultsDict["eecefzt1_avg"]=0
@@ -630,9 +639,9 @@ def generate_eems_tree(request):
     print eems_file_name
     top_node=request.POST.get("top_node")
 
-    #eems_file_directory="static/config/eems"
+    eems_file_directory="static/config/eems"
     #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicityly type the path.
-    eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
+    #eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
 
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
     eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')

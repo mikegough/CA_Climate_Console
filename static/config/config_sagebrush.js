@@ -1,23 +1,25 @@
-title="California"
-subTitle="Climate Projections for the State of California"
+title="Sagebrush"
+subTitle="Climate Projections for the Western United States"
 studyAreaBoundary="CA_Boundary_5_simplify.json"
-initialLat=37.2
-initialLon=-121.5
-initialDownscaleMarkerLat=35.28
-initialDownscaleMarkerLon=-116.54
+initialLat=40
+initialLon=-113
+initialDownscaleMarkerLat=40
+initialDownscaleMarkerLon=-111
 selectedClimateDivision='94'
-zoomLevel=7
-areaChart=true
+zoomLevel=5
+areaChart=false
 
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
-    "Counties": ["ca_reporting_units_county_boundaries_5_simplify","name","CA_Reporting_Units_County_Boundaries_5_simplify.json"],
-    "Jepson Ecoregions":["ca_jepson_ecoregions_2_simplify","name","CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json"],
-    "USDA Ecoregions":["ca_reporting_units_bailey_ecoregions_pre_simplify","name","CA_Reporting_Units_Bailey_Ecoregions_2_simplify.json"],
-    "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
+    "Counties": ["sagebrush_reporting_units_county_boundaries_2_simplify","name","Sagebrush_Reporting_Units_Counties_2_Simplify.json"],
+    "Ecoregions":["sagebrush_reporting_units_epa_liii_ecoregions_1_simplify","us_l3name","Sagebrush_Reporting_Units_EPA_LIII_Ecoregions_1_simplify.json"],
     "HUC5 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "CA_Reporting_Units_HUC5_Watersheds_5_simplify.json"],
+    /*
+     "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
+    "USDA Ecoregions":["ca_reporting_units_bailey_ecoregions_pre_simplify","name","CA_Reporting_Units_Bailey_Ecoregions_2_simplify.json"],
     "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
     "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems","",""],
+    */
 }
 
 climateParams = {
@@ -26,16 +28,10 @@ climateParams = {
     models:{
         // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index"]
         "PRISM":["pm","black","0"],
-        "ACCESS":["a0", "#FF00FF","1"],
         "CanESM2":["c2","#DEB78B","6"],
         "CCSM4":["c4","#717573","2"],
-        "CESM1":["cc","#808000","3"],
-        "CMCC":["cm","#1EED1E","4"],
         "CNRM":["c5","#800040","5"],
-        "GFDL":["g3","#1B6186","7"],
-        "HadGEM2CC":["hc","#FF8A09","8"],
         "HadGEM2ES":["hs","#8080C0","9"],
-        "MIROC5":["m5","#C6D2DF","10"],
         "Ensemble":["ee","red","0"]},
     labels:{
         "tmax":["Degrees (°C)","°C"],
@@ -52,8 +48,8 @@ climateParams = {
     },
     legendHeight:"",
     legendLabels:["","","","","",""],
-    imageOverlayDIR:"TrimmedPNG",
-    overlayBounds:[[32.52777441016329, -124.41250000002108], [42.02083587646484, -114.1214454281304]],
+    imageOverlayDIR:"sagebrushPNG",
+    overlayBounds:[[24.059825151287345, -125.00416666645106], [49.50416665670897, -101.3421483544936]],
     boxPlot:false
 }
 
@@ -85,10 +81,5 @@ EEMSParams={
     },
     "overlayBounds":[[32.534715526793306, -124.40416822955052], [42.01249803975221, -114.12309789053886]],
 };
-
-ecosystemServicesParams={
-    "overlayBounds":[[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
-};
-
 
 
