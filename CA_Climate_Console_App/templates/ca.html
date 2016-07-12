@@ -112,33 +112,6 @@
 
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
-<link rel="stylesheet" href="{{STATIC_URL}}deps/dojo/dijit/themes/claro/claro.css">
-
-<!-- Dojo for Video Popup -->
-<script>dojoConfig = {parseOnLoad: true}</script>
-<script src='{{STATIC_URL}}deps/dojo/dojo/dojo.js'></script>
-
-<script>
-    require(["dijit/Dialog", "dojo/domReady!"], function(Dialog){
-    myDialog = new Dialog({
-        title: "CBI Instructional Video",
-        content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/Eyhnq6-V6xs" frameborder="0" allowfullscreen></iframe></div>',
-        style: "width: 732px"
-        });
-    myDialog2 = new Dialog({
-        title: "CBI Instructional Video",
-        content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/67bI2DJmqJQ" frameborder="0" allowfullscreen></iframe></div>',
-        style: "width: 732px"
-        });
-    myDialog3= new Dialog({
-        title: "CBI Instructional Video",
-        content: '<div><iframe width="715" height="538" src="https://www.youtube.com/embed/xzwcpYgRml4" frameborder="0" allowfullscreen></iframe></div>',
-        style: "width: 732px"
-        });
-    });
-
-</script>
-
 <!-- My CSS -->
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
 
@@ -157,6 +130,14 @@
 </script>
 
 <style>
+    .ui-dialog {
+        width: 745px !important;
+        height: 600px !important;
+        background: rgba(67, 67, 67, .9);
+        box-shadow: 2px 2px 20px gray;
+        padding:5px
+    }
+
     #poppyImage {
         position: absolute;
         height: 175px;
@@ -263,7 +244,7 @@
                         Click the play button below to view an instructional video
                         <p>
                         <div class="youTubeDiv">
-                            <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                            <img class="button_movie_intro" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                         </div>
                     </div>
             </div>
@@ -469,7 +450,7 @@
 
                 Click on the play button below to view an instructional video on the California Climate Console. The video will open in a popup.<br><br><br>
                 <div class="youTubeDiv">
-                    <img style="cursor:pointer" onclick="myDialog.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                    <img class="button_movie_intro" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
                 <!--
                 <h3>Interpreting the Box Plots: </h3>
@@ -487,9 +468,11 @@
                 A climate trend is a progressive change in the state of the climate based on weather statistics evaluated over long periods, typically of at least 30 years.<sup><a href="#refs" title="Source: Pacific Institute for Climate Solutions, 2011">1</a></sup>
                     <p>
                 To learn about the differences between climate and weather, click on the play button below.
+
                 <div class="youTubeDiv">
-                    <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog2.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                    <img class="button_movie_climate" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
+
                 For information on climate models click the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
                 Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
@@ -662,7 +645,7 @@
                 <p>
                  To learn about the differences between climate and weather, click on the play button below.
                 <div class="youTubeDiv">
-                    <img style="cursor:pointer" onclick="myDialog2.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                    <img class="button_movie_climate" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
 
                 The near-term weather forecast data presented in the climate console streams directly from the following forecast distribution files generated by NOAA's <a target="_blank" href="http://www.cpc.ncep.noaa.gov/"> Climate Prediction Center</a>:
@@ -716,7 +699,7 @@
                 <p>
                 To learn more about logic models, click on the play button below.
                 <div class="youTubeDiv">
-                    <img style="margin-top:10px; height:70px; cursor:pointer" onclick="myDialog3.show();" title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                    <img class="button_movie_eems" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
 
                 <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
@@ -1160,6 +1143,11 @@
 <div id="pop-up"></div>
 <div id="pop-up2"></div>
 <div id="pop-up3"></div>
+
+<div id="movie_intro"><iframe width="715" height="538" src="https://www.youtube.com/embed/Eyhnq6-V6xs" frameborder="0" allowfullscreen></iframe></div>
+<div id="movie_climate"><iframe width="715" height="538" src="https://www.youtube.com/embed/67bI2DJmqJQ" frameborder="0" allowfullscreen></iframe></div>
+<div id="movie_eems"><iframe width="715" height="538" src="https://www.youtube.com/embed/xzwcpYgRml4" frameborder="0" allowfullscreen></iframe></div>
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -1168,6 +1156,32 @@
 
   ga('create', 'UA-76493740-1', 'auto');
   ga('send', 'pageview');
+
+</script>
+
+<script>
+
+    $('.button_movie_intro').click(function(){
+        $('#movie_intro').dialog('open');
+    });
+
+    $('.button_movie_climate').click(function(){
+        $('#movie_climate').dialog('open');
+    });
+
+    $('.button_movie_eems').click(function(){
+        $('#movie_eems').dialog('open');
+    });
+
+    $('#movie_intro').dialog({autoOpen:false,modal: true, resizable: false});
+    $('#movie_climate').dialog({autoOpen:false,modal: true, resizable: false});
+    $('#movie_eems').dialog({autoOpen:false,modal: true, resizable: false});
+
+    $('.ui-widget-overlay').live('click', function() {
+        $('#movie_intro').dialog( 'close' );
+        $('#movie_climate').dialog( 'close' );
+        $('#movie_eems').dialog( 'close' );
+    });
 
 </script>
 
