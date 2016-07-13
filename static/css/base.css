@@ -2031,6 +2031,11 @@ div#pop-up2 {
 }
 */
 
+.leaflet-bottom.leaflet-right{
+    z-index:0 !important;
+    right: 10px !important;
+}
+
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */
 #footer a:active {color:#4D79B3;}  /* selected link */
