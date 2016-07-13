@@ -79,6 +79,8 @@ function createChart(climateVariable, statistic, season) {
             },
             title: {
                 align:'right',
+                marginLeft:10,
+                y:8,
                 useHTML: true,
                 text: '<img title="Click for help" class="tab_help" src="' + static_url +'img/help.png" onclick="updateClimateHelpContent(); ">'
             },

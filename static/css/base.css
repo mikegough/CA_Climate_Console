@@ -563,9 +563,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 .tab_help {
 	cursor: pointer;
-	margin-left: 5px;
 	position: relative;
-	top: -5px;
 	right: 2px;
 	z-index: 9999;
 }
