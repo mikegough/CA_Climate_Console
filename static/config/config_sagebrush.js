@@ -1,6 +1,6 @@
 title="Sagebrush"
 subTitle="Climate Projections for the Western United States"
-studyAreaBoundary="CA_Boundary_5_simplify.json"
+studyAreaBoundary="Sagebrush_Study_Area_Boundary.json"
 initialLat=40
 initialLon=-113
 initialDownscaleMarkerLat=40
@@ -13,13 +13,19 @@ reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
     "Counties": ["sagebrush_reporting_units_county_boundaries_2_simplify","name","Sagebrush_Reporting_Units_Counties_2_Simplify.json"],
     "Ecoregions":["sagebrush_reporting_units_epa_liii_ecoregions_1_simplify","us_l3name","Sagebrush_Reporting_Units_EPA_LIII_Ecoregions_1_simplify.json"],
-    "HUC5 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "CA_Reporting_Units_HUC5_Watersheds_5_simplify.json"],
+    //"HUC5 Watersheds": ["sagebrush_reporting_units_huc5_watersheds_1_simplify", "name", "Sagebrush_Reporting_Units_HUC5_Watersheds_.2_Simplify.json"],
+    "HUC5 Watersheds": ["sagebrush_reporting_units_huc5_watersheds_1_simplify", "name", ""],
     /*
      "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
-    "USDA Ecoregions":["ca_reporting_units_bailey_ecoregions_pre_simplify","name","CA_Reporting_Units_Bailey_Ecoregions_2_simplify.json"],
     "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
     "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems","",""],
     */
+}
+
+// Optional image overlay for reporting units where the JSON file would be too large for display in Leaflet.
+reportingUnitsImageOverlays={
+    // "Reporting Units Label":["database_table_name","name_field","PNG file", PNG bounding coordinates]
+    "HUC5 Watersheds" : ["sagebrush_reporting_units_huc5_watersheds_no_simplify", "name", "Leaflet/myPNG/reporting_units/sagebrush_huc5_watersheds.png",  [[28.9114643715872, -124.81250000044], [49.2118646821555, -101.342451577466]]]
 }
 
 climateParams = {
