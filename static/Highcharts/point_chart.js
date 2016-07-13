@@ -72,12 +72,15 @@ function createChart(climateVariable, statistic, season) {
             chart: {
                 zoomType: 'xy',
                 type: 'scatter',
-                width: 477,
+                width: 473,
                 height:320,
                 marginRight:35,
+                marginTop:15,
             },
             title: {
-                text: ''
+                align:'right',
+                useHTML: true,
+                text: '<img title="Click for help" class="tab_help" src="' + static_url +'img/help.png" onclick="updateClimateHelpContent(); ">'
             },
             credits: {
                 enabled:false
@@ -85,6 +88,12 @@ function createChart(climateVariable, statistic, season) {
             exporting: {
                 enabled:true,
                 allowHTML:true,
+                 buttons: {
+                    contextButton: {
+                        align:'right',
+                        y:10
+                    }
+                },
                 filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason+")",
                 chartOptions: {
                     chart:{
@@ -92,11 +101,14 @@ function createChart(climateVariable, statistic, season) {
                         width:600,
                         margin:100,
                         marginBottom:110,
+                        marginTop:100,
                     },
                     legend: {
                         y:-10
                     },
                     title: {
+                        align:'center',
+                        useHTML: false,
                         margin:20,
                         text: "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'],
                     },
