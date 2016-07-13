@@ -366,6 +366,19 @@ for (reporting_unit in reportingUnits) {
     i++
 }
 
+// Reporting units that use image overlays.
+if (typeof reportingUnitsImageOverlays != "undefined") {
+    for (reporting_unit_overlay in reportingUnitsImageOverlays) {
+        reporting_unit_overlay_url = reportingUnitsImageOverlays[reporting_unit_overlay][2]
+        reporting_unit_overlay_bounds = reportingUnitsImageOverlays[reporting_unit_overlay][3]
+        reportingUnitLayers[reporting_unit_overlay] = L.imageOverlay(static_url + reporting_unit_overlay_url, reporting_unit_overlay_bounds);
+        reportingUnitLayers[reporting_unit_overlay].options.name = reporting_unit_overlay
+        reportingUnitLayers[reporting_unit_overlay].options.dbtable = reportingUnitsImageOverlays[reporting_unit_overlay][0]
+        reportingUnitLayers[reporting_unit_overlay].options.dbnamefield = reportingUnitsImageOverlays[reporting_unit_overlay][1]
+        reportingUnitLayers[reporting_unit_overlay].options.type = "ImageOverlayType"
+    }
+}
+
 //default reportingUnits is the first one in the config file
 reporting_units = reportingUnits[Object.keys(reportingUnits)[0]][0]
 name_field = reportingUnits[Object.keys(reportingUnits)[0]][1]
@@ -436,10 +449,15 @@ L.control.groupedLayers(overlayMaps, groupedOverlays, options).addTo(map);
 map.on('baselayerchange', function (event) {
     activeReportingUnits = event.layer;
     activeReportingUnitsName = event.layer.options.name;
-    reporting_units=event.layer.options.dbtable
-    name_field=event.layer.options.dbnamefield
-    if (event.name == "User Defined (1km)") {
+    reporting_units=event.layer.options.dbtable;
+    name_field=event.layer.options.dbnamefield;
+    if (event.name == "User Defined (1km)" ) {
         reporting_units=reportingUnits["User Defined (1km)"][0]; map.addLayer(study_area_boundary)
+    }
+    // Reporting units using image overlays. Add study area boundary to allow for click to select
+    else if (typeof event.layer.options.type != "undefined" && event.layer.options.type == "ImageOverlayType") {
+         map.addLayer(study_area_boundary)
+         reportingUnitLayers[reporting_unit_overlay].bringToBack()
     }
     else {
         map.removeLayer(study_area_boundary)
@@ -982,15 +1000,22 @@ geoSearch.addTo(map)
 
 function activateMapForDefault(){
 
-    activeReportingUnits.eachLayer(function (layer) {
-        layer.setStyle({
-            color :'#F8981D',
-            weight:2,
-            dashArray: 0,
-            fillOpacity:0,
-            opacity:1
-        })
-    });
+    if (typeof reporting_unit_overlay == "undefined") {
+        activeReportingUnits.eachLayer(function (layer) {
+            layer.setStyle({
+                color: '#F8981D',
+                weight: 2,
+                dashArray: 0,
+                fillOpacity: 0,
+                opacity: 1
+            })
+        });
+
+    }
+    else {
+        study_area_boundary.addTo(map)
+
+    }
 
     defaultStyle = {
         color: '#F8981D',
@@ -1177,9 +1202,13 @@ function activateMapForClimateForecast(){
         map.removeLayer(arrayItem)
     })
 
-    //Also remove any climate overlays nd the results_poly
+    //Also remove any climate overlays and the results_poly
     map.removeLayer(climate_PNG_overlay)
     map.removeLayer(results_poly)
+    // Remove any image overlay reporting units
+    if (typeof reporting_unit_overlay != "undefined") {
+        map.removeLayer(reportingUnitLayers[reporting_unit_overlay]);
+    }
 
     near_term_climate_divisions.addTo(map)
     near_term_climate_divisions.bringToFront()
