@@ -58,6 +58,9 @@
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.css" />
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
 
+<link rel="stylesheet" href="{{STATIC_URL}}deps/leaflet_wms_legend/leaflet.wmslegend.css"/>
+<script src="{{STATIC_URL}}deps/leaflet_wms_legend/leaflet.wmslegend.js"></script>
+
 <!-- Jquery-->
 <script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
 
@@ -168,17 +171,37 @@
 
 <style>
 
-#poppyImage {
-    position: absolute;
-    height: 175px;
-    left: -100px;
-    top: -60px;
+.container {
+    z-index:2
 }
+
+#logo {
+	float: left;
+	position: absolute;
+	left: 12px;
+	top: 15px;
+	height: 50px;
+	z-index: 9999;
+}
+
+#leftImage {
+	float: left;
+	position: absolute;
+    left: 6px;
+	top: 9px;
+	border: 2px solid #475147 !important;
+	height: 92px;
+    border-radius:10px;
+}
+
 #rightImage {
-    position: absolute;
-    right: -100px;
-    top: -60px;
-    height:175px;
+	float: right;
+	position: absolute;
+	right: 6px;
+    border: 2px solid #475147 !important;
+	height: 92px;
+	top: 9px;
+    border-radius:10px;
 }
 
 .toolTitle, .toolTitle2 {
@@ -235,26 +258,53 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
     background: linear-gradient(135deg,  #394445 0%,#424f4e 3%,#5d6d69 24%,#596a65 37%,#424f4e 96%,#353f41 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#394445', endColorstr='#353f41',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
+    background:#5B6B67;
+    width:100%;
+
+    margin-left:auto;
+    margin-right:auto;
+
+    border:0px
 
 }
 
+#title_container {
+    width:100%
+    text-align:center;
+}
+
+
 #title {
-    text-align: center;
-    color: #C3C9B9;
-    font-size: 34px;
-    font-weight: bolder;
-    font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
-    font-variant: small-caps;
-    letter-spacing: 5px;
-    text-shadow: 1px 1px 1px #071D27;
-    color: white;
+	text-align: center;
+	color: #C3C9B9;
+	font-size: 34px;
+	font-weight: bolder;
+	font-family: Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;
+	font-variant: small-caps;
+	letter-spacing: 6px;
+	text-shadow: 1px 1px 5px #0D0E0D;
+	color: white;
+	width: 675px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	display: inline-block;
+	background-color: #5B6B67;
+	padding: 13px 30px 7px 30px;
+	top: 9px;
+	height: 76px;
+	border-width: 0px 2px 0px 2px;
+	border-color: #475147;
+	border-style: solid;
+    border-radius:50px;
+    box-shadow: inset 25px 0px 25px -30px #2F352F, inset -25px 0px 25px -30px #2F352F
 }
 
 #title2{
     color:#FFC64D;
 }
 #sub_title {
-    text-shadow: 0px 0px 3px #071D27;
+    text-shadow: 1px 1px 2px #071D27;
     color: #F8981D;
     font-style: italic;
 }
@@ -269,9 +319,10 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 }
 
 #map_and_charts_container {
-    border-bottom: 2px solid #526059;
+    border-bottom: 2px solid #475147;
 }
-   #initialization_text {
+
+#initialization_text {
 	font-size: 17px;
 	text-align: left;
 	padding: 20px;
@@ -305,19 +356,18 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
     </div>
 
 <div id="header">
-    <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
-      <span id="sub_title"><script>document.write(subTitle)</script></span>
+    <div id="BLM_logo_title"></div>
+    <a target="_blank" href="http://www.blm.gov/wo/st/en.html"><img id="logo" title="Funding for the Sagebrush Climate Console was provided by the US Bureau of Land Managment" src="{{STATIC_URL}}img/720px-US-DOI-BureauOfLandManagement-Logo.svg.png"></a>
+    <div style="box-shadow: inset 0px 0px 10px rgba(0,0,0,0.9);">
+       <img id="leftImage" src="{{STATIC_URL}}img/sagebrush-alpha_l.png">
     </div>
-    <!--
-    <div style="float:left;z-index:2"><img id="poppyImage" src="{{STATIC_URL}}img/sagebrush.png"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/sagebrush_r.png"></div>
-    -->
-    <!--
-    <div id="links" style="width:100%; height:7px; background-color:#3D494E; position:absolute;top:0px"></div>
-    <div id="links" style="width:100%; height:7px; background-color:#3D494E; position:absolute;bottom:0px"></div>
-    -->
-    <div id="links" style="width:100%; height:7px; background-color:#6D8177;position:absolute;top:0px"></div>
-    <div id="links" style="width:100%; height:7px; background-color:#6D8177;position:absolute;bottom:0px"></div>
+    <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
+
+        <span id="sub_title"><script>document.write(subTitle)</script></span>
+    </div>
+        <img id="rightImage" src="{{STATIC_URL}}img/sagebrush-alpha_r.png">
+    <div id="links" style="width:100%; height:2px; background-color:#475147;position:absolute;top:0px"></div>
+    <div id="links" style="width:100%; height:2px; background-color:#475147;position:absolute;bottom:0px"></div>
 </div>
 
 <span id="DataBasinLinkBox">
@@ -599,7 +649,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 </div>
                 For information on climate models click the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
-                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
+                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
                 <p>
                 The ten GCM/ESMs capture a wide range of projected change for both annual average temperature and annual precipitation (Figure 2) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011; van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
                 <p>
@@ -753,7 +803,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 <p>
                 <b>Post Processing</b>
                 <p>
-                Each climate dataset was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means were subsequently calculated for each of the reporting units.
+                Each climate dataset was projected to USA Contiguous Albers Equal Area Conic (USGS version) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means were subsequently calculated for each of the reporting units.
                 <p>
                 <div id="aboutRCP">
                 <!--The <b>Representative Concentration Pathways (RCPs)</b> describe four different 21st century pathways of greenhouse gas (GHG) emissions and atmospheric concentrations, air pollutant emissions and land use. The word representative signifies that each RCP provides only one of many possible scenarios that would lead to the specific radiative forcing characteristics. RCPs usually refer to the portion of the concentration pathway extending up to the date 2100. The RCPs include (RCP2.6) - a stringent mitigation scenario that aims to keep global warming likely below 2°C above pre-industrial temperatures, where radiative forcing peaks at approximately 3 W/m2 before 2100 and then declines; (RCP4.5 and RCP6.0) - two intermediate scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100; and (RCP8.5) - one scenario with very high GHG emissions, which radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some amount of time.<sup><a href="#refs" title="Source: Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5).">3</a></sup>-->
@@ -806,7 +856,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 <a href="http://databasin.org/datasets/958719f2359e40b99ca683d1a473ba8d" target="_blank">View or Download this dataset on Data Basin</a>
                 -->
 
-                <h3 id="aboutEEMSData">Condition & Impact Models </h3>
+                <h3 id="aboutEEMSData">Condition & Impact Models:</h3>
 
                 <p>
                 We used the <a href="http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems" target="_blank" title="Click here for more information about EEMS">Environmental Evaluation Modeling System (EEMS)</a>, a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI), to evaluate the potential impact of climate change throughout the study area.  We defined potential impact as a function of “site sensitivity” and the nature and degree to which a site may experience changes in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
@@ -838,8 +888,11 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 <h3>Site Sensitivity</h3>
                 The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.
                 <p>
+                 <!--
                 <a href="http://databasin.org/maps/new#datasets=d9631479be4f4464a266036b55d40c01&visibleLayers=6" target="_blank">View or Download this dataset on Data Basin</a>
+                -->
 
+                <!--
                 <h3> Climate Exposure</h3>
                 The Climate Exposure Model is based on aridity and climate. Climate factors include maximum temperature, minimum temperature, and precipitation on a seasonal basis and an annual basis. Change was calculated for two future time periods, 2016-2045 and 2046-2075, compared to the historical period, 1971-2000. Projections for three climate futures were used along with the ensemble mean values from those models. Temperature and precipitation differences were normalized using the standard deviation over the historical period via the following formula:
                 <br>
@@ -863,74 +916,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 <a href="http://databasin.org/datasets/238aad251e784e4386620a4c51ef272a" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
                 <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
                 <p>
-
-                <h3 id="aboutEcosystemServicesData">Ecosystem Services: </h3>
-                The ecosystem services data are derived from MC2 results generated for CA at 30 arc-secs, using imposed land-use from
-                Ben Sleeter. We ran from 1895-2010 using PRISM data, and from 2011-2099 using data
-                downscaled by Bridget Thrasher using BCSD, for 9 models (there was no vpr data available
-                for CMCC-CMS, the 10th model which was intended to be in the ensemble, and therefore
-                no way to run MC2). All of the futures use RCP8.5 CO2 levels.
-                <p/>
-
-                The resulting veg types were aggregated from MC2 categories to coarser categories:
-                <p/>
-                0:undefined
-                <br>1:taiga/tundra
-                <br>2:conifer forest
-                <br>3:mixed forest
-                <br>4:broadleaf forest
-                <br>5:shrubland/woodland/savanna
-                <br>6:grassland
-                <br>7:arid land
-                <br>8:annual agriculture
-                <br>9:perennial agriculture
-                <br>10:developed/mined
-
-                <p/>
-                Decadal modes of veg type were calculated, starting in 1901 (1901-1910, 1911-1920, etc).
-                The final decade (2091-2099) is a year short, simply because most models did not have
-                data for 2100. Values for the 'year' coordinate variable are the start of each decade.
-                <p/>
-
-                Decadal means of continuous (all but vtype) variables were calculated in the same way,
-                for the variables specified for the CA project:
-                <p/>
-
-                <ol>
-                <li>NBP
-                <li>C_ECOSYS
-                <li>C_FOREST
-                <li>C_DEAD_ABOVEGR
-                <li>CONSUMED
-                <li>H2O_STREAM_FLOW
-                <li>cwd(climaticwaterdeficit)
-                </ol>
-                <p/>
-
-                Climatic water deficit was calculated from PET - AET. PET was calculated outside
-                of MC2, using the same Linacre method as is used in Century, and AET was taken
-                from the MC2 results.
-                <p/>
-
-                Ben Sleeter's land-use data includes perennial agriculture, which we simulated in MC2
-                by clearing all vegetation in the year of conversion to agriculture, allowing growth
-                for 5 years, and then harvesting half of NPP from above-ground woody components. After
-                40 years, perennial agriculture was cleared and the cycle started over. Above-ground grass
-                was removed yearly.
-                <p/>
-
-                Ben also calculated backcast timber harvests to provide a smooth ramp to the present.
-                He did this by running his state-transition model backward from 2000. Since clearcuts
-                are represented as transitions between years, this produced no clearcuts for 2000.
-                As the clearcut simulation was a simple interpolation, we shifted it forward by a year
-                to provide representative year-2000 clearcut data (and no clearcuts in 1896).
-                <p/>
-
-                This version of MC2 uses the NRCS runoff curve method of calculating runoff, using
-                values from the runoff curve tables for middle-of-the-road conditions which seemed
-                to best match MC2 vegetation and land-use classes.
-                <p/>
-                Postprocessing of the data for use in the Climate Console involved projecting to California Teale Albers (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
+                -->
 
                 <a name="refs"></a>
                 <h3>References:</h3>
@@ -1149,16 +1135,16 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 </div>
                 <div id="MEEMSE_footer">
                     <div id="MEEMSE_node_count_legend">
-                        <table id="MEEMSE_node_count_legend_table">
+                        <span title="Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes.">
+                        <table class="MEEMSE_node_count_legend_table">
                             <tr>
-                                <td rowspan="2">Input<br>Count</td>
+                                <td rowspan="2" style="width: 200px; min-width: 55px; text-align: right; padding-right: 8px;">Number of<br>Inputs</td>
                                 <td>0</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
                                 <td>4</td>
                                 <td>5</td>
-                                <td>Active</td>
                             </tr>
                             <tr>
                                 <td style="background-color:#AAAAAA"></td>
@@ -1167,9 +1153,17 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                                 <td style="background-color:#DDAAAA"></td>
                                 <td style="background-color:#EEAAAA"></td>
                                 <td style="background-color:#FFAAAA"></td>
-                                <td style="background-color:#A6C8A6"></td>
                             </tr>
                         </table>
+                        </span>
+                        <span title="Green nodes represent the active branch (the branch for which the input nodes are displayed), with the lowest green node being the one that is visible in the map.">
+                        <table class="MEEMSE_node_count_legend_table" style="width:70px">
+                            <tr>
+                            <td style="min-width: 58px; line-height:7px; text-align:right">Active</td>
+                            <td style="min-width:8px; background-color:#A6C8A6"></td>
+                            </tr>
+                        </table>
+                        </span>
                     </div>
 
                     <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
@@ -1252,7 +1246,14 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
   ga('create', 'UA-76493740-1', 'auto');
   ga('send', 'pageview');
 
+
 </script>
+
+    <script>
+
+    </script>
+
+
 
 </body>
 </html>

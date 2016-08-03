@@ -54,8 +54,10 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             dbid_with_index = EEMSParams["models"][modelForTree][5]
         }
         else {
-            urlBase = EEMSParams["models"][modelForTree][5].split('&')[0]
-            dbid_with_index = urlBase + "&visibleLayers=" + layerIndex
+            if (dbid != '') {
+                urlBase = EEMSParams["models"][modelForTree][5].split('&')[0]
+                dbid_with_index = urlBase + "&visibleLayers=" + layerIndex
+            }
         }
     }
 
@@ -404,6 +406,7 @@ var overlayMaps = {
     //"Selected Features":results_poly
 }
 
+
 if (studyAreaBoundary != "") {
     var groupedOverlays = {
         // Option to have reporting units in the upper right hand layer widget.
@@ -425,6 +428,8 @@ if (studyAreaBoundary != "") {
             //"Selected Features": results_poly,
             "Study Area Boundary": study_area_boundary,
             //"Study Area Boundary": study_area_boundary.addTo(map),
+        },
+        "Reference Layers": {
         }
     };
 }else {
@@ -439,6 +444,32 @@ if (studyAreaBoundary != "") {
         },
     }
 }
+
+// Add wms layers if they are defined in the config file.
+if (typeof wmsLayers != "undefined") {
+    $.each(wmsLayers, function (index, value) {
+        var wmsLayer = L.tileLayer.wms(value[0], {
+            layers: value[2],
+            format: 'image/png',
+            transparent: true,
+        })
+        wmsLayer.setOpacity(1)
+        groupedOverlays["Reference Layers"][index] = wmsLayer
+        if (value[3] == "on"){
+            wmsLayer.addTo(map)
+            legend_url=static_url + 'Leaflet/my_leaflet/legends/' + value[1]
+            $('.info').html("<div id='legendHeader'>" + index + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + value[4] + "'>Click to View Source </a></div")
+        }
+    });
+}
+
+map.on('overlayadd', function (eventLayer) {
+    // SwitcwmsLayersh to the Population legend...
+    if (typeof wmsLayers[eventLayer.name] != "undefined") {
+        legend_url=static_url + 'Leaflet/my_leaflet/legends/' + wmsLayers[eventLayer.name][1]
+        $('.info').html("<div id='legendHeader'>" + eventLayer.name + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + wmsLayers[eventLayer.name][4] + "'>Click to View Source </a></div")
+    }
+});
 
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
 
@@ -458,6 +489,7 @@ map.on('baselayerchange', function (event) {
     else if (typeof event.layer.options.type != "undefined" && event.layer.options.type == "ImageOverlayType") {
          map.addLayer(study_area_boundary)
          reportingUnitLayers[reporting_unit_overlay].bringToBack()
+         climate_PNG_overlay.bringToBack()
     }
     else {
         map.removeLayer(study_area_boundary)

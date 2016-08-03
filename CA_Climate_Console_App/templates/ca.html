@@ -414,7 +414,7 @@
 
             <div id="view3" class="views">
 
-                    <h3>Summary:</h3>
+                    <h3>Overview:</h3>
 
                     The Climate Console is a web mapping application designed for exploring climate projections and fuzzy logic (EEMS) model results for a specified area of interest.
                     <p>
@@ -472,7 +472,7 @@
 
                 For information on climate models click the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
-                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
+                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
                 <p>
                 The ten GCM/ESMs capture a wide range of projected change for both annual average temperature and annual precipitation (Figure 2) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011; van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
                 <p>
@@ -679,7 +679,7 @@
                 <a href="http://databasin.org/datasets/958719f2359e40b99ca683d1a473ba8d" target="_blank">View or Download this dataset on Data Basin</a>
                 -->
 
-                <h3 id="aboutEEMSData">Condition & Impact Models </h3>
+                <h3 id="aboutEEMSData">Condition & Impact Models: </h3>
 
                 <p>
                 We used the <a href="http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems" target="_blank" title="Click here for more information about EEMS">Environmental Evaluation Modeling System (EEMS)</a>, a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI), to evaluate the potential impact of climate change throughout the study area.  We defined potential impact as a function of “site sensitivity” and the nature and degree to which a site may experience changes in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
@@ -738,14 +738,10 @@
                 <p>
 
                 <h3 id="aboutEcosystemServicesData">Ecosystem Services: </h3>
-                The ecosystem services data are derived from MC2 results generated for CA at 30 arc-secs, using imposed land-use from
-                Ben Sleeter. We ran from 1895-2010 using PRISM data, and from 2011-2099 using data
-                downscaled by Bridget Thrasher using BCSD, for 9 models (there was no vpr data available
-                for CMCC-CMS, the 10th model which was intended to be in the ensemble, and therefore
-                no way to run MC2). All of the futures use RCP8.5 CO2 levels.
+                Ecosystem services were simulated with the Dynamic Global Vegetation Model MC2 (<a target="_blank" href="http://bit.ly/2a9TrKD">http://bit.ly/2a9TrKD</a>) at 30 arc-secs. The model was run from 1895-2010 using PRISM historical data, and from 2011-2099 using the bias-corrected spatially downscaled (BCSD) climate futures (Thrasher et al. 2013) for 9 global climate models (because vapor pressure/relative humidity was missing for CMCC-CMS available results, it could not be used by MC2 which requires this input). All climate futures were run with the RCP8.5 emission scenario.
                 <p/>
 
-                The resulting veg types were aggregated from MC2 categories to coarser categories:
+                MC2 vegetation types were aggregated into broader categories listed below:
                 <p/>
                 0:undefined
                 <br>1:taiga/tundra
@@ -760,37 +756,32 @@
                 <br>10:developed/mined
 
                 <p/>
-                Decadal modes of veg type were calculated, starting in 1901 (1901-1910, 1911-1920, etc).
-                The final decade (2091-2099) is a year short, simply because most models did not have
-                data for 2100. Values for the 'year' coordinate variable are the start of each decade.
+                The mode of the vegetation cover was calculated for each decade starting in 1901 (1901-1910, 1911-1920, etc). The final decade (2091-2099) ends in 1999 since most climate models were missing data for 2100. 'Year' on the chart corresponds to the start of each decade.
+                <p/>
+                Decadal means of the following MC2 variables are made available:
                 <p/>
 
-                Decadal means of continuous (all but vtype) variables were calculated in the same way,
-                for the variables specified for the CA project:
+                1. net biological production (NBP) (g C m-2 y-1)  which corresponds to primary production minus soil respiration and minus harvest (agriculture or logging) and material lost through fire emission
+                <p/>
+                2. total ecosystem carbon (g C m-2) including both herbaceous and woody plant material as well as soil carbon
+                <p/>
+                3. forest carbon (g C m-2) including leaves, branches and boles, roots
+                <p/>
+                4. dead aboveground carbon (g C m-2) corresponding to litter
+                <p/>
+                5. biomass consumed by fire and emitted as gaseous emissions
+                <p/>
+                6. stream flow including surface runoff and water that percolated through the soil profile without being evaporated or taken up by plant roots
+                <p/>
+                7. climatic water deficit (CWD) which corresponds to the difference between potential and actual evapotranspiration.
                 <p/>
 
-                <ol>
-                <li>NBP
-                <li>C_ECOSYS
-                <li>C_FOREST
-                <li>C_DEAD_ABOVEGR
-                <li>CONSUMED
-                <li>H2O_STREAM_FLOW
-                <li>cwd(climaticwaterdeficit)
-                </ol>
-                <p/>
-
-                Climatic water deficit was calculated from PET - AET. PET was calculated outside
-                of MC2, using the same Linacre method as is used in Century, and AET was taken
-                from the MC2 results.
-                <p/>
-
+                <!--
                 Ben Sleeter's land-use data includes perennial agriculture, which we simulated in MC2
                 by clearing all vegetation in the year of conversion to agriculture, allowing growth
                 for 5 years, and then harvesting half of NPP from above-ground woody components. After
                 40 years, perennial agriculture was cleared and the cycle started over. Above-ground grass
                 was removed yearly.
-                <p/>
 
                 Ben also calculated backcast timber harvests to provide a smooth ramp to the present.
                 He did this by running his state-transition model backward from 2000. Since clearcuts
@@ -798,12 +789,11 @@
                 As the clearcut simulation was a simple interpolation, we shifted it forward by a year
                 to provide representative year-2000 clearcut data (and no clearcuts in 1896).
                 <p/>
+                -->
 
-                This version of MC2 uses the NRCS runoff curve method of calculating runoff, using
-                values from the runoff curve tables for middle-of-the-road conditions which seemed
-                to best match MC2 vegetation and land-use classes.
+                The version of MC2 that was used here uses the Natural Resources Conservation Service (NRCS) runoff curve method ( <a target="_blank" href=" http://bit.ly/2aawHpu"> http://bit.ly/2aawHpu</a>)
                 <p/>
-                Postprocessing of the data for use in the Climate Console involved projecting to California Teale Albers (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
+                Postprocessing of the data involved projecting to California Teale Albers (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
 
                 <a name="refs"></a>
                 <h3>References:</h3>
@@ -830,6 +820,9 @@
                         <p>
                             Daly, C., Halbleib, M., Smith, J.I., Gibson, W.P., Doggett, M.K., Taylor, G.H.<em> et al.</em> (2008). Physiographically sensitive mapping of
                             climatological temperature and precipitation across the conterminous United States. <em>Int J Climatol</em>, 28, 2031-2064.
+                        </p>
+                        <p>
+                            Daly, C., R.P. Neilson, and D.L. Phillips. 1994. A statistical-topographic model for mapping climatological precipitation over mountainous terrain. J. Appl. Meteor., 33, 140-158.
                         </p>
                         <p>
                             Donner, L.J., Wyman, B.L., Hemler, R.S., Horowitz, L.W., Ming, Y., Zhao, M.<em> et al.</em> (2011). The Dynamical Core, Physical Parameterizations, and
@@ -1102,7 +1095,7 @@
                                     <!-- Annual Averages -->
                                     <option value="consumed">Biomass Consumed by Fire</option>
                                     <option value="h2o_stream">Stream Flow</option>
-                                    <option value="cwd">Climatic Water Defecit</option>
+                                    <option value="cwd">Climatic Water Deficit</option>
                                 </select>
                             </div>
                         </form>

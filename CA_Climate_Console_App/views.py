@@ -223,13 +223,19 @@ def index(request):
         #BAR COLORS
         if studyarea=='sagebrush':
             resultsDict["intactness_avg"]=0
-            resultsDict["hisensfz_avg"]=0
             resultsDict["eecefzt1_avg"]=0
             resultsDict["eecefzt2_avg"]=0
             resultsDict["eepifzt1_avg"]=0
             resultsDict["eepifzt2_avg"]=0
 
-            columnChartColors=6*"#444444,"
+            columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor2=getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+
+            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
         elif studyarea=='drecp':
 

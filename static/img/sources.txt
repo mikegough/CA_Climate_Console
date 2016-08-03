@@ -13,3 +13,5 @@ info2: https://www.iconfinder.com/icons/33599/info_icon#size=64
 free for commercial use
 
 back_arro9w.png: http://www.clker.com/clipart-3580.html
+
+sagebrush-alpha: http://blender-archi.tuxfamily.org/Greenhouse

@@ -158,6 +158,7 @@ function createColumnChart(){
                         colors: columnChartColors
                     },
                     series: {
+                        pointWidth: 31,
                         colorByPoint:true,
                         shadow:false,
                         borderColor: '#444444'

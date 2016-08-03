@@ -1617,6 +1617,15 @@ div.callout {
     filter: alpha(opacity=90); /* For IE8 and earlier */
 }
 
+.wms_legend {
+    margin-top:3px;
+}
+
+.wms_source {
+    font-size:10px;
+    font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+}
+
 #LegendHeader {
     min-width:75px;
     max-width:125px;
