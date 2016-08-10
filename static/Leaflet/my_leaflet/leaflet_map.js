@@ -215,7 +215,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
           }
 
-          if (dbid == ''){
+          if (typeof dbid == "undefined" || dbid == ''){
               $('#DataBasinRedirect').hide()
           }
 
