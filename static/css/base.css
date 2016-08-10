@@ -1678,7 +1678,9 @@ div.callout {
 }
 
 .legendTable td{
-    vertical-align:middle
+    vertical-align:middle;
+    color: #555;
+    cursor: default;
 }
 
 .legendSubheader{
