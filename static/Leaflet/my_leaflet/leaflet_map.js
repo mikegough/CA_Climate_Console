@@ -177,7 +177,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             layerToAddName="climate"
             legendHeight=window[layerToAddName+"Params"].legendHeight
 
-            if (typeof dbid != "undefined") {
+            if (typeof dbid != "undefined" && dbid != "") {
                 dbid = dbid + '&visibleLayers=' + DataBasinLayerIndex
             }
         }
