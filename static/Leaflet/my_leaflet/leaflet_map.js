@@ -474,7 +474,7 @@ if (typeof wmsLayers != "undefined") {
 
 map.on('overlayadd', function (eventLayer) {
     // SwitcwmsLayersh to the Population legend...
-    if (typeof wmsLayers[eventLayer.name] != "undefined") {
+    if (typeof wmsLayers != "undefined" && wmsLayers[eventLayer.name] != "undefined") {
         legend_url=static_url + 'Leaflet/my_leaflet/legends/' + wmsLayers[eventLayer.name][1]
         $('.info').html("<div id='legendHeader'>" + eventLayer.name + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + wmsLayers[eventLayer.name][4] + "'>Click to View Source </a></div")
     }
