@@ -32,7 +32,7 @@ wmsLayers={
         "USGS NLCD 2011" : ["http://raster.nationalmap.gov/arcgis/services/LandCover/USGS_EROS_LandCover_NLCD/MapServer/WMSServer?","usgs_nlcd.png", "33", "off", "https://www.sciencebase.gov/catalog/item/54419279e4b0b0a643c73e9b"],
         "Sagebrush Cover" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/57321b4fe4b0dae0d5dc1ec3?service=wms","sagebrush_cover.png", "Sagebrush_MW5k", "on", "https://www.sciencebase.gov/catalog/item/57321b4fe4b0dae0d5dc1ec3"],
         "Historic Greater Sage-Grouse Range" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/52e17ac3e4b0d0c3df9a3968?service=wms","science_base_generic.png", "sb:Historic_GSG_Range", "off", "https://www.sciencebase.gov/catalog/item/52e17ac3e4b0d0c3df9a3968"],
-        "Sage-Grouse Concentration Areas" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/56a7ba52e4b0b28f1184d966?service=wms","science_base_generic.png", "sb:footprint", "off", "https://www.sciencebase.gov/catalog/item/56a7ba52e4b0b28f1184d966"],
+        "Great Basin Sage-Grouse Concentration Areas" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/56a7ba52e4b0b28f1184d966?service=wms","science_base_generic.png", "sb:footprint", "off", "https://www.sciencebase.gov/catalog/item/56a7ba52e4b0b28f1184d966"],
 }
 
 climateParams = {

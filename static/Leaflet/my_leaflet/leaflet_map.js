@@ -69,7 +69,9 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
     } else {
 
-        dbid=Data_Basin_ID_Dict[layerToAddName]
+       if (typeof Data_Basin_ID_Dict != 'undefined' ) {
+           dbid = Data_Basin_ID_Dict[layerToAddName]
+       }
 
         //Column chart click
         if (climateVariable=='EEMSmodel'){
@@ -175,18 +177,25 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             layerToAddName="climate"
             legendHeight=window[layerToAddName+"Params"].legendHeight
 
-            dbid = dbid + '&visibleLayers='+DataBasinLayerIndex
-
+            if (typeof dbid != "undefined") {
+                dbid = dbid + '&visibleLayers=' + DataBasinLayerIndex
+            }
         }
           //If its a classified renderer from the EEMS charts or a climate variable
           if (renderer=="classified" || climateVariable.indexOf("EEMS") < 0) {
-              document.getElementsByClassName('info')[0].innerHTML =
-                  '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid +'"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
-                  '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
-                  '<div id="LegendHeader">' + legendTitle + '</div>' +
-                      //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
-                  '<img style="float:left" height="' + legendHeight + '" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + legendImage + '.png">' +
-                  '<div class="legendLabels">'
+              if (typeof dbid !="undefined") {
+                  document.getElementsByClassName('info')[0].innerHTML =
+                      '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
+                      '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>'
+              }
+              else {
+                  document.getElementsByClassName('info')[0].innerHTML =''
+              }
+               document.getElementsByClassName('info')[0].innerHTML+=
+              '<div id="LegendHeader">' + legendTitle + '</div>' +
+                  //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
+              '<img style="float:left" height="' + legendHeight + '" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + legendImage + '.png">' +
+              '<div class="legendLabels">'
 
               if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
                   for (i in legendLabels) {
