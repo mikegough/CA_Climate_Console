@@ -647,11 +647,11 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 </div>
                 For information on climate models click the following link to view a presentation created by the Pacific Institute for Climate Solutions: <a target="_blank" href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>
                 <p>
-                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected ten General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
+                Climate data used to represent the historical period (1971- 2000) were obtained from the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). In addition we selected four General Circulation Models (GCMs) or Earth System Models (ESMs) to represent future climate projections (Table 1) from the twenty-seven climate modeling centers participating in phase 5 of the Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012) These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
                 <p>
-                The ten GCM/ESMs capture a wide range of projected change for both annual average temperature and annual precipitation (Figure 2) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011; van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
+                The four GCM/ESMs capture a wide range of projected change for both annual average temperature and annual precipitation (Figure 2) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011; van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
                 <p>
-                We then obtained downscaled climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire spatial extent of California. Two thirty-year time series, 2016-2045 and 2046-2075, were extracted to represent projected future climates. A multi-model ensemble mean of the ten downscaled climate models was calculated for each of the climate variables discussed below for each thirty-year period.
+                We then obtained downscaled climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire spatial extent of California. Two thirty-year time series, 2016-2045 and 2046-2075, were extracted to represent projected future climates. A multi-model ensemble mean of the four downscaled climate models was calculated for each of the climate variables discussed below for each thirty-year period.
                 <p>
                 <b>Description of Climate Model Datasets</b>
                     <p>
@@ -663,7 +663,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                     <p>
                     All PRISM data used for the historical period were converted from the ESRI ASCII raster format (ESRI 2014) to the Network Common Data Form (NetCDF; Rew et al. 1997; UNIDATA 2015). We discovered that when the NEX data were processed by Thrasher, et al. (2013) the left lower corners of the PRISM data were used as the center coordinates for processing the NEX NetCDF files. Therefore, the origin of the NEX US-DCP30 data had to be altered to conform to the PRISM data. The NEX grids were adjusted by one-half grid cell (0.004166666667 decimal degrees) so that the two datasets would be spatially aligned and consistent.
                     <p>
-                    Once all of the data were in the NetCDF format and spatially aligned, the climate variables, maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec) were extracted from the both CONUS datasets for the spatial extent of California. The multi-model ensemble was then created for each base climate variable by taking the un-weighted mean of the projections from the ten GCM/EMSs.
+                    Once all of the data were in the NetCDF format and spatially aligned, the climate variables, maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec) were extracted from the both CONUS datasets for the spatial extent of California. The multi-model ensemble was then created for each base climate variable by taking the un-weighted mean of the projections from the four GCM/EMSs.
                     <p>
                 <b>Calculation of Climate Variables</b>
                     <p>
@@ -679,7 +679,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                     <p>
                      Δ(P/PET)/(P/PET)≈ΔP/P−ΔPET/PET   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp (2)
                     <p>
-                    All climate variables for the historic and the eleven future projections (ten climate models and the ensemble) were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014) and are listed in Table 2.
+                    All climate variables for the historic and the five future projections (four climate models and the ensemble) were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014) and are listed in Table 2.
                     <p>
                     The delta values for the future periods for tmin and tmax were calculated by subtracting historical values from future values. However, the delta values for the future periods for precipitation and aridity are calculated as percent change from the historical (((future-historical) / historical) * 100).
                     <p>
@@ -714,53 +714,23 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                       </tr>
                       <tr>
                         <td class="tg-yw4l">1</td>
-                        <td class="tg-yw4l">ACCESS1.0</td>
-                        <td class="tg-yw4l">Australian Community Climate and Earth-System Simulator, version 1.0</td>
-                      </tr>
-                      <tr>
-                        <td class="tg-yw4l">2</td>
                         <td class="tg-yw4l">CanESM2</td>
                         <td class="tg-yw4l">Second Generation Canadian Earth System Model</td>
                       </tr>
                       <tr>
-                        <td class="tg-yw4l">3</td>
+                        <td class="tg-yw4l">2</td>
                         <td class="tg-yw4l">CCSM4</td>
                         <td class="tg-yw4l">Community Climate System Model version 4</td>
                       </tr>
                       <tr>
-                        <td class="tg-yw4l">4</td>
-                        <td class="tg-yw4l">CESM1-BGC</td>
-                        <td class="tg-yw4l">Community Earth System Model, version 1 Biogeochemistry</td>
-                      </tr>
-                      <tr>
-                        <td class="tg-yw4l">5</td>
-                        <td class="tg-yw4l">CMCC-CM</td>
-                        <td class="tg-yw4l">Centro Euro-Mediterraneo sui Cambiamenti Climatici Climate Model </td>
-                      </tr>
-                      <tr>
-                        <td class="tg-yw4l">6</td>
+                        <td class="tg-yw4l">3</td>
                         <td class="tg-yw4l">CNRM.CM5</td>
                         <td class="tg-yw4l">Centre National de Recherches Météorologiques Coupled Global Climate Model, version 5.1</td>
                       </tr>
                       <tr>
-                        <td class="tg-yw4l">7</td>
-                        <td class="tg-yw4l">GFDL-CM3</td>
-                        <td class="tg-yw4l">Geophysical Fluid Dynamics Laboratory Climate Model, version 3</td>
-                      </tr>
-                      <tr>
-                        <td class="tg-yw4l">8</td>
-                        <td class="tg-yw4l">HadGEM2-CC</td>
-                        <td class="tg-yw4l">Hadley Centre Global Environmental Model, version 2- Carbon Cycle</td>
-                      </tr>
-                      <tr>
-                        <td class="tg-yw4l">9</td>
+                        <td class="tg-yw4l">4</td>
                         <td class="tg-yw4l">HadGEM2-ES</td>
                         <td class="tg-yw4l">Hadley Centre Global Environmental Model, version 2-Earth System</td>
-                      </tr>
-                      <tr>
-                        <td class="tg-yw4l">10</td>
-                        <td class="tg-yw4l">MIROC5</td>
-                        <td class="tg-yw4l">Model for Interdisciplinary Research on Climate, version 5</td>
                       </tr>
                     </table>
                 <p>
@@ -793,11 +763,14 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                  <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
                 </table>
 
+                {% comment %}
+
                 <img style="cursor:pointer" title="Click to Enlarge" src="{{STATIC_URL}}img/model_comparison_chart.png" onclick='new Messi("<p><p><img src=\"{{STATIC_URL}}img/model_comparison_chart.png\" width=\"900px\"><div style=\"margin-top:30px; margin-left:auto; margin-right:auto; width:800px\"><i>Figure 1: The chart above compares the temperature and precipitation anomalies of the 10 models selected. These models were selected to in order to capture the full range of projected change for both annual average temperature and annual precipitation under RCP8.5.</i>", {title: "Model Comparison Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true});' width="438px">
                 <div class="footnote">
                     <!--<i>Figure 1: (Click to Enlarge) The chart above compares the temperature and precipitation anomalies of 10 CMIP5 climate models under RCP 8.5. These models were selected for the specific needs of California water resources planning, based on evaluations of their historical performance globally and over the South Western United States.</i>-->
                     <i>Figure 1 (Click to Enlarge): Evaluation the projected change in temperature and precipitation for ten models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) under the representative concentration pathway 8.5 (RCP8.5) for the time period 2046 - 2075.</i>
                 </div>
+                {% endcomment %}
                 <p>
                 <b>Post Processing</b>
                 <p>
