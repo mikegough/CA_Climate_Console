@@ -326,7 +326,7 @@ def view2(request):
     if table == None:
         #table="multi_lcc_query_layer_protected_areas_5_simplify"
         #table="multi_lcc_query_layer_protected_areas_no_simplify"
-        table="multi_lcc_query_layer_protected_areas_soils_5_simplify"
+        table="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!
         categoricalFields="name,ru_type"
 
     template='multi-lcc'
@@ -348,7 +348,7 @@ def view2(request):
         if "POINT" in WKT or "POLYGON" in WKT or "LINESTRING" in WKT:
             print "yes"
 
-            table="multi_lcc_reporting_units_llc_boundaries_2_simplify"
+            table="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2"
 
             WKT=WKT.replace('%', ' ')
             WKT="SRID=4326;"+WKT
@@ -356,7 +356,7 @@ def view2(request):
             spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_2_simplify'
             #query_layer='multi_lcc_query_layer_protected_areas_5_simplify'
             #query_layer="multi_lcc_query_layer_protected_areas_no_simplify"
-            query_layer="multi_lcc_query_layer_protected_areas_soils_5_simplify"
+            query_layer="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!!
             print query_layer
 
             if "POINT" in WKT:

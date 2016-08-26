@@ -116,7 +116,7 @@ function selectFeatureFromTable(name) {
     if (map.hasLayer(results_poly)){
         results_poly.bringToFront()
     }
-    reporting_units='multi_lcc_query_layer_protected_areas_soils_5_simplify'
+    reporting_units='multi_lcc_query_layer_protected_areas_soils_90_simplify_v2'
     create_post(name,reporting_units)
 
     //document.getElementById("view5Link").click()
