@@ -222,14 +222,14 @@ def index(request):
 
         #BAR COLORS
         if studyarea=='sagebrush':
-            resultsDict["intactness_avg"]=0
+
             resultsDict["eecefzt1_avg"]=0
             resultsDict["eecefzt2_avg"]=0
             resultsDict["eepifzt1_avg"]=0
             resultsDict["eepifzt2_avg"]=0
 
             columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor2=getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor2=getColor(resultsDict["theobald_i_avg"], "theobald")
             columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
             columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
             columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
@@ -1151,6 +1151,8 @@ def getColor(value, parameter):
             return "#2892C7"
         if (parameter == 'ClimateEEMS'):
             return "#C44539"
+        if (parameter == 'theobald'):
+            return "#612F49"
     elif (value > .5):
         if (parameter == 'TI'):
             return "#7F9A51"
@@ -1162,6 +1164,8 @@ def getColor(value, parameter):
             return "#8CB8A4"
         if (parameter == 'ClimateEEMS'):
             return "#E08865"
+        if (parameter == 'theobald'):
+            return "#8A6557"
     elif (value > .0):
         if (parameter == 'TI'):
             return "#BFD67B"
@@ -1173,6 +1177,8 @@ def getColor(value, parameter):
             return "#D7E37D"
         if (parameter == 'ClimateEEMS'):
             return "#F7D59E"
+        if (parameter == 'theobald'):
+            return "#B5A762"
     elif (value > -.499999):
         if (parameter == 'TI'):
             return "#FFFFBE"
@@ -1184,6 +1190,8 @@ def getColor(value, parameter):
             return "#364D22"
         if (parameter == 'ClimateEEMS'):
             return "#DADBC5"
+        if (parameter == 'theobald'):
+            return "#9FAA50"
     elif (value >  -.749999):
         if (parameter == 'TI'):
             return "#9EAAD7"
@@ -1195,9 +1203,11 @@ def getColor(value, parameter):
             return "#F5A27A"
         if (parameter == 'ClimateEEMS'):
             return "#8B97CC"
+        if (parameter == 'theobald'):
+            return "#526E2B"
     elif (value >  -1.00001):
         if (parameter == 'TI'):
-            return "#444F89"
+            return "#526E2B"
         if (parameter == 'CV'):
             return "#8F0051"
         if (parameter == 'SS'):
@@ -1206,6 +1216,8 @@ def getColor(value, parameter):
             return "#CD6666"
         if (parameter == 'ClimateEEMS'):
             return "#3462CF"
+        if (parameter == 'theobald'):
+            return "#173B0F"
     else:
         return "gray"
 
