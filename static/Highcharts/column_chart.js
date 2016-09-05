@@ -137,17 +137,22 @@ function createColumnChart(){
                     }
                 },
                tooltip: {
-                   useHTML:false,
+                   useHTML:true,
                    backgroundColor: '#E9E6E0',
                    borderWidth: 1,
                    shadow: true,
-                   padding: 0,
+                   margin:0,
+                   //fix for x-axis label on top:
+                   style: {
+                    padding: 1,
+                    },
                    hideDelay:0,
                   // pointFormat: '<span style="font-size:14px"><b>{point.y}</b> </span>' + valueSuffix + '<br><i>(Click to Map)</i>',
 
                    formatter: function() {
-                        return this.key.replace(/\s*\<.*?\>\s*/g, '') +
-                        '<br><span style="font-size:14px"><b>'+ this.point.y + '</b> </span><br><i>(Click to Map)</i>'
+                        return "<div class='columnChartTooltip'>" +
+                        this.key.replace(/\s*\<.*?\>\s*/g, '') +
+                        '<br><span style="font-size:14px"><b>'+ this.point.y + '</b> </span><br><i>(Click to Map)</i></div>'
                     }
                 },
                 plotOptions: {

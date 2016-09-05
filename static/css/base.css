@@ -247,6 +247,21 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     margin-left:20px;
 }
 
+.label {
+    z-index: 1 !important;
+}
+
+.columnChartTooltip{
+   z-index:9999 !important;
+    background-color:#E9E6E0;
+    padding:13px;
+}
+
+.highcharts-tooltip span {
+    opacity: 1;
+    z-index: 9999 !important;
+}
+
 #area_chart{
     margin-top:0px;
     margin-left:15px;
