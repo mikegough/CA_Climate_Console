@@ -1,0 +1,2 @@
+Degree_of_Human_Modification_Fz:Degree of Human Modification
+Degree_of_Human_Modification: Input Range <br>(0-1)

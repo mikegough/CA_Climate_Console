@@ -92,7 +92,10 @@ EEMSParams={
         "inputs": ["","", "EEMS_Climate_2", "", ["Very High", "High", "Moderately High", "Moderately Low", "Low", "Very Low"],"958719f2359e40b99ca683d1a473ba8d","","",""]
         */
     },
-    "overlayBounds":[[24.54503211003055, -124.73750154301554], [49.38749760016799, -101.35215619724352]]
+    "overlayBounds":[[24.54503211003055, -124.73750154301554], [49.38749760016799, -101.35215619724352]],
+    /* used the extent from the vector clipping mask */
+    "overlayBounds2":[[28.9713024690001, -124.763583911], [49.0031387380001, -101.345043443]]
+
 };
 
 

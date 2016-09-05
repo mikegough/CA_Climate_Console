@@ -1,0 +1,2 @@
+READ(InFileName = F:\Projects2\OSU_BLM_Sagebrush2016\Tasks\Web_Applications\Climate_Console\GIS\Data\Input\Theobald_Intactness\Fake_Data.gdb\Fake_Intactness, InFieldName = Degree_of_Human_Modification,OutFileName = EEMSArcOutDflt)
+Degree_of_Human_Modification_Fz = CVTTOFUZZY(InFieldName = Degree_of_Human_Modification, FalseThreshold = 0,TrueThreshold = 1,OutFileName = EEMSArcOutDflt)
