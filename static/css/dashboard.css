@@ -37,6 +37,7 @@
 }
 
 .info2 {
+	max-width:350px;
 	top: 130px;
 	position: fixed;
 	left: 5px;
@@ -657,11 +658,6 @@ table.tablesorter tbody {
 	display: none;
 }
 
-.info2{
-	max-width:300px;
-
-}
-
 .leaflet-draw {
     position:absolute;
     top: 25px;
@@ -691,6 +687,10 @@ table.tablesorter tbody {
 	padding-top:5px;
 	color:#606060;
 	margin-bottom:30px;
+}
+
+#aboutText h3{
+	color:rgb(57, 114, 156)
 }
 
 .variableChangeName{

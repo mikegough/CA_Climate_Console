@@ -67,7 +67,7 @@ def index(request):
     elif studyarea=='multi-lcc':
 
         if table == None:
-            table="multi_lcc_reporting_units_llc_boundaries_2_simplify"
+            table="multi_lcc_reporting_units_llc_boundaries_1_simplify"
             categoricalFields="name"
 
         template='multi-lcc'
@@ -353,7 +353,7 @@ def view2(request):
             WKT=WKT.replace('%', ' ')
             WKT="SRID=4326;"+WKT
 
-            spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_2_simplify'
+            spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_1_simplify'
             #query_layer='multi_lcc_query_layer_protected_areas_5_simplify'
             #query_layer="multi_lcc_query_layer_protected_areas_no_simplify"
             query_layer="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!!

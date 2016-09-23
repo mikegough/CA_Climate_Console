@@ -21,7 +21,7 @@ PNG_Bounds = [[49.0009868862815,-124.737501543016], [32.5295807355456,-105.45067
 PNG_Overlay='multi_lcc_soil_sensitivity_300dpi.png'
 
 //Protected Areas Service
-serviceURL="http://ec2-52-11-27-69.us-west-2.compute.amazonaws.com/services/multi_lcc_protected_areas/tiles/{z}/{x}/{y}.png"
+serviceURL="http://52.43.202.160/services/multi_lcc_protected_areas/tiles/{z}/{x}/{y}.png"
 serviceLegendName="multi_lcc_protected_areas2.png"
 serviceOpacity=.8
 
