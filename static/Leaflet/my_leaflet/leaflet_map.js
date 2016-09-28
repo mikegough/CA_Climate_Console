@@ -1102,7 +1102,7 @@ function activateMapForDefault(){
     $('.leaflet-geonames-search').show()
     $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units')
 
-    map.setView(latlng,zoomLevel);
+    //map.setView(latlng,zoomLevel);
 
     map.removeLayer(near_term_climate_divisions)
     //This was preventing mouseover on features in chrome b/c the boundary was going on top.
@@ -1235,7 +1235,7 @@ function activateMapForClimateForecast(){
     $('.leaflet-control-layers:nth-child(1)').show()
 
 
-    map.setView(defaultLatLng,6);
+    //map.setView(defaultLatLng,6);
 
     //Currently this function is also called on document read in the general_js script.
     //Noaa chart becomes unsynced without calling twice.
