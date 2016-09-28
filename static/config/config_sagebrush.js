@@ -5,7 +5,7 @@ initialLat=40
 initialLon=-113
 initialDownscaleMarkerLat=40
 initialDownscaleMarkerLon=-111
-selectedClimateDivision='94'
+selectedClimateDivision='49'
 zoomLevel=5
 areaChart=false
 

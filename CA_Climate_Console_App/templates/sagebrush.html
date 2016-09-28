@@ -650,7 +650,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 For more information on climate models use the following link to a presentation created by the Pacific Institute for Climate Solutions: <a href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>.
 
                 <p>
-                Climate data used for the historical period (1971- 2000) correspond to the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). For future climate projections, we selected four climate models, either General Circulation Models (GCMs) or Earth System Models (ESMs), (Table 1) from the 5th Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012). These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the western United States (O'Daly et al. 2015).
+                Climate data used for the historical period (1971- 2000) correspond to the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). For future climate projections, we selected four climate models, either General Circulation Models (GCMs) or Earth System Models (ESMs), (Table 1) from the 5th Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012). These models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the western United States (Rupp et al. 2013).
                 <p>
                   <div class="tableDescriptions">Table 1 List of models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) used for the analysis.</div>
                     <p>
@@ -893,7 +893,9 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 The human modification model measures the level of anthropogenic change across the landscape. It is calculated from stressors such as land use, land cover, and presence, use, and distance from roads (Theobald 2014).
                 Click <a href="{{STATIC_URL}}docs/Theobald_2013.pdf" target="_blank">here</a> to download the full research article.
                 <p>
-                The original values in the human modification dataset ranged from 0 to +1.0. A linear transformation (y=2x-1) was applied so the data in the conditions & impacts chart could be plotted on a common scale (-1 to +1).
+                The original values in the human modification dataset ranged from 0 to +1.0. A linear transformation (y=2x-1) was applied in order to scale the data to the range of fuzzy values allowed in the EEMS modeling framework (-1 to +1).
+                Larger values indicate a higher degree of human disturbance on the landscape, whereas lower values indicate lower levels of human disturbance.
+
                 <p>
 
                 <!--
@@ -999,6 +1001,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 O'Daly, W., Keeley, F. & Woled, J. (2015). Perspectives and Guidance for Climate Change Analysis. California Department of Water Resources and Climate Change Technical Advisory Group, p. 142. Available at: <a href="http://www.water.ca.gov/climatechange/docs/2015/Perspectives_Guidance_Climate_Change_Analysis.pdf" target="_blank">http://www.water.ca.gov/climatechange/docs/2015/Perspectives_Guidance_Climate_Change_Analysis.pdf</a>.
                 <p/>
                 Rew, R.K., Davis, G.P., Emmerson, S. & Davies, H. (1997). NetCDF User's Guide for C, An Interface for Data Access, Version 3.
+                <p/>
+                Rupp, D.E., J.T. Abatzoglou, K.C. Hegewisch, and P.W. Mote. 2013. Evaluation of CMIP5 20th century climate simulations for the Pacific Northwest USA. Journal of Geophysical Research: Atmospheres 118:10,884-10,906.
                 <p/>
                 Scoccimarro, E., Gualdi, S., Bellucci, A., Sanna, A., Fogli, P.G., Manzini, E. et al. (2011). Effects of Tropical Cyclones on Ocean Heat Transport in a High-Resolution Coupled General Circulation Model. J. Clim., 24, 4368-4384.
                 <p/>
