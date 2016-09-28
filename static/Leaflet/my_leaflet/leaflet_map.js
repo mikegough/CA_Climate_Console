@@ -451,6 +451,8 @@ if (studyAreaBoundary != "") {
             'Imagery': imagery,
             'Open Street Map': OpenStreetMap,
         },
+        "Reference Layers": {
+        }
     }
 }
 
@@ -1041,7 +1043,13 @@ geoSearch.addTo(map)
 
 function activateMapForDefault(){
 
-    if (typeof reporting_unit_overlay == "undefined") {
+    // On return from other tabs, when the active reporting units is a PNG (e.g., watersheds), add the study area boundary
+    if (typeof reporting_unit_overlay != "undefined" && reporting_unit_overlay == activeReportingUnitsName) {
+        study_area_boundary.addTo(map)
+    }
+
+    // Else set the style back to the default (changes on Condition & Impacts tab)
+    else{
         activeReportingUnits.eachLayer(function (layer) {
             layer.setStyle({
                 color: '#F8981D',
@@ -1053,10 +1061,6 @@ function activateMapForDefault(){
         });
 
     }
-    else {
-        study_area_boundary.addTo(map)
-
-    }
 
     defaultStyle = {
         color: '#F8981D',
@@ -1065,7 +1069,6 @@ function activateMapForDefault(){
         fillOpacity:0,
         opacity:1
     };
-
 
     $("div.leaflet-top:nth-child(1)") .fadeTo(500, 1)
     $('div.leaflet-top:nth-child(1)').unbind('mouseover mouseout');
