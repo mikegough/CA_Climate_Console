@@ -2052,6 +2052,14 @@ div#pop-up2 {
 }
 */
 
+.ui-dialog {
+    width: 745px !important;
+    height: 600px !important;
+    background: rgba(67, 67, 67, .9);
+    box-shadow: 2px 2px 20px gray;
+    padding:5px
+}
+
 .leaflet-bottom.leaflet-right{
     z-index:0 !important;
     right: 10px !important;
@@ -2062,3 +2070,4 @@ div#pop-up2 {
 #footer a:active {color:#4D79B3;}  /* selected link */
 #footer a:link{color:#58583D}
 #footer a:visited{color:#58583D}
+
