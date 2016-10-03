@@ -202,7 +202,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 color: chartSettings["variables"][y1_variable][0],
                 data: y1_data,
                 tooltip: {
-                    valueSuffix: ' gC/m2'
+                    valueSuffix: " " + chartSettings["variables"][y1_variable][1]
                 }
             }, {
                 name: y2_label,
@@ -216,7 +216,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 dashStyle: 'shortdot',
                 lineWidth:3,
                 tooltip: {
-                    valueSuffix: ' gC/m2'
+                    valueSuffix: " " + chartSettings["variables"][y2_variable][1]
                 }
 
             }]
