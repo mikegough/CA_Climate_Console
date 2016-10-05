@@ -23,6 +23,13 @@ from django.views.decorators.csrf import csrf_exempt
 @gzip_page
 @csrf_exempt
 def index(request):
+    domain = request.get_host()
+    if domain == 'climatedashboard.org':
+        return view2(request)
+    else:
+        return view1(request)
+
+def view1(request):
 
     has_ecosystem_services=1
 
