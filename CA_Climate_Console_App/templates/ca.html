@@ -1026,7 +1026,7 @@
                     <div id="spline_variable_dropdown">
                         <form class="select_form2">
                             <div id="AdditionalESVariablesY1">
-                                <select id="y1_axis_choices" onchange='createSplineChart("ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2", this.value, document.getElementById("y2_axis_choices").value)' >
+                                <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value)' >
                                     <!-- Annual Averages -->
                                     <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
                                     <option value="c_forest">Live Forest Carbon</option>
@@ -1035,7 +1035,7 @@
                                 </select>
                             </div>
                             <div id="AdditionalESVariablesY2">
-                                <select id="y2_axis_choices" onchange='createSplineChart("ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2", document.getElementById("y1_axis_choices").value, this.value)' >
+                                <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value)' >
                                     <!-- Annual Averages -->
                                     <option value="consumed">Biomass Consumed by Fire</option>
                                     <option value="h2o_stream">Stream Flow</option>
