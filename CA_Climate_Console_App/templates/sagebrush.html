@@ -731,20 +731,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 Once all of the data were in the NetCDF format and spatially aligned, climate variables [maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec)] were extracted just for the western United States. The multi-model ensemble was then created for each variable by taking the un-weighted mean of the projections from the four climate models of interest.
                 <p>
 
-                <div class="tableDescriptions">Table 3 Soil variables used in the EEMS model, their acronym, the database, and URL where the data reside.</div>
-
-                <p>
-                <table class="modelDescriptionTable">
-                 <tr><th class="tinyHeader">Variable</th class="tinyHeader"><th class="tinyHeader">Acronym</th class="tinyHeader"><th class="tinyHeader">Database</th class="tinyHeader"><th class="tinyHeader">URL</th class="tinyHeader"></tr>
-                 <tr><td class="tg-yw4l">Available Water Capacity</td class="tg-yw4l"><td class="tg-yw4l">AWC</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">K-Factor</td class="tg-yw4l"><td class="tg-yw4l">Kffact</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Depth to Bedrock</td class="tg-yw4l"><td class="tg-yw4l">RD</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Salinity</td class="tg-yw4l"><td class="tg-yw4l">SAL</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
-                </table>
-                <p>
-
 
                 {% comment %}
 
@@ -833,6 +819,21 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                 <b>Soil Data for Soil Sensitivity Calculation</b>
                 <p>
                     Soil data for this analysis were obtained from the conterminous United States Multi-Layer Soil Characteristics data (Miller & White 1998) and the STATSGO soil database (Soil Survey Staff 2015). All variables used are listed in Table 3.
+
+                <div class="tableDescriptions">Table 3 Soil variables used in the EEMS model, their acronym, the database, and URL where the data reside.</div>
+
+                <p>
+                <table class="modelDescriptionTable">
+                 <tr><th class="tinyHeader">Variable</th class="tinyHeader"><th class="tinyHeader">Acronym</th class="tinyHeader"><th class="tinyHeader">Database</th class="tinyHeader"><th class="tinyHeader">URL</th class="tinyHeader"></tr>
+                 <tr><td class="tg-yw4l">Available Water Capacity</td class="tg-yw4l"><td class="tg-yw4l">AWC</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">K-Factor</td class="tg-yw4l"><td class="tg-yw4l">Kffact</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Depth to Bedrock</td class="tg-yw4l"><td class="tg-yw4l">RD</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Salinity</td class="tg-yw4l"><td class="tg-yw4l">SAL</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
+                </table>
+                <p>
+
                 <p>
                     <b>Processing of Soil Data</b>
                 <p>

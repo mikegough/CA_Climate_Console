@@ -249,7 +249,7 @@
             <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
             <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
             <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
-            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();">Ecosystem Services</a></li>
+            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();">Climate Impacts</a></li>
             <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
             <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
             <li><a id="view3Link" href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"></a></li>
@@ -590,21 +590,6 @@
                 <p>
                 Once all of the data were in the NetCDF format and spatially aligned, climate variables [maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec)] were extracted just for the state of California. The multi-model ensemble was then created for each variable by taking the un-weighted mean of the projections from the ten climate models of interest.
                 <p>
-
-
-                <div class="tableDescriptions">Table 3 Soil variables used in the EEMS model, their acronym, the database, and URL where the data reside.</div>
-
-                <p>
-                <table class="modelDescriptionTable">
-                 <tr><th class="tinyHeader">Variable</th class="tinyHeader"><th class="tinyHeader">Acronym</th class="tinyHeader"><th class="tinyHeader">Database</th class="tinyHeader"><th class="tinyHeader">URL</th class="tinyHeader"></tr>
-                 <tr><td class="tg-yw4l">Available Water Capacity</td class="tg-yw4l"><td class="tg-yw4l">AWC</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">K-Factor</td class="tg-yw4l"><td class="tg-yw4l">Kffact</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Depth to Bedrock</td class="tg-yw4l"><td class="tg-yw4l">RD</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Salinity</td class="tg-yw4l"><td class="tg-yw4l">SAL</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
-                </table>
-                <p>
                 <b>Post Processing</b>
                 <p>
                 Each climate dataset was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal mean for both climate and impact projection datasets was calculated for each of the reporting units and stored in a spatial database which can then be queried against  using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine future climate projections and climate change impacts within one or more administrative units or ecological boundaries of interest.
@@ -682,6 +667,21 @@
                 <b>Soil Data for Soil Sensitivity Calculation</b>
                 <p>
                     Soil data for this analysis were obtained from the conterminous United States Multi-Layer Soil Characteristics data (Miller & White 1998) and the STATSGO soil database (Soil Survey Staff 2015). All variables used are listed in Table 3.
+		<p>
+
+
+                <div class="tableDescriptions">Table 3 Soil variables used in the EEMS model, their acronym, the database, and URL where the data reside.</div>
+
+                <p>
+                <table class="modelDescriptionTable">
+                 <tr><th class="tinyHeader">Variable</th class="tinyHeader"><th class="tinyHeader">Acronym</th class="tinyHeader"><th class="tinyHeader">Database</th class="tinyHeader"><th class="tinyHeader">URL</th class="tinyHeader"></tr>
+                 <tr><td class="tg-yw4l">Available Water Capacity</td class="tg-yw4l"><td class="tg-yw4l">AWC</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">K-Factor</td class="tg-yw4l"><td class="tg-yw4l">Kffact</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Depth to Bedrock</td class="tg-yw4l"><td class="tg-yw4l">RD</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Salinity</td class="tg-yw4l"><td class="tg-yw4l">SAL</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
+                </table>
                 <p>
                     <b>Processing of Soil Data</b>
                 <p>
@@ -727,8 +727,8 @@
                 <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
                 <p>
 
-                <h3 id="aboutEcosystemServicesData">Ecosystem Services: </h3>
-                Ecosystem services were simulated with the Dynamic Global Vegetation Model MC2 (<a target="_blank" href="http://bit.ly/2a9TrKD">http://bit.ly/2a9TrKD</a>) at 30 arc-secs. The model was run from 1895-2010 using PRISM historical data, and from 2011-2099 using the bias-corrected spatially downscaled (BCSD) climate futures (Thrasher et al. 2013) for 9 global climate models (because vapor pressure/relative humidity was missing for CMCC-CMS available results, it could not be used by MC2 which requires this input). All climate futures were run with the RCP8.5 emission scenario.
+                <h3 id="aboutEcosystemServicesData">Climate Impacts: </h3>
+                Climate Impacts data were simulated with the Dynamic Global Vegetation Model MC2 (<a target="_blank" href="http://bit.ly/2a9TrKD">http://bit.ly/2a9TrKD</a>) at 30 arc-secs. The model was run from 1895-2010 using PRISM historical data, and from 2011-2099 using the bias-corrected spatially downscaled (BCSD) climate futures (Thrasher et al. 2013) for 9 global climate models (because vapor pressure/relative humidity was missing for CMCC-CMS available results, it could not be used by MC2 which requires this input). All climate futures were run with the RCP8.5 emission scenario.
                 <p/>
 
                 MC2 vegetation types were aggregated into broader categories listed below:
@@ -746,7 +746,7 @@
                 <br>10:developed/mined
 
                 <p/>
-                The mode of the vegetation cover was calculated for each decade starting in 1901 (1901-1910, 1911-1920, etc). The final decade (2091-2099) ends in 1999 since most climate models were missing data for 2100. 'Year' on the chart corresponds to the start of each decade.
+                The mode of the vegetation cover was calculated for each decade starting in 2011 (2011-2020, 2021-2030, etc). The final decade (2091-2099) ends in 2099 since most climate models were missing data for 2100. 'Year' on the chart corresponds to the start of each decade.
                 <p/>
                 Decadal means of the following MC2 variables are made available:
                 <p/>
@@ -999,7 +999,7 @@
             </div>
 
             <div id="view6">
-                <span style="display:inline-block; width:100%; color:rgb(255, 99, 0); font-size:10px; text-align:center; padding-top:2px;">Ecosystem Services data are currently only available for HUC5 Watersheds</span>
+                <span style="display:inline-block; width:100%; color:rgb(255, 99, 0); font-size:10px; text-align:center; padding-top:2px;">Climate Impacts data are currently only available for HUC5 Watersheds</span>
                 <!-- Start and Stop Buttons -->
                 <div class="select_container_2" id="view6_contents">
                     <form class="select_form2">
@@ -1045,7 +1045,7 @@
                         </form>
                     </div>
                 <div id="spline_chart"></div>
-                <div style="float:right;position:relative;right:25px;top:0px;font-size:.8em"><a id="EcosystemServicesInfoLink" href="" title="Click for information about the ecosystem Services data">About the ecosystem services data</a></div>
+                <div style="float:right;position:relative;right:25px;top:0px;font-size:.8em"><a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data">About the climate impacts data</a></div>
             </div>
 
         </div>
