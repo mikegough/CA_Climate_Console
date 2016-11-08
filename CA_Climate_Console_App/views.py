@@ -24,7 +24,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def index(request):
     domain = request.get_host()
-    if domain == 'climatedashboard.org':
+    if 'climatedashboard.org' in domain:
         return view2(request)
     else:
         return view1(request)
