@@ -231,11 +231,11 @@ def view1(request):
         if studyarea=='sagebrush':
 
             columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor2=getColor(resultsDict["theobald_i_avg"], "theobald")
-            columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            columnChartColor6=getColor(resultsDict["theobald_i_avg"], "theobald")
 
             columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
