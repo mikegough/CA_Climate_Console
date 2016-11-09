@@ -1,0 +1,318 @@
+# Metadata:
+#   Project: Sagebrush tool
+#   Model: High Climate Exposure
+#   Version: 1.0
+#   Author: Tim Sheehan
+#   RunDate: 2016-09-26 16:19:11.451106
+#   InputInfo: Anomaly data provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+
+# Annual climate variables
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_ppt1645_anom.nc,
+    InFieldName = anom,
+    NewFieldName = PrecipAnnAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmax1645_anom.nc,
+    InFieldName = anom,
+    NewFieldName = MaxTempAnnAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmin1645_anom.nc,
+    InFieldName = anom,
+    NewFieldName = MinTempAnnAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighPrecipAnnExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipAnnAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMaxTempAnnExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempAnnAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMinTempAnnExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempAnnAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# Combine annual exposures
+
+HighAnnualClimateExposureFz = OR (
+    InFieldNames = [
+        HighPrecipAnnExposureFz,
+        HighMaxTempAnnExposureFz,
+        HighMinTempAnnExposureFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# JFM climate variables
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_ppt1645_anom_JFM.nc,
+    InFieldName = anom,
+    NewFieldName = PrecipJFMAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmax1645_anom_JFM.nc,
+    InFieldName = anom,
+    NewFieldName = MaxTempJFMAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmin1645_anom_JFM.nc,
+    InFieldName = anom,
+    NewFieldName = MinTempJFMAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighPrecipJFMExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipJFMAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMaxTempJFMExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempJFMAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMinTempJFMExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempJFMAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# AMJ climate variables
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_ppt1645_anom_AMJ.nc,
+    InFieldName = anom,
+    NewFieldName = PrecipAMJAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmax1645_anom_AMJ.nc,
+    InFieldName = anom,
+    NewFieldName = MaxTempAMJAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmin1645_anom_AMJ.nc,
+    InFieldName = anom,
+    NewFieldName = MinTempAMJAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighPrecipAMJExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipAMJAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMaxTempAMJExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempAMJAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMinTempAMJExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempAMJAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# JAS climate variables
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_ppt1645_anom_JAS.nc,
+    InFieldName = anom,
+    NewFieldName = PrecipJASAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmax1645_anom_JAS.nc,
+    InFieldName = anom,
+    NewFieldName = MaxTempJASAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmin1645_anom_JAS.nc,
+    InFieldName = anom,
+    NewFieldName = MinTempJASAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighPrecipJASExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipJASAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMaxTempJASExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempJASAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMinTempJASExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempJASAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# OND climate variables
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_ppt1645_anom_OND.nc,
+    InFieldName = anom,
+    NewFieldName = PrecipONDAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmax1645_anom_OND.nc,
+    InFieldName = anom,
+    NewFieldName = MaxTempONDAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/data/Climate_WUS/ensemble_tmin1645_anom_OND.nc,
+    InFieldName = anom,
+    NewFieldName = MinTempONDAnomaly,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighPrecipONDExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = PrecipONDAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMaxTempONDExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MaxTempONDAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMinTempONDExposureFz = CVTTOFUZZYCURVE(
+    InFieldName = MinTempONDAnomaly,
+    RawValues =   [-8, -4,   -2, -1,  -0.5, .5, 1,   2, 4,      8],
+    FuzzyValues = [1, 0.5, 0,  -0.5, -1,    -1,  -0.5, 0, 0.5, 1.0 ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# Combine seasonal exposures
+
+HighPrecipSeasonalExposureFz = OR (
+    InFieldNames = [
+        HighPrecipJFMExposureFz,
+        HighPrecipAMJExposureFz,
+        HighPrecipJASExposureFz,
+        HighPrecipONDExposureFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMinTempSeasonalExposureFz = OR (
+    InFieldNames = [
+        HighMinTempJFMExposureFz,
+        HighMinTempAMJExposureFz,
+        HighMinTempJASExposureFz,
+        HighMinTempONDExposureFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighMaxTempSeasonalExposureFz = OR (
+    InFieldNames = [
+        HighMaxTempJFMExposureFz,
+        HighMaxTempAMJExposureFz,
+        HighMaxTempJASExposureFz,
+        HighMaxTempONDExposureFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+HighSeasonalClimateExposureFz = OR (
+    InFieldNames = [
+        HighPrecipSeasonalExposureFz,
+        HighMinTempSeasonalExposureFz,
+        HighMaxTempSeasonalExposureFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+# Direct climate exposure
+
+HighDirectClimateExposureFz = OR(
+    InFieldNames = [
+        HighAnnualClimateExposureFz,
+        HighSeasonalClimateExposureFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+    )
+
+################
+
+# HighAridityExposureFz = CVTTOFUZZYCURVE(
+#     InFieldName = AridityPercentExposure,
+#     RawValues =   [-96, -48, -24,  -12, -6, 6,    12, 24,  48,  96],
+# #    RawValues =   [-64, -32, -16,   -8, -4, 4,     8, 16,  32,  64],
+#     FuzzyValues = [1,   0.5,   0, -0.5, -1, -1, -0.5,  0, 0.5, 1.0],
+#     OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+#     )
+
+# HighDirectClimateExposureFz = OR(
+#     InFieldNames = [
+#         HighTempAnnExposureFz,
+#         HighPrecipAnnExposureFz
+#         ],
+#     OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+#     )
+
+# HighClimateExposureFz = OR(
+#     InFieldNames = [
+#         HighDirectClimateExposureFz,
+#         HighAridityExposureFz
+#         ],
+#     OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc
+#     )
+

@@ -230,11 +230,6 @@ def view1(request):
         #BAR COLORS
         if studyarea=='sagebrush':
 
-            resultsDict["eecefzt1_avg"]=0
-            resultsDict["eecefzt2_avg"]=0
-            resultsDict["eepifzt1_avg"]=0
-            resultsDict["eepifzt2_avg"]=0
-
             columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
             columnChartColor2=getColor(resultsDict["theobald_i_avg"], "theobald")
             columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")

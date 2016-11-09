@@ -1,0 +1,47 @@
+# Metadata:
+#   Project: Sagebrush tool
+#   Model: Potential Impacts
+#   Version: 1.0
+#   Author: Tim Sheehan
+#   RunDate: 2016-09-26 16:39:26.262248
+#   InputInfo: Input data for Sensitivity and Exposure models provided by Barry Baker
+#   Comments: EEEMS model created from template in python script
+
+# Climate
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as//Rslts/ClimateExposure/1.0/ensemble/1645/WUSClimateExposure.nc,
+    InFieldName = HighDirectClimateExposureFz,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/PotentialImpacts/1.0/ensemble/1645/WUSPotentialImpacts.nc
+    )
+
+# Sensitivity
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as//Rslts/SiteSensitivity/1.0/WUSSiteSensitivity.nc,
+    InFieldName = HighPotentialSiteSensitivityFz,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/PotentialImpacts/1.0/ensemble/1645/WUSPotentialImpacts.nc
+    )
+
+# Barren
+READ(
+    InFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as//Rslts/SiteSensitivity/1.0/WUSSiteSensitivity.nc,
+    InFieldName = IsNotBarrenFz,
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/PotentialImpacts/1.0/ensemble/1645/WUSPotentialImpacts.nc
+    )
+
+HighCalculatedPotentialImpactFz = UNION(
+    InFieldNames = [
+        HighDirectClimateExposureFz,
+        HighPotentialSiteSensitivityFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/PotentialImpacts/1.0/ensemble/1645/WUSPotentialImpacts.nc
+    )
+
+
+HiPotImpactFz = AND(
+    InFieldNames = [
+        IsNotBarrenFz,
+        HighCalculatedPotentialImpactFz
+        ],
+    OutFileName = /Volumes/SheehanCimateBackup/WUSEEMSClimate_30as/Rslts/PotentialImpacts/1.0/ensemble/1645/WUSPotentialImpacts.nc
+    )
+

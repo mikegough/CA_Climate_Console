@@ -249,8 +249,9 @@ function swapImageOverlay(layerName,modelType) {
         //The PNGs that come out of clover are not clipped to the data perfectly. So for those PNGs that come from the
         //Automated ArcMap Script, a different extent is needed.
         if (modelType=="EEMSmodel"){
-            if (EEMSParams["models"][modelForTree][9] == '2') {
-                overlay_bounds = EEMSParams['overlayBounds2'];
+            if (EEMSParams["models"][modelForTree][9]) {
+                overlayBoundsNumber=(EEMSParams["models"][modelForTree][9]).toString()
+                overlay_bounds = EEMSParams['overlayBounds' + overlayBoundsNumber];
             }
             else {
                 overlay_bounds = EEMSParams['overlayBounds'];
