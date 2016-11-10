@@ -1,5 +1,5 @@
 HighAnnualClimateExposureFz:High Annual Climate Exposure:0
-HighDirectClimateExposureFz:Climate Exposure (2016-2045):1
+HighDirectClimateExposureFz:Climate Exposure (2046-2075):1
 HighMaxTempAMJExposureFz:High Max Temp AMJ Exposure:2
 HighMaxTempAnnExposureFz:High Max Temp Ann Exposure:3
 HighMaxTempJASExposureFz:High Max Temp JAS Exposure:4
