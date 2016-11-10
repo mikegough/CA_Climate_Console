@@ -1,7 +1,7 @@
 var attributes =[]
 for (EEMSModel in EEMSParams["models"]){
     var imageToOverlay=EEMSParams['models'][EEMSModel][6].replace(".eem","") + "_" + EEMSParams['models'][EEMSModel][7];
-    attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='modelForTree=&quot;" + EEMSModel + "&quot;;swapImageOverlay(&quot;"+imageToOverlay+"&quot;,&quot;EEMSmodel&quot;);swapLegend(&quot;"+imageToOverlay+"&quot;,&quot;"+EEMSModel+"&quot;,&quot;EEMSmodel&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>");
+    attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='initialize_tree(&quot;" + EEMSModel +"&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>");
 }
 
 function createColumnChart(){
@@ -160,7 +160,6 @@ function createColumnChart(){
                     column: {
                         pointPadding:.1,
                         borderWidth: 1,
-                        //colors: ['#364D22', '#4D79B3', '#734D21', '#FF5C0F', '#B11B1B']
                         colors: columnChartColors
                     },
                     series: {
@@ -190,46 +189,7 @@ function createColumnChart(){
 
                                     //Update MEEMSE2.0 values
                                     //Clear out the div containing the model diagram
-                                    $('#infovis').html('')
-                                    $('#MEEMSE_node_count_legend').css("visibility","visible")
-                                    modelForTree=layerToAdd
-                                    eems_file_name=EEMSParams['models'][modelForTree][6]
-                                    top_node=EEMSParams['models'][modelForTree][7]
-                                    $.ajax({
-                                        url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
-                                        //Webfactional
-                                        //url : "/enerate_eems_tree", // the endpoint
-                                        async: false,
-                                        type: "POST", // http method
-                                        data: {eems_file_name: eems_file_name, top_node: top_node},
-
-                                        success: function (results) {
-                                            response=JSON.parse(results)
-                                            json=response['eems_tree_dict']
-                                            top_node=response['top_node']
-                                            init()
-                                            //json=$.parseJSON(json);
-                                            //defineJSONtree()
-                                            //alert(json)
-                                            //$("#"+st.root).click()
-                                        }
-
-                                    });
-
-
-                                    //Change column properties on click (problem is that when selecting a new feature, these properties no longer apply to the selected column)
-                                    /*
-                                     for (var i = 0; i < this.series.data.length; i++) {
-                                         this.series.data[i].update({ borderColor: '#444444'}, true, false);
-                                         this.series.data[i].graphic.attr({'stroke-width': 1}, true, false);
-                                     }
-                                        this.update({ borderColor: '#00FFFF'}, true, false)
-                                        this.graphic.attr({'stroke-width': 2 })
-                                     */
-
-                                     //Define the json variable based on the layerToAdd  Name
-                                     //defineJSONtree()
-                                     //Create the tree.
+                                    initialize_tree(layerToAdd)
 
                                     // Workaround to getting the last bar clicked to show up on top
                                     // Simply remove the other ones if they're in the map.
@@ -246,27 +206,6 @@ function createColumnChart(){
                                     }
                                     // End Workaround
 
-                                    if (typeof layerToAdd != 'undefined'){
-                                         //swapImageOverlay(layerToAdd,'EEMSmodel')
-                                         //swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
-                                         eems_node_image_name=eems_file_name.replace(".eem","")+"_" + top_node
-                                         eems_node_legend_name=eems_file_name.replace(".eem","")+"_" + "Legend"
-                                         swapImageOverlay(eems_node_image_name,'EEMSmodel')
-                                         swapLegend(layerToAdd, eems_node_image_name, 'EEMSmodel')
-                                         //window.open(layerToAdd);
-                                         // toggleLayer(layerToAdd)
-                                    }
-
-                                    //function for deselecting points when a column is selected.
-                                    //Another issue: selecting a new polygon recreates the chart and deselects the selected column
-                                    /*
-                                    var other_chart = $('#point_chart').highcharts()
-                                    other_chart.series[0].data[0].select();
-                                    other_chart.series[1].data[0].select();
-                                    other_chart.series[2].data[0].select();
-                                    other_chart.series[3].data[0].select();
-                                    */
-
                                 }
                             }
                     },
@@ -282,4 +221,39 @@ function createColumnChart(){
             });
     });
 
+}
+
+function initialize_tree(layerToAdd){
+
+    modelForTree=layerToAdd
+
+    eems_file_name=EEMSParams['models'][modelForTree][6]
+    top_node=EEMSParams['models'][modelForTree][7]
+
+    $('#infovis').html('')
+    $('#MEEMSE_node_count_legend').css("visibility","visible")
+
+    $.ajax({
+        url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
+        //Webfactional
+        //url : "/enerate_eems_tree", // the endpoint
+        async: false,
+        type: "POST", // http method
+        data: {eems_file_name: eems_file_name, top_node: top_node},
+
+        success: function (results) {
+            response=JSON.parse(results)
+            json=response['eems_tree_dict']
+            top_node=response['top_node']
+            init()
+            if (typeof modelForTree != 'undefined'){
+                 //swapImageOverlay(layerToAdd,'EEMSmodel')
+                 //swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
+                 eems_node_image_name=eems_file_name.replace(".eem","")+"_" + top_node
+                 eems_node_legend_name=eems_file_name.replace(".eem","")+"_" + "Legend"
+                 swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                 swapLegend(layerToAdd, eems_node_image_name, 'EEMSmodel')
+            }
+        }
+    });
 }
