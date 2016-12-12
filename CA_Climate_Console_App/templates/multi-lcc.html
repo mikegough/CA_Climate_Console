@@ -101,9 +101,12 @@
 <link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
 -->
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/histogram.js"></script>
+<script src="{{STATIC_URL}}Highcharts/area_chart.js"></script>
 
 <!--
 <script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
@@ -126,6 +129,7 @@
     var last_poly="{{WKT_SelectedPolys}}"
     columnChartColors="{{columnChartColors}}"
     unitsForChart="metric"
+
 </script>
 
 <style>
@@ -301,6 +305,7 @@
                         <!--<li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>-->
                         <li><a id="view98Link" href="#view98">Climate</a></li>
                         <li><a id="view99Link" href="#view99">Soils</a></li>
+                        <li><a id="view101Link" href="#view101">Vegetation</a></li>
                         <li><a id="view100Link" href="#view100">About this Protected Area</a></li>
                         <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
                         <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
@@ -464,6 +469,25 @@
                         <img style="cursor:pointer" id="soilSensitivityThumb" src="{{STATIC_URL}}img/modelDiagrams/SimpleSiteSensitivityThumb.png" onClick="new Messi('The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.<div class=modelDiagram> <img src={{STATIC_URL}}img/modelDiagrams/SimpleSiteSensitivity.png><div class=bottom_spacing><p></div></div>', {title: 'Site Sensitivity', center:true, width:'1000px', modal:true, modalOpacity:.4,center: true});">
                         </div>
 
+                    </div>
+                    <div id="view101">
+                        <div id="mc2">
+                            <form class="select_form2">
+                            <div id="ecosystem_services_model_div">
+                                <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
+                                <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                                <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                                    <!-- Annual Averages -->
+                                    <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                    <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm">CNRM-CM5 (Warm/Wet)</option>
+                                    <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2">CanESM2 (Hot/Wet)</option>
+                                    <option value="ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es">HadGem2-ES (Hot/Dry)</option>
+                                </select>
+                            </div>
+                            </form>
+                            <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
+                            <div id="area_chart"></div>
+                        </div>
                     </div>
                     <div id="view100">
                         <div id="AboutSelectedProtectedArea"></div>

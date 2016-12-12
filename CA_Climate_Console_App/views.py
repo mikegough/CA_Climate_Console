@@ -31,8 +31,6 @@ def index(request):
 
 def view1(request):
 
-    has_ecosystem_services=1
-
     studyarea = request.resolver_match.url_name
     template=request.GET.get('template','template1')
 
@@ -42,6 +40,8 @@ def view1(request):
         WKT = request.POST.get('wktPOST')
         table=request.POST.get('reporting_units')
         categoricalFields=request.POST.get('name_field')
+        ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
+        ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
 
     else:
         WKT=request.GET.get('user_wkt')
@@ -286,8 +286,8 @@ def view1(request):
             columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
 
-        if has_ecosystem_services:
-            ecosystem_services_data=get_ecosystem_services_data(WKT)
+        if ecosystem_services_vtype_tables !="":
+            ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
         else:
             ecosystem_services_data=''
 
@@ -312,14 +312,12 @@ def view1(request):
 @gzip_page
 @csrf_exempt
 def view2(request):
-
-    #studyarea = request.resolver_match.url_name
-    #template=request.GET.get('template','template1')
-
+    #multi-lcc view
     WKT = request.POST.get('wktPOST')
     table=request.POST.get('reporting_units')
     categoricalFields=request.POST.get('name_field')
-    print WKT
+    ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
+    ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
 
     ############################################# INPUT PARAMETERS #####################################################
 
@@ -537,11 +535,14 @@ def view2(request):
             ########################################### RETURN RESULTS #####################################################
 
             try:
-                centroid=resultsDict['centroid']
+                centroid="SRID=4326;" + resultsDict['centroid']
             except:
                 centroid=0
 
-            print centroid
+            if ecosystem_services_vtype_tables !="":
+                ecosystem_services_data=get_ecosystem_services_data(centroid,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
+            else:
+                ecosystem_services_data=''
 
             context={'initialize': 0,
                      'WKT_SelectedPolys': spatial_filter_shape,
@@ -552,6 +553,7 @@ def view2(request):
                      'error': 0,
                      'config_file':config_file,
                      'centroid': centroid,
+                     'ecosystem_services_data':ecosystem_services_data
                      }
 
         if request.method == 'POST':
@@ -647,9 +649,9 @@ def generate_eems_tree(request):
     print eems_file_name
     top_node=request.POST.get("top_node")
 
-    #eems_file_directory="static/config/eems"
+    eems_file_directory="static/config/eems"
     #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicityly type the path.
-    eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
+    #eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
 
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
     eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
@@ -1059,11 +1061,10 @@ def generate_eems_tree(request):
 
     return HttpResponse(json.dumps(context))
 
-def get_ecosystem_services_data(WKT):
-
+def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
     #VTYPE
     cursor = connection.cursor()
-    vtype_tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
+    #vtype_tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
     resultsDictMultiTable={}
     resultsDictMultiTable["vegetation_composition"]={}
@@ -1100,11 +1101,11 @@ def get_ecosystem_services_data(WKT):
         resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
 
     #Continuous7
-    continuous7_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
+    #continuous_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
     resultsDictMultiTable["continuous7"]={}
-    for continuous7_table in continuous7_tables:
-        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous7_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+    for continuous_table in continuous_tables:
+        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
         cursor.execute(field_name_query)
         statsFieldsTuple=cursor.fetchone()
         statsFields = ",".join(statsFieldsTuple)
@@ -1114,9 +1115,9 @@ def get_ecosystem_services_data(WKT):
             selectList+=field + " as " + field +", "
         #Extra comma
         selectList=selectList.rstrip(', ')
-        continuous7_tableList=" FROM " + continuous7_table
-        selectFieldsFromTable = selectList + continuous7_tableList
-        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous7_table + ".geom)"
+        continuous_tableList=" FROM " + continuous_table
+        selectFieldsFromTable = selectList + continuous_tableList
+        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
         print selectStatement
         cursor.execute(selectStatement)
         resultsDict={}
@@ -1133,7 +1134,7 @@ def get_ecosystem_services_data(WKT):
             print "Error: No features selected"
             raise SystemExit(0)
 
-        resultsDictMultiTable["continuous7"][continuous7_table]=resultsDict
+        resultsDictMultiTable["continuous7"][continuous_table]=resultsDict
 
     #Take fieldname,value pairs from the dict and dump to a JSON string.
     veg_composition_data=json.dumps(resultsDictMultiTable)

@@ -98,14 +98,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         //JIT tree stretched
         else if (climateVariable=='EEMSmodelTREE_Stretched') {
 
-            /*
-            legendTitle=layerToAdd
-            legendImage="/Legends/"+layerToAddName +"_legend"
-            legendHeight=""
-            legendLabels=EEMSParams["models"]["inputs"][4]
-            dbid=dbid_with_index
-            */
-
             // Updated version. Legend name matched to filename.  Non-shared legends for non-fuzzy inputs.
 
             legendTitle=layerToAdd
@@ -119,13 +111,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         else {
 
             //Legend Title
-            //modelCode=layerToAddName.substring(0,1)
-
-            //modelName=layerToAddName.replace(/c2.*/,'CanESM2').replace(/c4.*/,'CCSM4').replace(/m5.*/,'MIROC5').replace(/ee.*/,'Ensemble').replace(/pm.*/,'PRISM')
-            //modelName=modelName.replace(/g3.*/,'GFDL-CM3').replace(/hs.*/,'HadGEM2-ES').replace(/hc.*/,'HadGEM2-CC').replace(/a0.*/,'ACCESS1-0').replace(/cc.*/,'CESM1-BGC').replace(/cm.*/,'CMCC-CM').replace(/c5.*/,'CNRM-CM5')
             timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
-
 
             if (modelName == "PRISM") {
                 //For PRISM, the layer index comes from the season, s0 is the average and is the first layer in the Data Basin Dataset, s1 is PRISM JFM, etc. Get the index number from the layer name.
@@ -134,7 +121,6 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             else {
                 DataBasinLayerIndex = climateParams["models"][modelName][2]
             }
-
 
             //Create Climate Variable Label
             if (layerToAddName.indexOf('tma') != -1  ){
@@ -509,6 +495,12 @@ map.on('baselayerchange', function (event) {
 });
 
 
+if (typeof ecosystemServicesParams == "undefined"){
+    ecosystemServicesParams=[];
+    ecosystemServicesParams["continuousTables"]="";
+    ecosystemServicesParams["vtypeTables"]="";
+}
+
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0
@@ -519,8 +511,13 @@ function create_post(newWKT) {
         type : "POST", // http method
         //data sent to django view with the post request
         //data : { the_post : $('#post-text').val() },
-        data: {wktPOST: newWKT, reporting_units: reporting_units, name_field:name_field},
-
+        data: {
+            wktPOST: newWKT,
+            reporting_units: reporting_units,
+            name_field:name_field,
+            ecosystem_services_continuous_tables:ecosystemServicesParams["continuousTables"],
+            ecosystem_services_vtype_tables:ecosystemServicesParams["vtypeTables"]
+        },
         // handle a successful response
         success : function(json) {
             timesRun=initialize+1
