@@ -130,15 +130,11 @@ function selectFeatureFromTable(name) {
 
     $(document).ajaxComplete(function(){
         results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:.5, opacity:1})
-        //$('#AboutSelectedProtectedArea').html(response['categoricalValues'] + " is a protected area....")
-        /*
-         $.get(static_url+"config/html/mlcc/" + response['categoricalValues']+".html", function (data) {
-         $("#AboutSelectedProtectedArea").html(data);
-         });
-         */
-        //Change Units on Point Chart. Required for initial load.
+        //MC2 Vegetation
+        createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
     });
 
+    //Change Units on Point Chart. Required for initial load.
     changeUnits(units_for_table)
 
      $('input[type=checkbox][name=results_poly_visibility]').change(function() {

@@ -74,10 +74,7 @@ EEMSParams={
 
 ecosystemServicesParams={
     "continuousTables": [
-        'ca_reporting_units_huc5_watersheds_es_decadal_ccsm4',
-        'ca_reporting_units_huc5_watersheds_es_decadal_cnrm',
-        'ca_reporting_units_huc5_watersheds_es_decadal_canesm2',
-        'ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es'
+        '',
     ],
     "vtypeTables": [
         'ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4',

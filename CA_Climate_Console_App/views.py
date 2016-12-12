@@ -324,8 +324,6 @@ def view2(request):
     stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
     if table == None:
-        #table="multi_lcc_query_layer_protected_areas_5_simplify"
-        #table="multi_lcc_query_layer_protected_areas_no_simplify"
         table="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!
         categoricalFields="name,ru_type"
 
@@ -354,8 +352,6 @@ def view2(request):
             WKT="SRID=4326;"+WKT
 
             spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_1_simplify'
-            #query_layer='multi_lcc_query_layer_protected_areas_5_simplify'
-            #query_layer="multi_lcc_query_layer_protected_areas_no_simplify"
             query_layer="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!!
             print query_layer
 
@@ -522,7 +518,6 @@ def view2(request):
 
             ##################################### SET ADDITIONAL VARIABLES #################################################
 
-
             resultsDict["intactness_avg"]=0
             resultsDict["hisensfz_avg"]=0
             resultsDict["eecefzt1_avg"]=0
@@ -539,7 +534,7 @@ def view2(request):
             except:
                 centroid=0
 
-            if ecosystem_services_vtype_tables !="":
+            if ecosystem_services_vtype_tables != "":
                 ecosystem_services_data=get_ecosystem_services_data(centroid,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
             else:
                 ecosystem_services_data=''
@@ -565,8 +560,6 @@ def view2(request):
 @csrf_exempt
 def downscale(request):
     userWKT = request.POST.get('input')
-    #print userWKT
-    #coords=re.findall("[+-]?\d+.\d+", userWKT)
     coords=re.findall("[-+]?\d+[\.]?\d*", userWKT)
     #print coords
     lon_target=float(coords[0])
@@ -1104,37 +1097,40 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
     #continuous_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
     resultsDictMultiTable["continuous7"]={}
-    for continuous_table in continuous_tables:
-        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
-        cursor.execute(field_name_query)
-        statsFieldsTuple=cursor.fetchone()
-        statsFields = ",".join(statsFieldsTuple)
-        cursor = connection.cursor()
-        selectList="SELECT "
-        for field in statsFields.split(','):
-            selectList+=field + " as " + field +", "
-        #Extra comma
-        selectList=selectList.rstrip(', ')
-        continuous_tableList=" FROM " + continuous_table
-        selectFieldsFromTable = selectList + continuous_tableList
-        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
-        print selectStatement
-        cursor.execute(selectStatement)
-        resultsDict={}
-        #Get field names
-        columns = [colName[0] for colName in cursor.description]
-        try:
-            for row in cursor:
-                for i in range(len(row)):
-                    if isinstance(row[i], basestring):
-                        resultsDict[columns[i]] = row[i].strip()
-                    else:
-                        resultsDict[columns[i]] =(float(round(row[i],2)))
-        except:
-            print "Error: No features selected"
-            raise SystemExit(0)
+    try:
+        for continuous_table in continuous_tables:
+            field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+            cursor.execute(field_name_query)
+            statsFieldsTuple=cursor.fetchone()
+            statsFields = ",".join(statsFieldsTuple)
+            cursor = connection.cursor()
+            selectList="SELECT "
+            for field in statsFields.split(','):
+                selectList+=field + " as " + field +", "
+            #Extra comma
+            selectList=selectList.rstrip(', ')
+            continuous_tableList=" FROM " + continuous_table
+            selectFieldsFromTable = selectList + continuous_tableList
+            selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
+            print selectStatement
+            cursor.execute(selectStatement)
+            resultsDict={}
+            #Get field names
+            columns = [colName[0] for colName in cursor.description]
+            try:
+                for row in cursor:
+                    for i in range(len(row)):
+                        if isinstance(row[i], basestring):
+                            resultsDict[columns[i]] = row[i].strip()
+                        else:
+                            resultsDict[columns[i]] =(float(round(row[i],2)))
+            except:
+                print "Error: No features selected"
+                raise SystemExit(0)
 
-        resultsDictMultiTable["continuous7"][continuous_table]=resultsDict
+            resultsDictMultiTable["continuous7"][continuous_table]=resultsDict
+    except:
+        print "No continuous MC2 data"
 
     #Take fieldname,value pairs from the dict and dump to a JSON string.
     veg_composition_data=json.dumps(resultsDictMultiTable)

@@ -23,6 +23,7 @@ function createAreaChart(model,updateSource) {
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,
+                backgroundColor:'rgba(255, 255, 255, 0.1)'
                 /*screws up placement of legend in chrome. */
                 /*marginBottom:150*/
             },

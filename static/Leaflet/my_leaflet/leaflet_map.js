@@ -742,8 +742,12 @@ function create_post(newWKT) {
 
             if (typeof areaChart != 'undefined' && areaChart != false) {
 
-                createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
-                createSplineChart(document.getElementById("ecoServSelectionForm").value)
+                // For dashboard, the call to createAreaChart happens in dashboard.js
+                createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick");
+
+                if (typeof createSplineChart == "function") {
+                    createSplineChart(document.getElementById("ecoServSelectionForm").value);
+                }
             }
 
         },
