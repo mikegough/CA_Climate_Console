@@ -244,7 +244,7 @@ function swapImageOverlay(layerName,modelType) {
             }
         }
         else if (modelType=="EcosystemServices"){
-            overlay_bounds = ecosystemServicesParams['overlayBounds'];
+            overlay_bounds = ecosystemServicesParams[activeReportingUnitsName]["overlayBounds"];
         }
         else{
             overlay_bounds = climateParams['overlayBounds'];
@@ -501,9 +501,19 @@ if (typeof ecosystemServicesParams == "undefined"){
     ecosystemServicesParams["vtypeTables"]="";
 }
 
+var continuousTablesList=[]
+var vtypeTablesList=[]
+
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0
+    $.each(ecosystemServicesParams[activeReportingUnitsName]["continuousTables"], function(key,value) {
+        continuousTablesList.push(value)
+    });
+    $.each(ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"], function(key,value) {
+        vtypeTablesList.push(value)
+    });
+    alert(continuousTablesList)
     $.ajax({
         url : "", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
@@ -515,8 +525,8 @@ function create_post(newWKT) {
             wktPOST: newWKT,
             reporting_units: reporting_units,
             name_field:name_field,
-            ecosystem_services_continuous_tables:ecosystemServicesParams["continuousTables"],
-            ecosystem_services_vtype_tables:ecosystemServicesParams["vtypeTables"]
+            ecosystem_services_continuous_tables:continuousTablesList,
+            ecosystem_services_vtype_tables:vtypeTablesList
         },
         // handle a successful response
         success : function(json) {

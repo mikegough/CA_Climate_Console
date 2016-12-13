@@ -47,11 +47,12 @@ function createSplineChart(model,y1_variable,y2_variable) {
     var years = _.range(2011, 2101, 10)
 
     //console.log(modified_model_name)
+    var continuous_db_table=ecosystemServicesParams[activeReportingUnitsName]["continuousTables"][model]
 
     var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
 
-    var y1_data_string = ecosystem_services_data["continuous7"][modified_model_name][y1_variable]
-    var y2_data_string = ecosystem_services_data["continuous7"][modified_model_name][y2_variable]
+    var y1_data_string = ecosystem_services_data["continuous7"][continuous_db_table][y1_variable]
+    var y2_data_string = ecosystem_services_data["continuous7"][continuous_db_table][y2_variable]
 
     var y1_data = $.map(y1_data_string.split(','), function(value){
         return parseInt(value, 10);

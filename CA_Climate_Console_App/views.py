@@ -1063,6 +1063,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
     resultsDictMultiTable["vegetation_composition"]={}
     for vtype_table in vtype_tables:
         field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+        print field_name_query
         cursor.execute(field_name_query)
         statsFieldsTuple=cursor.fetchone()
         statsFields = ",".join(statsFieldsTuple)

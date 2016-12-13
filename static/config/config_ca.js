@@ -76,20 +76,39 @@ EEMSParams={
     "overlayBounds":[[32.534715526793306, -124.40416822955052], [42.01249803975221, -114.12309789053886]],
 };
 
-ecosystemServicesParams={
-    "continuousTables": [
-        'ca_reporting_units_huc5_watersheds_es_decadal_ccsm4',
-        'ca_reporting_units_huc5_watersheds_es_decadal_cnrm',
-        'ca_reporting_units_huc5_watersheds_es_decadal_canesm2',
-        'ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es'
-    ],
-    "vtypeTables": [
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4',
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm',
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2',
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es'
-    ],
-    "overlayBounds":[[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+ecosystemServicesParams= {
+    "HUC5 Watersheds": {
+        "continuousTables": {
+            "ccsm4": "ca_reporting_units_huc5_watersheds_es_decadal_ccsm4",
+            "cnrm": "ca_reporting_units_huc5_watersheds_es_decadal_cnrm",
+            "canesm2": "ca_reporting_units_huc5_watersheds_es_decadal_canesm2",
+            "hadgem2es": "ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es"
+        }
+        ,
+        "vtypeTables": {
+            "ccsm4": 'ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4',
+            "cnrm": 'ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm',
+            "canesm2": 'ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2',
+            "hadgem2es": 'ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es'
+        },
+        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    },
+
+    "Counties": {
+        "continuousTables": {
+            "ccsm4": "ca_reporting_units_counties_es_decadal_ccsm4",
+            "cnrm": "ca_reporting_units_counties_es_decadal_cnrm_cm5",
+            "canesm2": "ca_reporting_units_counties_es_decadal_canesm2",
+            "hadgem2es": "ca_reporting_units_counties_es_decadal_hadgem2_es"
+        },
+        "vtypeTables": {
+            "ccsm4": 'ca_reporting_units_counties_es_decadal_vtype_ccsm4',
+            "cnrm": 'ca_reporting_units_counties_es_decadal_vtype_cnrm_cm5',
+            "canesm2": 'ca_reporting_units_counties_es_decadal_vtype_canesm2',
+            "hadgem2es": 'ca_reporting_units_counties_es_decadal_vtype_hadgem2_es'
+        },
+        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    }
 };
 
 

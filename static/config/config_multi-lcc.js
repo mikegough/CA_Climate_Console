@@ -73,16 +73,18 @@ EEMSParams={
 };
 
 ecosystemServicesParams={
-    "continuousTables": [
-        '',
-    ],
-    "vtypeTables": [
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4',
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm',
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2',
-        'ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es'
-    ],
-    "overlayBounds":[[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    "LCC Boundaries": {
+        "continuousTables": [
+            '',
+        ],
+        "vtypeTables": [
+            'ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4',
+            'ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm',
+            'ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2',
+            'ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es'
+        ],
+        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    }
 };
 
 
