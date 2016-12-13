@@ -501,19 +501,21 @@ if (typeof ecosystemServicesParams == "undefined"){
     ecosystemServicesParams["vtypeTables"]="";
 }
 
-var continuousTablesList=[]
-var vtypeTablesList=[]
-
 // AJAX for posting
 function create_post(newWKT) {
     initialize=0
-    $.each(ecosystemServicesParams[activeReportingUnitsName]["continuousTables"], function(key,value) {
-        continuousTablesList.push(value)
-    });
-    $.each(ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"], function(key,value) {
-        vtypeTablesList.push(value)
-    });
-    alert(continuousTablesList)
+
+    var continuousTablesList=[]
+    var vtypeTablesList=[]
+    if (typeof ecosystemServicesParams[activeReportingUnitsName] != "undefined") {
+        $.each(ecosystemServicesParams[activeReportingUnitsName]["continuousTables"], function (key, value) {
+            continuousTablesList.push(value)
+        });
+        $.each(ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"], function (key, value) {
+            vtypeTablesList.push(value)
+        });
+    }
+
     $.ajax({
         url : "", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
@@ -1473,7 +1475,9 @@ function activateMapForEcosystemServices(){
     //Only Watersheds are currently available
     //Click the watersheds base-layer radio button (5th one down)
     //$("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
-    $("div.leaflet-top:nth-child(1)").hide()
+
+    //$("div.leaflet-top:nth-child(1)").hide()
+
     /*
     $('div.leaflet-top:nth-child(1)').on({
         mouseover: function() {
@@ -1488,9 +1492,10 @@ function activateMapForEcosystemServices(){
     });
     */
 
-    $('input:radio[name=leaflet-base-layers]:nth(4)').click()
-    reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'
-    create_post(user_wkt)
+    //$('input:radio[name=leaflet-base-layers]:nth(4)').click()
+    //reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'
+
+    //create_post(user_wkt)
 
     swapImageOverlay("single_transparent_pixel")
 
