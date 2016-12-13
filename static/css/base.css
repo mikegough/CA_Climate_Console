@@ -1974,7 +1974,11 @@ div#pop-up2 {
 }
 
 #area_chart .highcharts-series-group{
-    opacity:.85
+    opacity:.85;
+}
+
+#area_chart .highcharts-xaxis-title{
+    left:60px !important;
 }
 
 #vegMapSlider {
