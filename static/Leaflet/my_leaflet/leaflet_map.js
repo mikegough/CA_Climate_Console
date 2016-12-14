@@ -507,6 +507,7 @@ function create_post(newWKT) {
 
     var continuousTablesList=[]
     var vtypeTablesList=[]
+
     if (typeof ecosystemServicesParams[activeReportingUnitsName] != "undefined") {
         $.each(ecosystemServicesParams[activeReportingUnitsName]["continuousTables"], function (key, value) {
             continuousTablesList.push(value)
@@ -752,7 +753,9 @@ function create_post(newWKT) {
 
             }
 
-            if (typeof areaChart != 'undefined' && areaChart != false) {
+            if (typeof areaChart != 'undefined' && areaChart != false && vtypeTablesList.length > 0 ) {
+
+                $("#no_climate_impacts_data").hide()
 
                 // For dashboard, the call to createAreaChart happens in dashboard.js
                 createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick");
@@ -761,6 +764,10 @@ function create_post(newWKT) {
                     createSplineChart(document.getElementById("ecoServSelectionForm").value);
                 }
             }
+            else  {
+                $("#no_climate_impacts_data").show()
+            }
+
 
         },
 
@@ -1472,31 +1479,7 @@ function activateMapForEcosystemServices(){
     map.removeLayer(near_term_climate_divisions)
     document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
 
-    //Only Watersheds are currently available
-    //Click the watersheds base-layer radio button (5th one down)
-    //$("div.leaflet-top:nth-child(1)") .fadeTo(500, 0.2)
-
-    //$("div.leaflet-top:nth-child(1)").hide()
-
-    /*
-    $('div.leaflet-top:nth-child(1)').on({
-        mouseover: function() {
-            alertify.alert('These options are currently unavailable for ecosytem services. Click on a watershed to explore the ecosystem services charts for the selected area.')
-        },
-        mouseout: function(event) {
-            event.preventDefault();
-        }
-    })
-    $('div.leaflet-top:nth-child(1)').click(function(event){
-        event.stopPropagation();
-    });
-    */
-
-    //$('input:radio[name=leaflet-base-layers]:nth(4)').click()
-    //reporting_units='ca_reporting_units_huc5_watersheds_5_simplify'
-
-    //create_post(user_wkt)
-
+    $("div.leaflet-draw").hide()
     swapImageOverlay("single_transparent_pixel")
 
     if (typeof pngCloverYear !=  "undefined"){
@@ -1512,21 +1495,6 @@ function activateMapForEcosystemServices(){
     });
 
 
-   activeReportingUnits.eachLayer(function (layer) {
-        layer.setStyle({
-            color :'#48A1D1',
-            weight:1,
-            opacity:.6
-        })
-    });
-
-    defaultStyle = {
-        color :'#48A1D1',
-        weight:1,
-        opacity:.6,
-        dashArray: 0,
-        fillOpacity:0,
-    };
 }
 
 

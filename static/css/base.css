@@ -2069,6 +2069,25 @@ div#pop-up2 {
     right: 10px !important;
 }
 
+#no_climate_impacts_data {
+	position: absolute;
+	z-index: 9999;
+	height: 100%;
+	background-color: white;
+	opacity: .9;
+	padding: 90px 30px 30px 30px;
+	font-size: 20px;
+	color: #454545;
+	text-align: center;
+	display: none;
+	width: 87%;
+    overflow:hidden;
+}
+
+#no_climate_impacts_alert_icon{
+    height:100px
+}
+
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */
 #footer a:active {color:#4D79B3;}  /* selected link */

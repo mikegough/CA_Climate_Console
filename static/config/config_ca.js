@@ -93,7 +93,6 @@ ecosystemServicesParams= {
         },
         "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
-
     "Counties": {
         "continuousTables": {
             "ccsm4": "ca_reporting_units_counties_es_decadal_ccsm4",
@@ -106,6 +105,45 @@ ecosystemServicesParams= {
             "cnrm": 'ca_reporting_units_counties_es_decadal_vtype_cnrm_cm5',
             "canesm2": 'ca_reporting_units_counties_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_counties_es_decadal_vtype_hadgem2_es'
+        },
+        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    },
+    "Jepson Ecoregions": {
+        "continuousTables": {
+            "ccsm4": "ca_reporting_units_jepson_ecoregions_es_decadal_ccsm4",
+            "cnrm": "ca_reporting_units_jepson_ecoregions_es_decadal_cnrm_cm5",
+            "canesm2": "ca_reporting_units_jepson_ecoregions_es_decadal_canesm2",
+            "hadgem2es": "ca_reporting_units_jepson_ecoregions_es_decadal_hadgem2_es"
+        },
+        "vtypeTables": {
+            "ccsm4": 'ca_reporting_units_jepson_ecoregions_es_decadal_vtype_ccsm4',
+            "cnrm": 'ca_reporting_units_jepson_ecoregions_es_decadal_vtype_cnrm_cm5',
+            "canesm2": 'ca_reporting_units_jepson_ecoregions_es_decadal_vtype_canesm2',
+            "hadgem2es": 'ca_reporting_units_jepson_ecoregions_es_decadal_vtype_hg2_es'
+        },
+        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    },
+    "USDA Ecoregions": {
+        "continuousTables": {
+            "ccsm4": "ca_reporting_units_usda_ecoregions_es_decadal_ccsm4",
+            "cnrm": "ca_reporting_units_usda_ecoregions_es_decadal_cnrm_cm5",
+            "canesm2": "ca_reporting_units_usda_ecoregions_es_decadal_canesm2",
+            "hadgem2es": "ca_reporting_units_usda_ecoregions_es_decadal_hadgem2_es"
+        },
+        "vtypeTables": {
+            "ccsm4": 'ca_reporting_units_usda_ecoregions_es_decadal_vtype_ccsm4',
+            "cnrm": 'ca_reporting_units_usda_ecoregions_es_decadal_vtype_cnrm_cm5',
+            "canesm2": 'ca_reporting_units_usda_ecoregions_es_decadal_vtype_canesm2',
+            "hadgem2es": 'ca_reporting_units_usda_ecoregions_es_decadal_vtype_hadgem2_es'
+        },
+        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+    },
+
+    "User Defined (1km)": {
+        "continuousTables": {
+        }
+        ,
+        "vtypeTables": {
         },
         "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     }
