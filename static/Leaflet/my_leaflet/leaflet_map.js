@@ -243,7 +243,7 @@ function swapImageOverlay(layerName,modelType) {
                 overlay_bounds = EEMSParams['overlayBounds'];
             }
         }
-        else if (modelType=="EcosystemServices"){
+        else if (modelType=="EcosystemServices" && typeof ecosystemServicesParams[activeReportingUnitsName] != "undefined"){
             overlay_bounds = ecosystemServicesParams[activeReportingUnitsName]["overlayBounds"];
         }
         else{

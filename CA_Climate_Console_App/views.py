@@ -642,9 +642,9 @@ def generate_eems_tree(request):
     print eems_file_name
     top_node=request.POST.get("top_node")
 
-    eems_file_directory="static/config/eems"
+    #eems_file_directory="static/config/eems"
     #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicityly type the path.
-    #eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
+    eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
 
     eems_file=eems_file_directory + "/command_files/" + eems_file_name
     eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
@@ -1101,8 +1101,11 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
     try:
         for continuous_table in continuous_tables:
             field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+            print field_name_query
             cursor.execute(field_name_query)
             statsFieldsTuple=cursor.fetchone()
+            if not all(statsFieldsTuple):
+                print "Missing data fields in " + continuous_table
             statsFields = ",".join(statsFieldsTuple)
             cursor = connection.cursor()
             selectList="SELECT "
@@ -1133,6 +1136,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
     except:
         print "No continuous MC2 data"
 
+    print resultsDictMultiTable["continuous7"]
     #Take fieldname,value pairs from the dict and dump to a JSON string.
     veg_composition_data=json.dumps(resultsDictMultiTable)
 
