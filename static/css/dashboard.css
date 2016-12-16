@@ -714,3 +714,7 @@ table.tablesorter tbody {
 	position: relative;
 	font-weight: bold;
 }
+
+#ecosystem_services_description {
+	margin: 0px 10px 0px 30px;
+}

@@ -1152,7 +1152,9 @@ function animateClickToMapInfoBox(){
 
 function updateEcosystemServicesCharts(dropDownValue) {
     createAreaChart(dropDownValue, "changeDropDown");
-    createSplineChart(dropDownValue)
+    if (typeof createSplineChart == "function") {
+        createSplineChart(dropDownValue);
+    }
 }
 
 function updateClimateHelpContent(){
