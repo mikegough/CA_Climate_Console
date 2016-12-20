@@ -608,3 +608,26 @@ $("#backArrow").on("click",function(){
         $("#about").css("display","none")
     }
 )
+
+function activateMapForEcosystemServicesMultiLCC(){
+
+    map.removeLayer(near_term_climate_divisions)
+    document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+
+    $("div.leaflet-draw").hide()
+    swapImageOverlay("single_transparent_pixel")
+
+    if (typeof pngCloverYear !=  "undefined"){
+        swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+    }
+    else {
+        swapImageOverlay("vtype_agg_" + "ccsm4" + "__" + "58804", "EcosystemServices")
+    }
+
+    $(document).ajaxStart(function(){
+        //show spinner
+        $(".loading").css("display", "block");
+    });
+
+
+}

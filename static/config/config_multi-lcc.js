@@ -1,6 +1,5 @@
 title="Landscape";
 subTitle="Climate Projections for Federally and Tribally Protected Lands of the West";
-studyAreaBoundary="";
 initialLat=39;
 initialLon=-116;
 initialDownscaleMarkerLat=35.28;
