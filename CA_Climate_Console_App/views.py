@@ -1094,7 +1094,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
                         resultsDict[columns[i]] =(float(round(row[i],2)))
         except:
             print "Error: No features selected"
-            raise SystemExit(0)
+            #raise SystemExit(0)
 
         resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
 
