@@ -1096,52 +1096,54 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
             print "Error: No features selected"
             #raise SystemExit(0)
 
-        resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
+        if resultsDict:
+            resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
 
     #Continuous7
     #continuous_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
     field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
     resultsDictMultiTable["continuous7"]={}
-    try:
-        for continuous_table in continuous_tables:
-            field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
-            print field_name_query
-            cursor.execute(field_name_query)
-            statsFieldsTuple=cursor.fetchone()
-            if not all(statsFieldsTuple):
-                print "Missing data fields in " + continuous_table
-            statsFields = ",".join(statsFieldsTuple)
-            cursor = connection.cursor()
-            selectList="SELECT "
-            for field in statsFields.split(','):
-                selectList+=field + " as " + field +", "
-            #Extra comma
-            selectList=selectList.rstrip(', ')
-            continuous_tableList=" FROM " + continuous_table
-            selectFieldsFromTable = selectList + continuous_tableList
-            if spatial_or_aspatial == 'spatial':
-                selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
-            else:
-                selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
-            print selectStatement
-            cursor.execute(selectStatement)
-            resultsDict={}
-            #Get field names
-            columns = [colName[0] for colName in cursor.description]
-            try:
-                for row in cursor:
-                    for i in range(len(row)):
-                        if isinstance(row[i], basestring):
-                            resultsDict[columns[i]] = row[i].strip()
-                        else:
-                            resultsDict[columns[i]] =(float(round(row[i],2)))
-            except:
-                print "Error: No features selected"
-                raise SystemExit(0)
+    if continuous_tables:
+        try:
+            for continuous_table in continuous_tables:
+                field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+                print field_name_query
+                cursor.execute(field_name_query)
+                statsFieldsTuple=cursor.fetchone()
+                if not all(statsFieldsTuple):
+                    print "Missing data fields in " + continuous_table
+                statsFields = ",".join(statsFieldsTuple)
+                cursor = connection.cursor()
+                selectList="SELECT "
+                for field in statsFields.split(','):
+                    selectList+=field + " as " + field +", "
+                #Extra comma
+                selectList=selectList.rstrip(', ')
+                continuous_tableList=" FROM " + continuous_table
+                selectFieldsFromTable = selectList + continuous_tableList
+                if spatial_or_aspatial == 'spatial':
+                    selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
+                else:
+                    selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
+                print selectStatement
+                cursor.execute(selectStatement)
+                resultsDict={}
+                #Get field names
+                columns = [colName[0] for colName in cursor.description]
+                try:
+                    for row in cursor:
+                        for i in range(len(row)):
+                            if isinstance(row[i], basestring):
+                                resultsDict[columns[i]] = row[i].strip()
+                            else:
+                                resultsDict[columns[i]] =(float(round(row[i],2)))
+                except:
+                    print "Error: No features selected"
+                    raise SystemExit(0)
 
-            resultsDictMultiTable["continuous7"][continuous_table]=resultsDict
-    except:
-        print "No continuous MC2 data"
+                resultsDictMultiTable["continuous7"][continuous_table]=resultsDict
+        except:
+            print "No continuous MC2 data"
 
     print resultsDictMultiTable["continuous7"]
     #Take fieldname,value pairs from the dict and dump to a JSON string.

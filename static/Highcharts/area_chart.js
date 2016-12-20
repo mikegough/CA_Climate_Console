@@ -132,14 +132,15 @@ function createAreaChart(model,updateSource) {
 
     areaChart=$('#area_chart').highcharts();
 
-
     //veg_classes=['a','b','c','d','e']
     //years=['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
     //years=Array.apply(null, {length: 30}).map(Number.call, Number)
 
+    ecosystem_services_data = null
+
     var vtype_db_table=ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"][model];
 
-    var ecosystem_services_data=JSON.parse(response.ecosystem_services_data);
+    ecosystem_services_data=JSON.parse(response.ecosystem_services_data);
 
     var data_for_chart = ecosystem_services_data["vegetation_composition"][vtype_db_table];
 

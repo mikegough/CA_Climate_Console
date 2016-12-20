@@ -566,7 +566,9 @@ function changeUnits(units){
     unitsForChart=units;
     if (typeof layerToAddName != 'undefined' && map.hasLayer(climate_PNG_overlay)){
 
-        swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value, modelName);
+        if (typeof modelName != "undefined") {
+            swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value, modelName);
+        }
     }
     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
 
