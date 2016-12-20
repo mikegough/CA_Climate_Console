@@ -614,7 +614,6 @@ function activateMapForEcosystemServicesMultiLCC(){
     map.removeLayer(near_term_climate_divisions)
     document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
 
-    $("div.leaflet-draw").hide()
     swapImageOverlay("single_transparent_pixel")
 
     if (typeof pngCloverYear !=  "undefined"){
