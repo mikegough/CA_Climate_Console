@@ -325,24 +325,25 @@ allLayers = new Array();
 
 // CREATE LAYERS FROM TopoJSON
 // Study Area Boundary
-var study_area_boundary = omnivore.topojson(static_url + 'Leaflet/myJSON/' + studyAreaBoundary)
-    .on('ready', function (layer) {
-        this.eachLayer(function (dist) {
-            //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
-            dist.setStyle({color: 'orange', weight: 2, fillOpacity: 0, opacity: .8})
-            //dist.setStyle(styleBLM Admin Units(dist.toGeoJSON().properties.FMNAME_PC))
-            //dist.bindPopup(dist.toGeoJSON().properties.FMNAME_PC);
-        })
-    })//.addTo(map)
-
+if (typeof studyAreaBoundary != "undefined") {
+    var study_area_boundary = omnivore.topojson(static_url + 'Leaflet/myJSON/' + studyAreaBoundary)
+        .on('ready', function (layer) {
+            this.eachLayer(function (dist) {
+                //dist.setStyle({color:'orange', weight:2, fill:'', fillOpacity:.001, opacity:.8 })
+                dist.setStyle({color: 'orange', weight: 2, fillOpacity: 0, opacity: .8})
+                //dist.setStyle(styleBLM Admin Units(dist.toGeoJSON().properties.FMNAME_PC))
+                //dist.bindPopup(dist.toGeoJSON().properties.FMNAME_PC);
+            })
+        })//.addTo(map)
 
 // Getting rid of the fill opacity above and adding the "on" function below allows the user click anywhere in the map
 // when the 1km reporting units are selected because the study area boundary turns on when the 1km reporting units are selected.
-study_area_boundary.on('click', function (e) {
-    selectFeature(e)
-})
+    study_area_boundary.on('click', function (e) {
+        selectFeature(e)
+    })
 
-allLayers.push(study_area_boundary)
+    allLayers.push(study_area_boundary)
+}
 
 //Create reporting units from config file.
 i = 0
@@ -403,7 +404,7 @@ var overlayMaps = {
 }
 
 
-if (studyAreaBoundary != "") {
+if (typeof studyAreaBoundary != "undefined") {
     var groupedOverlays = {
         // Option to have reporting units in the upper right hand layer widget.
         /*
