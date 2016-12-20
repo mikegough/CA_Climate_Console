@@ -287,7 +287,7 @@ def view1(request):
 
 
         if ecosystem_services_vtype_tables !="":
-            ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
+            ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
         else:
             ecosystem_services_data=''
 
@@ -429,7 +429,7 @@ def view2(request):
 
             field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
 
-            print field_name_query
+            #print field_name_query
             cursor.execute(field_name_query);
             statsFieldsTuple=cursor.fetchone()
             statsFields = ",".join(statsFieldsTuple)
@@ -462,9 +462,10 @@ def view2(request):
             queryField='name'
             operator='='
 
+            #WKT here is the protected area name.
             selectStatement=selectFieldsFromTable + " where " + queryField + " " + operator + " '" + WKT + "'"
 
-            print selectStatement
+            #print selectStatement
 
             ######################################## EXECUTE DATABASE QUERY ################################################
 
@@ -535,7 +536,7 @@ def view2(request):
                 centroid=0
 
             if ecosystem_services_vtype_tables != "":
-                ecosystem_services_data=get_ecosystem_services_data(centroid,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
+                ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, 'aspatial')
             else:
                 ecosystem_services_data=''
 
@@ -1054,7 +1055,7 @@ def generate_eems_tree(request):
 
     return HttpResponse(json.dumps(context))
 
-def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
+def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_aspatial):
     #VTYPE
     cursor = connection.cursor()
     #vtype_tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
@@ -1075,7 +1076,10 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
         selectList=selectList.rstrip(', ')
         vtype_tableList=" FROM " + vtype_table
         selectFieldsFromTable = selectList + vtype_tableList
-        selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
+        if spatial_or_aspatial == 'spatial':
+            selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
+        else:
+            selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
         print selectStatement
         cursor.execute(selectStatement)
         resultsDict={}
@@ -1115,7 +1119,10 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables):
             selectList=selectList.rstrip(', ')
             continuous_tableList=" FROM " + continuous_table
             selectFieldsFromTable = selectList + continuous_tableList
-            selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
+            if spatial_or_aspatial == 'spatial':
+                selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
+            else:
+                selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
             print selectStatement
             cursor.execute(selectStatement)
             resultsDict={}

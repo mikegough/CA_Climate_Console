@@ -77,12 +77,12 @@ ecosystemServicesParams={
         "continuousTables": {
         },
         "vtypeTables": {
-            "ccsm4": "ca_reporting_units_counties_es_decadal_vtype_ccsm4",
-            "cnrm": "ca_reporting_units_counties_es_decadal_vtype_cnrm_cm5",
-            "canesm2": "ca_reporting_units_counties_es_decadal_vtype_canesm2",
-            "hadgem2es": "ca_reporting_units_counties_es_decadal_vtype_hadgem2_es"
+            "ccsm4": "multi_lcc_reporting_units_pa_es_decadal_vtype_ccsm4",
+            "cnrm": "multi_lcc_reporting_units_pa_es_decadal_vtype_cnrm_cm5",
+            "canesm2": "multi_lcc_reporting_units_pa_es_decadal_vtype_canesm2",
+            "hadgem2es": "multi_lcc_reporting_units_pa_es_decadal_vtype_hadgem2_es"
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
+        "overlayBounds":[[28.801987047618255, -124.73749542236328], [49.104166030883796, -101.99673917748265]]
     }
 };
 
