@@ -140,9 +140,10 @@ function createAreaChart(model,updateSource) {
 
     var vtype_db_table=ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"][model];
 
-    ecosystem_services_data=JSON.parse(response.ecosystem_services_data);
-
-    var data_for_chart = ecosystem_services_data["vegetation_composition"][vtype_db_table];
+    if (typeof response.ecosystem_service_data != "undefined") {
+        ecosystem_services_data = JSON.parse(response.ecosystem_services_data);
+        var data_for_chart = ecosystem_services_data["vegetation_composition"][vtype_db_table];
+    }
 
     function lookup(key) {
         switch (key) {
