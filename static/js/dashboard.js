@@ -130,9 +130,10 @@ function selectFeatureFromTable(name) {
 
     $(document).ajaxComplete(function(){
         results_poly.setStyle({color:'#00FFFF', fillColor:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:.5, opacity:1})
-        //MC2 Vegetation
-        createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
     });
+
+    //MC2 Vegetation
+    createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
 
     //Change Units on Point Chart. Required for initial load.
     changeUnits(units_for_table)
