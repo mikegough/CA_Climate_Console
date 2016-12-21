@@ -105,6 +105,7 @@ function mouseOutDeselect() {
 }
 
 function selectFeatureFromTable(name) {
+    areaChart=true;
 
     // Check checkbox for results_poly
     $( "#results_poly_visibility" ).prop( "checked", true );
@@ -133,7 +134,7 @@ function selectFeatureFromTable(name) {
     });
 
     //MC2 Vegetation
-    createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
+    //createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick")
 
     //Change Units on Point Chart. Required for initial load.
     changeUnits(units_for_table)
