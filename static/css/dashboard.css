@@ -659,11 +659,6 @@ table.tablesorter tbody {
 	color: #555555;
 }
 
-#nothingToReport{
-	margin:10px 30px 5px 30px;
-	color:red;
-}
-
 #soilSensitivityThumb{
     width: 420px;
     margin-top: 10px;
@@ -716,5 +711,5 @@ table.tablesorter tbody {
 }
 
 #ecosystem_services_description {
-	margin: 0px 10px 0px 30px;
+	margin: 0px 0px 0px 30px;
 }

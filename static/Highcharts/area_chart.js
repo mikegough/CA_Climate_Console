@@ -24,7 +24,7 @@ function createAreaChart(model,updateSource) {
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,
-                backgroundColor:'rgba(255, 255, 255, 0.1)'
+                backgroundColor:'rgba(255, 255, 255, 0)'
                 /*screws up placement of legend in chrome. */
                 /*marginBottom:150*/
             },
@@ -132,10 +132,6 @@ function createAreaChart(model,updateSource) {
 
     areaChart=$('#area_chart').highcharts();
 
-    //veg_classes=['a','b','c','d','e']
-    //years=['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
-    //years=Array.apply(null, {length: 30}).map(Number.call, Number)
-
     var vtype_db_table=ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"][model];
 
    if (typeof response.ecosystem_services_data != "undefined") {
@@ -143,6 +139,12 @@ function createAreaChart(model,updateSource) {
    }
 
     var data_for_chart = ecosystem_services_data["vegetation_composition"][vtype_db_table];
+
+    if (typeof data_for_chart == "undefined"){
+
+        $("#area_chart").html("<div class='no_data_available'><img id='no_climate_impacts_alert_icon' src='"  +static_url +  "img/alert.png'> </p>Vegetation composition data are not available for the selected protected area</div>")
+    }
+
 
     function lookup(key) {
         switch (key) {
