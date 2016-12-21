@@ -754,7 +754,7 @@ function create_post(newWKT) {
 
             }
 
-            if (typeof areaChart != 'undefined' && areaChart != false && vtypeTablesList.length > 0 ) {
+            if (typeof areaChart != 'undefined' && areaChart != false && vtypeTablesList.length > 0 && typeof response.ecosystem_services_data != "undefined") {
 
                 $("#no_climate_impacts_data").hide()
 
