@@ -42,7 +42,6 @@
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.css" />
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.js"></script>
 
-
 <script src='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.js'></script>
 <link href='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
 
@@ -100,22 +99,12 @@
 <!--Classie - class helper functions by @desandro https://github.com/desandro/classie -->
 <script src="{{STATIC_URL}}deps/SlidePushMenus/js/classie.js"></script>
 
-<!-- intro.js -->
-<!--
-<script src="{{STATIC_URL}}deps/IntroJS/intro.js"></script>
-<link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
--->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/histogram.js"></script>
 <script src="{{STATIC_URL}}Highcharts/area_chart.js"></script>
-
-<!--
-<script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
--->
 
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
@@ -127,13 +116,13 @@
 <script src="{{STATIC_URL}}js/general_js.js"></script>
 
 <script>
-    var static_url="{{STATIC_URL}}"
-    showChartOnMapSelect="PointChart"
-    var initialize={{initialize}}
-    var count="{{count}}"
-    var last_poly="{{WKT_SelectedPolys}}"
-    columnChartColors="{{columnChartColors}}"
-    unitsForChart="metric"
+    var static_url="{{STATIC_URL}}";
+    showChartOnMapSelect="PointChart";
+    var initialize={{initialize}};
+    var count="{{count}}";
+    var last_poly="{{WKT_SelectedPolys}}";
+    columnChartColors="{{columnChartColors}}";
+    unitsForChart="metric";
 
 </script>
 
@@ -278,24 +267,10 @@
 
     <div id="tab_container">
 
-
-
         <div class="tabcontents">
 
-            <!--
-            <div id="clickToMapInfo" class="clickToMapInfo"><span><span id="infoCircle" class="introjs-helperNumberLayer">i</span><span style="margin-left:19px">Click any Point to Map the Data</span></span><a onclick="this.parentNode.style.visibility='hidden'; document.getElementById('infoCircle').style.visibility='hidden'">
-              <span id="close_button"> ✖ </span></a>
-            </div>
-            -->
-
-            <!--
-            <div id="view2" class="views"></div>
-            -->
             <div id="view1">
                 <div id="detailedView" style="display:none" class="views">
-
-                    <!-- Good idea but problematic when dropdowns are changed. Text is no longer applicable -->
-                    <!-- <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help.png" onclick="updateClimateHelpContent(); gettingStartedIntro2.goToStep(3).start()">-->
 
                         <div class="selectedFeaturesListHeader">
                             <!-- Detailed Report: -->
@@ -312,11 +287,6 @@
                         <li><a id="view99Link" href="#view99">Soils</a></li>
                         <li><a id="view101Link" href="#view101" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServicesMultiLCC();">Vegetation</a></li>
                         <li><a id="view100Link" href="#view100">About this Protected Area</a></li>
-                        <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
-                        <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
-                        <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
-                        <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
-
                     </ul>
 
                     <div id="view98">
@@ -416,13 +386,6 @@
                                         <option value="s4">Oct-Nov-Dec</option>
                                     </select>
                                 </div>
-                                <!--
-                                <div id="units_selector">
-                                    <b>Units:</b>
-                                    <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
-                                    <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
-                                </div>
-                                -->
                             </form>
                         </div>
 
@@ -443,10 +406,6 @@
                         <div style="display:none" id="point_chart_description"></div>
 
                     </div> <!--all_point_chart_goodies -->
-
-                    <!--
-                        <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
-                    -->
 
                     </div>
                     <div id="view99">
@@ -497,6 +456,7 @@
                                 The vegetation composition of smaller polygons within some protected areas (<1km) will not be captured in the chart in cases where there isn't sufficient overlap with the underlying vegetation data.
                                 <p/>
                                 <br/>
+                                <br/>
                             </div>
                         </div>
                     </div>
@@ -504,7 +464,6 @@
                         <div id="AboutSelectedProtectedArea"></div>
                     </div>
                 </div>
-
 
                 <div id="about" style="display:none">
                     <div class="selectedFeaturesListHeader" style="padding-right:30px">
@@ -571,7 +530,6 @@
                         Each dataset used in the Climate Dashboard was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means for each dataset were subsequently calculated for each of the reporting units and loaded into a PostGIS database. If a protected area was too small to allow for the calculation of the zonal mean, the climate data were extracted directly from the centroid of the protected area.
 
                     </div>
-
                 </div>
 
                 <div id="dataTableContainer">
@@ -595,10 +553,7 @@
                         <div id="dataTable"></div>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
     </div>
 
@@ -622,7 +577,6 @@
     });
 
     //Load JSON-encoded data from the server using a GET HTTP request.
-    //query_layer=$.getJSON(static_url + 'Leaflet/myJSON/' + 'Multi_LCC_Protected_Areas_Western_US_for_JSON_5_simplify_GeoJSON.json')
     query_layer=$.getJSON(static_url + 'Leaflet/myJSON/' + 'Multi_LCC_Query_Layer_Protected_Areas_Raster_Conversion_v2.json')
 
 </script>

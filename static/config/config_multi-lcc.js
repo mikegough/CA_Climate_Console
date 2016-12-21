@@ -1,19 +1,15 @@
 title="Landscape";
 subTitle="Climate Projections for Federally and Tribally Protected Lands of the West";
-initialLat=39;
+initialLat=42;
 initialLon=-116;
 initialDownscaleMarkerLat=35.28;
 initialDownscaleMarkerLon=-116.54;
 selectedClimateDivision='94';
-zoomLevel=5;
+zoomLevel=6;
 modules=[''];
 
 reportingUnits={
-     // "Reporting Units Label":["database_table_name","name_field","json_file"]
     "LCC Boundaries": ["multi_lcc_reporting_units_llc_boundaries_1_simplify","name","Multi_LCC_Reporting_Units_LLC_Boundaries_2_simplify.json"],
-    //"BLM Field Offices": ["multi_lcc_reporting_units_blm_field_office_2_simplify","name","Multi_LCC_Reporting_Units_BLM_Field_Office_for_JSON_2_simplify.json"],
-    //"DOD Boundaries": ["multi_lcc_reporting_units_dod_lcc_5_simplify","name","Multi_LCC_Reporting_Units_DOD_LCC_5_simplify_delete_name_eq_military_land.json"],
-    //"USFS National Forests": ["multi_lcc_reporting_units_usfs_2_simplify","name","Multi_LCC_Reporting_Units_USFS_2_simplify.json"],
 };
 
 climateParams = {
