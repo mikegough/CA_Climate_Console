@@ -13,7 +13,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
             "c_dead_abo": [carbonColor,"gC/m2"],
             "consumed": ["#EA5800","gC/m2"],
             "h2o_stream": ["#146DD0","mm/year"],
-            "cwd": ["#146DD0", "mm"],
+            "cwd": ["#FC4E2A", "mm"],
         }
     }
 
@@ -186,38 +186,62 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 */
             },
             series: [
-            /*
-            {
-                name: 'Rainfall',
-                type: 'column',
-                yAxis: 1,
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-                tooltip: {
-                    valueSuffix: ' mm'
-                }
-
-            }*/
             {
                 name: y1_label,
                 type: 'spline',
+                cursor: 'pointer',
                 color: chartSettings["variables"][y1_variable][0],
                 data: y1_data,
                 tooltip: {
                     valueSuffix: " " + chartSettings["variables"][y1_variable][1]
+                },
+                point: {
+                    events: {
+                        click: function() {
+                              var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+                              var startDate = new Date(1850,01,1);
+                              var endDate = new Date(this.category, 01, 1);
+                              var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                              var pngName = y1_variable + "_"  + actualModelName +"__"+ pngCloverYear
+                              swapImageOverlay(pngName, "EcosystemServices")
+
+                              var legendName  = y1_variable + "_"  + actualModelName
+                              var legendTitle = y1_variable + " " + chartSettings["variables"][y1_variable][1]
+                              swapLegend(legendName, null, "EcosystemServices", legendTitle)
+                            }
+                        }
                 }
+
             }, {
                 name: y2_label,
                 type: 'spline',
+                cursor: 'pointer',
                 yAxis: 1,
                 color: chartSettings["variables"][y2_variable][0],
                 data: y2_data,
                 marker: {
-                    enabled: false,
+                    enabled: true,
                 },
                 dashStyle: 'shortdot',
                 lineWidth:3,
                 tooltip: {
                     valueSuffix: " " + chartSettings["variables"][y2_variable][1]
+                },
+                point: {
+                    events: {
+                        click: function() {
+                            var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+                            var startDate = new Date(1850,01,1);
+                            var endDate = new Date(this.category, 01, 1);
+                            pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                            pngName = y2_variable + "_"  + actualModelName +"__"+ pngCloverYear
+                            swapImageOverlay(pngName, "EcosystemServices")
+
+                            var legendName  = y2_variable + "_"  + actualModelName
+                            var legendTitle = y2_variable + " " + chartSettings["variables"][y2_variable][1]
+                            swapLegend(legendName, null, "EcosystemServices", legendTitle)
+                        }
+                    }
                 }
 
             }]

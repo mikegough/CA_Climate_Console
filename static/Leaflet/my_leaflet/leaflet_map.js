@@ -107,6 +107,14 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
             dbid=dbid_with_index
         }
 
+        else if (climateVariable=="EcosystemServices"){
+
+            legendTitle=modelName
+            legendImage="/Legends/" + layerToAddName +"_legend"
+            legendHeight=""
+
+        }
+
         //Climate
         else {
 

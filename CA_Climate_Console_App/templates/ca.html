@@ -334,7 +334,6 @@
                         <div style="display:none" id="point_chart_description"></div>
 
                     </div> <!--all_point_chart_goodies -->
-
                     <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
 
                     <div id="climate_quick_view">
@@ -1037,15 +1036,15 @@
                             <div id="AdditionalESVariablesY2">
                                 <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value)' >
                                     <!-- Annual Averages -->
+                                    <option value="cwd">Climatic Water Deficit</option>
                                     <option value="consumed">Biomass Consumed by Fire</option>
                                     <option value="h2o_stream">Stream Flow</option>
-                                    <option value="cwd">Climatic Water Deficit</option>
                                 </select>
                             </div>
                         </form>
                     </div>
                 <div id="spline_chart"></div>
-                <div style="float:right;position:relative;right:25px;top:0px;font-size:.8em"><a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data">About the climate impacts data</a></div>
+                <div style="float:right;position:relative;margin-left:15px; right:0px;top:0px;font-size:.8em">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
             </div>
 
         </div>
