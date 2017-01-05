@@ -275,11 +275,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #spline_chart_info{
-	float: right;
 	position: relative;
 	margin-left: 35px;
 	/* right: 0px; */
-	top: 0px;
+	top: 7px;
 	font-size: .8em;
 	padding: 0 20px 0px 20px;
 }
@@ -573,7 +572,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #view6{
-    height:95%;
+    height:97%;
     overflow-y:auto;
     overflow-x:hidden;
 }
@@ -913,6 +912,47 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #stopDiv2{
+    margin-top:5px;
+    margin-bottom:8px;
+    border-radius:50px;
+    cursor:pointer;
+    position:relative;
+    top:5px;
+    display:inline-block;
+    height:28px;
+    width:28px;
+    background:url('../img/stop.png');
+    background-size:25px;
+    background-repeat:no-repeat;
+
+}
+
+#playButtons3 {
+	position: relative;
+	z-index: 1;
+	left: 2px;
+	float: left;
+	top: -67px;
+}
+
+#startDiv3{
+    margin-top:5px;
+    margin-bottom:8px;
+    border-radius:50px;
+    cursor:pointer;
+    position:relative;
+    top:5px;
+    left:4px;
+    display:inline-block;
+    height:28px;
+    width:28px;
+    background:url('../img/start.png');
+    background-size:25px;
+    background-repeat:no-repeat;
+
+}
+
+#stopDiv3{
     margin-top:5px;
     margin-bottom:8px;
     border-radius:50px;
@@ -2007,12 +2047,12 @@ div#pop-up2 {
 	position: relative;
 	top: 5px;
 	opacity: .85;
-	width: 295px;
+	width: 305px;
 	margin-right: auto;
 	margin-left: auto;
 	z-index: 1;
 	cursor: pointer !important;
-	left: 2px;
+	left: -6px;
 }
 
 .label {

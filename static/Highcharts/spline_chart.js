@@ -89,20 +89,23 @@ function createSplineChart(model,y1_variable,y2_variable) {
             chart: {
                 zoomType: 'xy',
                 width: 460,
-                height:255,
-                marginTop:30,
+                height:250,
+                marginTop:25,
                 marginLeft:65,
+                marginBottom:80,
             },
             title: {
-                text: ''
+                text: 'Click a point to map the data',
+                style: { "color": "#666666", "fontSize": "11px" }
             },
             credits: {
                 enabled:false
             },
             legend: {
                 align:'center',
-                margin:25,
+                margin:30,
                 opacity:.85,
+                y:13,
             },
             exporting: {
             buttons: {
@@ -268,3 +271,65 @@ function createSplineChart(model,y1_variable,y2_variable) {
         });
     });
 }
+
+//array to store the setTimeout functions for each year. Needed since JS is single threaded. Need to destroy the [] on stop button push.
+var timeouts = [];
+var datePause = 2011
+var delayTime = 1000
+function animateMapContinuous(){
+    var dateRange=_.range(datePause,2101,10)
+    var startDate = new Date(1850,01,1);
+    $.each(dateRange, function(index, currentYear){
+        timeouts.push(setTimeout(function () {
+            datePause = currentYear
+            endDate = new Date(currentYear, 01, 1);
+            pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
+            swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+            $("#continuousMapSlider").slider('value', currentYear);
+            //Last year. Restart
+            if (index == dateRange.length - 1) {
+                datePause = 2011
+                animateMapContinuous()
+            }
+        }, (index + 1) * delayTime));
+    })
+}
+
+$(function() {
+     //Mouse over and click functions on the start/stop buttons.
+
+     $('#startDiv3').on({
+         mouseover: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/start_hover.png');
+         },
+         mouseleave: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/start.png');
+         },
+         click: function(){
+             $(this).off('mouseleave');
+             $(this).css('background-image', 'url(' + static_url + 'img/start_hover.png');
+             $('#stopDiv3').css('background-image', 'url(' + static_url + 'img/stop.png');
+         }
+     });
+
+     $('#stopDiv3').on({
+         mouseover: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/stop_hover.png');
+         },
+         mouseleave: function(){
+             $(this).css('background-image', 'url(' + static_url + 'img/stop.png');
+         },
+         click: function(){
+             //Uncomment line below to make the stop button stay on after a click
+             //$(this).off('mouseleave');
+             $(this).css('background-image', 'url(' + static_url + 'img/stop_hover.png');
+             $('#startDiv3').css('background-image', 'url(' + static_url + 'img/start.png');
+             //Need this in order to make the mouseout work on the start button again for some reason.
+             $('#startDiv3').on({
+                 mouseleave: function(){
+                     $(this).css('background-image', 'url(' + static_url + 'img/start.png');
+                 }
+             });
+         }
+     });
+ });

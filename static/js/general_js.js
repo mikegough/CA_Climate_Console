@@ -978,6 +978,20 @@ $('#stop2').click(function(e){
     timeouts = [];
 })
 
+$('#start3').click(function(e){
+    e.preventDefault();
+    animateMapContinuous()
+});
+
+$('#stop3').click(function(e){
+    e.preventDefault();
+    animationState = "off"
+     $.each(timeouts, function (_, id) {
+       clearTimeout(id);
+    });
+    timeouts = [];
+})
+
 
 preload([
     static_url + 'img/start.png',
