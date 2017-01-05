@@ -100,14 +100,8 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 enabled:false
             },
             legend: {
-                width: 470,
-                x:10,
+                align:'center',
                 margin:25,
-                /*
-                align:'right',
-                verticalAlign:'top',
-                layout: 'vertical',
-                */
                 opacity:.85,
             },
             exporting: {
