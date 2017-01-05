@@ -1,9 +1,23 @@
 function createSplineChart(model,y1_variable,y2_variable) {
 
-    var carbonColor="#5A6956"
-    var carbonColor="#646061"
-    var carbonColor="#649B51"
-    var carbonColor="#5F8251"
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var startDate = new Date(1850,01,1);
+
+    if (typeof pngCloverYearContinuous == "undefined"){
+        pngCloverYearContinuous = 58804;
+    }
+
+    //Initilization year for slider
+    if (typeof continuousSliderStartYear == 'undefined'){
+        continuousSliderStartYear = 2001;
+    }
+
+    if (typeof continuousVariableForSlider == 'undefined'){
+        continuousVariableForSlider = "c_ecosys";
+    }
+
+    var carbonColor="#5F8251";
+
     chartSettings = {
         variables: {
             // "MODEL Name": ["chart color", "units"]
@@ -85,6 +99,17 @@ function createSplineChart(model,y1_variable,y2_variable) {
             credits: {
                 enabled:false
             },
+            legend: {
+                width: 470,
+                x:10,
+                margin:25,
+                /*
+                align:'right',
+                verticalAlign:'top',
+                layout: 'vertical',
+                */
+                opacity:.85,
+            },
             exporting: {
             buttons: {
                 contextButton: {
@@ -98,11 +123,14 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 text: ''
             },
             xAxis: {
-                categories:years,
+                categories: years,
                 tickmarkPlacement: 'on',
                 title: {
-                    enabled: false
+                    text:'<div id="continuousMapSlider"></div>',
+                    useHTML:true
                 },
+                categories:years,
+                tickmarkPlacement: 'on',
                 //crosshair: true,
                 options : {
                     minPadding: 0,
@@ -152,38 +180,9 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 },
 
             },
-
-              /*  { // Tertiary yAxis
-                gridLineWidth: 0,
-                title: {
-                    text: 'Sea-Level Pressure',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                },
-                labels: {
-                    format: '{value} mb',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                },
-                opposite: true
-            }*/
-
             ],
             tooltip: {
                 shared: true
-            },
-            legend: {
-                /*
-                layout: 'vertical',
-                align: 'left',
-                x: 80,
-                verticalAlign: 'top',
-                y: 55,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-                */
             },
             series: [
             {
@@ -198,8 +197,6 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 point: {
                     events: {
                         click: function() {
-                              var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-                              var startDate = new Date(1850,01,1);
                               var endDate = new Date(this.category, 01, 1);
                               var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
                               var pngName = y1_variable + "_"  + actualModelName +"__"+ pngCloverYear
@@ -208,6 +205,8 @@ function createSplineChart(model,y1_variable,y2_variable) {
                               var legendName  = y1_variable + "_"  + actualModelName
                               var legendTitle = y1_variable + " " + chartSettings["variables"][y1_variable][1]
                               swapLegend(legendName, null, "EcosystemServices", legendTitle)
+
+                              continuousVariableForSlider=y1_variable
                             }
                         }
                 }
@@ -230,8 +229,6 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 point: {
                     events: {
                         click: function() {
-                            var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-                            var startDate = new Date(1850,01,1);
                             var endDate = new Date(this.category, 01, 1);
                             pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
                             pngName = y2_variable + "_"  + actualModelName +"__"+ pngCloverYear
@@ -240,11 +237,40 @@ function createSplineChart(model,y1_variable,y2_variable) {
                             var legendName  = y2_variable + "_"  + actualModelName
                             var legendTitle = y2_variable + " " + chartSettings["variables"][y2_variable][1]
                             swapLegend(legendName, null, "EcosystemServices", legendTitle)
+
+                            continuousVariableForSlider=y2_variable
                         }
                     }
                 }
 
             }]
+        });
+    });
+
+    $(function() {
+        $("#continuousMapSlider").slider({
+            value: continuousSliderStartYear,
+            min: 2011,
+            max: 2091,
+            step: 10,
+            slide: function (event, ui) {
+                continuousSliderStartYear = ui.value
+                $("#amount").val("$" + ui.value);
+                //Or whatever is decided for off
+                if (ui.value == 2001) {
+                    swapImageOverlay("single_transparent_pixel")
+                }
+                else {
+                    //Date in png Name is days since 1850
+                    var endDate = new Date(ui.value, 01, 1);
+                    pngCloverYearContinuous = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                    swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYearContinuous, "EcosystemServices")
+                    var legendName  = continuousVariableForSlider + "_"  + actualModelName
+                    var legendTitle = continuousVariableForSlider + " " + chartSettings["variables"][continuousVariableForSlider][1]
+                    swapLegend(legendName, null, "EcosystemServices", legendTitle)
+
+                }
+            }
         });
     });
 }

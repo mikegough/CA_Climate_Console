@@ -1025,7 +1025,7 @@
                     <div id="spline_variable_dropdown">
                         <form class="select_form2">
                             <div id="AdditionalESVariablesY1">
-                                <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value)' >
+                                <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value); continuousVariableForSlider=this.value' >
                                     <!-- Annual Averages -->
                                     <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
                                     <option value="c_forest">Live Forest Carbon</option>
@@ -1034,7 +1034,7 @@
                                 </select>
                             </div>
                             <div id="AdditionalESVariablesY2">
-                                <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value)' >
+                                <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value); continuousVariableForSlider=this.value' >
                                     <!-- Annual Averages -->
                                     <option value="cwd">Climatic Water Deficit</option>
                                     <option value="consumed">Biomass Consumed by Fire</option>
@@ -1044,7 +1044,7 @@
                         </form>
                     </div>
                 <div id="spline_chart"></div>
-                <div style="float:right;position:relative;margin-left:15px; right:0px;top:0px;font-size:.8em">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
+                <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
             </div>
 
         </div>
