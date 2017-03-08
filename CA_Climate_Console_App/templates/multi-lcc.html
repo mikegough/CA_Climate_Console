@@ -529,12 +529,44 @@
                         <h3>Post-Processing</h3>
                         Each dataset used in the Climate Dashboard was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal means for each dataset were subsequently calculated for each of the reporting units and loaded into a PostGIS database. If a protected area was too small to allow for the calculation of the zonal mean, the climate data were extracted directly from the centroid of the protected area.
 
+                         <h3> Potential Climate Impact</h3>
+                        EEMS model of potential climate impacts generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.
+                        <p>
+                        <a href="http://databasin.org/datasets/238aad251e784e4386620a4c51ef272a" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
+                        <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
+                        <p>
+
+                        <h3 id="aboutEcosystemServicesData">Vegetation: </h3>
+                        Vegetation data were simulated with the Dynamic Global Vegetation Model MC2 (<a target="_blank" href="http://bit.ly/2a9TrKD">http://bit.ly/2a9TrKD</a>) at 30 arc-secs. The model was run from 1895-2010 using PRISM historical data, and from 2011-2099 using the bias-corrected spatially downscaled (BCSD) climate futures (Thrasher et al. 2013) for 9 global climate models (because vapor pressure/relative humidity was missing for CMCC-CMS available results, it could not be used by MC2 which requires this input). All climate futures were run with the RCP8.5 emission scenario.
+                        <p/>
+
+                        MC2 vegetation types were aggregated into broader categories listed below:
+                        <p/>
+                        0:undefined
+                        <br>1:taiga/tundra
+                        <br>2:conifer forest
+                        <br>3:mixed forest
+                        <br>4:broadleaf forest
+                        <br>5:shrubland/woodland/savanna
+                        <br>6:grassland
+                        <br>7:arid land
+                        <br>8:annual agriculture
+                        <br>9:perennial agriculture
+                        <br>10:developed/mined
+
+                        <p/>
+                        The mode of the vegetation cover was calculated for each decade starting in 2011 (2011-2020, 2021-2030, etc). The final decade (2091-2099) ends in 2099 since most climate models were missing data for 2100. 'Year' on the chart corresponds to the start of each decade.
+                        <p/>
+                        The version of MC2 that was used here uses the Natural Resources Conservation Service (NRCS) runoff curve method ( <a target="_blank" href=" http://bit.ly/2aawHpu"> http://bit.ly/2aawHpu</a>)
+                        <p/>
+                        Postprocessing of the data involved projecting to California Teale Albers (NAD83) and performing an area tabulation with the protected areas database using ArcGIS 10.3.
+
                     </div>
                 </div>
 
                 <div id="dataTableContainer">
                     <div class="selectedFeaturesListHeader" id="Header1"><span class="changeHeader">Projected Change </span>
-                        <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that protected area, including climate projections for individual models and a soil sensitivity profile. Click this icon for additional information." src="{{STATIC_URL}}img/info2.png">
+                        <img id="info2" title="The values in the table below represent the projected change from the historical period 1971-2000 averaged across the specified protected area and the selected time period. These values are based on the ensemble average of nine models (CanESM2, CCSM4, HadGEM2-CC, HadGEM2-ES, IPSL-CM5A-MR, NorESM1-M, BCC-CSM1-1-M, MIROC5, CSIRO-Mk3.6.0) under representative concentration pathway 8.5 (RCP8.5). Click on any protected area name to view additional information about that protected area, including climate projections for individual models and a soil sensitivity profile. Click this icon for additional information." src="{{STATIC_URL}}img/help2.png">
                         <br><span class="changeSubheader">(Under RCP 8.5)</span>
                         <div id="timePeriodRadioDiv" style="z-index:99">
                             <input type="radio" onchange="changeTimePeriod(1)" name="time_period_for_table" value="1" checked="checked">2016-2045</input><br>

@@ -644,14 +644,16 @@ table.tablesorter tbody {
 }
 
 */
-#info2{
+
+#info2 {
 	display: inline;
-    cursor: help;
-    width: 22px;
-    position: absolute;
-    margin-left: 0px;
-    top: 10px;
+	cursor: help;
+	width: 28px;
+	position: absolute;
+	margin-left: 7px;
+	top: 10px;
 }
+
 
 #soilSensitivityInfo{
 	margin:10px 30px 5px 30px;
