@@ -23,12 +23,12 @@ climateParams={
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models:{
-        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color"]
-        "PRISM":["pm","black"],
-        "CanESM2":["c2","#DEB78B"],
-        "CCSM4":["c4","#717573"],
-        "MIROC5":["m5","#C6D2DF"],
-        "Ensemble":["ee","red"]},
+        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "initial visibility"]
+        "PRISM":["pm","black",,true],
+        "CanESM2":["c2","#DEB78B",,true],
+        "CCSM4":["c4","#717573",,true],
+        "MIROC5":["m5","#C6D2DF",,true],
+        "Ensemble":["ee","red",,true]},
     labels:{
         "tmax":["Degrees (°C)","°C"],
         "tmad":["Degrees (°C)","°C"],

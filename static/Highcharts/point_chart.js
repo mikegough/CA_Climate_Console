@@ -211,6 +211,7 @@ function createChart(climateVariable, statistic, season) {
             //allowPointSelect: true,
             color:climateParams['models'][model][1],
             data: eval("line"+seriesNumber+"Values"),
+            visible: climateParams['models'][model][3],
             layersToAdd:eval(model +"_LayersToAdd"),
             point: {
                 events: {

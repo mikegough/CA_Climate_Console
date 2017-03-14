@@ -39,13 +39,13 @@ climateParams = {
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models:{
-        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index"]
-        "PRISM":["pm","black","0"],
-        "CanESM2":["c2","#DEB78B","6"],
-        "CCSM4":["c4","#717573","2"],
-        "CNRM":["c5","#800040","5"],
-        "HadGEM2ES":["hs","#8080C0","9"],
-        "Ensemble":["ee","red","0"]},
+        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index", "initial visibility"]
+        "PRISM":["pm","black","0",true],
+        "CanESM2":["c2","#DEB78B","6",true],
+        "CCSM4":["c4","#717573","2",true],
+        "CNRM":["c5","#800040","5",true],
+        "HadGEM2ES":["hs","#8080C0","9",true],
+        "Ensemble":["ee","red","0",true]},
     labels:{
         "tmax":["Degrees (°C)","°C"],
         "tmad":["Degrees (°C)","°C"],
