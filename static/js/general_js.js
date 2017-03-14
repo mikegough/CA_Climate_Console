@@ -188,6 +188,15 @@
          }
      });
      */
+     $("#view1").scroll(function() {
+        if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+             $('#scroll_for_more').fadeOut( 'fast' );
+        }
+         else {
+              $('#scroll_for_more').fadeIn( 'fast' );
+          }
+
+     });
 
 });
 
@@ -462,32 +471,16 @@ function EnglishUnitsConversionQuickTable(dataValue,climateVariable){
     return roundedConvertedValue
 }
 
+var season_labels={};
+season_labels["s0"] = 'Annual';
+season_labels["s1"] = 'Jan-Feb-Mar';
+season_labels["s2"] = 'Apr-May-Jun';
+season_labels["s3"] = 'Jul-Aug-Sep';
+season_labels["s4"] = 'Oct-Nov-Dec';
+
 function updateQuickViewTable(season){
 
-            if (season=='s0'){
-                $('#seasonLabel').html('Annual')
-
-            }
-            else if (season=='s1'){
-
-                $('#seasonLabel').html('Jan-Feb-Mar')
-
-            }
-            else if (season=='s2'){
-
-                $('#seasonLabel').html('Apr-May-Jun')
-
-            }
-            else if (season=='s3'){
-
-                $('#seasonLabel').html('Jul-Aug-Sep')
-
-            }
-            else if (season=='s4'){
-
-                $('#seasonLabel').html('Oct-Nov-Dec')
-
-            }
+            $('#seasonLabel').html(season_labels[season]);
 
              if (unitsForChart == "english") {
 
@@ -501,9 +494,19 @@ function updateQuickViewTable(season){
                 $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eepred' + season + 't1_avg'], 'pred'))
                 $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eepred' + season + 't2_avg'], 'pred'))
 
+                $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eearid' + season + 't1_avg'], 'arid'))
+                $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eearid' + season + 't2_avg'], 'arid'))
+
+                $('#quick_value_pet_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eepet' + season + 't1_avg'], 'pet'))
+                $('#quick_value_pet_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eepet' + season + 't2_avg'], 'pet'))
+
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('F');
                 });
+
+                $('.quick_value_pet_units').each(function() {
+                     $(this).html('in');
+                 });
 
                 if (title=="DRECP") {
                      $('.quick_value_precip_units').each(function () {
@@ -526,8 +529,18 @@ function updateQuickViewTable(season){
                 $('#quick_value_precip_t1').html(resultsJSON['eepred' + season + 't1_avg'])
                 $('#quick_value_precip_t2').html(resultsJSON['eepred' + season + 't2_avg'])
 
+                $('#quick_value_aridity_t1').html(resultsJSON['eearid' + season + 't1_avg'])
+                $('#quick_value_aridity_t2').html(resultsJSON['eearid' + season + 't2_avg'])
+
+                $('#quick_value_pet_t1').html(resultsJSON['eepet' + season + 't1_avg'])
+                $('#quick_value_pet_t2').html(resultsJSON['eepet' + season + 't2_avg'])
+
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('C');
+                });
+
+                $('.quick_value_pet_units').each(function() {
+                     $(this).html('mm');
                 });
 
                 if (title=="DRECP") {
@@ -539,28 +552,78 @@ function updateQuickViewTable(season){
 
             }
 
-
-            if (resultsJSON['eepreds0t1_avg'] < 0) {
-                $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
+            // Precip text modifications
+            if (resultsJSON['eepred' + season + 't1_avg'] < 0) {
+                //$('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
                 $('#increase_or_decrease_precip_t1').html("fall below")
             }
             else {
-                $('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
+                //$('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
                 $('#increase_or_decrease_precip_t1').html("exceed")
             }
 
-            if ((resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] < 0) || (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] > 0)) {
-                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
+            // Both time periods increase or both time periods decrease.
+            if ((resultsJSON['eepred' + season + 't1_avg'] < 0 && resultsJSON['eepred' + season + 't2_avg']< 0) || (resultsJSON['eepred' + season + 't1_avg'] > 0 && resultsJSON['eepred' + season + 't2_avg'] > 0)) {
+                //$('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
                 $('#increase_or_decrease_precip_t2').html("")
             }
 
-            if (resultsJSON['eepreds0t2_avg'] < 0 && resultsJSON['eepreds0t1_avg'] > 0) {
-                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
-                $('#increase_or_decrease_precip_t2').html(" decrease ")
+            // Decrease during the second time period and increase during the first time period
+            else if (resultsJSON['eepred' + season + 't2_avg'] < 0 && resultsJSON['eepred' + season + 't1_avg'] > 0) {
+                //$('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
+                $('#increase_or_decrease_precip_t2').html("decrease ")
             }
-            if (resultsJSON['eepreds0t2_avg'] > 0 && resultsJSON['eepreds0t1_avg'] < 0) {
-                $('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
-                $('#increase_or_decrease_precip_t2').html("exceed ")
+
+            // Increase during the second time period and decrease during the first time period
+            else if (resultsJSON['eepred' + season + 't2_avg'] > 0 && resultsJSON['eepred' + season + 't1_avg'] < 0) {
+                //$('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
+                $('#increase_or_decrease_precip_t2').html("increase ")
+            }
+
+            // Aridity text modifications
+            if (resultsJSON['eearid' + season + 't1_avg'] < 0) {
+                $('#increase_or_decrease_aridity_t1').html("fall below")
+            }
+            else {
+                $('#increase_or_decrease_aridity_t1').html("exceed")
+            }
+
+            // Both time periods increase or both time periods decrease.
+            if ((resultsJSON['eearid' + season + 't1_avg'] < 0 && resultsJSON['eearid' + season + 't2_avg'] < 0) || (resultsJSON['eearid' + season + 't1_avg'] > 0 && resultsJSON['eearid' + season + 't2_avg'] > 0)) {
+                $('#increase_or_decrease_aridity_t2').html("")
+            }
+
+            // Decrease during the second time period and increase during the first time period
+            else if (resultsJSON['eearid' + season + 't2_avg'] < 0 && resultsJSON['eearid' + season + 't1_avg'] > 0) {
+                $('#increase_or_decrease_aridity_t2').html("decrease ")
+            }
+
+            // Increase during the second time period and decrease during the first time period
+            else if (resultsJSON['eearid' + season + 't2_avg'] > 0 && resultsJSON['eearid' + season + 't1_avg'] < 0) {
+                $('#increase_or_decrease_aridity_t2').html("increase ")
+            }
+
+            // PET text modifications
+            if (resultsJSON['eepet' + season + 't1_avg'] < 0) {
+                $('#increase_or_decrease_pet_t1').html("fall below")
+            }
+            else {
+                $('#increase_or_decrease_pet_t1').html("exceed")
+            }
+
+            // Both time periods increase or both time periods decrease.
+            if ((resultsJSON['eepet' + season + 't1_avg'] < 0 && resultsJSON['eepet' + season + 't2_avg'] < 0) || (resultsJSON['eepet' + season + 't1_avg'] > 0 && resultsJSON['eepet' + season + 't2_avg'] > 0)) {
+                $('#increase_or_decrease_pet_t2').html("")
+            }
+
+            // Decrease during the second time period and increase during the first time period
+            else if (resultsJSON['eepet' + season + 't2_avg'] < 0 && resultsJSON['eepet' + season + 't1_avg'] > 0) {
+                $('#increase_or_decrease_pet_t2').html("decrease ")
+            }
+
+            // Increase during the second time period and decrease during the first time period
+            else if (resultsJSON['eepet' + season + 't2_avg'] > 0 && resultsJSON['eepet' + season + 't2_avg'] < 0) {
+                $('#increase_or_decrease_pet_t2').html("increase ")
             }
 }
 
@@ -799,7 +862,7 @@ function generateNearTermClimateResults(period,division) {
     }
 
     nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Variable</td>'+'<td><b>Temperature</b></td><td><b>Precipitation</b></td></tr>')
-    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Change from the <br> Historical Mean</td>'+'<td class="changeTD">'+temp_change_td_contents+'</td><td class="changeTD">'+precip_change_td_contents+'</td></tr>')
+    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Change from the <br> Historical Mean*</td>'+'<td class="changeTD">'+temp_change_td_contents+'</td><td class="changeTD">'+precip_change_td_contents+'</td></tr>')
 
     //Append the "Show on Map" Radio Buttons.
     nearTermClimateTable.append(save);
@@ -812,7 +875,7 @@ function generateNearTermClimateResults(period,division) {
 
     var nearTermClimateTable2=$('#dynamicNearTermClimateTableDiv2').children();
 
-    nearTermClimateTable2.append("<tr><td>Historical Mean </td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>")
+    nearTermClimateTable2.append("<tr><td>Historical Mean*</td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>")
     nearTermClimateTable2.append("<tr><td>Forecast Mean</td><td>"+temp_forecast_mean+"&deg;F</td><td>"+precip_forecast_mean+" in.</td></tr>")
     nearTermClimateTable2.append("<tr><td>90% Confidence</td><td>"+temp_ninety_percent_confidence_interval+ "</td><td>"+precip_ninety_percent_confidence_interval+"</td></tr>")
 

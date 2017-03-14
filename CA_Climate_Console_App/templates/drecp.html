@@ -296,7 +296,7 @@
 
                         </div>
 
-                        <div id="climate_info_link_div"><a href="" id="modelInfoLink" title="Click for information about the climate data" >About the climate data</a></div>
+                        <div id="climate_info_link_div"><br>Scenario:RCP8.5/Resolution:30arc-secs. <a href="" id="modelInfoLink" title="Click for information about the climate data" >Learn more about the climate data</a></div>
 
                     <div id="climate_quick_view">
 
@@ -352,10 +352,39 @@
                                     <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
                                 </td>
                             </tr>
+                              <!-- Aridity -->
+                            <tr>
+                                <td>
+                                    <div class="quick_aridity"><i class="wi wi-day-haze"></i></div>
+                                </td>
+                                <td>
+                                    The average aridity in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_aridity_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_aridity_t1"></span></b></span><span class="quick_value_aridity_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_aridity_t2"></span><b><span id="quick_value_aridity_t2"></span></b></span><span class="quick_value_aridity_units">%</span> over the 30 years after that
+                                    <p>
+                                </td>
+                            </tr>
+
+                            <!-- PET -->
+                            <tr>
+                                <td>
+                                    <div class="quick_pet"><i class="wi wi-flip-vertical wi-raindrops"></i></div>
+                                </td>
+                                <td>
+                                    The average potential evapotranspiration in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_pet_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_pet_t1"></span></b></span><span class="quick_value_pet_units">mm</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_pet_t2"></span><b><span id="quick_value_pet_t2"></span></b></span><span class="quick_value_pet_units">mm</span> over the 30 years after that
+                                    <p>
+                                </td>
+                            </tr>
                         </table>
 
                     </div>
                 </span>
+                <div id="scroll_for_more">&#9660 Scroll to see more &#9660</div>
+
             </div>
 
 
@@ -577,6 +606,7 @@
 
                 </script>
 
+                <div style="height:20px; float:left;position:relative;left:10px;top:0px;font-size:.8em">*Historical Period: 1971-2000</a></div>
                 <div style="height:20px; float:right;position:relative;right:0px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="">About the weather data</a></div>
 
                 <br>

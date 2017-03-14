@@ -813,6 +813,21 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     top:-7px;
 }
 
+.quick_aridity{
+	color: #926239;
+    font-size:3em;
+    position:relative;
+    left:4px;
+    top:-7px;
+}
+
+.quick_pet{
+    color:#4575B5;
+    font-size:6em;
+    position:relative;
+    top:-7px;
+}
+
 .arrow_dir{
     position:relative;
     top: 3px;
@@ -2154,6 +2169,17 @@ div#pop-up2 {
 	padding: 15px;
 	font-size: 20px;
 	text-align: center;
+}
+
+#scroll_for_more {
+	background-color: #47A3DA;
+	position: fixed;
+	bottom: 34px;
+	padding: 2px 20px;
+	border-radius: 10px 10px 0px 0px;
+	color: white;
+	right: 130px;
+	box-shadow: 0px 0px 1px 0px #4B4343;
 }
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
