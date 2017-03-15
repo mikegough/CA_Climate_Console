@@ -497,16 +497,15 @@ function updateQuickViewTable(season){
                 $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eearid' + season + 't1_avg'], 'arid'))
                 $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eearid' + season + 't2_avg'], 'arid'))
 
-                $('#quick_value_pet_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eepet' + season + 't1_avg'], 'pet'))
-                $('#quick_value_pet_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eepet' + season + 't2_avg'], 'pet'))
-
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('F');
                 });
 
+                /*
                 $('.quick_value_pet_units').each(function() {
                      $(this).html('in');
                  });
+                */
 
                 if (title=="DRECP") {
                      $('.quick_value_precip_units').each(function () {
@@ -532,16 +531,15 @@ function updateQuickViewTable(season){
                 $('#quick_value_aridity_t1').html(resultsJSON['eearid' + season + 't1_avg'])
                 $('#quick_value_aridity_t2').html(resultsJSON['eearid' + season + 't2_avg'])
 
-                $('#quick_value_pet_t1').html(resultsJSON['eepet' + season + 't1_avg'])
-                $('#quick_value_pet_t2').html(resultsJSON['eepet' + season + 't2_avg'])
-
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('C');
                 });
 
+                /*
                 $('.quick_value_pet_units').each(function() {
                      $(this).html('mm');
                 });
+                */
 
                 if (title=="DRECP") {
 
@@ -551,6 +549,15 @@ function updateQuickViewTable(season){
                 }
 
             }
+
+            var pet_hist = resultsJSON['pmpet' + season + 't0_avg'].toFixed(2);
+            var pet_ee_t1 = resultsJSON['eepet' + season + 't1_avg'].toFixed(2);
+            var pet_ee_t2 = resultsJSON['eepet' + season + 't2_avg'].toFixed(2);
+            var pet_ee_t1_delta = ((pet_ee_t1 - pet_hist)/pet_hist * 100).toFixed(2);
+            var pet_ee_t2_delta = ((pet_ee_t2 - pet_hist)/pet_hist * 100).toFixed(2);
+
+            $('#quick_value_pet_t1').html(pet_ee_t1_delta);
+            $('#quick_value_pet_t2').html(pet_ee_t2_delta);
 
             // Precip text modifications
             if (resultsJSON['eepred' + season + 't1_avg'] < 0) {
@@ -604,7 +611,7 @@ function updateQuickViewTable(season){
             }
 
             // PET text modifications
-            if (resultsJSON['eepet' + season + 't1_avg'] < 0) {
+            if (pet_ee_t1_delta < 0) {
                 $('#increase_or_decrease_pet_t1').html("fall below")
             }
             else {
@@ -612,17 +619,17 @@ function updateQuickViewTable(season){
             }
 
             // Both time periods increase or both time periods decrease.
-            if ((resultsJSON['eepet' + season + 't1_avg'] < 0 && resultsJSON['eepet' + season + 't2_avg'] < 0) || (resultsJSON['eepet' + season + 't1_avg'] > 0 && resultsJSON['eepet' + season + 't2_avg'] > 0)) {
+            if ( (pet_ee_t1_delta < 0 && pet_ee_t2_delta < 0) || ( pet_ee_t1_delta > 0 && pet_ee_t2_delta  > 0) ) {
                 $('#increase_or_decrease_pet_t2').html("")
             }
 
             // Decrease during the second time period and increase during the first time period
-            else if (resultsJSON['eepet' + season + 't2_avg'] < 0 && resultsJSON['eepet' + season + 't1_avg'] > 0) {
+            else if (pet_ee_t2_delta < 0 && pet_ee_t1_delta > 0) {
                 $('#increase_or_decrease_pet_t2').html("decrease ")
             }
 
             // Increase during the second time period and decrease during the first time period
-            else if (resultsJSON['eepet' + season + 't2_avg'] > 0 && resultsJSON['eepet' + season + 't2_avg'] < 0) {
+            else if (pet_ee_t2_delta  > 0 && pet_ee_t1_delta < 0) {
                 $('#increase_or_decrease_pet_t2').html("increase ")
             }
 }
