@@ -1,3 +1,33 @@
+//set a cookie for introJS. Only show on first visit
+function setCookie(c_name,value,exdays){
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    document.cookie=c_name + "=" + c_value;
+}
+
+//check for the cookie when user first arrives, if cookie doesn't exist call the intro.
+function getCookie(c_name){
+    var c_value = document.cookie;
+    var c_start = c_value.indexOf(" " + c_name + "=");
+    if (c_start == -1){
+      c_start = c_value.indexOf(c_name + "=");
+    }
+    if (c_start == -1){
+      c_value = null;
+    }
+    else{
+      c_start = c_value.indexOf("=", c_start) + 1;
+      var c_end = c_value.indexOf(";", c_start);
+      if (c_end == -1){
+        c_end = c_value.length;
+      }
+      c_value = unescape(c_value.substring(c_start,c_end));
+    }
+
+    return c_value;
+}
+
 var latlng = L.latLng(initialLat,initialLon);
 enableDownscale = false
 
@@ -660,6 +690,8 @@ function create_post(newWKT) {
 
             if (typeof first_query_complete == 'undefined' &&  typeof introJs == 'function') {
 
+                addEventHandlerForModelChange()
+
                 gettingStartedIntro2 = introJs();
                 gettingStartedIntro2.setOptions({
                     'showStepNumbers': false,
@@ -685,13 +717,19 @@ function create_post(newWKT) {
                 $('#climate_quick_view_table').each(function (i) {
                     $(this).attr('data-step', '5')
                     //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-                    $(this).attr('data-intro', 'The <b>Projected Change</b> table provides a quick snapshot of the changes that are projected to occur within the selected area according to the model averages.<p>Click on the "About" tab for more information about the Climate Console.')
+                    $(this).attr('data-intro', 'The <b>Projected Change</b> table provides a quick snapshot of the changes that are projected to occur within the selected area.<p>Click on the "About" tab for more information about the Climate Console.')
                 });
                 //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
-                gettingStartedIntro2.goToStep(4).start()
+
+                var cookie=getCookie("climateConsole");
+
+                if (cookie==null || cookie=="") {
+                   setCookie("climateConsole", "1",90);
+                   gettingStartedIntro2.goToStep(4).start()
+                }
 
                 $( ".select_form2" ).change(function() {
-                  gettingStartedIntro2.exit()
+                      gettingStartedIntro2.exit()
                 });
             }
 

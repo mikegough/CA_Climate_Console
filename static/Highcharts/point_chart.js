@@ -21,6 +21,7 @@ function createChart(climateVariable, statistic, season) {
 
     for (model in climateParams['models']){
 
+
         modelAbbreviation=climateParams['models'][model][0]
 
         //Data To Plot (line1Values, line2Values, etc)
@@ -28,25 +29,25 @@ function createChart(climateVariable, statistic, season) {
         if (modelAbbreviation == 'pm'){
             if (statistic=='anom' || statistic =='delta' ){
                 eval("var " + "line"+seriesNumber+"Values=[0]")
-                PRISM_LayersToAdd=['single_transparent_pixel']
+                pm_LayersToAdd=['single_transparent_pixel']
             } else {
                 eval("var " + "line"+seriesNumber+"Values=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]")
-                PRISM_LayersToAdd=['pm'+climateVariable+season+'t0']
+                pm_LayersToAdd=['pm'+climateVariable+season+'t0']
             }
         }
 
         else{
 
             eval("var " + "line"+seriesNumber+"Values=['']")
-            eval("var " + model+"_LayersToAdd=['']")
+            eval("var " + modelAbbreviation+"_LayersToAdd=['']")
             var j=1;
             //For Each Time Period
             while(j<=timePeriodCount) {
                 var value=modelAbbreviation+climateVariable+season+'t'+j
                 //Push data into series array
                 eval("line"+seriesNumber+"Values").push(resultsJSON[value+'_'+db_statistic])
-                //Layers to Addd
-                eval(model+"_LayersToAdd").push(value)
+                //Layers to Add
+                eval(modelAbbreviation+"_LayersToAdd").push(value)
                 j++;
             }
         }
@@ -75,7 +76,7 @@ function createChart(climateVariable, statistic, season) {
                 width: 473,
                 height:320,
                 marginRight:35,
-                marginTop:15,
+                marginTop:25,
             },
             title: {
                 text: 'Click a point to map the data',
@@ -91,7 +92,8 @@ function createChart(climateVariable, statistic, season) {
                  buttons: {
                     contextButton: {
                         align:'right',
-                        y:10
+                        y:-5,
+                        x:-20
                     }
                 },
                 filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason+")",
@@ -104,7 +106,7 @@ function createChart(climateVariable, statistic, season) {
                         marginTop:100,
                     },
                     legend: {
-                        y:-10
+                        y:-5
                     },
                     title: {
                         align:'center',
@@ -188,13 +190,6 @@ function createChart(climateVariable, statistic, season) {
                     cursor: 'pointer',
                     marker: {
                         enabled:true,
-                        states: {
-                            select: {
-                                lineWidth: 2,
-                                radius:5,
-                                shadow : true
-                            }
-                        }
                     }
                 }
             }
@@ -208,14 +203,27 @@ function createChart(climateVariable, statistic, season) {
     chart=$('#point_chart').highcharts();
     seriesNumber=1;
     for (model in climateParams['models']){
+        var modelAbbreviation=climateParams['models'][model][0];
         chart.addSeries({
             name: model,
             //allowPointSelect: true,
             color:climateParams['models'][model][1],
             data: eval("line"+seriesNumber+"Values"),
             visible: climateParams['models'][model][3],
-            layersToAdd:eval(model +"_LayersToAdd"),
+            layersToAdd:eval(modelAbbreviation +"_LayersToAdd"),
+            index:seriesNumber,
+            marker:{
+                //radius: climateParams['models'][model][4],
+                //symbol: climateParams['models'][model][5],
+                states: {
+                            select: {
+                                lineWidth: 1,
+                                fillColor:"red",
+                            }
+                        }
+            },
             point: {
+                data: eval("line"+seriesNumber+"Values"),
                 events: {
                     click: function() {
                         layerToAddName = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
@@ -257,7 +265,9 @@ function createChart(climateVariable, statistic, season) {
         }
     });
 
+
 }
+
 
 function updateData(climateVariable, statistic, season) {
 
@@ -346,10 +356,10 @@ function updateData(climateVariable, statistic, season) {
         if (modelAbbreviation == 'pm'){
             if (statistic=='anom' || statistic =='delta' ){
                 historicalDataToPlot=[0]
-                PRISM_LayersToAdd=['single_transparent_pixel']
+                pm_LayersToAdd=['single_transparent_pixel']
             } else {
                 historicalDataToPlot=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]
-                PRISM_LayersToAdd=['pm'+climateVariable+season+'t0']
+                pm_LayersToAdd=['pm'+climateVariable+season+'t0']
                 if (unitsForChart=='english'){
                     historicalDataToPlot=[EnglishUnitsConversion(historicalDataToPlot[0])]
                 }
@@ -360,7 +370,7 @@ function updateData(climateVariable, statistic, season) {
             //chart.series[0].data[0].update(historicalDataToPlot,false);
 
             chart.series[0].update({
-                layersToAdd:eval(model +"_LayersToAdd")
+                layersToAdd:eval(modelAbbreviation +"_LayersToAdd")
             },false);
 
             //Update the units that appear in the tooltip
@@ -374,7 +384,7 @@ function updateData(climateVariable, statistic, season) {
         else{
 
             //New Layers to Add on Point Click
-            eval("var " + model+"_LayersToAdd=['']")
+            eval("var " + modelAbbreviation +"_LayersToAdd=['']")
             //Array to store the new data to plot
             var fieldCode
             var dataPoint
@@ -386,7 +396,7 @@ function updateData(climateVariable, statistic, season) {
                 fieldCode = modelAbbreviation + climateVariable + season + 't' + j
                 //console.log(fieldCode)
                 //Layers to Add
-                eval(model + "_LayersToAdd").push(fieldCode)
+                eval(modelAbbreviation + "_LayersToAdd").push(fieldCode)
                 //Push data into array
                 dataPoint=resultsJSON[fieldCode + '_' + db_statistic];
                 if (unitsForChart == 'metric') {
@@ -406,7 +416,7 @@ function updateData(climateVariable, statistic, season) {
 
             //Update the Click Event Layers To Add.
             chart.series[chartSeriesIndex].update({
-                layersToAdd:eval(model +"_LayersToAdd")
+                layersToAdd:eval(modelAbbreviation +"_LayersToAdd")
             },false);
 
             //Update the units that appear in the tooltip
@@ -507,3 +517,31 @@ function updateData(climateVariable, statistic, season) {
 
 }
 
+function addEventHandlerForModelChange(){
+
+    $("#model_selection_form").on("change", function () {
+
+        if (typeof last_model_id != "undefined") {
+            chart.series[last_model_id].update({
+                color: climateParams['models'][last_model_name][1]
+            });
+        }
+
+        chart.series[this.value].update({
+            color: "red"
+        });
+
+        chart.series[this.value].markerGroup.toFront();
+        last_model_name = chart.series[this.value].name;
+        last_model_id = this.value
+        var model_code  = climateParams['models'][last_model_name][0];
+        var season = document.getElementById("season_selection_form").value;
+
+        updateQuickViewTable(season,model_code)
+
+    });
+
+    // Trigger once on initial select
+    var selected_model_dropdown = $("#model_selection_form").val();
+    $("#model_selection_form").val(selected_model_dropdown).trigger('change');
+}

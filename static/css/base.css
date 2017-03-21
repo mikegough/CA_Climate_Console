@@ -208,9 +208,8 @@ ul.tabs li a{
 }
 
 #point_chart{
-    position:relative;
-    margin-top:0px;
-
+    position: relative;
+    margin-top: 30px;
 }
 
 #point_chart_description{
@@ -586,12 +585,13 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 .tab_help {
-	cursor: pointer;
-	position: relative;
-	right: 12px;
-	z-index: 9999;
-	float: right;
-	top: 13px;
+    cursor: pointer;
+    position: relative;
+    left: 12px;
+    z-index: 9999;
+    float: left;
+    top: 8px;
+    height: 20px;
 }
 
 #infovis-canvaswidget{
@@ -2180,6 +2180,16 @@ div#pop-up2 {
 	color: white;
 	right: 130px;
 	box-shadow: 0px 0px 1px 0px #4B4343;
+}
+
+#model_selection_icon {
+	height: 7px;
+	color: red;
+	width: 7px;
+	background-color: red;
+	border-radius: 100%;
+	border: 1px solid black;
+	position: relative;
 }
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */

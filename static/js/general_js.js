@@ -1,6 +1,5 @@
  $(document).ready(function(){
 
-
      var currentDate=new Date()
      currentYear=currentDate.getFullYear()
 
@@ -478,24 +477,33 @@ season_labels["s2"] = 'Apr-May-Jun';
 season_labels["s3"] = 'Jul-Aug-Sep';
 season_labels["s4"] = 'Oct-Nov-Dec';
 
-function updateQuickViewTable(season){
+function updateQuickViewTable(season,model){
+
+            if (typeof model == "undefined"){
+                if (typeof model_code_dropdown == "undefined"){
+                        model_code_dropdown = "ee"
+                    }
+            }
+            else{
+                model_code_dropdown = model
+            }
 
             $('#seasonLabel').html(season_labels[season]);
 
              if (unitsForChart == "english") {
 
                 //Update Quick Table
-                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmad' + season + 't1_avg'], 'tmad'))
-                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmad' + season + 't2_avg'], 'tmad'))
+                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg'], 'tmad'))
+                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg'], 'tmad'))
 
-                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmid' + season + 't1_avg'], 'tmid'))
-                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eetmid' + season + 't2_avg'], 'tmid'))
+                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg'], 'tmid'))
+                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg'], 'tmid'))
 
-                $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eepred' + season + 't1_avg'], 'pred'))
-                $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eepred' + season + 't2_avg'], 'pred'))
+                $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'], 'pred'))
+                $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'], 'pred'))
 
-                $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON['eearid' + season + 't1_avg'], 'arid'))
-                $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON['eearid' + season + 't2_avg'], 'arid'))
+                $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'], 'arid'))
+                $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'], 'arid'))
 
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('F');
@@ -519,17 +527,17 @@ function updateQuickViewTable(season){
             else {
 
                 //Update Quick Table
-                $('#quick_value_tmax_t1').html(resultsJSON['eetmad' + season + 't1_avg'])
-                $('#quick_value_tmax_t2').html(resultsJSON['eetmad' + season + 't2_avg'])
+                $('#quick_value_tmax_t1').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg'])
+                $('#quick_value_tmax_t2').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg'])
 
-                $('#quick_value_tmin_t1').html(resultsJSON['eetmid' + season + 't1_avg'])
-                $('#quick_value_tmin_t2').html(resultsJSON['eetmid' + season + 't2_avg'])
+                $('#quick_value_tmin_t1').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg'])
+                $('#quick_value_tmin_t2').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg'])
 
-                $('#quick_value_precip_t1').html(resultsJSON['eepred' + season + 't1_avg'])
-                $('#quick_value_precip_t2').html(resultsJSON['eepred' + season + 't2_avg'])
+                $('#quick_value_precip_t1').html(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'])
+                $('#quick_value_precip_t2').html(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'])
 
-                $('#quick_value_aridity_t1').html(resultsJSON['eearid' + season + 't1_avg'])
-                $('#quick_value_aridity_t2').html(resultsJSON['eearid' + season + 't2_avg'])
+                $('#quick_value_aridity_t1').html(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'])
+                $('#quick_value_aridity_t2').html(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'])
 
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('C');
@@ -550,17 +558,19 @@ function updateQuickViewTable(season){
 
             }
 
-            var pet_hist = resultsJSON['pmpet' + season + 't0_avg'].toFixed(2);
-            var pet_ee_t1 = resultsJSON['eepet' + season + 't1_avg'].toFixed(2);
-            var pet_ee_t2 = resultsJSON['eepet' + season + 't2_avg'].toFixed(2);
-            var pet_ee_t1_delta = ((pet_ee_t1 - pet_hist)/pet_hist * 100).toFixed(2);
-            var pet_ee_t2_delta = ((pet_ee_t2 - pet_hist)/pet_hist * 100).toFixed(2);
+            if (Object.keys(resultsJSON).length != 0 && typeof resultsJSON['pmpet' + season + 't0_avg'] != "undefined"){
+                var pet_hist = resultsJSON['pmpet' + season + 't0_avg'].toFixed(2);
+                var pet_ee_t1 = resultsJSON[model_code_dropdown + 'pet' + season + 't1_avg'].toFixed(2);
+                var pet_ee_t2 = resultsJSON[model_code_dropdown + 'pet' + season + 't2_avg'].toFixed(2);
+                var pet_ee_t1_delta = ((pet_ee_t1 - pet_hist) / pet_hist * 100).toFixed(2);
+                var pet_ee_t2_delta = ((pet_ee_t2 - pet_hist) / pet_hist * 100).toFixed(2);
 
-            $('#quick_value_pet_t1').html(pet_ee_t1_delta);
-            $('#quick_value_pet_t2').html(pet_ee_t2_delta);
+                $('#quick_value_pet_t1').html(pet_ee_t1_delta);
+                $('#quick_value_pet_t2').html(pet_ee_t2_delta);
+            }
 
             // Precip text modifications
-            if (resultsJSON['eepred' + season + 't1_avg'] < 0) {
+            if (resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'] < 0) {
                 //$('#arrow_dir_precip_t1').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
                 $('#increase_or_decrease_precip_t1').html("fall below")
             }
@@ -570,25 +580,25 @@ function updateQuickViewTable(season){
             }
 
             // Both time periods increase or both time periods decrease.
-            if ((resultsJSON['eepred' + season + 't1_avg'] < 0 && resultsJSON['eepred' + season + 't2_avg']< 0) || (resultsJSON['eepred' + season + 't1_avg'] > 0 && resultsJSON['eepred' + season + 't2_avg'] > 0)) {
+            if ((resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'] < 0 && resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg']< 0) || (resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'] > 0 && resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'] > 0)) {
                 //$('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
                 $('#increase_or_decrease_precip_t2').html("")
             }
 
             // Decrease during the second time period and increase during the first time period
-            else if (resultsJSON['eepred' + season + 't2_avg'] < 0 && resultsJSON['eepred' + season + 't1_avg'] > 0) {
+            else if (resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'] < 0 && resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'] > 0) {
                 //$('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-down'></i>")
                 $('#increase_or_decrease_precip_t2').html("decrease ")
             }
 
             // Increase during the second time period and decrease during the first time period
-            else if (resultsJSON['eepred' + season + 't2_avg'] > 0 && resultsJSON['eepred' + season + 't1_avg'] < 0) {
+            else if (resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'] > 0 && resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'] < 0) {
                 //$('#arrow_dir_precip_t2').html("<i class='wi wi-rotate-0  wi-direction-up'></i>")
                 $('#increase_or_decrease_precip_t2').html("increase ")
             }
 
             // Aridity text modifications
-            if (resultsJSON['eearid' + season + 't1_avg'] < 0) {
+            if (resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'] < 0) {
                 $('#increase_or_decrease_aridity_t1').html("fall below")
             }
             else {
@@ -596,17 +606,17 @@ function updateQuickViewTable(season){
             }
 
             // Both time periods increase or both time periods decrease.
-            if ((resultsJSON['eearid' + season + 't1_avg'] < 0 && resultsJSON['eearid' + season + 't2_avg'] < 0) || (resultsJSON['eearid' + season + 't1_avg'] > 0 && resultsJSON['eearid' + season + 't2_avg'] > 0)) {
+            if ((resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'] < 0 && resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'] < 0) || (resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'] > 0 && resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'] > 0)) {
                 $('#increase_or_decrease_aridity_t2').html("")
             }
 
             // Decrease during the second time period and increase during the first time period
-            else if (resultsJSON['eearid' + season + 't2_avg'] < 0 && resultsJSON['eearid' + season + 't1_avg'] > 0) {
+            else if (resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'] < 0 && resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'] > 0) {
                 $('#increase_or_decrease_aridity_t2').html("decrease ")
             }
 
             // Increase during the second time period and decrease during the first time period
-            else if (resultsJSON['eearid' + season + 't2_avg'] > 0 && resultsJSON['eearid' + season + 't1_avg'] < 0) {
+            else if (resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'] > 0 && resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'] < 0) {
                 $('#increase_or_decrease_aridity_t2').html("increase ")
             }
 
@@ -632,6 +642,8 @@ function updateQuickViewTable(season){
             else if (pet_ee_t2_delta  > 0 && pet_ee_t1_delta < 0) {
                 $('#increase_or_decrease_pet_t2').html("increase ")
             }
+
+            $("#modelLabel").html($("#model_selection_formSelectBoxItText").text())
 }
 
 $(document).ready(function() {
@@ -1220,7 +1232,7 @@ function update_slider_label(value){
 
 function changeUnits(units){
     unitsForChart=units;
-    if (typeof layerToAddName != 'undefined'){
+    if (typeof layerToAddName != 'undefined' && typeof modelName != 'undefined'){
         swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value, modelName);
     }
     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value,document.getElementById("season_selection_form").value);
@@ -1242,10 +1254,17 @@ function updateEcosystemServicesCharts(dropDownValue) {
 }
 
 function updateClimateHelpContent(){
-     $('#all_point_chart_goodies').each(function (i) {
-                $(this).attr('data-step', '4')
-                $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods. Model averages (ensembles) are shown in red.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>')
-            });
+    gettingStartedIntro2 = introJs();
+    gettingStartedIntro2.setOptions({
+        'showStepNumbers': false,
+        'showBullets': 'false',
+        'tooltipPosition': 'left'
+    });
+    $('#all_point_chart_goodies').each(function (i) {
+        $(this).attr('data-step', '3')
+        $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods. Model averages (ensembles) are shown in red.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>')
+    });
     gettingStartedIntro2.goToStep(3).start();
 
 }
+

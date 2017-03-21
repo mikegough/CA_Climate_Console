@@ -455,6 +455,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 
                     <div id="all_point_chart_goodies">
 
+                        <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(); ">
+
                         <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                             Currently Selected:
                             <span class="selectedFeaturesShortList"></span>
@@ -509,8 +511,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                                 document.getElementById('tab_container').style.display="none";
                             }
                         </script>
-
-                        <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help.png" onclick="updateClimateHelpContent(); ">
 
                         <div id="point_chart"></div>
 

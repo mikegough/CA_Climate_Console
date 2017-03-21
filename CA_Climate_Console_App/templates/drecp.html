@@ -238,7 +238,18 @@
             <div id="view1" class="views">
                 <span id="view1_contents" style="display:inline-block">
 
+                    <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(); ">
+
                     <div id="all_point_chart_goodies">
+
+                        <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                            Currently Selected:
+                            <span class="selectedFeaturesShortList"></span>
+                            <span class="additionalFeaturesCount"></span>
+                        </div>
+                        <span  class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                        <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
 
                             <div class="select_container_2">
                                                        <form class="select_form2">
@@ -285,8 +296,6 @@
                                     document.getElementById('tab_container').style.display="none";
                                 }
                             </script>
-
-                            <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help.png" onclick="updateClimateHelpContent(); ">
 
                             <div id="point_chart"></div>
 

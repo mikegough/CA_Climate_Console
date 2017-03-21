@@ -127,6 +127,8 @@
     columnChartColors="{{columnChartColors}}"
     unitsForChart="metric"
 
+     $('select').selectBoxIt({ autoWidth: false });
+
 </script>
 
 <style>
@@ -154,6 +156,25 @@
     ul.tabs li.selected a, ul.tabs li.selected a:hover{
         background-color:#0D4D6C;
         color: #FEAF23;
+    }
+    .select_form2 {
+        font-family: Verdana,Geneva,sans-serif !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    #variable_selection_formSelectBoxItContainer #variable_selection_formSelectBoxIt{
+        max-width: 100px !important;
+    }
+    #model_selection_formSelectBoxItContainer #model_selection_formSelectBoxIt{
+        max-width: 140px !important;
+    }
+    #statistic_selection_formSelectBoxItContainer #statistic_selection_formSelectBoxIt{
+        max-width: 90px !important;
+    }
+    #season_selection_formSelectBoxItContainer #season_selection_formSelectBoxIt{
+        max-width: 95px !important;
     }
 
 </style>
@@ -270,6 +291,8 @@
 
                     <div id="all_point_chart_goodies">
 
+                        <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(); ">
+
                         <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                             Currently Selected:
                             <span class="selectedFeaturesShortList"></span>
@@ -285,12 +308,28 @@
                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
                            <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
                            <!-- Annual Averages -->
-                           <option value="tmax" selected>Maximum Temperature</option>
-                           <option value="tmin">Minimum Temperature</option>
+                           <option value="tmax" selected>Max Temp</option>
+                           <option value="tmin">Min Temp</option>
                            <option value="prec">Precipitation</option>
                            <option value="arid">Aridity</option>
                            <option value="pet">PET</option>
                            </select>
+                           </div>
+                           <div class="styled-select2" id="ss4">
+                               <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                               <select id="model_selection_form">
+                                   <option value="1" selected>Ensemble</option>
+                                   <option value="2">CNRM (Warm/Wet)</option>
+                                   <option value="3">CCSM4 (Warm/Dry)</option>
+                                   <option value="4">CanEMS2 (Hot/Wet)</option>
+                                   <option value="5">HadGEM2ES (Hot/Dry)</option>
+                                   <option value="6">ACCESS</option>
+                                   <option value="7">CESM1</option>
+                                   <option value="8">CMCC</option>
+                                   <option value="9">GFDL</option>
+                                   <option value="10">HadGEM2CC</option>
+                                   <option value="11">MIROC5</option>
+                               </select>
                            </div>
                            <div class="styled-select2" id="ss2">
                            <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
@@ -325,7 +364,6 @@
                             }
                         </script>
 
-                        <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help.png" onclick="updateClimateHelpContent(); ">
 
                         <div id="point_chart"></div>
 
@@ -344,7 +382,7 @@
                                     <!--
                                     <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
                                     -->
-                                    <span style="font-weight:normal;font-size:1em">Projected Change (Model Averages, <span id="seasonLabel">Annual</span>)</span>
+                                    <span style="font-weight:normal;font-size:1em">Projected Change (<span id="modelLabel">Ensemble(Averages)</span>, <span id="seasonLabel">Annual</span>)</span>
                                 </th>
                             </tr>
 
@@ -445,7 +483,7 @@
                         <p>
                         <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
                         <p>
-                        <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png">.</li>
+                        <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png"></li>
                        <p>
                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
                        <p>
