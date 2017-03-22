@@ -127,7 +127,7 @@
     columnChartColors="{{columnChartColors}}"
     unitsForChart="metric"
 
-     $('select').selectBoxIt({ autoWidth: false });
+    $('select').selectBoxIt({ autoWidth: false });
 
 </script>
 
@@ -138,11 +138,13 @@
         left: -90px;
         top: -60px;
     }
+
     #rightImage {
         position: absolute;
         right: -30px;
         top: 0px;
     }
+
     .toolTitle, .toolTitle2 {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#003d5e+0,0d4a68+17,085677+100 */
     background: #003d5e; /* Old browsers */
@@ -168,12 +170,15 @@
     #variable_selection_formSelectBoxItContainer #variable_selection_formSelectBoxIt{
         max-width: 97px !important;
     }
+
     #model_selection_formSelectBoxItContainer #model_selection_formSelectBoxIt{
         max-width: 150px !important;
     }
+
     #statistic_selection_formSelectBoxItContainer #statistic_selection_formSelectBoxIt{
         max-width: 85px !important;
     }
+
     #season_selection_formSelectBoxItContainer #season_selection_formSelectBoxIt{
         max-width: 95px !important;
     }
@@ -305,56 +310,56 @@
 
                         <div class="select_container_2">
                            <form class="select_form2">
-                           <div class="styled-select2" id="ss1">
-                           <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                           <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
-                           <!-- Annual Averages -->
-                           <option value="tmax" selected>Max Temp</option>
-                           <option value="tmin">Min Temp</option>
-                           <option value="prec">Precipitation</option>
-                           <option value="arid">Aridity</option>
-                           <option value="pet">PET</option>
-                           </select>
-                           </div>
-                           <div class="styled-select2" id="ss4">
+                               <div class="styled-select2" id="ss1">
                                <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                               <select id="model_selection_form">
-                                   <option value="1" selected>Ensemble</option>
-                                   <option value="2">CNRM (Warm/Wet)</option>
-                                   <option value="3">CCSM4 (Warm/Dry)</option>
-                                   <option value="4">CanEMS2 (Hot/Wet)</option>
-                                   <option value="5">HadGEM2ES (Hot/Dry)</option>
-                                   <option value="6">ACCESS</option>
-                                   <option value="7">CESM1</option>
-                                   <option value="8">CMCC</option>
-                                   <option value="9">GFDL</option>
-                                   <option value="10">HadGEM2CC</option>
-                                   <option value="11">MIROC5</option>
+                               <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)'>
+                               <!-- Annual Averages -->
+                               <option value="tmax" selected>Max Temp</option>
+                               <option value="tmin">Min Temp</option>
+                               <option value="prec">Precipitation</option>
+                               <option value="arid">Aridity</option>
+                               <option value="pet">PET</option>
                                </select>
-                           </div>
-                           <div class="styled-select2" id="ss2">
-                           <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
-                           <!-- Annual Averages -->
-                           <option class="avg" value="avg" selected >Average</option>
-                           <option class="delta" value="delta">Change</option>
-                           <!-- <option class="anom" value="anom">Anomaly</option> -->
-                           </select>
-                           </div>
-                           <div class="styled-select2" id="ss3">
-                           <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
-                           <!-- Annual Averages -->
-                           <option value="s0" selected >Annual</option>
-                           <option value="s1">Jan-Feb-Mar</option>
-                           <option value="s2">Apr-May-Jun</option>
-                           <option value="s3">Jul-Aug-Sep</option>
-                           <option value="s4">Oct-Nov-Dec</option>
-                           </select>
-                           </div>
-                           <div id="units_selector">
-                           <b>Units:</b>
-                           <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
-                           <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
-                           </div>
+                               </div>
+                               <div class="styled-select2" id="ss4">
+                                   <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                                   <select id="model_selection_form">
+                                       <option value="1" selected>Ensemble</option>
+                                       <option value="2">CNRM (Warm/Wet)</option>
+                                       <option value="3">CCSM4 (Warm/Dry)</option>
+                                       <option value="4">CanEMS2 (Hot/Wet)</option>
+                                       <option value="5">HadGEM2ES (Hot/Dry)</option>
+                                       <option value="6">ACCESS</option>
+                                       <option value="7">CESM1</option>
+                                       <option value="8">CMCC</option>
+                                       <option value="9">GFDL</option>
+                                       <option value="10">HadGEM2CC</option>
+                                       <option value="11">MIROC5</option>
+                                   </select>
+                               </div>
+                               <div class="styled-select2" id="ss2">
+                                   <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
+                                   <!-- Annual Averages -->
+                                   <option class="avg" value="avg" selected >Average</option>
+                                   <option class="delta" value="delta">Change</option>
+                                   <!-- <option class="anom" value="anom">Anomaly</option> -->
+                                   </select>
+                               </div>
+                               <div class="styled-select2" id="ss3">
+                                   <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
+                                       <!-- Annual Averages -->
+                                       <option value="s0" selected >Annual</option>
+                                       <option value="s1">Jan-Feb-Mar</option>
+                                       <option value="s2">Apr-May-Jun</option>
+                                       <option value="s3">Jul-Aug-Sep</option>
+                                       <option value="s4">Oct-Nov-Dec</option>
+                                   </select>
+                               </div>
+                               <div id="units_selector">
+                                   <b>Units:</b>
+                                   <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                                   <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
+                               </div>
                            </form>
                            </div>
 
