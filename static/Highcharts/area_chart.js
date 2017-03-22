@@ -1,4 +1,4 @@
-function createAreaChart(model,updateSource) {
+function createAreaChart(model) {
 
     if (typeof pngCloverYear == "undefined"){
         pngCloverYear = 58804
@@ -225,10 +225,6 @@ function createAreaChart(model,updateSource) {
         })
     }
 
-
-    if (updateSource != "mapClick") {
-            swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
-    }
 
     var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
     var startDate = new Date(1850,01,1);

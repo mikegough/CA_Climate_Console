@@ -805,7 +805,7 @@ function create_post(newWKT) {
                 $("#no_climate_impacts_data").hide()
 
                 // For dashboard, the call to createAreaChart happens in dashboard.js
-                createAreaChart(document.getElementById("ecoServSelectionForm").value,"mapClick");
+                createAreaChart(document.getElementById("ecoServSelectionForm").value);
 
                 if (typeof createSplineChart == "function") {
                     createSplineChart(document.getElementById("ecoServSelectionForm").value);

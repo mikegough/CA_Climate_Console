@@ -1247,10 +1247,22 @@ function animateClickToMapInfoBox(){
 }
 
 function updateEcosystemServicesCharts(dropDownValue) {
-    createAreaChart(dropDownValue, "changeDropDown");
+    createAreaChart(dropDownValue);
     if (typeof createSplineChart == "function") {
         createSplineChart(dropDownValue);
     }
+    // lastThingViewed gets set to continuous when the user clicks a point in the continuous chart.
+    // if the last thing the looked at in the map was veg_type, load a new veg type PNG on model dropdown change
+    if (typeof lastThingViewed == "undefined" || lastThingViewed != "continuous") {
+        swapImageOverlay("vtype_agg_" + dropDownValue + "__" + pngCloverYear, "EcosystemServices")
+    }
+    // otherwise change it to the new continous model
+    else {
+        var previous_model = pngName.split("__")[0].split("_").pop()
+        var new_mc2_pngName = pngName.replace(previous_model,dropDownValue)
+        swapImageOverlay(new_mc2_pngName, "EcosystemServices")
+    }
+
 }
 
 function updateClimateHelpContent(){

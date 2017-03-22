@@ -217,13 +217,13 @@ function createChart(climateVariable, statistic, season) {
             symbol = climateParams['models'][model][5]    ;
         }
         else{
-            symbol = 4;
+            symbol = "";
         }
         if (typeof climateParams['models'][model][1] != "undefined") {
             color = climateParams['models'][model][1];
         }
         else{
-            color = '';
+            color = "";
         }
         chart.addSeries({
             name: model,

@@ -196,7 +196,8 @@ function createSplineChart(model,y1_variable,y2_variable) {
                         click: function() {
                               var endDate = new Date(this.category, 01, 1);
                               var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                              var pngName = y1_variable + "_"  + actualModelName +"__"+ pngCloverYear
+                              lastThingViewed = "continuous"
+                              pngName = y1_variable + "_"  + actualModelName +"__"+ pngCloverYear
                               swapImageOverlay(pngName, "EcosystemServices")
 
                               var legendName  = y1_variable + "_"  + actualModelName
@@ -227,7 +228,8 @@ function createSplineChart(model,y1_variable,y2_variable) {
                     events: {
                         click: function() {
                             var endDate = new Date(this.category, 01, 1);
-                            pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                            var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
+                            lastThingViewed = "continuous"
                             pngName = y2_variable + "_"  + actualModelName +"__"+ pngCloverYear
                             swapImageOverlay(pngName, "EcosystemServices")
 
