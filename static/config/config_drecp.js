@@ -23,7 +23,7 @@ climateParams={
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models:{
-        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "initial visibility"]
+        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index", "initial visibility", "point symbol size", "point symbol shape"]
         "PRISM":["pm","black",,true],
         "CanESM2":["c2","#DEB78B",,true],
         "CCSM4":["c4","#717573",,true],

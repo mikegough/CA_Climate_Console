@@ -25,7 +25,7 @@ climateParams = {
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models: {
-        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index", "initial visibility"]
+        // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index", "initial visibility", "point symbol size", "point symbol shape"]
         "PRISM": ["pm", "black", "0", true, 4, "circle"],
         "Ensemble": ["ee", "#C0C2C2", "0", true, 4, "circle"],
         "CNRM(Warm/Wet)": ["c5", "#C0C2C2", "5", true, 4, "triangle"],

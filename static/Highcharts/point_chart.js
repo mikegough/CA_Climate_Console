@@ -204,17 +204,38 @@ function createChart(climateVariable, statistic, season) {
     seriesNumber=1;
     for (model in climateParams['models']){
         var modelAbbreviation=climateParams['models'][model][0];
+        var radius;
+        var symbol;
+        var color;
+        if (typeof climateParams['models'][model][4] != "undefined") {
+            radius = climateParams['models'][model][4]    ;
+        }
+        else{
+            radius = 4;
+        }
+        if (typeof climateParams['models'][model][5] != "undefined") {
+            symbol = climateParams['models'][model][5]    ;
+        }
+        else{
+            symbol = 4;
+        }
+        if (typeof climateParams['models'][model][1] != "undefined") {
+            color = climateParams['models'][model][1];
+        }
+        else{
+            color = '';
+        }
         chart.addSeries({
             name: model,
             //allowPointSelect: true,
-            color:climateParams['models'][model][1],
+            color:color,
             data: eval("line"+seriesNumber+"Values"),
             visible: climateParams['models'][model][3],
             layersToAdd:eval(modelAbbreviation +"_LayersToAdd"),
             index:seriesNumber,
             marker:{
-                //radius: climateParams['models'][model][4],
-                //symbol: climateParams['models'][model][5],
+                radius: radius,
+                symbol: symbol,
                 states: {
                             select: {
                                 lineWidth: 1,
