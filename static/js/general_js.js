@@ -1,17 +1,17 @@
  $(document).ready(function(){
 
-     var currentDate=new Date()
-     currentYear=currentDate.getFullYear()
+     var currentDate=new Date();
+     currentYear=currentDate.getFullYear();
 
-     document.title=title + " Climate Console"
+     document.title=title + " Climate Console";
      //$("#view1Link").click()
 
     //Prepare Near Term Forecast
 
-    previousDivision=''
-    countTimesNoaa3MonthCalled=0
+    previousDivision='';
+    countTimesNoaa3MonthCalled=0;
     //Initialize Selected Time Frame
-    selectedNearTermClimatePeriod=1
+    selectedNearTermClimatePeriod=1;
 
     acquireNearTermClimate();
     createDynamicMonthlyRadioButtons()
