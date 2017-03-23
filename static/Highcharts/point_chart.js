@@ -227,7 +227,7 @@ function createChart(climateVariable, statistic, season) {
         }
         chart.addSeries({
             name: model,
-            //allowPointSelect: true,
+            allowPointSelect: true,
             color:color,
             data: eval("line"+seriesNumber+"Values"),
             visible: climateParams['models'][model][3],
@@ -238,8 +238,9 @@ function createChart(climateVariable, statistic, season) {
                 symbol: symbol,
                 states: {
                             select: {
-                                lineWidth: 1,
-                                fillColor:"red",
+                                lineWidth: 3,
+                                fillColor:this.fillColor,
+                                lineColor: "#00FFFF"
                             }
                         }
             },
@@ -250,7 +251,12 @@ function createChart(climateVariable, statistic, season) {
                         layerToAddName = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
                         modelName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
                         swapImageOverlay(layerToAddName)
-                        swapLegend(layerToAddName, null, climateVariable,modelName)
+                        swapLegend(layerToAddName, null, climateVariable, modelName)
+
+                        /* This is used to change the model dropdown when a user clicks on a point.
+                           Which also triggers a change in the image overlay. Not real happy with it. */
+                        activeTimePeriod = this.index;
+                        //$('#model_selection_form').val(this.series.index).change();
                     }
                 }
             }
@@ -290,7 +296,7 @@ function createChart(climateVariable, statistic, season) {
 }
 
 
-function updateData(climateVariable, statistic, season) {
+function updateData(climateVariable, statistic, season, model_index) {
 
     $("#clickToMapInfo").hide();
 
@@ -354,6 +360,7 @@ function updateData(climateVariable, statistic, season) {
     var db_statistic="avg"
 
     var seriesNumber=1;
+
 
     //Data to plot comes from the resultsJSON dictionary (example: resultsJSON['m5arids2t1_avg'], where m5arids2t1 is the field name in the postGIS database.)
     //m5=MIROC5,arid=aridity(delta),s2=Season2,t1=Season1,avg=database statistic
@@ -536,5 +543,51 @@ function updateData(climateVariable, statistic, season) {
     chart.options.exporting.chartOptions.title.text="<br>"+activeReportingUnitsName + ": " + response['categoricalValues']
     chart.options.exporting.chartOptions.subtitle.text="<br>"+selectedClimateVar + " " + selectedClimateStat + " " + "("+selectedClimateSeason+")"+"<br>"
 
+    changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic)
+
 }
+
+// On dropdown change, swap image overlay
+function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic) {
+    // Remove imageoverlay and deselect points for now.
+    //swapImageOverlay("single_transparent_pixel")
+    selectedPoints = chart.getSelectedPoints();
+    if (selectedPoints.length > 0) {
+        selectedPoints[0].select();
+    }
+
+    /*
+    if (typeof activeTimePeriod == "undefined" || activeTimePeriod == 0) {
+        // Shows PRISM on first load. Not working real well.
+        if (statistic != "delta") {
+            var model_code = "pm";
+            pngCode = model_code + climateVariable + season + "t0";
+            chart.series[model_index].data[0].select();
+            swapImageOverlay(pngCode);
+            swapLegend(pngCode, null, climateVariable, "PRISM")
+        }
+        pngCode = ""
+    }
+
+    else {
+
+        // activeTimePeriod gets set on first point click
+        var lastPointClickTimePeriod = "t" + activeTimePeriod.toString();
+
+        // Some climate consoles won't have a model dropdown
+        if (typeof model_index != "undefined") {
+            var model_code = climateParams["models"][chart.series[model_index].name][0];
+            pngCode = model_code + climateVariable + season + lastPointClickTimePeriod;
+            chart.series[model_index].data[activeTimePeriod].select();
+            if (typeof last_pngCode != "undefined" && pngCode != last_pngCode) {
+                swapImageOverlay(pngCode)
+                var modelName = chart.series[model_index].name
+                swapLegend(pngCode, null, climateVariable, modelName)
+            }
+        }
+    }
+    last_pngCode = pngCode
+    */
+}
+
 

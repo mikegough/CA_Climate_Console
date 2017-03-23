@@ -1285,6 +1285,8 @@ function addEventHandlerForModelChange(){
 
     $("#model_selection_form").on("change", function () {
 
+        // Change color & update quickview table
+
         if (typeof last_model_id != "undefined") {
             chart.series[last_model_id].update({
                 color: climateParams['models'][last_model_name][1]
@@ -1302,6 +1304,9 @@ function addEventHandlerForModelChange(){
         var season = document.getElementById("season_selection_form").value;
 
         updateQuickViewTable(season,model_code)
+
+        // Show new image overlay
+        changeImageOverlayBasedOnNewDropdownSelection(this.value,document.getElementById("variable_selection_form").value, document.getElementById("season_selection_form").value,document.getElementById("statistic_selection_form").value)
 
     });
 
