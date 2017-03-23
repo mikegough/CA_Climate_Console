@@ -1280,3 +1280,33 @@ function updateClimateHelpContent(){
 
 }
 
+
+function addEventHandlerForModelChange(){
+
+    $("#model_selection_form").on("change", function () {
+
+        if (typeof last_model_id != "undefined") {
+            chart.series[last_model_id].update({
+                color: climateParams['models'][last_model_name][1]
+            });
+        }
+
+        chart.series[this.value].update({
+            color: "red"
+        });
+
+        chart.series[this.value].markerGroup.toFront();
+        last_model_name = chart.series[this.value].name;
+        last_model_id = this.value
+        var model_code  = climateParams['models'][last_model_name][0];
+        var season = document.getElementById("season_selection_form").value;
+
+        updateQuickViewTable(season,model_code)
+
+    });
+
+    // Trigger once on initial select
+    var selected_model_dropdown = $("#model_selection_form").val();
+    $("#model_selection_form").val(selected_model_dropdown).trigger('change');
+}
+
