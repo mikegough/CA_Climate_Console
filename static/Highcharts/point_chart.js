@@ -250,10 +250,10 @@ function createChart(climateVariable, statistic, season) {
                     click: function() {
                         layerToAddName = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
                         modelName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
-                        /* This is used to change the model dropdown when a user clicks on a point.
-                           Which also triggers a change in the image overlay. Not real happy with it. */
+                        /* Check for the model dropdown. If it exists, change the model dropdown when a user clicks on a point. Which also triggers a change in the image overlay and the quick view table. */
                         if ($("#model_selection_form").length) {
                             activeTimePeriod = this.index;
+                            // This fixes the issue when a dropdown change triggers another dropdown change (e.g., Arididty only has Change).
                             last_pngCode = "";
                             if (this.series.index != 0) {
                                 $('#model_selection_form').val(this.series.index).change();
@@ -264,10 +264,13 @@ function createChart(climateVariable, statistic, season) {
                                 swapLegend(layerToAddName, null, climateVariable, modelName)
                             }
                         }
+                        // If there's no model dropdown, use the original point click actions .
                         else {
                             swapImageOverlay(layerToAddName)
                             swapLegend(layerToAddName, null, climateVariable, modelName)
                         }
+                        // return false to prevent default action. Prevents the d.select is not a function error in the console.
+                        return false;
                     }
                 }
             }

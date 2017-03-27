@@ -1283,8 +1283,9 @@ function updateClimateHelpContent(){
 
 function addEventHandlerForModelChange(){
 
-     // Only for model change. All other dropdowns need to go through the updateData function to plot the new data.
-    // Change color of selected point & update quickview table on dropdown change (could get here from point click as well).
+    // Only for model change. All other dropdowns need to go through the updateData function to plot the new data.
+    // The chart data doesn't need to be changed when a new model is selected from the dropdown.
+    // Change color of selected point & update quickview table on drop-down change (could get here from point click as well).
     $("#model_selection_form").on("change", function () {
 
         // Set point colors back to their default colors.
@@ -1293,7 +1294,6 @@ function addEventHandlerForModelChange(){
                 color: climateParams['models'][last_model_name][1]
             });
         }
-
         // Show selected model point as red
         chart.series[this.value].update({
             color: "red"
@@ -1333,7 +1333,6 @@ function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariab
         if (selectedPoints.length > 0) {
             selectedPoints[0].select();
         }
-
 
         var overlay_bounds = climateParams['overlayBounds'];
 
@@ -1382,6 +1381,7 @@ function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariab
 
             }
         }
+
 }
 
 
