@@ -1302,17 +1302,17 @@ function addEventHandlerForModelChange(){
         chart.series[this.value].markerGroup.toFront();
         last_model_name = chart.series[this.value].name;
         last_model_id = this.value
-        var model_code  = climateParams['models'][last_model_name][0];
+        var modelCode  = climateParams['models'][last_model_name][0];
         var season = document.getElementById("season_selection_form").value;
-        var variable = document.getElementById("variable_selection_form").value
-        var statistic = document.getElementById("statistic_selection_form").value
+        var variable = document.getElementById("variable_selection_form").value;
+        var statistic = document.getElementById("statistic_selection_form").value;
 
-        updateQuickViewTable(season,model_code)
+        updateQuickViewTable(season,modelCode);
 
         // Call function below to show new image overlay
-        model_index = this.value
+        var modelIndex = this.value;
         if (typeof activeTimePeriod != "undefined") {
-            changeImageOverlayBasedOnNewDropdownSelection(model_index,variable,season,statistic)
+            changeImageOverlayBasedOnNewDropdownSelection(modelIndex,variable,season,statistic)
         }
 
     });
@@ -1322,12 +1322,12 @@ function addEventHandlerForModelChange(){
      $("#model_selection_form").val(selected_model_dropdown).trigger('change');
 }
 
-var last_pngCode
+var last_pngCode;
 
  // On dropdown change, swap image overlay
-function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic) {
+function changeImageOverlayBasedOnNewDropdownSelection(modelIndex,climateVariable,season,statistic) {
 
-        // Remove imageoverlay and deselect points for now.
+        // Remove image overlay and deselect points.
         //swapImageOverlay("single_transparent_pixel")
         selectedPoints = chart.getSelectedPoints();
         if (selectedPoints.length > 0) {
@@ -1336,19 +1336,20 @@ function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariab
 
         var overlay_bounds = climateParams['overlayBounds'];
 
+        // ActiveTimePeriod gets set on first point click (need a point click to indicate what time period the user wants to see).
         if (typeof activeTimePeriod != "undefined") {
 
-            if (activeTimePeriod == 0 || model_index == "0") {
-                // Shows PRISM on first load. Not working real well.
+            // PRISM
+            if (activeTimePeriod == 0 || modelIndex == "0") {
                 if (statistic != "delta") {
-                    var model_code = "pm";
-                    pngCode = model_code + climateVariable + season + "t0";
-                    chart.series[model_index].data[0].select();
+                    var modelCode = "pm";
+                    pngCode = modelCode + climateVariable + season + "t0";
+                    chart.series[modelIndex].data[0].select();
                     swapImageOverlay(pngCode);
                     swapLegend(pngCode, null, climateVariable, "PRISM")
                 }
+                // No delta overlays for PRISM
                 else {
-
                     swapImageOverlay("single_transparent_pixel")
                 }
                 pngCode = ""
@@ -1356,32 +1357,31 @@ function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariab
 
             else {
 
-                // activeTimePeriod gets set on first point click
+                // We're here because a point click has happened already.
                 var lastPointClickTimePeriod = "t" + activeTimePeriod.toString();
 
                 // Some climate consoles won't have a model dropdown
-                if (typeof model_index != "undefined") {
-                    var model_code = climateParams["models"][chart.series[model_index].name][0];
-                    var modelName = chart.series[model_index].name
+                if (typeof modelIndex != "undefined") {
+                    var modelCode = climateParams["models"][chart.series[modelIndex].name][0];
+                    var modelName = chart.series[modelIndex].name;
                     if (statistic=="delta") {
                         //remove the last character and add a "d" (e.g., tmin->tmid)
                         climateVariable = (climateVariable.slice(0,-1) + 'd');
                     }
-                    pngCode = model_code + climateVariable + season + lastPointClickTimePeriod;
-                    chart.series[model_index].data[activeTimePeriod].select();
+                    pngCode = modelCode + climateVariable + season + lastPointClickTimePeriod;
+                    chart.series[modelIndex].data[activeTimePeriod].select();
                     // This check has to be performed because when the user changes to aridity or pet, that changes the statistic dropdown which calls updateData again.
                     if (last_pngCode != pngCode) {
-                        swapImageOverlay(pngCode)
-                        swapLegend(pngCode, null, climateVariable, modelName)
+                        swapImageOverlay(pngCode);
+                        swapLegend(pngCode, null, climateVariable, modelName);
                     }
                 }
 
-                last_pngCode = pngCode
-                last_climate_PNG_overlay_url = climate_PNG_overlay_url
+                last_pngCode = pngCode;
+                last_climate_PNG_overlay_url = climate_PNG_overlay_url;
 
             }
         }
-
 }
 
 

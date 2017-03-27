@@ -308,7 +308,6 @@
                         <span  class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
                         <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
 
-
                         <div class="select_container_2">
                            <form class="select_form2">
                                <div class="styled-select2" id="ss1">
@@ -323,8 +322,7 @@
                                </select>
                                </div>
                                <div class="styled-select2" id="ss4">
-                                   <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                                   <!-- <select id="model_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value,document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value,this.value)'>-->
+                                   <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
                                    <select id="model_selection_form">
                                        <option value="1" selected>Ensemble</option>
                                        <option value="2">CNRM (Warm/Wet)</option>
