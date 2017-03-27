@@ -250,13 +250,24 @@ function createChart(climateVariable, statistic, season) {
                     click: function() {
                         layerToAddName = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
                         modelName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
-                        swapImageOverlay(layerToAddName)
-                        swapLegend(layerToAddName, null, climateVariable, modelName)
-
                         /* This is used to change the model dropdown when a user clicks on a point.
                            Which also triggers a change in the image overlay. Not real happy with it. */
-                        activeTimePeriod = this.index;
-                        //$('#model_selection_form').val(this.series.index).change();
+                        if ($("#model_selection_form").length) {
+                            activeTimePeriod = this.index;
+                            last_pngCode = "";
+                            if (this.series.index != 0) {
+                                $('#model_selection_form').val(this.series.index).change();
+                            }
+                            // For PRISM don't need to change dropdown.
+                            else {
+                                swapImageOverlay(layerToAddName)
+                                swapLegend(layerToAddName, null, climateVariable, modelName)
+                            }
+                        }
+                        else {
+                            swapImageOverlay(layerToAddName)
+                            swapLegend(layerToAddName, null, climateVariable, modelName)
+                        }
                     }
                 }
             }
@@ -547,47 +558,6 @@ function updateData(climateVariable, statistic, season, model_index) {
 
 }
 
-// On dropdown change, swap image overlay
-function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic) {
-    // Remove imageoverlay and deselect points for now.
-    //swapImageOverlay("single_transparent_pixel")
-    selectedPoints = chart.getSelectedPoints();
-    if (selectedPoints.length > 0) {
-        selectedPoints[0].select();
-    }
 
-    /*
-    if (typeof activeTimePeriod == "undefined" || activeTimePeriod == 0) {
-        // Shows PRISM on first load. Not working real well.
-        if (statistic != "delta") {
-            var model_code = "pm";
-            pngCode = model_code + climateVariable + season + "t0";
-            chart.series[model_index].data[0].select();
-            swapImageOverlay(pngCode);
-            swapLegend(pngCode, null, climateVariable, "PRISM")
-        }
-        pngCode = ""
-    }
-
-    else {
-
-        // activeTimePeriod gets set on first point click
-        var lastPointClickTimePeriod = "t" + activeTimePeriod.toString();
-
-        // Some climate consoles won't have a model dropdown
-        if (typeof model_index != "undefined") {
-            var model_code = climateParams["models"][chart.series[model_index].name][0];
-            pngCode = model_code + climateVariable + season + lastPointClickTimePeriod;
-            chart.series[model_index].data[activeTimePeriod].select();
-            if (typeof last_pngCode != "undefined" && pngCode != last_pngCode) {
-                swapImageOverlay(pngCode)
-                var modelName = chart.series[model_index].name
-                swapLegend(pngCode, null, climateVariable, modelName)
-            }
-        }
-    }
-    last_pngCode = pngCode
-    */
-}
 
 

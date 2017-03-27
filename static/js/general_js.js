@@ -1283,16 +1283,18 @@ function updateClimateHelpContent(){
 
 function addEventHandlerForModelChange(){
 
+     // Only for model change. All other dropdowns need to go through the updateData function to plot the new data.
+    // Change color of selected point & update quickview table on dropdown change (could get here from point click as well).
     $("#model_selection_form").on("change", function () {
 
-        // Change color & update quickview table
-
+        // Set point colors back to their default colors.
         if (typeof last_model_id != "undefined") {
             chart.series[last_model_id].update({
                 color: climateParams['models'][last_model_name][1]
             });
         }
 
+        // Show selected model point as red
         chart.series[this.value].update({
             color: "red"
         });
@@ -1302,16 +1304,84 @@ function addEventHandlerForModelChange(){
         last_model_id = this.value
         var model_code  = climateParams['models'][last_model_name][0];
         var season = document.getElementById("season_selection_form").value;
+        var variable = document.getElementById("variable_selection_form").value
+        var statistic = document.getElementById("statistic_selection_form").value
 
         updateQuickViewTable(season,model_code)
 
-        // Show new image overlay
-        changeImageOverlayBasedOnNewDropdownSelection(this.value,document.getElementById("variable_selection_form").value, document.getElementById("season_selection_form").value,document.getElementById("statistic_selection_form").value)
+        // Call function below to show new image overlay
+        model_index = this.value
+        if (typeof activeTimePeriod != "undefined") {
+            changeImageOverlayBasedOnNewDropdownSelection(model_index,variable,season,statistic)
+        }
 
     });
 
-    // Trigger once on initial select
-    var selected_model_dropdown = $("#model_selection_form").val();
-    $("#model_selection_form").val(selected_model_dropdown).trigger('change');
+     // Trigger once on initial select
+     var selected_model_dropdown = $("#model_selection_form").val();
+     $("#model_selection_form").val(selected_model_dropdown).trigger('change');
 }
+
+var last_pngCode
+
+ // On dropdown change, swap image overlay
+function changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic) {
+
+        // Remove imageoverlay and deselect points for now.
+        //swapImageOverlay("single_transparent_pixel")
+        selectedPoints = chart.getSelectedPoints();
+        if (selectedPoints.length > 0) {
+            selectedPoints[0].select();
+        }
+
+
+        var overlay_bounds = climateParams['overlayBounds'];
+
+        if (typeof activeTimePeriod != "undefined") {
+
+            if (activeTimePeriod == 0 || model_index == "0") {
+                // Shows PRISM on first load. Not working real well.
+                if (statistic != "delta") {
+                    var model_code = "pm";
+                    pngCode = model_code + climateVariable + season + "t0";
+                    chart.series[model_index].data[0].select();
+                    swapImageOverlay(pngCode);
+                    swapLegend(pngCode, null, climateVariable, "PRISM")
+                }
+                else {
+
+                    swapImageOverlay("single_transparent_pixel")
+                }
+                pngCode = ""
+            }
+
+            else {
+
+                // activeTimePeriod gets set on first point click
+                var lastPointClickTimePeriod = "t" + activeTimePeriod.toString();
+
+                // Some climate consoles won't have a model dropdown
+                if (typeof model_index != "undefined") {
+                    var model_code = climateParams["models"][chart.series[model_index].name][0];
+                    var modelName = chart.series[model_index].name
+                    if (statistic=="delta") {
+                        //remove the last character and add a "d" (e.g., tmin->tmid)
+                        climateVariable = (climateVariable.slice(0,-1) + 'd');
+                    }
+                    pngCode = model_code + climateVariable + season + lastPointClickTimePeriod;
+                    chart.series[model_index].data[activeTimePeriod].select();
+                    // This check has to be performed because when the user changes to aridity or pet, that changes the statistic dropdown which calls updateData again.
+                    if (last_pngCode != pngCode) {
+                        swapImageOverlay(pngCode)
+                        swapLegend(pngCode, null, climateVariable, modelName)
+                    }
+                }
+
+                last_pngCode = pngCode
+                last_climate_PNG_overlay_url = climate_PNG_overlay_url
+
+            }
+        }
+}
+
 
