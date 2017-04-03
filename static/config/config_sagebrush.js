@@ -33,7 +33,6 @@ wmsLayers={
         "Sagebrush Cover" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/57321b4fe4b0dae0d5dc1ec3?service=wms","sagebrush_cover.png", "Sagebrush_MW5k", "on", "https://www.sciencebase.gov/catalog/item/57321b4fe4b0dae0d5dc1ec3"],
         "Historic Greater Sage-Grouse Range" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/52e17ac3e4b0d0c3df9a3968?service=wms","science_base_generic.png", "sb:Historic_GSG_Range", "off", "https://www.sciencebase.gov/catalog/item/52e17ac3e4b0d0c3df9a3968"],
         "Great Basin Sage-Grouse Concentration Areas" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/56a7ba52e4b0b28f1184d966?service=wms","science_base_generic.png", "sb:footprint", "off", "https://www.sciencebase.gov/catalog/item/56a7ba52e4b0b28f1184d966"],
-        "Resilience and Resistance" : ["https://www.sciencebase.gov/arcgis/services/Catalog/55229c34e4b027f0aee3cfa5/MapServer/WMSServer?","r_and_r.png", "0", "off", "https://www.sciencebase.gov/catalog/item/55229c34e4b027f0aee3cfa5"],
 }
 
 climateParams = {
