@@ -177,7 +177,8 @@
 	color: #595959;
 	font-size: .8em;
 	vertical-align: top;
-	cursor:default;
+	cursor: default;
+	max-width: 150px;
 }
 
 .descriptionTable td:first-child {
