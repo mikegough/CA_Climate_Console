@@ -242,7 +242,7 @@ function initialize_tree(layerToAdd){
         data: {eems_file_name: eems_file_name, top_node: top_node},
 
         success: function (results) {
-            response=JSON.parse(results)
+            var response=JSON.parse(results)
             json=response['eems_tree_dict']
             top_node=response['top_node']
             init()
