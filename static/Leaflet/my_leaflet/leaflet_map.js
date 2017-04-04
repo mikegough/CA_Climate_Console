@@ -29,7 +29,7 @@ function getCookie(c_name){
 }
 
 var latlng = L.latLng(initialLat,initialLon);
-enableDownscale = false
+enableDownscale = false;
 
 var map = L.map("map", {
     zoomControl: false,
@@ -46,7 +46,6 @@ map.on('mousedown', function (e) {
 
 //SCALE BAR
 L.control.scale({maxWidth:200}).addTo(map);
-
 
 //BEGIN TEXT UPPER LEFT ("Selection Tools")
 var toolTitle = L.Control.extend({
@@ -234,7 +233,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
                 '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>' +
                 '<div id="LegendHeader">' + legendTitle + '</div>' +
                 '<img style="float:left" height="" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + legendImage + '.png">' +
-                '<div class="legendLabelsStretch">'
+                '<div class="legendLabelsStretch">';
                 $(".legendLabelsStretch").append("Highest<br><br><br><br><br>Lowest");
 
           }
@@ -259,7 +258,7 @@ if (typeof climate_PNG_overlay != 'undefined') {
     climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 }
 
-base_data_PNG_overlay=""
+base_data_PNG_overlay="";
 
 //Function used by the Climate chart to add PNGs. Obviates the need to manually define each image overlay object.
 function swapImageOverlay(layerName,modelType) {
@@ -290,12 +289,12 @@ function swapImageOverlay(layerName,modelType) {
 
         $("#clickToMapInfo").hide();
         //Transparency slider
-        elements=document.getElementsByClassName('ui-opacity')
-        map.removeLayer(climate_PNG_overlay)
+        elements=document.getElementsByClassName('ui-opacity');
+        map.removeLayer(climate_PNG_overlay);
         //ti
         if (climate_PNG_overlay_url.search(layerName)> 0 && lastRenderer==renderer){
-            map.removeLayer(climate_PNG_overlay)
-            climate_PNG_overlay_url=""
+            map.removeLayer(climate_PNG_overlay);
+            climate_PNG_overlay_url="";
             //Transparency slider
             for (var i = 0; i < elements.length; i++) {
                 elements[i].style.display = elements[i].style.display = 'none';
@@ -311,9 +310,9 @@ function swapImageOverlay(layerName,modelType) {
 
                 climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
-                climate_PNG_overlay.addTo(map)
-                climate_PNG_overlay.bringToBack()
-                elements=document.getElementsByClassName('ui-opacity')
+                climate_PNG_overlay.addTo(map);
+                climate_PNG_overlay.bringToBack();
+                elements=document.getElementsByClassName('ui-opacity');
                 //Transparency slider
                 for (var i = 0; i < elements.length; i++) {
                     elements[i].style.display = elements[i].style.display = 'inline';
@@ -384,45 +383,45 @@ if (typeof studyAreaBoundary != "undefined") {
 }
 
 //Create reporting units from config file.
-i = 0
-var reportingUnitLayers = {}
+i = 0;
+var reportingUnitLayers = {};
 
 for (reporting_unit in reportingUnits) {
-    dbtable = reportingUnits[reporting_unit][0]
-    dbnamefield = reportingUnits[reporting_unit][1]
-    eval("var layer" + i + "= L.geoJson(null, { style: defaultStyle, onEachFeature: onEachFeature, dbtable:'" + dbtable + "',dbnamefield:'"+dbnamefield +"',name:'"+Object.keys(reportingUnits)[i]+"'  });")
-    json_file = reportingUnits[reporting_unit][2]
+    dbtable = reportingUnits[reporting_unit][0];
+    dbnamefield = reportingUnits[reporting_unit][1];
+    eval("var layer" + i + "= L.geoJson(null, { style: defaultStyle, onEachFeature: onEachFeature, dbtable:'" + dbtable + "',dbnamefield:'"+dbnamefield +"',name:'"+Object.keys(reportingUnits)[i]+"'  });");
+    json_file = reportingUnits[reporting_unit][2];
     if (json_file) {
-        eval("var layer" + i + "_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/" + json_file + "', null,layer" + i + ")")
+        eval("var layer" + i + "_layer = omnivore.topojson(static_url + 'Leaflet/myJSON/" + json_file + "', null,layer" + i + ")");
         allLayers.push(eval("layer" + i))
     }
 
     reportingUnitsName = Object.keys(reportingUnits)[i]
-    reportingUnitLayers[reportingUnitsName] = eval("layer" + i)
-    reporting_units = dbtable
+    reportingUnitLayers[reportingUnitsName] = eval("layer" + i);
+    reporting_units = dbtable;
     i++
 }
 
 // Reporting units that use image overlays.
 if (typeof reportingUnitsImageOverlays != "undefined") {
     for (reporting_unit_overlay in reportingUnitsImageOverlays) {
-        reporting_unit_overlay_url = reportingUnitsImageOverlays[reporting_unit_overlay][2]
-        reporting_unit_overlay_bounds = reportingUnitsImageOverlays[reporting_unit_overlay][3]
+        reporting_unit_overlay_url = reportingUnitsImageOverlays[reporting_unit_overlay][2];
+        reporting_unit_overlay_bounds = reportingUnitsImageOverlays[reporting_unit_overlay][3];
         reportingUnitLayers[reporting_unit_overlay] = L.imageOverlay(static_url + reporting_unit_overlay_url, reporting_unit_overlay_bounds);
-        reportingUnitLayers[reporting_unit_overlay].options.name = reporting_unit_overlay
-        reportingUnitLayers[reporting_unit_overlay].options.dbtable = reportingUnitsImageOverlays[reporting_unit_overlay][0]
-        reportingUnitLayers[reporting_unit_overlay].options.dbnamefield = reportingUnitsImageOverlays[reporting_unit_overlay][1]
+        reportingUnitLayers[reporting_unit_overlay].options.name = reporting_unit_overlay;
+        reportingUnitLayers[reporting_unit_overlay].options.dbtable = reportingUnitsImageOverlays[reporting_unit_overlay][0];
+        reportingUnitLayers[reporting_unit_overlay].options.dbnamefield = reportingUnitsImageOverlays[reporting_unit_overlay][1];
         reportingUnitLayers[reporting_unit_overlay].options.type = "ImageOverlayType"
     }
 }
 
 //default reportingUnits is the first one in the config file
-reporting_units = reportingUnits[Object.keys(reportingUnits)[0]][0]
-name_field = reportingUnits[Object.keys(reportingUnits)[0]][1]
-activeReportingUnitsName = Object.keys(reportingUnits)[0]
+reporting_units = reportingUnits[Object.keys(reportingUnits)[0]][0];
+name_field = reportingUnits[Object.keys(reportingUnits)[0]][1];
+activeReportingUnitsName = Object.keys(reportingUnits)[0];
 //Add the first layer to the map
-layer0.addTo(map)
-activeReportingUnits = layer0
+layer0.addTo(map);
+activeReportingUnits = layer0;
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
@@ -430,12 +429,12 @@ var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
 var onekm= L.imageOverlay(onekm_url, onekmBounds);
 
 //Map Layers in layer control. Arrange order here. Uses the grouped layers plugin.
-OpenStreetMap=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' })
-lightGray= L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer')
-worldTopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer').addTo(map)
-USATopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer')
-streetMap=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer')
-imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer')
+OpenStreetMap=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' });
+lightGray= L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer');
+worldTopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer').addTo(map);
+USATopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
+streetMap=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer');
+imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer');
 
 var overlayMaps = {
     //"Selected Features":results_poly
@@ -686,11 +685,11 @@ function create_post(newWKT) {
             else {
                createChart('tmax', 'avg', 's0')
             }
-            createColumnChart()
+            createColumnChart();
 
             if (typeof first_query_complete == 'undefined' &&  typeof introJs == 'function') {
 
-                addEventHandlerForModelChange()
+                addEventHandlerForModelChange();
 
                 gettingStartedIntro2 = introJs();
                 gettingStartedIntro2.setOptions({
@@ -699,23 +698,12 @@ function create_post(newWKT) {
                     'tooltipPosition': 'left'
                 });
                 $('#all_point_chart_goodies').each(function (i) {
-                    $(this).attr('data-step', '4')
-                    //$(this).attr('data-intro','This chart allows you to explore modeled climate projections within the selected area (mean averages over the stated time periods). Use the dropdown menus to select a new climate variable, statistic, or season. Clicking any point will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro','This chart shows the average annual maximum temperature that occurred historically within the selected area (anaverage of the annual temperature highs), as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Use the dropdown menus to select a new climate variable, statistic, or season. Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', 'This chart shows the average of the annual high temperatures that occurred within the selected area during the historical period (<span style="font-size:1.3em;">&#8226;</span>), as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>Use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', 'This chart shows the average of the ' + $("#season_selection_form option:selected").text().toLowerCase() +' ' + $("#variable_selection_form option:selected").text().toLowerCase() + 's that occured within the selected area during the historical period ' + (climateParams['timePeriodLabels'][0]).replace('Historical','') + ', as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>Use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', 'This chart shows the average of the annual temperature highs that occurred within the selected area during the historical period '+  (climateParams['timePeriodLabels'][0]).replace('Historical','') + ', as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', 'This chart shows what the average annual temperature highs were within the selected area during the historical period '+  (climateParams['timePeriodLabels'][0]).replace('Historical','') + ', as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', 'This chart shows what the average annual temperature highs were during the historical period for the selected area, as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', '<b>The observed past and the projected future</b> <p>This chart shows the average of the highest temperatures that occurred each year during the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for ' + climateParams['timePeriods'] + ' future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<p>Clicking any point in the chart will display the corresponding dataset in the map.')
-                    //$(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average of the highest temperatures that occurred throughout the year during the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
-                    //$(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average of the highest temperatures that occurred each day during the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
-                    //$(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average of the highest temperatures that occurred each year during the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods. Model averages (ensembles) are shown in red.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
+                    $(this).attr('data-step', '4');
                     $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average annual maximum temperature for the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
                 });
 
                 $('#climate_quick_view_table').each(function (i) {
-                    $(this).attr('data-step', '5')
+                    $(this).attr('data-step', '5');
                     //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
                     $(this).attr('data-intro', 'The <b>Projected Change</b> table provides a quick snapshot of the changes that are projected to occur within the selected area.<p>Click on the "About" tab for more information about the Climate Console.')
                 });
@@ -733,39 +721,39 @@ function create_post(newWKT) {
                 });
             }
 
-            first_query_complete = true
+            first_query_complete = true;
 
             //Selected Features Header on View1
 
-            $('.selectedFeaturesFullList').empty()
-            $(".closeSelectedFeaturesFullList").hide()
+            $('.selectedFeaturesFullList').empty();
+            $(".closeSelectedFeaturesFullList").hide();
 
             if (activeReportingUnitsName.indexOf('User Defined') >= 0){
-                $(".selectedFeaturesShortList").show()
-                $(".selectedFeaturesShortList").html(": User Defined Area")
-                $(".additionalFeaturesCount").empty()
-                $('.selectedFeaturesFullList').hide()
+                $(".selectedFeaturesShortList").show();
+                $(".selectedFeaturesShortList").html(": User Defined Area");
+                $(".additionalFeaturesCount").empty();
+                $('.selectedFeaturesFullList').hide();
             }
             else if (featureCount==1) {
-                $(".selectedFeaturesShortList").show()
-                $(".selectedFeaturesShortList").html(response['categoricalValues'])
-                $(".additionalFeaturesCount").empty()
-                $('.selectedFeaturesFullList').hide()
+                $(".selectedFeaturesShortList").show();
+                $(".selectedFeaturesShortList").html(response['categoricalValues']);
+                $(".additionalFeaturesCount").empty();
+                $('.selectedFeaturesFullList').hide();
             }
             else {
-                additionalFeatures=featureCount-1
-                $(".selectedFeaturesShortList").html(response['categoricalValues'][0])
-                $(".additionalFeaturesCount").html("+ <a title='Click to view the full list of selected features'>" + additionalFeatures + " More</a>")
-                $(".additionalFeaturesCount").show()
+                additionalFeatures=featureCount-1;
+                $(".selectedFeaturesShortList").html(response['categoricalValues'][0]);
+                $(".additionalFeaturesCount").html("+ <a title='Click to view the full list of selected features'>" + additionalFeatures + " More</a>");
+                $(".additionalFeaturesCount").show();
 
-                $('.selectedFeaturesFullList').append('<br><div id="selectedFeaturesFullListTableContainer"></div>')
+                $('.selectedFeaturesFullList').append('<br><div id="selectedFeaturesFullListTableContainer"></div>');
 
                 $('.selectedFeaturesFullListTableContainer').append('<table class="selectedFeaturesFullListTable" id="selectedFeaturesTable"></table>');
                 var selectedFeaturesTable=$('.selectedFeaturesFullListTableContainer').children();
 
-                var count = 1
-                listOfSelectedFeatures = ""
-                categoricalValuesArray = response['categoricalValues']
+                var count = 1;
+                listOfSelectedFeatures = "";
+                categoricalValuesArray = response['categoricalValues'];
 
                 for (var i = 0, tot = categoricalValuesArray.length; i < tot; i++) {
 
@@ -778,7 +766,7 @@ function create_post(newWKT) {
 
             /* Multi LCC Dashboard specific functions */
             if(document.getElementById("dynamicDataTable") !== null) {
-                var infoFile = encodeURI(static_url + "config/html/mlcc/" + response['categoricalValues'] + ".html")
+                var infoFile = encodeURI(static_url + "config/html/mlcc/" + response['categoricalValues'] + ".html");
                 $.get(infoFile).done(function () {
                     $('#AboutSelectedProtectedArea').load(infoFile, function () {
                     });
@@ -789,7 +777,7 @@ function create_post(newWKT) {
 
             if (typeof response.tabularResultsJSON != 'undefined' && response.tabularResultsJSON != '')  {
 
-                tabularResultsJSON = JSON.parse(response.tabularResultsJSON)
+                tabularResultsJSON = JSON.parse(response.tabularResultsJSON);
                 if (typeof time_period_for_table == 'undefined') {
                     time_period_for_table = 1
                 }
@@ -802,7 +790,7 @@ function create_post(newWKT) {
 
             if (typeof areaChart != 'undefined' && areaChart != false && vtypeTablesList.length > 0 ) {
 
-                $("#no_climate_impacts_data").hide()
+                $("#no_climate_impacts_data").hide();
 
                 // For dashboard, the call to createAreaChart happens in dashboard.js
                 createAreaChart(document.getElementById("ecoServSelectionForm").value);
@@ -1079,30 +1067,6 @@ var geoSearch = L.control.geonames({
 
 map.addControl(geoSearch);
 
-/*
-var geoSearch = L.control.geonames({
-    username: 'cbi.test',  // Geonames account username.  Must be provided
-    zoomLevel: 7,  // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
-    maxresults: 10,  // Maximum number of results to display per search
-    //className: 'fa fa-crosshairs',  // class for icon
-    workingClass: 'fa-spin',  // class for search underway
-    featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'],  // feature classes to search against.  See: http://www.geonames.org/export/codes.html
-    baseQuery: 'isNameRequired=true&country=US',  // The core query sent to GeoNames, later combined with other parameters above
-    position: 'topleft',
-});
-
-geoSearch.onAdd = function (map) {
-    this._container = L.DomUtil.get('geoSearch');
-    if (!L.Browser.touch) {
-        L.DomEvent.disableClickPropagation(this._container);
-        L.DomEvent.on(this._container, 'mousewheel', L.DomEvent.stopPropagation);
-    } else {
-        L.DomEvent.on(this._container, 'click', L.DomEvent.stopPropagation);
-    }
-    return this._container;
-};
-geoSearch.addTo(map)
-*/
 
 /********************************* END MAP CONTROLS -- Right Hand Side **********************************************/
 
@@ -1138,7 +1102,7 @@ function activateMapForDefault(){
         opacity:1
     };
 
-    $("div.leaflet-top:nth-child(1)") .fadeTo(500, 1)
+    $("div.leaflet-top:nth-child(1)") .fadeTo(500, 1);
     $('div.leaflet-top:nth-child(1)').unbind('mouseover mouseout');
     $('div.leaflet-top:nth-child(1)').unbind('click');
 
@@ -1150,29 +1114,38 @@ function activateMapForDefault(){
 
     if  (typeof marker != 'undefined') {
         map.removeLayer(marker);
-        map.removeLayer(markerInfo)
+        map.removeLayer(markerInfo);
     }
 
     if (climate_PNG_overlay_url != ''){
 
-        climate_PNG_overlay.addTo(map)
-        climate_PNG_overlay.bringToBack()
-        $('.ui-opacity').show()
+        climate_PNG_overlay.addTo(map);
+        climate_PNG_overlay.bringToBack();
+        $('.ui-opacity').show();
 
     } else {
 
-        $('.ui-opacity').hide()
+        $('.ui-opacity').hide();
     }
 
-    $('.leaflet-control-layers').show()
-    $('.leaflet-draw').show()
-    $('.toolTitle2').show()
-    $('.leaflet-geonames-search').show()
-    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units')
+    showPrimaryControlsRecallPreviousSelection();
 
-    map.setView(latlng,zoomLevel);
+    $('.leaflet-draw').show();
 
-    map.removeLayer(near_term_climate_divisions)
+    //map.addLayer(results_poly)
+    document.getElementsByClassName('info2')[0].innerHTML='';
+    document.getElementsByClassName('info')[0].innerHTML='';
+}
+
+
+function showPrimaryControlsRecallPreviousSelection() {
+
+    $('.leaflet-control-layers').show();
+    $('.toolTitle2').show();
+    $('.leaflet-geonames-search').show();
+    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units');
+
+    map.removeLayer(near_term_climate_divisions);
     //This was preventing mouseover on features in chrome b/c the boundary was going on top.
     //map.addLayer(study_area_boundary)
     if (typeof activeReportingUnits == 'undefined') {
@@ -1184,15 +1157,12 @@ function activateMapForDefault(){
     if (typeof results_poly != 'undefined' && results_poly != '') {
         map.addLayer(results_poly)
     }
-    //map.addLayer(results_poly)
-    document.getElementsByClassName('info2')[0].innerHTML=''
-    document.getElementsByClassName('info')[0].innerHTML=''
 }
 
 // AJAX for posting
 function create_post_downscale(lon,lat) {
-    var newWKT="POINT(" + lon + " " +  lat + ")"
-    initialize = 0
+    var newWKT="POINT(" + lon + " " +  lat + ")";
+    initialize = 0;
     $.ajax({
         url: "downscale", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
@@ -1201,10 +1171,10 @@ function create_post_downscale(lon,lat) {
         data: {input: newWKT},
 
         success: function (results) {
-            response2=JSON.parse(results)
-            dates=response2['dates']
-            tmax_data=response2['tmax_data']
-            precip_data=response2['precip_data']
+            response2=JSON.parse(results);
+            dates=response2['dates'];
+            tmax_data=response2['tmax_data'];
+            precip_data=response2['precip_data'];
             createTimeSeries(dates,tmax_data,precip_data)
         }
     })
@@ -1216,7 +1186,7 @@ var near_term_climate_divisions= L.geoJson(null, {
 
 });
 
-var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
+var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions);
 
 
 function passClimateDivisionID(feature, layer) {
@@ -1293,17 +1263,17 @@ function activateMapForClimateForecast(){
         fillOpacityLevel=.85
     }
 
-    $('.leaflet-control-layers').hide()
-    $('.leaflet-draw').hide()
-    $('.toolTitle2').hide()
-    $('.leaflet-geonames-search').hide()
-    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span><span style="font-size:.9em">Select a Climate Division</span>')
-    $('.leaflet-bottom').show()
-    $('.ui-opacity').show()
-    $('.leaflet-control-layers:nth-child(1)').show()
+    $('.leaflet-control-layers').hide();
+    $('.leaflet-draw').hide();
+    $('.toolTitle2').hide();
+    $('.leaflet-geonames-search').hide();
+    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span><span style="font-size:.9em">Select a Climate Division</span>');
+    $('.leaflet-bottom').show();
+    $('.ui-opacity').show();
+    $('.leaflet-control-layers:nth-child(1)').show();
 
 
-    map.setView(defaultLatLng,6);
+    //map.setView(defaultLatLng,6);
 
     //Currently this function is also called on document read in the general_js script.
     //Noaa chart becomes unsynced without calling twice.
@@ -1312,21 +1282,21 @@ function activateMapForClimateForecast(){
     //Loop through the array of all layers and remove them
     allLayers.forEach( function (arrayItem) {
         map.removeLayer(arrayItem)
-    })
+    });
 
     //Also remove any climate overlays and the results_poly
-    map.removeLayer(climate_PNG_overlay)
-    map.removeLayer(results_poly)
+    map.removeLayer(climate_PNG_overlay);
+    map.removeLayer(results_poly);
     // Remove any image overlay reporting units
     if (typeof reporting_unit_overlay != "undefined") {
         map.removeLayer(reportingUnitLayers[reporting_unit_overlay]);
     }
 
-    near_term_climate_divisions.addTo(map)
-    near_term_climate_divisions.bringToFront()
+    near_term_climate_divisions.addTo(map);
+    near_term_climate_divisions.bringToFront();
 
-    updateNearTermForecastLegend()
-    updateClimateDivisionSymbology()
+    updateNearTermForecastLegend();
+    updateClimateDivisionSymbology();
 
     document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
 
@@ -1523,11 +1493,11 @@ $(".get-markers").on("click", getAllMarkers);
 
 function activateMapForEcosystemServices(){
 
-    map.removeLayer(near_term_climate_divisions)
-    document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+    map.removeLayer(near_term_climate_divisions);
+    document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
 
-    $("div.leaflet-draw").hide()
-    swapImageOverlay("single_transparent_pixel")
+    $("div.leaflet-draw").hide();
+    swapImageOverlay("single_transparent_pixel");
 
     if (typeof pngCloverYear !=  "undefined"){
         swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
@@ -1536,11 +1506,12 @@ function activateMapForEcosystemServices(){
         swapImageOverlay("vtype_agg_" + "ccsm4" + "__" + "58804", "EcosystemServices")
     }
 
+    showPrimaryControlsRecallPreviousSelection();
+
     $(document).ajaxStart(function(){
         //show spinner
         $(".loading").css("display", "block");
     });
-
 
 }
 
