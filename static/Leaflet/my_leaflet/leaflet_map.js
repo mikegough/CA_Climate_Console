@@ -641,6 +641,7 @@ function create_post(newWKT) {
 
             last_poly=response.WKT_SelectedPolys
             results_poly = omnivore.wkt.parse(last_poly)
+            results_poly_centroid = results_poly.getBounds().getCenter();
 
             //Allows for clicking reporting units that are beneath the selected feature(s).
             results_poly.on('click',function(e){selectFeature(e) })
@@ -1145,7 +1146,7 @@ function showPrimaryControlsRecallPreviousSelection() {
     $('.leaflet-geonames-search').show();
     $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units');
 
-    map.setView(latlng,zoomLevel);
+    //map.setView(latlng,zoomLevel);
 
     map.removeLayer(near_term_climate_divisions);
     //This was preventing mouseover on features in chrome b/c the boundary was going on top.
@@ -1232,6 +1233,14 @@ function selectClimateDivision(e) {
 
 function activateMapForClimateForecast(){
 
+    // Get climate_division_polygon that contains the results_poly_centroid
+    var layer = leafletPip.pointInLayer(results_poly_centroid, near_term_climate_divisions_layer, true);
+
+    // Get the name of that climate division to select later on.
+    if (layer.length) {
+        selectedClimateDivision = layer[0].feature.properties.NAME;
+    }
+
     $(document).ajaxStart(function(){
         //hide spinner on the weather-forecast tab
         $(".loading").css("display", "none");
@@ -1275,7 +1284,7 @@ function activateMapForClimateForecast(){
     $('.leaflet-control-layers:nth-child(1)').show();
 
 
-    map.setView(defaultLatLng,6);
+    //map.setView(defaultLatLng,6);
 
     //Currently this function is also called on document read in the general_js script.
     //Noaa chart becomes unsynced without calling twice.

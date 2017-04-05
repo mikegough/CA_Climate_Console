@@ -44,6 +44,9 @@
 <script src='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.js'></script>
 <link href='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
 
+<!--  Point in polygon for selecting the climate division containing the selected reporting unit -->
+<script src='{{STATIC_URL}}deps/Leaflet-pip/v0.0.2/leaflet-pip.js'></script>
+
 <!--Brendan's Zoom Tool -->
 <link rel="stylesheet" href="{{STATIC_URL}}Leaflet/addOns/ZoomBox/L.Control.ZoomBox.css" />
 <script src="{{STATIC_URL}}Leaflet/addOns/ZoomBox/L.Control.ZoomBox.min.js"></script>
@@ -479,6 +482,20 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                                        <option value="pet">PET</option>
                                    </select>
                                </div>
+                               <!-- New model selection version
+                                <div class="styled-select2" id="ss4">
+                                   <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                                   <!-- <select id="model_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value,document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value,this.value)'>-->
+                               <!--
+                                   <select id="model_selection_form">
+                                       <option value="1" selected>CanESM2</option>
+                                       <option value="2">CCSM4</option>
+                                       <option value="3">CNRM</option>
+                                       <option value="4">HadGEM2ES</option>
+                                       <option value="5">Ensemble</option>
+                                   </select>
+                               </div>
+                                -->
                                <div class="styled-select2" id="ss2">
                                    <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value)'>
                                        <!-- Annual Averages -->
@@ -531,6 +548,9 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                                     <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
                                     -->
                                     <span style="font-weight:normal;font-size:1em">Projected Change (Model Averages, <span id="seasonLabel">Annual</span>)</span>
+                                    <!-- New model selection version
+                                    <span style="font-weight:normal;font-size:1em">Projected Change (<span id="modelLabel">Ensemble(Averages)</span>, <span id="seasonLabel">Annual</span>)</span>
+                                    -->
                                 </th>
                             </tr>
 
@@ -1290,6 +1310,18 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 
 <script>
 
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-76493740-7', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<script>
+
     $('.button_movie_intro').click(function(){
         $('#movie_intro').dialog('open');
     });
@@ -1313,6 +1345,5 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
     });
 
 </script>
-
 </body>
 </html>
