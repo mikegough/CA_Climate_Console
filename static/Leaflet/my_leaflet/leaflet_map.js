@@ -1146,8 +1146,6 @@ function showPrimaryControlsRecallPreviousSelection() {
     $('.leaflet-geonames-search').show();
     $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span>Select Reporting Units');
 
-    //map.setView(latlng,zoomLevel);
-
     map.removeLayer(near_term_climate_divisions);
     //This was preventing mouseover on features in chrome b/c the boundary was going on top.
     //map.addLayer(study_area_boundary)
@@ -1207,7 +1205,7 @@ function passClimateDivisionID(feature, layer) {
 
 function highlightClimateDivision(e) {
     var layer = e.target;
-    climateDivisionHover=layer.feature.properties.NAME
+    climateDivisionHover = layer.feature.properties.NAME;
     document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Click to select Climate Division ' + climateDivisionHover+ '</span>'
 }
 
@@ -1218,7 +1216,7 @@ function resetClimateDivision(e) {
 function selectClimateDivision(e) {
 
     //set all polygon border back to the default.
-    near_term_climate_divisions.setStyle({color:'#444444', weight:2})
+    near_term_climate_divisions.setStyle({color:'#444444', weight:2});
 
     clickedPolygon = e.target;
     document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
@@ -1246,7 +1244,7 @@ function activateMapForClimateForecast(){
         $(".loading").css("display", "none");
     });
 
-    $('#clickToMapInfo').hide()
+    $('#clickToMapInfo').hide();
 
     if (typeof defaultLatLng == 'undefined') {
         defaultLatLng = L.latLng([initialDownscaleMarkerLat, initialDownscaleMarkerLon])
@@ -1282,9 +1280,6 @@ function activateMapForClimateForecast(){
     $('.leaflet-bottom').show();
     $('.ui-opacity').show();
     $('.leaflet-control-layers:nth-child(1)').show();
-
-
-    //map.setView(defaultLatLng,6);
 
     //Currently this function is also called on document read in the general_js script.
     //Noaa chart becomes unsynced without calling twice.
