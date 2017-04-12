@@ -36,11 +36,11 @@ climateParams={
         "tmin":["Degrees (°C)","°C"],
         "tmid":["Degrees (°C)","°C"],
         "tmia":["Degrees (°C)","°C"],
-        "prec":["mm/year","mm/year"],
-        "ppt":["mm/year","mm/year"],
-        "pet":["mm/year","mm/year"],
+        "prec":["mm","mm"],
+        "ppt":["mm","mm"],
+        "pet":["mm","mm"],
         "arid":["Percent Change","%"],
-        "pred":["mm/year","mm/year"]
+        "pred":["mm","mm"]
     },
     legendHeight:"",
     legendLabels:["","","","","",""],
