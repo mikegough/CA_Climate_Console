@@ -69,7 +69,6 @@ dynamic_legend.onAdd = function (map) {
     div.innerHTML=""
     return div;
 };
-dynamic_legend.addTo(map)
 
 //Swap legend on data point click
 function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
@@ -481,37 +480,69 @@ if (typeof studyAreaBoundary != "undefined") {
     }
 }
 
+
+/**************************************  WMS Reference Layer functions  ***********************************************/
+
+map.on('overlayadd', function (eventLayer) {
+    var wms_legend_div_id = this._leaflet_id;
+    // ADD the WMS Legend
+    if (typeof wmsLayers != "undefined" && typeof wmsLayers[eventLayer.name] != "undefined") {
+        var legend_url = static_url + 'Leaflet/my_leaflet/legends/' + wmsLayers[eventLayer.name][1];
+        $('.info_wms').prepend("<div id ='" + wms_legend_div_id + "'><div id='legendHeader'>" + eventLayer.name + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + wmsLayers[eventLayer.name][4] + "'>Click to View Source </a></div><hr></div>")
+    }
+});
+
+map.on('overlayremove', function (eventLayer) {
+    // Remove the WMS Legend
+    var wms_legend_div_id = this._leaflet_id;
+    if (typeof wmsLayers != "undefined" && typeof wmsLayers[eventLayer.name] != "undefined") {
+        $("#" + wms_legend_div_id).remove()
+    }
+});
+
 // Add wms layers if they are defined in the config file.
 if (typeof wmsLayers != "undefined") {
+    //DYNAMIC LEGEND FOR WMS
+        var dynamic_legend_wms = L.control({position: 'bottomright'});
+
+    //Initialize Legend
+        dynamic_legend_wms.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info_wms');
+            div.innerHTML="";
+            return div;
+        };
+
+    dynamic_legend_wms.addTo(map);
+
     $.each(wmsLayers, function (index, value) {
         var wmsLayer = L.tileLayer.wms(value[0], {
             layers: value[2],
             format: 'image/png',
             transparent: true,
-        })
-        wmsLayer.setOpacity(1)
-        groupedOverlays["Reference Layers"][index] = wmsLayer
+        });
+        wmsLayer.setOpacity(1);
+        groupedOverlays["Reference Layers"][index] = wmsLayer;
         if (value[3] == "on"){
-            wmsLayer.addTo(map)
-            legend_url=static_url + 'Leaflet/my_leaflet/legends/' + value[1]
-            $('.info').html("<div id='legendHeader'>" + index + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + value[4] + "'>Click to View Source </a></div")
+            initialWMSLayer = wmsLayer
         }
     });
 }
 
-map.on('overlayadd', function (eventLayer) {
-    // SwitcwmsLayersh to the Population legend...
-    if (typeof wmsLayers != "undefined" && typeof wmsLayers[eventLayer.name] != "undefined") {
-        legend_url=static_url + 'Leaflet/my_leaflet/legends/' + wmsLayers[eventLayer.name][1]
-        $('.info').html("<div id='legendHeader'>" + eventLayer.name + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + wmsLayers[eventLayer.name][4] + "'>Click to View Source </a></div")
-    }
-});
+/**************************************  END WMS Reference Layer functions  *******************************************/
 
-layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map)
+// Adding the climate legend after adding the WMS legend makes it go above the WMS legend.
+dynamic_legend.addTo(map);
+
+layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map);
 
 //Layers icon in the upper right
 var options = { exclusiveGroups: ["Reporting Units","Base Maps"]};
 L.control.groupedLayers(overlayMaps, groupedOverlays, options).addTo(map);
+
+//Load the initial WMSLayer (apparently this needs to be down here after the line above)
+if (typeof initialWMSLayer != "undefined") {
+    initialWMSLayer.addTo(map);
+}
 
 map.on('baselayerchange', function (event) {
     activeReportingUnits = event.layer;
@@ -531,7 +562,6 @@ map.on('baselayerchange', function (event) {
         map.removeLayer(study_area_boundary)
     }
 });
-
 
 if (typeof ecosystemServicesParams == "undefined"){
     ecosystemServicesParams=[];
