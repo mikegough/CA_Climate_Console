@@ -275,13 +275,19 @@ def view1(request):
             #    columnChartColors=6*"#444444,"
 
 
+            if table == "ca_reporting_units_1km_poly_join_eems":
+                resultsDict["intactness_avg"]=0
+
             #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
             columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
             columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
             columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
-            columnChartColor6="#4444444"
+            #columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            #columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            # Took out potential impacts, so TI is Color4
+            columnChartColor4=getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor5=""
+            columnChartColor6=""
 
             columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
@@ -644,7 +650,7 @@ def generate_eems_tree(request):
     top_node=request.POST.get("top_node")
 
     #eems_file_directory="static/config/eems"
-    #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicityly type the path.
+    #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicitly type the path.
     eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
 
     eems_file=eems_file_directory + "/command_files/" + eems_file_name

@@ -1,0 +1,50 @@
+Agriculture_Density:Agriculture Density
+EPA_Sites_Super_Brown_Density:EPA Sites Super Brown Density
+FCC_Comm_Towers_Density:FCC Communication Towers Density
+Frag_Nearest_Neighbor_v2_Ave:Fragmentation - Ave Nearest Neighbor
+Frag_Num_Patches_v2_Ave:Fragmentation: - Ave Num Patches
+Frag_PctNatCore_v2_Ave:Fragmentation - Pct Nat Core Area
+Geothermal_Wells_Density:Geothermal Wells Density
+High_Percent_Natural_Core_Area_v2_Fz:High Percent Natural Core Area (Fz)
+Invasives_Density:Invasives Density
+Low_Energy_Mining_Comm_Pts_Fz:Low Energy Mining & Comm Pts (Fz)
+Low_Energy_Mining_Pollution_Fz:Low Energy Mining Pollution (Fz)
+Low_Mean_Nearest_Neighbor_v2_Fz:Low Mean Nearest Neighbor (Fz)
+Low_Mining_Footprint_Coverage_Polygons_Fz:Low Mining Footprint Coverage (Fz)
+Low_Natural_Habitat_Fragmentation_v2_WtedUnion_Fz:Low Natural Habitat Fragmentation (Fz)
+Low_Number_of_Patches_v2_Fz:Low Number of Patches (Fz)
+Low_Permanent_Development_Fz:Low Permanent Development (Fz)
+Low_Polluted_Site_Density:Low Polluted Site Density
+Low_Total_Wted_Linear_Development:Low Total Wted Linear Development
+Low_Treatment_Pond_Coverage_Polygons_Fz:Low Treatment Pond Coverage Polygons (Fz)
+Low_Urban_Development_Fz:Low Urban Development (Fz)
+Low_Urban_and_Linear_Development_Fz:Low Urban and Linear Development (Fz)
+Low_Vegetation_State_Impacts_without_VegDeparture_Fz:Low Vegetation State Impacts (Fz)
+Low_Wted_Rd_Cls_Development_Density_Fz:Low Wted Rd Cls Development Density (Fz)
+Mine_Footprint_Density:Mine Footprint Density
+Mine_Pt_Density:Mine Pt Density
+Non_TIGER_Rd_Cls_Linear_Development_Weighted_Fz:Low Non-Rd Linear Development (Fz)
+Non_TIGER_Rd_Cls_Linear_Development_Weighted_Sum:Non-Rd Linear Development
+OHV_Ln_Density:OHV Ln Density
+Oil_and_Gas_Wells_Density:Oil & Gas Wells Density
+Petrol_Refinery_Density:Petroleum Refinery Density
+Pipelines_Density:Pipelines Density
+Power_Plant_Pt_Density:Power Plant Pt Density
+Railroad_Density:Railroad Density
+Rd_Class_Weighted_Sum:Rd Class Weighted Sum
+Rds_Hwy_Primary_S1100_Density:TIGER Interstate (S1100) Density
+Rds_Hwy_Ramps_S1630_Density:TIGER Highway Ramp (S1630) Density
+Rds_Hwy_Secondary_S1200_Density:TIGER State Highway (S1200) Density
+Rds_Local_S1400_Density:TIGER Local Rd (S1400) Density
+Rds_Service_S1640_S1740_Density:TIGER Service Rd (S1640, S1740) Density
+Solar_Footprint_Density:Solar Footprint Density
+Solar_Footprints_Polygon_Fz:Solar Footprint Density (Fz)
+TIGER_4WD_Trails_Unpaved_S1500_Density:TIGER 4WD Unpaved Rds (S1500) Density
+Terrestrial_Landscape_Intactness_Updated_Frag_Fz:Terrestrial Intactness
+Timber_Clearcuts_Density:Timber Clearcuts Density
+Trans_110kv_Line_Density:Transmission Line (110-500kv) Density
+Treatment_Pond_Density:Treatment Pond Density
+Urban_Development_Density:Urban Development Density
+Vegetation_State_Impacts_without_VegDeparture_Weighted_Sum:Vegetation State Impacts (Wted Sum)
+Weighted_Sum_of_Energy_Mines_and_Comm_Pts:Weighted Sum of Energy, Mines, & Comm Tower Pts
+Wind_Turbines_Density:Wind Turbine Density
