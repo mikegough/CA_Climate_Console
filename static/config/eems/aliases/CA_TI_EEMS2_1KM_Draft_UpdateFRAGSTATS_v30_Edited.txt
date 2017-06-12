@@ -2,7 +2,7 @@ Agriculture_Density:Agriculture Density
 EPA_Sites_Super_Brown_Density:EPA Sites Super Brown Density
 FCC_Comm_Towers_Density:FCC Communication Towers Density
 Frag_Nearest_Neighbor_v2_Ave:Fragmentation - Ave Nearest Neighbor
-Frag_Num_Patches_v2_Ave:Fragmentation: - Ave Num Patches
+Frag_Num_Patches_v2_Ave:Fragmentation - Ave Num Patches
 Frag_PctNatCore_v2_Ave:Fragmentation - Pct Nat Core Area
 Geothermal_Wells_Density:Geothermal Wells Density
 High_Percent_Natural_Core_Area_v2_Fz:High Percent Natural Core Area (Fz)
