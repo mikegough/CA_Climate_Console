@@ -1226,7 +1226,7 @@ def getColor(value, parameter):
             return "#526E2B"
     elif (value >  -1.00001):
         if (parameter == 'TI'):
-            return "#526E2B"
+            return "#45508A"
         if (parameter == 'CV'):
             return "#8F0051"
         if (parameter == 'SS'):
