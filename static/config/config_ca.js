@@ -82,6 +82,7 @@ EEMSParams={
 };
 
 ecosystemServicesParams= {
+    "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]],
     "Counties": {
         "continuousTables": {
             "ccsm4": "ca_reporting_units_counties_es_decadal_ccsm4",
@@ -95,7 +96,6 @@ ecosystemServicesParams= {
             "canesm2": 'ca_reporting_units_counties_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_counties_es_decadal_vtype_hadgem2_es'
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
     "Jepson Ecoregions": {
         "continuousTables": {
@@ -110,7 +110,6 @@ ecosystemServicesParams= {
             "canesm2": 'ca_reporting_units_jepson_ecoregions_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_jepson_ecoregions_es_decadal_vtype_hg2_es'
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
     "USDA Ecoregions": {
         "continuousTables": {
@@ -125,7 +124,6 @@ ecosystemServicesParams= {
             "canesm2": 'ca_reporting_units_usda_ecoregions_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_usda_ecoregions_es_decadal_vtype_hadgem2_es'
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
     "BLM Field Offices": {
         "continuousTables": {
@@ -140,7 +138,6 @@ ecosystemServicesParams= {
             "canesm2": 'ca_reporting_units_blm_field_offices_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_blm_field_offices_es_decadal_vtype_hg2_es'
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
     "HUC5 Watersheds": {
         "continuousTables": {
@@ -156,7 +153,6 @@ ecosystemServicesParams= {
             "canesm2": 'ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es'
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
     "National Forests": {
         "continuousTables": {
@@ -171,7 +167,6 @@ ecosystemServicesParams= {
             "canesm2": 'ca_reporting_units_usfs_es_decadal_vtype_canesm2',
             "hadgem2es": 'ca_reporting_units_usfs_es_decadal_vtype_hadgem2_es'
         },
-        "overlayBounds": [[32.39381129279525, -124.5041656494141], [42.104166030883796, -113.98885110354271]]
     },
 };
 
