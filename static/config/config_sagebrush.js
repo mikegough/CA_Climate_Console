@@ -8,6 +8,7 @@ initialDownscaleMarkerLon=-111
 selectedClimateDivision='49'
 zoomLevel=5
 areaChart=false
+initialBaseMap="worldTopo";
 
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]

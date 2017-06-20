@@ -1,25 +1,30 @@
-title="California";
-subTitle="Climate Projections for the State of California";
+title="CONUS";
+subTitle="Climate Projections for the Continental United States";
 studyAreaBoundary="CA_Boundary_5_simplify.json";
-initialLat=37.2;
-initialLon=-121.5;
+initialLat=35.496456056584165;
+initialLon=-105.0732421875;
 initialDownscaleMarkerLat=35.28;
 initialDownscaleMarkerLon=-116.54;
 selectedClimateDivision='94';
-zoomLevel=7;
+zoomLevel=4;
 areaChart=true;
 hasEcosystemServices=true;
-initialBaseMap="worldTopo";
+initialBaseMap="USATopo";
 
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
+    /*
     "Counties": ["ca_reporting_units_county_boundaries_5_simplify","name","CA_Reporting_Units_County_Boundaries_5_simplify.json"],
     "Jepson Ecoregions":["ca_jepson_ecoregions_2_simplify","name","CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json"],
     "USDA Ecoregions":["ca_reporting_units_bailey_ecoregions_pre_simplify","name","CA_Reporting_Units_Bailey_Ecoregions_2_simplify.json"],
     "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
-    "HUC5 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "CA_Reporting_Units_HUC5_Watersheds_5_simplify.json"],
-    "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
-    "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems_ti","",""],
+     "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems_ti","",""],
+    */
+    "States": ["ca_reporting_units_county_boundaries_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
+    "HUC4 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_watersheds_huc4_point_5_simplify.json"],
+    "Ecoregion Sections": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_sections_5_simplify.json"],
+    "Ecoregion Provinces": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_provinces_5_simplify.json"],
+    "Bird Conservation Regions": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_bird_conservation_regions_5_simplify.json"],
 };
 
 climateParams = {

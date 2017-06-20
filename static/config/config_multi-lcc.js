@@ -7,6 +7,7 @@ initialDownscaleMarkerLon=-116.54;
 selectedClimateDivision='94';
 zoomLevel=6;
 modules=[''];
+initialBaseMap="worldTopo";
 
 reportingUnits={
     "LCC Boundaries": ["multi_lcc_reporting_units_llc_boundaries_1_simplify","name","Multi_LCC_Reporting_Units_LLC_Boundaries_2_simplify.json"],
