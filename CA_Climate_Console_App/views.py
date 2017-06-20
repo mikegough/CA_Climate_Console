@@ -98,6 +98,15 @@ def view1(request):
         template='utah'
         config_file="config_utah.js"
 
+    elif studyarea=='conus':
+
+        if table == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        template='conus'
+        config_file="config_conus.js"
+
     elif studyarea=='dev':
 
         if table == None:

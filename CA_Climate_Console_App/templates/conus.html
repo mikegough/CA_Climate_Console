@@ -1,0 +1,1254 @@
+<html>
+<head>
+<title></title>
+<link rel="shortcut icon" href="{{STATIC_URL}}img/sun.ico">
+
+<script> var static_url="{{STATIC_URL}}" </script>
+
+<!-- Configuration File -->
+<script src="{{STATIC_URL}}config/{{config_file}}"></script>
+
+<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
+<script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
+
+<!-- Alertify -->
+<script src="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/src/alertify.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.core.css">
+<!-- include a theme, can be included into the core instead of 2 separate files -->
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.default.css">
+
+<!-- JIT -->
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/base.css" rel="stylesheet" />
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/Spacetree.css" rel="stylesheet" />
+
+<script src="{{STATIC_URL}}deps/Jit/Jit-2.0.1/jit.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Spacetree.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/terrestrial_intactness.json"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/ecological_values.json"></script>
+
+<!-- Leaflet -->
+<!--<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>-->
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
+<!-- ESRI Leaflet -->
+<script src="{{STATIC_URL}}deps/ESRI_Leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+
+<!-- Leaflet.draw -->
+<script src="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.css" />
+
+<!-- leaflet.grouped-layer-control-->
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.css" />
+<script src="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.js"></script>
+
+<script src='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.js'></script>
+<link href='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
+
+<!--  Point in polygon for selecting the climate division containing the selected reporting unit -->
+<script src='{{STATIC_URL}}deps/Leaflet-pip/v0.0.2/leaflet-pip.js'></script>
+
+<!--Brendan's Zoom Tool -->
+<link rel="stylesheet" href="{{STATIC_URL}}Leaflet/addOns/ZoomBox/L.Control.ZoomBox.css" />
+<script src="{{STATIC_URL}}Leaflet/addOns/ZoomBox/L.Control.ZoomBox.min.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+<!-- Omnivore -->
+<script src='{{STATIC_URL}}deps/Leaflet/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+<!-- Geonames -->
+<script src="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+<!-- Jquery-->
+<script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
+
+<!-- JQuery Slider -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- Tabs -->
+<script src="{{STATIC_URL}}deps/TabContent/tabcontent.js" type="text/javascript"></script>
+<link href="{{STATIC_URL}}deps/TabContent/tabcontent.css" rel="stylesheet" type="text/css" />
+
+<!-- Highcharts -->
+<!-- Latest Stable Version v4.1.5 as of 5/6/2015. Latest version at http://code.highcharts.com/highcharts.js -->
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_4.1.5/highcharts.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_more_4.1.0/highcharts-more.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_exporting_4.1.10/exporting.js"></script>
+
+<!-- Messi -->
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Messi/messi.css" />
+<script src="{{STATIC_URL}}deps/Messi/messi.js"></script>
+
+<!--selectBoxIt (Styled Select Boxes) -->
+<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}deps/SelectBoxIt/css/jquery.selectBoxIt.css" />
+<script src="{{STATIC_URL}}deps/SelectBoxIt/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="{{STATIC_URL}}deps/SelectBoxIt/js/jquery.selectBoxIt.min.js"></script>
+
+<!-- Slide Out Menu -->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/SlidePushMenus/css/default.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/SlidePushMenus/css/component.css" />
+<script src="{{STATIC_URL}}deps/SlidePushMenus/js/modernizr.custom.js"></script>
+
+<!--Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+<script src="{{STATIC_URL}}deps/SlidePushMenus/js/classie.js"></script>
+
+<!-- intro.js -->
+<script src="{{STATIC_URL}}deps/IntroJS/intro.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+<!-- My Charts -->
+<script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
+
+<script src="{{STATIC_URL}}Highcharts/area_chart.js"></script>
+ <script src="{{STATIC_URL}}Highcharts/spline_chart.js"></script>
+
+<script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
+
+<!-- My CSS -->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/base.css">
+
+<!-- My JS -->
+<script src="{{STATIC_URL}}js/general_js.js"></script>
+
+<script>
+    var static_url="{{STATIC_URL}}"
+    showChartOnMapSelect="PointChart"
+    var initialize={{initialize}}
+    var count="{{count}}"
+    var last_poly="{{WKT_SelectedPolys}}"
+    columnChartColors="{{columnChartColors}}"
+    unitsForChart="metric"
+
+    $('select').selectBoxIt({ autoWidth: false });
+
+</script>
+
+<style>
+
+    #header{
+        background:#4F6375;
+        background:#424242;
+        background: #0D77B6;
+        background: #0D5625;
+        border-bottom: 2px solid #444444;
+    }
+
+    .toolTitle, .toolTitle2 {
+        background:#424242;
+        background:#0D77B6;
+        background:#0D5625;
+        color:white;
+        color:#FFC425;
+        font-family:helvetica;
+
+    }
+    .info2Subtitle {
+        font-size: .5em;
+    }
+
+    #title {
+        text-align: center;
+        color: #AFDEFA;
+        color: #FFC425;
+        font-size: 34px;
+        font-weight: bolder;
+        font-family: Helvetica;
+        font-variant: small-caps;
+        letter-spacing: 5px;
+        text-shadow: 0px 0px 0px
+    }
+
+    #sub_title {
+        font-family:arial;
+        font-size: 17px;
+        text-align: center;
+        letter-spacing: 4px;
+        text-shadow: 0px 0px 0px black;
+    }
+
+    ul.tabs li.selected a, ul.tabs li.selected a:hover{
+        background-color:#0D4D6C;
+        color: #FEAF23;
+    }
+
+    /*
+    #leftImage {
+        float: left;
+        position: absolute;
+        left: 6px;
+        top: 9px;
+        height: 92px;
+        border-radius:10px;
+    }
+    */
+
+
+    #leftImage {
+        float: left;
+        position: absolute;
+        opacity: .15;
+        width: 100%;
+    }
+
+    .select_form2 {
+        font-family: Verdana,Geneva,sans-serif !important;
+        font-size: 12px !important;
+        white-space: nowrap;
+        text-align: center;
+        position:relative;
+        left: -2px;
+    }
+
+    ul.tabs li.selected a, ul.tabs li.selected a:hover {
+        background-color: #0D5625;
+        color: #FEAF23;
+    }
+
+    #variable_selection_formSelectBoxItContainer #variable_selection_formSelectBoxIt{
+        max-width: 100px !important;
+    }
+
+    #model_selection_formSelectBoxItContainer #model_selection_formSelectBoxIt{
+        max-width: 149px !important;
+    }
+
+    #statistic_selection_formSelectBoxItContainer #statistic_selection_formSelectBoxIt{
+        max-width: 87px !important;
+    }
+
+    #season_selection_formSelectBoxItContainer #season_selection_formSelectBoxIt{
+        max-width: 93px !important;
+    }
+
+</style>
+
+</head>
+
+<body class="claro">
+
+<!-- Slide Out Menu -->
+<div id="SlideOutMenuDiv">
+    <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
+        <!-- Links written in general_js.js -->
+    </nav>
+
+    <div class="container">
+        <div class="main">
+            <section>
+                <!-- Class "cbp-spmenu-open" gets applied to menu -->
+                <button id="showTop">&#x25BC Explore More Climate Tools &#x25BC</button>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div id="header">
+    <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/forest_header.png"></div>
+    <!--
+    <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/cbi_logo_large.gif"></div>
+    -->
+    <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
+      <span id="sub_title"><script>document.write(subTitle)</script></span>
+    </div>
+    <!--
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/ocean_r.png"></div>
+    -->
+</div>
+
+<span id="DataBasinLinkBox">
+    <ul id="mainNav">
+        <li> <a href="http://databasin.org"><img id="DataBasinLogo" src="{{STATIC_URL}}img/dataBasinLogo-trans.png" target="_blank"></a><ul></li>
+          <!--
+            <li><a target="_blank" href="http://drecp.databasin.org/">&nbsp CA Gateway </a></li>
+            <li style="border-bottom-left-radius:7px;"><a target="_blank" href="http://drecp.databasin.org/galleries/">&nbsp CA Data</a></li>
+           -->
+        </ul>
+    </ul>
+</span>
+
+<div id="map_and_charts_container">
+
+    <div id="map"></div>
+
+    <div title="Adjust the opacity of this layer" id='control' class='ui-opacity'>
+      <div id='handle' class='handle'></div>
+    </div>
+
+    <!-- needs to go below the map and the opacity handle -->
+    <script src="{{STATIC_URL}}Leaflet/my_leaflet/leaflet_map.js"></script>
+
+    <div class="loading">
+        <img class="loading_image" src='{{STATIC_URL}}img/loader_circular.gif'><br>
+        <div class="loading_text">&nbsp Loading...</div>
+    </div>
+
+    <div id="initialization_container">
+            <div id="initialization_text">
+                <h3> Welcome to the <script>document.write(title)</script> Climate Console</h3>
+                The climate console is a web application designed for exploring climate change projections for a selected area of interest.
+                <h3> Getting Started </h3>
+                    <div style="margin-left:10px">
+                        1. Select a reporting units layer <img onmouseover='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:140px" src="{{STATIC_URL}}img/layers.png"></div>
+                        <p>
+                        2. Select a feature or set of features in the map <img onmouseover='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                        <p>
+                        3. Explore results generated for the selected area.<br><span style="margin-left:18px;">(Results will appear here)</span>
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:180px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                        <br>
+                        Click the play button below to view an instructional video
+                        <p>
+                        <div class="youTubeDiv">
+                            <img class="button_movie_intro" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                        </div>
+                    </div>
+            </div>
+    </div>
+
+    <div id="tab_container">
+        <!--data-persist="true" keeps the current tab active on page refresh-->
+        <ul class="tabs" data-persist="false">
+            <li><a id="view1Link" href="#view1" onclick="activateMapForDefault();">Climate</a></li>
+            <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
+            <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
+            <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
+            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();preLoadOverlay(vtype_images)">Climate Impacts</a></li>
+            <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
+            <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
+            <li><a id="view3Link" href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"></a></li>
+
+        </ul>
+
+        <div class="tabcontents">
+
+            <!--
+            <div id="clickToMapInfo" class="clickToMapInfo"><span><span id="infoCircle" class="introjs-helperNumberLayer">i</span><span style="margin-left:19px">Click any Point to Map the Data</span></span><a onclick="this.parentNode.style.visibility='hidden'; document.getElementById('infoCircle').style.visibility='hidden'">
+              <span id="close_button"> ✖ </span></a>
+            </div>
+            -->
+
+            <div id="view1" class="views">
+
+                <span id="view1_contents" style="display:inline-block">
+
+                    <div id="all_point_chart_goodies">
+
+                        <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(); ">
+
+                        <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                            Currently Selected:
+                            <span class="selectedFeaturesShortList"></span>
+                            <span class="additionalFeaturesCount"></span>
+                        </div>
+                        <span  class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                        <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
+                        <div class="select_container_2">
+                           <form class="select_form2">
+                               <div class="styled-select2" id="ss1">
+                               <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                               <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value, document.getElementById("model_selection_form").value)'>
+                               <!-- Annual Averages -->
+                               <option value="tmax" selected>Max Temp</option>
+                               <option value="tmin">Min Temp</option>
+                               <option value="prec">Precipitation</option>
+                               <option value="arid">Aridity</option>
+                               <option value="pet">PET</option>
+                               </select>
+                               </div>
+                               <div class="styled-select2" id="ss4">
+                                   <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
+                                   <select id="model_selection_form">
+                                       <option value="1" selected>Ensemble</option>
+                                       <option value="2">CNRM (Warm/Wet)</option>
+                                       <option value="3">CCSM4 (Warm/Dry)</option>
+                                       <option value="4">CanEMS2 (Hot/Wet)</option>
+                                       <option value="5">HadGEM2ES (Hot/Dry)</option>
+                                       <option value="6">ACCESS</option>
+                                       <option value="7">CESM1</option>
+                                       <option value="8">CMCC</option>
+                                       <option value="9">GFDL</option>
+                                       <option value="10">HadGEM2CC</option>
+                                       <option value="11">MIROC5</option>
+                                   </select>
+                               </div>
+                               <div class="styled-select2" id="ss2">
+                                   <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value,document.getElementById("model_selection_form").value)'>
+                                   <!-- Annual Averages -->
+                                   <option class="avg" value="avg" selected >Average</option>
+                                   <option class="delta" value="delta">Change</option>
+                                   <!-- <option class="anom" value="anom">Anomaly</option> -->
+                                   </select>
+                               </div>
+                               <div class="styled-select2" id="ss3">
+                                   <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value,document.getElementById("model_selection_form").value,document.getElementById("model_selection_form").value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
+                                       <!-- Annual Averages -->
+                                       <option value="s0" selected >Annual</option>
+                                       <option value="s1">Jan-Feb-Mar</option>
+                                       <option value="s2">Apr-May-Jun</option>
+                                       <option value="s3">Jul-Aug-Sep</option>
+                                       <option value="s4">Oct-Nov-Dec</option>
+                                   </select>
+                               </div>
+                               <div id="units_selector">
+                                   <b>Units:</b>
+                                   <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                                   <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
+                               </div>
+                           </form>
+                           </div>
+
+                        <script>
+                            if (initialize==1){
+                                document.getElementById('initialization_container').style.display="block";
+                                document.getElementById('tab_container').style.display="none";
+                            }
+                        </script>
+
+
+                        <div id="point_chart"></div>
+
+                        <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
+
+                        <div style="display:none" id="point_chart_description"></div>
+
+                    </div> <!--all_point_chart_goodies -->
+                    <div id="climate_info_link_div"><br>Scenario:RCP8.5/Resolution:30arc-secs. <a href="" id="modelInfoLink" title="Click for information about the climate data" >Learn more about the climate data</a></div>
+
+                    <div id="climate_quick_view">
+
+                        <table id="climate_quick_view_table">
+                            <tr>
+                                <th colspan="2">
+                                    <!--
+                                    <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
+                                    -->
+                                    <span style="font-weight:normal;font-size:1em">Projected Change (<span id="modelLabel">Ensemble(Averages)</span>, <span id="seasonLabel">Annual</span>)</span>
+                                </th>
+                            </tr>
+
+                            <!-- TMAX -->
+                            <tr>
+                                <td style="max-width:20px;text-align:center">
+                                    <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
+                                </td>
+                                <td>
+                                    The average max temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
+                                    <p>
+                                    <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                    <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                </td>
+                            </tr>
+
+                            <!-- TMIN -->
+                            <tr>
+                                <td style="max-width:20px; text-align:center">
+                                    <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
+                                </td>
+                                <td>
+                                    The average min temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
+                                    <p>
+                                    <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                    <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                </td>
+                            </tr>
+
+                            <!-- PRECIP -->
+                            <tr>
+                                <td>
+                                    <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
+                                </td>
+                                <td>
+                                    The average precipitation in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_precip_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_precip_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_precip_units">%</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                    <p>
+                                    <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
+                                </td>
+                            </tr>
+
+                            <!-- Aridity -->
+                            <tr>
+                                <td>
+                                    <div class="quick_aridity"><i class="wi wi-day-haze"></i></div>
+                                </td>
+                                <td>
+                                    The average aridity in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_aridity_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_aridity_t1"></span></b></span><span class="quick_value_aridity_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_aridity_t2"></span><b><span id="quick_value_aridity_t2"></span></b></span><span class="quick_value_aridity_units">%</span> over the 30 years after that
+                                    <p>
+                                </td>
+                            </tr>
+
+                            <!-- PET -->
+                            <tr>
+                                <td>
+                                    <div class="quick_pet"><i class="wi wi-flip-vertical wi-raindrops"></i></div>
+                                </td>
+                                <td>
+                                    The average potential evapotranspiration in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_pet_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_pet_t1"></span></b></span><span class="quick_value_pet_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_pet_t2"></span><b><span id="quick_value_pet_t2"></span></b></span><span class="quick_value_pet_units">%</span> over the 30 years after that
+                                    <p>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </span>
+                <div id="scroll_for_more">&#9660 Scroll to see more &#9660</div>
+
+            </div>
+
+            <!--
+            <div id="view2" class="views"></div>
+            -->
+
+            <div id="view3" class="views">
+
+                    <h3>Overview:</h3>
+
+                    The Climate Console is a web mapping application designed for exploring climate projections, simulated impacts, and fuzzy logic (EEMS) model results for a specified area of interest.
+                    <p>
+
+                    <h3>Instructions for Use: </h3>
+
+                   <ol>
+                        <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
+                        <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                        <p>
+                        <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png"></li>
+                       <p>
+                       <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                       <p>
+                        <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
+                       <p>
+                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                       <p>
+                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. Click the point again to remove the dataset from the map.</li>
+                       <!--
+                        <li>Click the "variability" link in the point chart description to view box plots of the data.
+                        -->
+                    </ol>
+
+                <h3>Instructional Video:</h3>
+
+                Click on the play button below to view an instructional video on the California Climate Console. The video will open in a popup.<br><br><br>
+                <div class="youTubeDiv">
+                    <img class="button_movie_intro" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
+                <!--
+                <h3>Interpreting the Box Plots: </h3>
+                <br>
+                <img style="margin-left:20px" src="{{STATIC_URL}}img/boxPlot.png">
+                <div class="footnote">
+                <sup>1</sup>The upper quartile (Q3) represents the middle value between the maximum and the median. 75% of the data fall below this line. 25% of the data fall above it.
+                <p>
+                <sup>2</sup>The lower quartile (Q1) represents the middle value between the minimum and the median. 75% of the data fall above this line. 25% of the data fall below it.
+                </div>
+                -->
+                <h3 id="aboutClimateData">Climate: </h3>
+                Climate refers to the statistical properties of weather over periods ranging from months to decades or more, and includes average conditions, and the range of variability, as well as the frequency of extreme events (definition borrowed from <a href="http://pics.uvic.ca/">Pacific Institute for Climate Solutions</a>).
+                <p>
+
+                A climate trend is a progressive change in the state of the climate based on weather statistics evaluated over long periods, typically of at least 30 years (definition borrowed from <a href="http://pics.uvic.ca/">Pacific Institute for Climate Solutions</a>).
+
+                <p>
+
+                To learn more about the differences between climate and weather, click on the play button below.
+
+
+                <div class="youTubeDiv">
+                    <img class="button_movie_climate" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
+
+                For more information on climate models use the following link to a presentation created by the Pacific Institute for Climate Solutions: <a href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>.
+                <p>
+                Climate data used for the historical period (1971- 2000) correspond to the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008). For future climate projections, we selected 10 climate models, either General Circulation Models (GCMs) or Earth System Models (ESMs), (Table 1) from the 5th Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012). These 10 models were chosen based on evaluations of their ability to simulate historical climate conditions globally and over the southwestern United States, for the specific needs of California water resource planning (O'Daly et al. 2015)
+                <div class="tableDescriptions">Table 1 List of models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) used for the analysis.</div>
+                    <p>
+                    <table class="modelDescriptionTable">
+                      <tr>
+                        <th class="tg-yw4l">Model</th>
+                        <th class="tg-yw4l">Model Name</th>
+                        <th class="tg-yw4l">Model Institution</th>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">1</td>
+                        <td class="tg-yw4l">ACCESS1.0</td>
+                        <td class="tg-yw4l">Australian Community Climate and Earth-System Simulator, version 1.0</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">2</td>
+                        <td class="tg-yw4l">CanESM2</td>
+                        <td class="tg-yw4l">Second Generation Canadian Earth System Model</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">3</td>
+                        <td class="tg-yw4l">CCSM4</td>
+                        <td class="tg-yw4l">Community Climate System Model version 4</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">4</td>
+                        <td class="tg-yw4l">CESM1-BGC</td>
+                        <td class="tg-yw4l">Community Earth System Model, version 1 Biogeochemistry</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">5</td>
+                        <td class="tg-yw4l">CMCC-CM</td>
+                        <td class="tg-yw4l">Centro Euro-Mediterraneo sui Cambiamenti Climatici Climate Model </td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">6</td>
+                        <td class="tg-yw4l">CNRM.CM5</td>
+                        <td class="tg-yw4l">Centre National de Recherches Météorologiques Coupled Global Climate Model, version 5.1</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">7</td>
+                        <td class="tg-yw4l">GFDL-CM3</td>
+                        <td class="tg-yw4l">Geophysical Fluid Dynamics Laboratory Climate Model, version 3</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">8</td>
+                        <td class="tg-yw4l">HadGEM2-CC</td>
+                        <td class="tg-yw4l">Hadley Centre Global Environmental Model, version 2- Carbon Cycle</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">9</td>
+                        <td class="tg-yw4l">HadGEM2-ES</td>
+                        <td class="tg-yw4l">Hadley Centre Global Environmental Model, version 2-Earth System</td>
+                      </tr>
+                      <tr>
+                        <td class="tg-yw4l">10</td>
+                        <td class="tg-yw4l">MIROC5</td>
+                        <td class="tg-yw4l">Model for Interdisciplinary Research on Climate, version 5</td>
+                      </tr>
+                    </table>
+                    Click <a target="_blank" href="{{STATIC_URL}}docs/CMIP5_Models_Used.pdf">here</a> for more information on the models listed above.
+
+                <p>
+                The ten GCM/ESMs capture a wide range of projected changes in both average annual temperature and precipitation (Figure 1) under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011, van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
+                <p>
+
+                    <img style="cursor:pointer" title="Click to Enlarge" src="{{STATIC_URL}}img/model_comparison_chart.png" onclick='new Messi("<p><p><img src=\"{{STATIC_URL}}img/model_comparison_chart.png\" width=\"900px\"><div style=\"margin-top:30px; margin-left:auto; margin-right:auto; width:800px\"><i>Figure 1: Evaluation of the projected change in temperature and precipitation for nine models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) under the representative concentration pathway 8.5 (RCP8.5) for the time period 2046–2075 compared to a 1971-2000 base climatology. The models HadGEM-ES, CanESM2.1, CCSM4, and CNRM-CM5 represent the “hot-dry”, “hot-wet”, “warm-dry”, and “warm-wet” scenarios respectively.</i>", {title: "Model Comparison Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true});' width="438px">
+                    <div class="footnote">
+                        <!--<i>Figure 1: (Click to Enlarge) The chart above compares the temperature and precipitation anomalies of 10 CMIP5 climate models under RCP 8.5. These models were selected for the specific needs of California water resources planning, based on evaluations of their historical performance globally and over the South Western United States.</i>-->
+                        <i>Figure 1 (Click to Enlarge): Evaluation of the projected change in temperature and precipitation for nine models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) under the representative concentration pathway 8.5 (RCP8.5) for the time period 2046–2075 compared to a 1971-2000 base climatology. The models HadGEM-ES, CanESM2.1, CCSM4, and CNRM-CM5 represent the “hot-dry”, “hot-wet”, “warm-dry”, and “warm-wet” scenarios respectively.</i>
+                    </div>
+                <p>
+                We used the downscaled climate projections from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire state of California. We chose two thirty-year periods, 2016-2045 and 2046-2075, to represent the projected futures. Each climate model projections were averaged over those periods and a multi-model ensemble mean of the ten model projections was also calculated for each time period.
+                <p>
+                 <b>Calculation of Climate Variables</b>
+                <p>
+                Climate variable values (tmax, tmin, and prec) were calculated as means of annual average temperatures and of annual total precipitation for each time period (1971-2000, 2016-2045, and 2046-2075) .
+                <p>
+                Two derived climate variables, potential evapotranspiration (PET) and aridity(the ratio of annual precipitation over PET), were also calculated for historical and future periods. PET was calculated using the 1985 version of the Hargreaves potential evaporation equation (Hargreaves and Allen 2003):
+                <p>
+                PET = 0.0023 x 0.408RA x (Tavg + 17.8) x TD 0.5 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   (1)
+                <p>
+                where RA is the extraterrestrial radiation expressed in (MJ m-2 d-1), Tavg (oC) is the average daily temperature, and TD (oC) is the temperature range. The constant 0.408 is the inverse of latent heat flux of vaporization at 20 oC. It is used to convert extraterrestrial radiation units from MJ m-2 d-1 to mm d-1. RA was calculated using the r.sun (Šúri & Hofierka 2004) routine in the GRASS geographic information system (GRASS 2015).
+                <p>
+                Aridity was defined as P/PET where P is annual precipitation. The percentage change in aridity was calculated by following Feng and Fu's method (2013):
+                <p>
+                Δ(P/PET)/(P/PET)≈ΔP/P−ΔPET/PET    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    (2)
+                <p>
+                All climate variables for historic and future projections (from ten climate models and one ensemble mean) were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014) and are listed in Table 2.
+                <p>
+
+                <div class="tableDescriptions"> Table 2 Climate variables (maximum temperature – tmax, minimum temperature – tmin, precipitation – prec, and potential evapotranspiration – PET) used in the analysis. Seasons were defined as Winter (October – March) and Summer (April – September). Delta values for the future periods were calculated by subtracting historical values from future values.</div>
+
+                <p>
+
+                <table class="modelDescriptionTable">
+                <tr><th class="tinyHeader" colspan="4">1971-2000</th><th class="tinyHeader" colspan="4">2016-2045</th><th class="tinyHeader" colspan="4">2046-2075</th></tr>
+                 <tr><td class="tg-yw4l tinyHeader"></td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Average for the Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Seas-<br>onal</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Average for the Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Seas-<br>onal</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Seas-<br>sons</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Average for the Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Seas-<br>onal</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Seas-<br>sons</td class="tg-yw4l tinyHeader"></tr>
+                 <tr><td class="tg-yw41 tinyHeader">Tmax</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw41 tinyHeader">Tmin</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw41 tinyHeader">Prec</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw41 tinyHeader">PET</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw41 tinyHeader">Aridity</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
+                </table>
+                <p>
+                The delta or change values between historic and future for minimum and maximum temperature were calculated by subtracting historical values from future values. However, for precipitation and aridity change was calculated as a percent change from the historical (((future-historical) / historical) * 100).
+                <p>
+                <div id="aboutRCP">
+                    <!--The <b>Representative Concentration Pathways (RCPs)</b> describe four different 21st century pathways of greenhouse gas (GHG) emissions and atmospheric concentrations, air pollutant emissions and land use. The word representative signifies that each RCP provides only one of many possible scenarios that would lead to the specific radiative forcing characteristics. RCPs usually refer to the portion of the concentration pathway extending up to the date 2100. The RCPs include (RCP2.6) - a stringent mitigation scenario that aims to keep global warming likely below 2°C above pre-industrial temperatures, where radiative forcing peaks at approximately 3 W/m2 before 2100 and then declines; (RCP4.5 and RCP6.0) - two intermediate scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100; and (RCP8.5) - one scenario with very high GHG emissions, which radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some amount of time.<sup><a href="#refs" title="Source: Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5).">3</a></sup>-->
+                    <b> Representative Concentration Pathways (RCPs)</b>
+                    <p>
+                     Representative Concentration Pathways (RCPs) describe future concentrations and emissions of greenhouse gases, air pollutants and land-use change, created by four different international teams using different sets of assumptions. The word ‘representative’ means that each RCP is only one of many possible scenarios found in the literature. The term ‘concentration’ is used because atmospheric concentrations of greenhouse gases are the primary simulation product rather than emissions. RCPs are tagged for their radiative forcing target level for year 2100. RCP2.6 is a stringent mitigation scenario that aims to keep global warming below 2°C above pre-industrial temperatures, with radiative forcing peaks near 3 W/m2 before 2100 and then declines. RCP4.5 and RCP6.0 are two intermediate stabilization scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100. RCP8.5 (used here) is a scenario with high greenhouse gas emissions where radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some  time. (Van Vuuren et al. 2011; Stocker et al. 2013)
+                </div>
+
+                <b>Description of Climate Model Datasets</b>
+                <p>
+                The LT71m PRISM dataset is a gridded time series of monthly-modeled values for precipitation (rain + melted snow), maximum, minimum, and mean temperatures. It uses data from station networks that have at least some stations with ≥ 20 years of observed data. To create a grid with PRISM, Daly et al. (2008) use the climatologically-aided interpolation (CAI) method with 1971-2000 monthly climatologies.
+                <p>
+                The NEX US-DCP30 future climate dataset includes climate projections from 34 GCMs that have been statistically downscaled to 30 arc-second spatial resolution using the Bias-Correction Spatial Disaggregation (BCSD) method (Maurer and Hidalgo 2008). First the bias in temperature and precipitation projections is corrected by comparing GCM results with “observations” from the PRISM dataset. The projections are then downscaled to the finer 30 arc-second grid using the complex spatial interpolation method during the “spatial-disaggregation” step (Thrasher et al. 2013).
+                <p>
+                <b>Climate Data Extraction</b>
+                <p>
+                All PRISM data used for the historical period were converted from the ESRI ASCII raster format (ESRI 2014) to the Network Common Data Form (NetCDF; Rew et al. 1997, UNIDATA 2015). We discovered that when the NEX data were processed by Thrasher et al. (2013) the left lower corners of the PRISM data were erroneously used as the center coordinates for processing the NEX NetCDF files. Therefore, the origin of the NEX US-DCP30 data had to be altered to conform to the PRISM data. The NEX grids were adjusted by one-half grid cell (0.004166666667 decimal degrees) so that the two datasets would be spatially aligned and consistent.
+                <p>
+                Once all of the data were in the NetCDF format and spatially aligned, climate variables [maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec)] were extracted just for the state of California. The multi-model ensemble was then created for each variable by taking the un-weighted mean of the projections from the ten climate models of interest.
+                <p>
+                <b>Post Processing</b>
+                <p>
+                Each climate dataset was projected to California Teale Albers (NAD83) using a cubic convolution resampling method in ArcGIS 10.3. The zonal mean for both climate and impact projection datasets was calculated for each of the reporting units and stored in a spatial database which can then be queried against  using the tools provided on the left hand side of the map or by simply clicking on a feature of interest. This allows the user to examine future climate projections and climate change impacts within one or more administrative units or ecological boundaries of interest.
+                <p>
+                <h3 id="aboutWeatherData">Weather Forecast: </h3>
+
+                Weather is different from climate. "A weather forecast refers to a prediction about specific atmospheric conditions expected for a location in the short-term future (hours to days)." [definition from the USGCRP Climate Literacy Guide at <a href="http://bit.ly/2bVWDH4">http://bit.ly/2bVWDH4</a>]
+                <p>
+                 To learn about the differences between climate and weather, click on the play button below.
+                <div class="youTubeDiv">
+                    <img class="button_movie_climate" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
+
+                The near-term weather forecast data presented in the climate console streams directly from the following forecast distribution files generated by NOAA's <a target="_blank" href="http://www.cpc.ncep.noaa.gov/"> Climate Prediction Center</a>:
+                <p>
+                <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllftd.dat">Temperature</a><br>
+                <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/cpcllfpd.dat">Precipitation</a><br>
+                <p>
+                The data in these files represent <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/INTR.html">probability of exceedance</a> values.
+                The field headers (98, 95, 90 ,80, 70, 60, 50, 40, 30, 20, 10, 5, 2) indicate the probability that the actual temperature or precipitation level during the three month period expressed by the LEAD time will be greater than the stated value within the specified climate division (CD).
+                Click <a target="_blank" href="http://www.cpc.ncep.noaa.gov/pacdir/NFORdir/HUGEdir2/explanation_fdf.html">here</a> for complete field descriptions and additional information on the forecast distribution files above.
+                <p>
+                The historical means and forecast means displayed in the climate console come directly from the values in the climatological mean field (C MEAN) and the forecast mean field (F MEAN), respectively. The forecast mean corresponds to the 50% probability of exceedance value.
+                These data are automatically updated on the third Thursday of each month  (Barnston et al. 2000).
+
+                <h3>Terrestrial Intactness:</h3>
+                Terrestrial intactness is based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the State of California. Terrestrial intactness values are high in areas where these impacts are low.
+                <p>
+                This dataset, updated December 2016, is the most recent version (v30) created for the California Energy Commission using the open-source logic modeling framework Environmental Evaluation Modeling System (EEMS). Spatially-explicit logic modeling hierarchically integrates numerous and diverse datasets into composite layers, quantifying information in a continuous rather than binary fashion. This technique yields accessible decision-support products that state and federal agencies can use to craft scientifically-rigorous management strategies. The analysis was carried out at 1 sq. km resolution.
+                <p>
+                Input data used to create this version range in currency from 2011-2015; the majority of data portray the more recent condition of the landscape.
+                <p>
+                This model integrates agriculture development (from FRAP Vegetation, and CDL Cropscape), urban development (from LANDFIRE EVT and NLCD Impervious Surfaces), polluted areas (from NHD treatment ponds and EPA Superfund and Brownfield sites), linear development (OHV routes from owlsheadgps.com, roads from TIGER (broken down by type), utility lines, railroads, and pipelines from various state and BLM sources), point development (communication towers from the FCC), energy and mining development (from the state’s Office of Mine Reclamation mine dataset, larger mine footprints, state geothermal wells, USGS wind turbines, solar footprints, renewable projects in development, oil refineries and state oil/gas wells), clear cuts from Statewide Timber Harvest Plans, invasive vegetation (compiled from multiple sources including LANDFIRE EVT, NatureServe Landcover, and NISIMS BLM database), and measures of natural vegetation fragmentation calculated using FRAGSTATS (percent natural core area, number of patches, and nearest neighbor). Results are dependent on the quality of available input data for a given area.
+                <p>
+                This most recent version of the model (v30) addresses over-estimation of fragmentation impacts seen in previous versions (e.g. v24), which stemmed from invasive vegetation and fire effects in FRAGSTATS calculations. New fragmentation metrics shift focus to anthropogenic development. Invasive vegetation is now compartmentalized within the logic model and influences the overall impact/condition score to a lesser extent. Additional model refinements stratify road impacts by TIGER class, e.g. different weighting for interstates vs. local roads.
+                <p>
+                Results apply to terrestrial areas only. (Water bodies are omitted from the final dataset.)
+                <p>
+                The input data, intermediate layers, and final results of this analysis can be explored via the EEMS Explorer of Data Basin (http://databasin.org/), where they are accessible as online interactive maps showing the signature of human impact across the landscape.
+                <p>
+                Caution is warranted in interpreting this dataset because it provides a single estimate of terrestrial intactness based on available data. It does not directly address ecological value; the “Conservation Values” model does. The degree of terrestrial intactness likely varies for a particular species or conservation element, and may depend on additional factors or thresholds not included in this model. This model should be taken as a general measure of intactness that can serve as a template for evaluating across many species at the ecoregion scale, and provides a framework within which species-specific parameters can be incorporated for more detailed analyses.
+
+                <p>
+                <a href="https://databasin.org/datasets/e3ee00e8d94a4de58082fdbc91248a65" target="_blank">View or Download this dataset on Data Basin</a>
+		<p>
+                Click here <a target="_blank" href="{{STATIC_URL}}docs/CA_Terrestrial_Intactness_EEMS_methodologies_v30.pdf">here</a> to download the Terrestrial Intactness methodologies paper.  
+
+                <h3 id="aboutEEMSData">Condition & Impact Models: </h3>
+
+                <p>
+                We used the <a href="http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems" target="_blank">Environmental Evaluation Modeling System (EEMS)</a>, a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI) staff, to evaluate the potential impact of climate change throughout the study area. We defined potential impact as a combination of “site sensitivity” defined simply by soil characteristics and the nature and degree to which a site may experience a change in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
+                <p>
+
+                Overview of the EEMS Modeling Process
+                <p>
+                EEMS derives from the Ecosystem Management Decision Support System (EMDS; Reynolds, 2006). With fuzzy logic modeling (a quick introduction to fuzzy logic modeling can be found at: <a href="http://tinyurl.com/ox76lhb" target="_blank">http://tinyurl.com/ox76lhb</a>), input variables are normalized by converting them to a common numeric domain or range (also referred to as fuzzy space) varying between, in this case, -1.0 (representing a "fully" false statement) and +1.0 (representing a "fully" true statement). Fuzzy values are assigned based on the relationship to a proposition. For instance, projected change in minimum temperature can be tested against the proposition, “will experience substantial departures from historical temperature” using fuzzy values varying between +1.0 (true statement) and -1.0 (false statement).
+                <p>
+                Normalized inputs are combined using logic operators to create a hierarchical, logic tree that produces an answer to a particular question (for instance “will this area experience considerable climate change?”). Each grid cell in the study area is evaluated independently, producing a map of fuzzy values answering the question for all the grid cells across the landscape.
+                <p>
+                We implemented the models using data in NetCDF format for the study area matching the domain of the input files.
+                <p>
+                To learn more about logic models, click on the play button below.
+                <div class="youTubeDiv">
+                    <img class="button_movie_eems" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
+                </div>
+
+                <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
+                <p>
+                <img id="sample_eems_chart_img" src="{{STATIC_URL}}img/sample_eems_chart.png"  onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_eems_chart.png\" width=\"900px\">",{title: "Sample EEMS Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true})'>
+                    The Condition & Impacts tab shows results for several EEMS models averaged over the area selected by the user. The bar colors correspond to colors of the model inputs on the map. Clicking on the bar causes the entire dataset to display in the map.<p><br>
+                <img id="sample_meemse_img" src="{{STATIC_URL}}img/sample_meemse.png" onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_meemse.png\" width=\"799px\">",{title: "Sample Model Diagram", center:true, width:"950px", modal:true, modalOpacity:.4,center: true})'> In addition, when you click on a column, you’ll see the model diagram appear below the chart. The model diagram is an interactive graphical representation of the model used to create each of the EEMS results shown in the chart. The model flows from the bottom up &mdash; meaning that input nodes appear below the output nodes they create. The text in the gray boxes indicate the operation used to combine the input data (e.g., <i>Fuzzy Union</i>).
+                <p>
+                Clicking on any box makes the corresponding spatial dataset show up on the map on the left. By clicking on the color ramps on the right hand side of each box in the logic tree, the user can choose to display either of the two color scale (classified or stretched). When the user clicks on a box, the model diagram expands to show the underlying inputs used to create the box that was selected. Box colors indicate the number of inputs (see color scale below logic tree). The active box representing the map on display will be highlighted in green.
+                <p>
+                <h3>Site Sensitivity</h3>
+                The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.
+                <p>
+                <a href="http://databasin.org/maps/new#datasets=d9631479be4f4464a266036b55d40c01&visibleLayers=6" target="_blank">View or Download this dataset on Data Basin</a>
+                <p>
+                <b>Soil Data for Soil Sensitivity Calculation</b>
+                <p>
+                    Soil data for this analysis were obtained from the conterminous United States Multi-Layer Soil Characteristics data (Miller & White 1998) and the STATSGO soil database (Soil Survey Staff 2015). All variables used are listed in Table 3.
+		<p>
+
+
+                <div class="tableDescriptions">Table 3 Soil variables used in the EEMS model, their acronym, the database, and URL where the data reside.</div>
+
+                <p>
+                <table class="modelDescriptionTable">
+                 <tr><th class="tinyHeader">Variable</th class="tinyHeader"><th class="tinyHeader">Acronym</th class="tinyHeader"><th class="tinyHeader">Database</th class="tinyHeader"><th class="tinyHeader">URL</th class="tinyHeader"></tr>
+                 <tr><td class="tg-yw4l">Available Water Capacity</td class="tg-yw4l"><td class="tg-yw4l">AWC</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">K-Factor</td class="tg-yw4l"><td class="tg-yw4l">Kffact</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Depth to Bedrock</td class="tg-yw4l"><td class="tg-yw4l">RD</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Salinity</td class="tg-yw4l"><td class="tg-yw4l">SAL</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
+                 <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
+                </table>
+                <p>
+                    <b>Processing of Soil Data</b>
+                <p>
+                    All soil variables were downloaded for the conterminous United States and processed in ESRI ArcInfo workstation (ESRI 2014). Polygon data were converted to a raster dataset with a cell size of 0.0083333333 decimal degrees. The data were then clipped to the state of California boundaries and exported in NetCDF format.
+                <p>
+                    <b>Calculation of Water Erodibility Index</b>
+                <p>
+                    The index of susceptibility to water erosion (LSKf) was calculated from the Universal Soil Loss Equation (Wischmeier & Smith 1978) which is given as:
+                <p>
+                    A = R * K * L * S * C * P &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp (3)
+                <p>
+                    where A is predicted average annual soil loss, R is measured rainfall erosivity, K is soil erodibility, L is slope length factor, S is steepness of the slope, and C and P represent the respective erosion reduction effects of management (C) and erosion control practices (P).
+                <p>
+                    Combining L and S represents the impact of topography on erosion and is calculated as (Hickey 2000):
+
+                <p>
+                    LS= (As/22.13)<sup>^0.4</sup>∙ (sinθ/0.09)<sup>^1.4</sup>∙1.4
+                <p>
+                    where As is the unit of contributing area (m), θ is the slope in radians. We then combined the K factor with LS to estimate the potential susceptibility of a soil to water erosion.
+                <p>
+
+                <h3> Climate Exposure</h3>
+                The Climate Exposure Model is based on aridity and climate. Climate factors include maximum temperature, minimum temperature, and precipitation on a seasonal basis and an annual basis. Change was calculated for two future time periods, 2016-2045 and 2046-2075, compared to the historical period, 1971-2000. Projections for three climate futures were used along with the ensemble mean values from those models. Temperature and precipitation differences were normalized using the standard deviation over the historical period via the following formula:
+                <br>
+                <div style="width:100%; text-align:center; margin-left:auto; margin-right:auto"> <img style="width:150px;" src="{{STATIC_URL}}img/ce_equation.png"></div>
+                <br>
+                <br>
+
+                where d is the difference, x<sub>f</sub> is the mean of the variable in the future period, x<sub>h</sub> is the mean of the variable in the historical period, and σ<sub>x<sub>h</sub></sub> is standard deviation of the variable in the historical period. Change in aridity was calculated as the percent change from the historical period. Projected future change is very high for temperatures and aridity. In order to capture both the differences across the region as well as the severity of change, nonlinear conversions were used to convert input data into fuzzy space:
+
+                <img src="{{STATIC_URL}}img/climate_chart1.png"><img src="{{STATIC_URL}}img/climate_chart2.png">
+
+                <div class="footnote" style="margin-left:40px">Original value to fuzzy value conversion curves for a) climate variables and b) aridity.</div>
+                <br>
+                <p>
+                <a href="http://databasin.org/datasets/c55b0a726487406bba0e17f4fe1b2cbb" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
+                <a href="http://databasin.org/datasets/d0e9905271294cd293160cff7115ce8f" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
+
+                <h3> Potential Climate Impact</h3>
+                EEMS model of potential climate impacts generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.
+                <p>
+                <a href="http://databasin.org/datasets/238aad251e784e4386620a4c51ef272a" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
+                <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
+                <p>
+
+                <h3 id="aboutEcosystemServicesData">Climate Impacts: </h3>
+                Climate Impacts data were simulated with the Dynamic Global Vegetation Model MC2 (<a target="_blank" href="http://bit.ly/2a9TrKD">http://bit.ly/2a9TrKD</a>) at 30 arc-secs. The model was run from 1895-2010 using PRISM historical data, and from 2011-2099 using the bias-corrected spatially downscaled (BCSD) climate futures (Thrasher et al. 2013) for 9 global climate models (because vapor pressure/relative humidity was missing for CMCC-CMS available results, it could not be used by MC2 which requires this input). All climate futures were run with the RCP8.5 emission scenario.
+                <p/>
+
+                MC2 vegetation types were aggregated into broader categories listed below:
+                <p/>
+                0:undefined
+                <br>1:taiga/tundra
+                <br>2:conifer forest
+                <br>3:mixed forest
+                <br>4:broadleaf forest
+                <br>5:shrubland/woodland/savanna
+                <br>6:grassland
+                <br>7:arid land
+                <br>8:annual agriculture
+                <br>9:perennial agriculture
+                <br>10:developed/mined
+
+                <p/>
+                The mode of the vegetation cover was calculated for each decade starting in 2011 (2011-2020, 2021-2030, etc). The final decade (2091-2099) ends in 2099 since most climate models were missing data for 2100. 'Year' on the chart corresponds to the start of each decade.
+                <p/>
+                Decadal means of the following MC2 variables are made available:
+                <p/>
+
+                1. net biological production (NBP) (g C m-2 y-1)  which corresponds to primary production minus soil respiration and minus harvest (agriculture or logging) and material lost through fire emission
+                <p/>
+                2. total ecosystem carbon (g C m-2) including both herbaceous and woody plant material as well as soil carbon
+                <p/>
+                3. forest carbon (g C m-2) including leaves, branches and boles, roots
+                <p/>
+                4. dead aboveground carbon (g C m-2) corresponding to litter
+                <p/>
+                5. biomass consumed by fire and emitted as gaseous emissions
+                <p/>
+                6. stream flow including surface runoff and water that percolated through the soil profile without being evaporated or taken up by plant roots
+                <p/>
+                7. climatic water deficit (CWD) which corresponds to the difference between potential and actual evapotranspiration.
+                <p/>
+
+                <!--
+                Ben Sleeter's land-use data includes perennial agriculture, which we simulated in MC2
+                by clearing all vegetation in the year of conversion to agriculture, allowing growth
+                for 5 years, and then harvesting half of NPP from above-ground woody components. After
+                40 years, perennial agriculture was cleared and the cycle started over. Above-ground grass
+                was removed yearly.
+
+                Ben also calculated backcast timber harvests to provide a smooth ramp to the present.
+                He did this by running his state-transition model backward from 2000. Since clearcuts
+                are represented as transitions between years, this produced no clearcuts for 2000.
+                As the clearcut simulation was a simple interpolation, we shifted it forward by a year
+                to provide representative year-2000 clearcut data (and no clearcuts in 1896).
+                <p/>
+                -->
+
+                The version of MC2 that was used here uses the Natural Resources Conservation Service (NRCS) runoff curve method ( <a target="_blank" href=" http://bit.ly/2aawHpu"> http://bit.ly/2aawHpu</a>)
+                <p/>
+                Postprocessing of the data involved projecting to California Teale Albers (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
+
+                <a name="refs"></a>
+                <h3>References:</h3>
+                <p/>
+                Arora, V.K., Scinocca, J.F., Boer, G.J., Christian, J.R., Denman, K.L., Flato, G.M. et al. (2011). Carbon emission limits required to satisfy future representative concentration pathways of greenhouse gases. Geophys Res Lett, 38, L05805, doi: 10.1029/2010GL046270.
+                <p/>
+                Barnston, A.G., He Y., Unger D. (2000) A forecast product that maximizes utility for state of the art seasonal climate prediction. Bull. Amer. Meteor. Soc. 81:1271-1279.
+                <p/>
+                Bi, D., Dix, M., Marsland, S.J., Siobhan O’Farrell, S., Rashid, H,, Uotila, P. et al. (2011). ACCESS: The Australian Coupled Climate Model for IPCC AR5 and CMIP5. Extended Abstracts, 18th Annual AMOS National Conf., Sydney, Australia, Australian Meteorological and Oceanographic Society, 123.
+                <p/>
+                Collins, W.J., Bellouin, N., Doutriaux-Boucher, M., Gedney, N., Halloran, P., Hinton, T. et al. (2011). Development and evaluation of an Earth-System model – HadGEM2. Geosci. Model Dev., 4, 1051-1075.
+                <p/>
+                Daly, C., Halbleib, M., Smith, J.I., Gibson, W.P., Doggett, M.K., Taylor, G.H. et al. (2008). Physiographically sensitive mapping of climatological temperature and precipitation across the conterminous United States. Int J Climatol, 28, 2031-2064.
+                <p/>
+                Daly, C., R.P. Neilson, and D.L. Phillips. 1994. A statistical-topographic model for mapping climatological precipitation over mountainous terrain. J. Appl. Meteor., 33, 140-158.
+                <p/>
+                Donner, L.J., Wyman, B.L., Hemler, R.S., Horowitz, L.W., Ming, Y., Zhao, M. et al. (2011). The Dynamical Core, Physical Parameterizations, and Basic Simulation Characteristics of the Atmospheric Component AM3 of the GFDL Global Coupled Model CM3. J. Clim., 24, 3484-3519.
+                <p/>
+                ESRI (2014). ArcGIS Desktop: Release 10. Available at: <a href="http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html" target="_blank">http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html</a> - /ESRI_ASCII_raster_format/009t0000000z000000/ Last accessed 3/25/15 2015.
+                <p/>
+                Feng, S. & Fu, Q. (2013). Expansion of global drylands under a warming climate. Atmos. Chem. Phys. Discuss., 13, 14637-14665.
+                <p/>
+                Gent, P.R., Danabasoglu, G., Donner, L.J., Holland, M.M., Hunke, E.C., Jayne, S.R. et al. (2011). The Community Climate System Model Version 4. J. Clim., 24, 4973-4991.
+                <p/>
+                GRASS (2015). Geographic Resources Analysis Support System (GRASS) Software. Open Source Geospatial Foundation.
+                <p/>
+                Hargreaves, G.H. & Allen, R.G. (2003). History and Evaluation of Hargreaves Evapotranspiration Equation. Journal of Irrigation and Drainage Engineering, 129, 53-63.
+                <p/>
+                Hickey, R. (2000). Slope angle and slope length solutions for GIS. Cartography, 29, 1-8.
+                <p/>
+                Maurer, E.P. & Hidalgo, H.G. (2008). Utility of daily vs. monthly large-scale climate data: an intercomparison of two statistical downscaling methods. Hydrol. Earth Syst. Sci., 12, 551-563.
+                <p/>
+                Meinshausen, M., Smith, S.J., Calvin, K., Daniel, J.S., Kainuma, M.L.T., Lamarque, J.F. et al. (2011). The RCP greenhouse gas concentrations and their extensions from 1765 to 2300. Clim Change, 109, 213-241.
+                <p/>
+                Miller, D.A. & White, R.A. (1998). A conterminous United States multi-layer soil characteristic dataset for regional climate and hydrology modeling. Earth Interac, 2, 1-26.
+                <p/>
+                NCL (2014). The NCAR Command Language UCAR/NCAR/CISL/VETS Boulder, CO.
+                <p/>
+                O'Daly, W., Keeley, F. & Woled, J. (2015). Perspectives and Guidance for Climate Change Analysis. California Department of Water Resources and Climate Change Technical Advisory Group, p. 142. Available at: <a href="http://www.water.ca.gov/climatechange/docs/2015/Perspectives_Guidance_Climate_Change_Analysis.pdf" target="_blank">http://www.water.ca.gov/climatechange/docs/2015/Perspectives_Guidance_Climate_Change_Analysis.pdf</a>.
+                <p/>
+                Rew, R.K., Davis, G.P., Emmerson, S. & Davies, H. (1997). NetCDF User's Guide for C, An Interface for Data Access, Version 3.
+                <p/>
+                Scoccimarro, E., Gualdi, S., Bellucci, A., Sanna, A., Fogli, P.G., Manzini, E. et al. (2011). Effects of Tropical Cyclones on Ocean Heat Transport in a High-Resolution Coupled General Circulation Model. J. Clim., 24, 4368-4384.
+                <p/>
+                Soil Survey Staff (2015). State Soil Geographic (STATSGO) Database. Natural Resources Conservation Service, United States Department of Agriculture. Available at:http://www.ncgc.nrcs.usda.gov/products/datasets/statsgo/index.html2015.
+                <p/>
+                Stocker, T. F., D. Qin, G. K. Plattner, M. Tignor, S. K. Allen, J. Boschung, A. Nauels, Y. Xia, V. Bex, and P. M. Midgley. (2013) Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5). (<a href="http://www.epa-pictaural.com/ctr/m/cc/transcript/stocker.pdf" target="_blank">http://www.epa-pictaural.com/ctr/m/cc/transcript/stocker.pdf</a>)
+                <p/>
+                Šúri, M. & Hofierka, J. (2004). A New GIS-based Solar Radiation Model and Its Application to Photovoltaic Assessments. Transactions in GIS, 8, 175-190.
+                <p/>
+                Taylor, K.E., Stouffer, R.J. & Meehl, G.A. (2012). An Overview of CMIP5 and the Experiment Design. Bulletin of the American Meteorological Society, 93, 485-498.
+                <p/>
+                Thrasher, B., Xiong, J., Wang, W., Melton, F., Michaelis, A. & Nemani, R. (2013). Downscaled Climate Projections Suitable for Resource Management. Eos, Transactions American Geophysical Union, 94, 321-323.
+                <p/>
+                UNIDATA (2015). Network Common Data Form (NetCDF). Available at: <a href="http://www.unidata.ucar.edu/software/netcdf/" target="_blank">http://www.unidata.ucar.edu/software/netcdf/</a> Last accessed 3/25/15.
+                <p/>
+                Van Vuuren, D.P., Edmonds, J., Kainuma, M., Riahi, K., Thomson, A., Hibbard, K., Hurtt, G.C., Kram, T., Krey, V., Lamarque, J.F. and T. Masui. (2011) The representative concentration pathways: an overview. Climatic change, 109: 5-31.
+                <p/>
+                Voldoire, A., Sanchez-Gomez, E., Salas y Mélia, D., Decharme, B., Cassou, C., Sénési, S. et al. (2012). The CNRM-CM5.1 global climate model: description and basic evaluation. Clim Dynam, 40, 2091-2121.
+                <p/>
+                Watanabe, M., Suzuki, T., O’ishi, R., Komuro, Y., Watanabe, S., Emori, S. et al. (2010). Improved Climate Simulation by MIROC5: Mean States, Variability, and Climate Sensitivity. J. Clim., 23, 6312-6335.
+                <p/>
+                Wischmeier, W.H. & Smith, D.D. (1978). Predicting rainfall erosion losses - A guide to conservation planning, United States Department of Agriculture, Science and Education Administration. No. 537. p. 85.
+                <p/>
+                <div style="height:800px"></div>
+
+            </div>
+
+            <div id="view4" class="views">
+                <div class="nearTermClimateFormDiv">
+
+                    <div class="nearTermHeader">Three Month Forecast in Climate Division <span id="climateDivision"></span></div>
+
+                    <!-- Start and Stop Buttons -->
+                    <a href="#" id="start" title="Click to automatically cycle through the time steps"><button id="startDiv"></button></a>
+                    <a href="#" id="stop" title="Click to stop"><button id="stopDiv"></button></a>
+
+                    <br>
+
+                    <!-- Radio buttons generated dynamically based on dates in the text file -->
+                    <form class="nearTermClimateForm" > </form>
+
+                    <!--Thermometer-->
+                    <div style="float:left; position:relative; z-index:9999; width:20%; height:200px; vertical-align:top">
+                        <div class="thermometer">
+                            <span style="position:relative; top:4px; left:-11px; font-size:11px;color:#444444"><b>&ndash;</b> Historical Mean <b>&ndash;</b></span>
+                            <span id="thermometerAfter"></span>
+                        </div>
+                    </div>
+
+                    <!--Rain Gauge -->
+                    <div style="float:left; position:relative; z-index:9999; width:20%; height:200px; vertical-align:top">
+                        <div class="rainGauge">
+                            <div class="triangleTop"></div>
+                            <span id="rainGaugeAfter"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Table 2: Change values & "Show on Map Radio Buttons" Table -->
+                <form id="nearTermMapForm">
+                    <div id="nearTermClimateWrapper" style="clear:both">
+                        <table class="dynamicNearTermClimateTable" id="nearTermChangeTable">
+                            <!-- The Show on Map Row needs to persist after after a feature click. Initialize, then save and append on click -->
+                            <tr id="mapRadioRow" style="border-top:none"><td>Show on Map</td><td><input name='nearTermMapVariable' value='temp' type='radio' checked></td><td><input name='nearTermMapVariable' value='precip' type='radio'></td></tr>
+                        </table>
+                    </div>
+                    <!-- Table 3: Details (Historical Mean, Forecast Mean, 90% Confidence Interval)-->
+                    <div id="nearTermClimateWrapper2" style="clear:both"></div>
+                </form>
+
+                <script>
+
+                    $(".nearTermClimateForm").change(function(){
+                        //On Time Frame Change
+                        selectedNearTermClimatePeriod=$('input[name=period]:checked', '.nearTermClimateForm').val()
+                        //Update Table
+                        generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
+                        //Update Map
+                        updateClimateDivisionSymbology()
+                        createVerticalMonthLine(selectedNearTermClimatePeriod-1)
+                        elements = document.getElementsByClassName('radio-button-span');
+                        for (var i = 0; i < elements.length; i++) {
+                            elements[i].style.backgroundColor="";
+                        }
+                        $("#radio-button-span"+(selectedNearTermClimatePeriod-1)).css({'background-color':'#D8E8CC'})
+                    });
+
+                    $("#nearTermMapForm").change(function(){
+                        //Update Map
+                        updateClimateDivisionSymbology()
+                        updateNearTermForecastLegend()
+                    });
+
+                </script>
+
+                <div style="height:20px; float:left;position:relative;left:10px;top:0px;font-size:.8em">*Historical Period: 1971-2000</a></div>
+                <div style="height:20px; float:right;position:relative;right:10px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="" title="Click for information about the weather data">About the weather data</a></div>
+
+                <br>
+                <div class="nearTermHeader">One Year Forecast at a Glance</div>
+
+                <div id="noaa_3_month"></div>
+
+                <br>
+                <br>
+
+            </div>
+
+            <div id="view5" class="views">
+                <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                    Currently Selected:
+                    <span class="selectedFeaturesShortList"></span>
+                    <span class="additionalFeaturesCount"></span>
+                </div>
+                <span class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
+                <!--
+                <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Logic Model Results</span></div>
+                -->
+                <div id="column_chart"></div>
+                <div id="container">
+                    <div id="log">
+                        <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
+                        <div id="initialTreeInfo">
+                            <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
+                        </div>
+                    </div>
+                <div id="infovis"></div>
+
+                <div id="right-container" style="display:none">
+                     <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
+                </div>
+
+                </div>
+                <div id="MEEMSE_footer">
+                    <div id="MEEMSE_node_count_legend">
+                        <span title="Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes.">
+                        <table class="MEEMSE_node_count_legend_table">
+                            <tr>
+                                <td rowspan="2" style="width: 200px; min-width: 55px; text-align: right; padding-right: 8px;">Number of<br>Inputs</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:#AAAAAA"></td>
+                                <td style="background-color:#BBAAAA"></td>
+                                <td style="background-color:#CCAAAA"></td>
+                                <td style="background-color:#DDAAAA"></td>
+                                <td style="background-color:#EEAAAA"></td>
+                                <td style="background-color:#FFAAAA"></td>
+                            </tr>
+                        </table>
+                        </span>
+                        <span title="Green nodes represent the active branch (the branch for which the input nodes are displayed), with the lowest green node being the one that is visible in the map.">
+                        <table class="MEEMSE_node_count_legend_table" style="width:70px">
+                            <tr>
+                            <td style="min-width: 58px; line-height:7px; text-align:right">Active</td>
+                            <td style="min-width:8px; background-color:#A6C8A6"></td>
+                            </tr>
+                        </table>
+                        </span>
+                    </div>
+
+                    <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
+
+               </div>
+            </div>
+
+            <div id="view6">
+                <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units.</p></div>
+                <!-- Start and Stop Buttons -->
+                <div class="select_container_2" id="view6_contents">
+                    <form class="select_form2">
+                        <div id="ecosystem_services_model_div">
+                            <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                                <!-- Annual Averages -->
+                                <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
+                                <option value="canesm2">CanESM2 (Hot/Wet)</option>
+                                <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
+                    <div id="area_chart"></div>
+                    <div id="vegMapSliderContainer"></div>
+                    <div id="playButtons2">
+                        <a href="#" id="start2" title="Click to automatically cycle through the time steps"><button id="startDiv2"></button></a>
+                        <a href="#" id="stop2" title="Click to stop"><button id="stopDiv2"></button></a>
+                    </div>
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader" style="padding-right:20px;">Carbon, Fire, and Water</div>
+                    <div id="spline_variable_dropdown">
+                        <form class="select_form2">
+                            <div id="AdditionalESVariablesY1">
+                                <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value); continuousVariableForSlider=this.value' >
+                                    <!-- Annual Averages -->
+                                    <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
+                                    <option value="c_forest">Live Forest Carbon</option>
+                                    <option value="c_dead_abo">Above Ground Dead Biomass</option>
+                                    <option value="nbp">Net Biological Production</option>
+                                </select>
+                            </div>
+                            <div id="AdditionalESVariablesY2">
+                                <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value); continuousVariableForSlider=this.value' >
+                                    <!-- Annual Averages -->
+                                    <option value="cwd">Climatic Water Deficit</option>
+                                    <option value="consumed">Biomass Consumed by Fire</option>
+                                    <option value="h2o_stream">Stream Flow</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                <div id="spline_chart"></div>
+                <div id="playButtons3">
+                    <a href="#" id="start3" title="Click to automatically cycle through the time steps"><button id="startDiv3"></button></a>
+                    <a href="#" id="stop3" title="Click to stop"><button id="stopDiv3"></button></a>
+                </div>
+                <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="footer" class="no-print">
+    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2016 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
+</div>
+
+<script>
+    $(function() {
+      //Calls the selectBoxIt method on your HTML select box.
+      $("select").selectBoxIt();
+    });
+
+    $("select").selectBoxIt({
+    // Sets default text to appear for the drop down
+        aggressiveChange: true
+    });
+
+    //enable intro.js  on the control layers
+    gettingStartedIntro=introJs();
+</script>
+
+<!-- div for the mouseover legend items text -->
+<div id="pop-up"></div>
+<div id="pop-up2"></div>
+<div id="pop-up3"></div>
+
+<div id="movie_intro"><iframe width="715" height="538" src="https://www.youtube.com/embed/Eyhnq6-V6xs" frameborder="0" allowfullscreen></iframe></div>
+<div id="movie_climate"><iframe width="715" height="538" src="https://www.youtube.com/embed/67bI2DJmqJQ" frameborder="0" allowfullscreen></iframe></div>
+<div id="movie_eems"><iframe width="715" height="538" src="https://www.youtube.com/embed/xzwcpYgRml4" frameborder="0" allowfullscreen></iframe></div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-76493740-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script>
+
+    $('.button_movie_intro').click(function(){
+        $('#movie_intro').dialog('open');
+    });
+
+    $('.button_movie_climate').click(function(){
+        $('#movie_climate').dialog('open');
+    });
+
+    $('.button_movie_eems').click(function(){
+        $('#movie_eems').dialog('open');
+    });
+
+    $('#movie_intro').dialog({autoOpen:false,modal: true, resizable: false});
+    $('#movie_climate').dialog({autoOpen:false,modal: true, resizable: false});
+    $('#movie_eems').dialog({autoOpen:false,modal: true, resizable: false});
+
+    $('.ui-widget-overlay').live('click', function() {
+        $('#movie_intro').dialog( 'close' );
+        $('#movie_climate').dialog( 'close' );
+        $('#movie_eems').dialog( 'close' );
+    });
+
+</script>
+
+</body>
+</html>

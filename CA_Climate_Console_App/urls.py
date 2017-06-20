@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^multi-lcc_1$', views.index, name='multi-lcc'),
     url(r'^multilcc_1$', views.index, name='multi-lcc'),
     url(r'^(?i)sagebrush$', views.index, name='sagebrush'),
+    url(r'^(?i)conus$', views.index, name='conus'),
     url(r'^get_ecosystem_services_data$', views.get_ecosystem_services_data, name='ecosystem_servies'),
     url(r'', views.index, name='ca'),
 )
