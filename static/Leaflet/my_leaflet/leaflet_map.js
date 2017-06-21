@@ -433,7 +433,9 @@ lightGray= L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/se
 worldTopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer');
 USATopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
 streetMap=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer');
-imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer');
+imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'),
+oceans=L.esri.tiledMapLayer('http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer'),
+
 
 eval(initialBaseMap).addTo(map);
 
@@ -457,6 +459,7 @@ if (typeof studyAreaBoundary != "undefined") {
             'Street Map': streetMap,
             'Imagery': imagery,
             'Open Street Map': OpenStreetMap,
+            'Oceans': oceans,
         },
         "": {
 
