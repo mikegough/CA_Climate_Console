@@ -592,58 +592,64 @@ def view3(request):
         return render(request, template, context)
 
     else:
-        WKT = request.POST.get('wktPOST')
-        WKT=WKT.replace('%', ' ')
-        WKT="SRID=4326;"+WKT
+
+        WKT = "SRID=4326;" + request.POST.get('wktPOST').replace('%', ' ')
         ru_table = request.POST.get('reporting_units')
 
         cursor = connection.cursor()
 
-        # Get reporting unit set id (ru_set_id)
+        # Get reporting unit set id, eg counties with ID=1 (ru_set_id)
         query = "SELECT id from reporting_unit_sets where name = '%s'" % ru_table
         cursor.execute(query)
         ru_set_id = cursor.fetchone()[0]
 
-        # Get reporting unit id
+        # Get a list of individual reporting unit id's intersecting the user wkt
+        ru_name_list = []
+        ru_id_list = []
         query = "SELECT name, id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
         cursor.execute(query)
-        results = cursor.fetchone()
-        ru_name = results[0]
-        ru_id = results[1]
+        results = cursor.fetchall()
+        print results
+        for row in results:
+            print row
+            ru_name_list.append(row[0])
+            ru_id_list.append(str(row[1]))
 
-        print ru_id
+        ru_id_csv = (",").join(ru_id_list)
 
-        # Get outline of selected features
+        # Get outline of selected features. Could calculate area here, but probably preferable to precalculate in a PCS.
+        #query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)), ST_Area(ST_Union(geom)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
         query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
         cursor.execute(query)
-        ru_wkt = cursor.fetchone()[0]
+        results = cursor.fetchone()
+        ru_wkt = results[0]
+        #sum_area = results[1]
+        #print sum_area
 
-        def getValues(cursor, ru_set_id, ru_id):
-            query = "select concat(m.code, v.code, s.code, t.code), d.value \
-                from models m, variables v, seasons s, time_periods t, data d  \
+        def getValues(cursor, ru_set_id, ru_id_csv, ru_table):
+
+            query = "select concat(m.code, v.code, s.code, t.code) as climate_code, sum(d.value * ru.area)/sum(ru.area) as value \
+                from models m, variables v, seasons s, time_periods t, data d, %s ru \
                 where m.id = d.model_id and v.id = d.var_id and s.id = d.season_id and t.id = d.time_id \
-                and d.ru_set_id = %s and d.ru_id in (%s) " % (ru_set_id, ru_id)
+                and d.ru_set_id = %s and d.ru_id in (%s) and ru.id = d.ru_id group by climate_code" % (ru_table, ru_set_id, ru_id_csv)
             print query
             cursor.execute(query)
             res = cursor.fetchall()
             return {r[0] + "_avg": round(r[1], 2) for r in res}
 
-        data = getValues(cursor, ru_set_id, ru_id)
+        data = getValues(cursor, ru_set_id, ru_id_csv, ru_table)
 
         resultsJSON = json.dumps(data)
-        print resultsJSON
 
-        #WKT_SelectedPolys = WKT
         count = 1
         columnChartColors = ""
-        categoricalValues = "a"
 
         context = {
             'initialize': 0,
              'WKT_SelectedPolys': ru_wkt,
              'count': count,
              'resultsJSON': resultsJSON,
-             'categoricalValues': ru_name,
+             'categoricalValues': ru_name_list,
              'columnChartColors': columnChartColors,
              'error': 0,
              'config_file':config_file,
