@@ -609,9 +609,8 @@ def view3(request):
         query = "SELECT name, id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
         cursor.execute(query)
         results = cursor.fetchall()
-        print results
+        count = len(results)
         for row in results:
-            print row
             ru_name_list.append(row[0])
             ru_id_list.append(str(row[1]))
 
@@ -641,7 +640,6 @@ def view3(request):
 
         resultsJSON = json.dumps(data)
 
-        count = 1
         columnChartColors = ""
 
         context = {
