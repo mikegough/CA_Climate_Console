@@ -9,7 +9,7 @@ selectedClimateDivision='94';
 zoomLevel=4;
 areaChart=true;
 hasEcosystemServices=true;
-initialBaseMap="USATopo";
+initialBaseMap="streetMap";
 
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
@@ -28,22 +28,32 @@ reportingUnits={
 };
 
 climateParams = {
-    timePeriods:2,
-    timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
+    timePeriods:9,
+    timePeriodLabels:['1981-2010', '2011-2020', '2021-2030', '2031-2040', '2041-2050', '2051-2060', '2061-2070', '2071-2080', '2081-2090', '2091-2099'],
     models: {
         // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index", "initial visibility", "point symbol size", "point symbol shape"]
         "PRISM": ["pm", "black", "0", true, 4, "circle"],
-        "Ensemble": ["ee", "#C0C2C2", "0", true, 4, "circle"],
-        "CNRM(Warm/Wet)": ["c5", "#C0C2C2", "5", true, 4, "circle"],
-        "CCSM4(Warm/Dry)": ["c4", "#C0C2C2", "2", true, 4, "circle"],
-        "CanESM2(Hot/Wet)": ["c2", "#C0C2C2", "6", true, 4, "circle"],
-        "HadGEM2ES(Hot/Dry)": ["hs", "#C0C2C2", "9", true, 4, "circle"],
-        "ACCESS": ["a0", "#C0C2C2", "1", true, 4, "circle"],
-        "CESM1": ["cc", "#C0C2C2", "3", true, 4, "circle"],
-        "CMCC": ["cm", "#C0C2C2", "4", true, 4, "circle"],
-        "GFDL": ["g3", "#C0C2C2", "7", true, 4, "circle"],
-        "HadGEM2CC": ["hc", "#C0C2C2", "8", true, 4, "circle"],
-        "MIROC5": ["m5", "#C0C2C2", "10", true, 4, "circle"],
+        "MIROCESM": ["me", "#C0C2C2", "10", true, 4, "circle"],
+        "IPSLCM5AMR": ["me", "#C0C2C2", "10", true, 4, "circle"],
+        "CanESM2": ["c2", "#C0C2C2", "6", true, 4, "circle"],
+        "NorESM1M": ["NM", "#C0C2C2", "8", true, 4, "circle"],
+        "MRICGCM3": ["mi", "#C0C2C2", "8", true, 4, "circle"],
+        "IPSLCM5ALR": ["IA", "#C0C2C2", "0", true, 4, "circle"],
+        "MIROCESMCHEM": ["mc", "#C0C2C2", "10", true, 4, "circle"],
+        "GFDLESM2M": ["g5", "#C0C2C2", "10", true, 4, "circle"],
+        "inmcm4": ["in", "#C0C2C2", "10", true, 4, "circle"],
+        "GFDLESM2G": ["g4", "#C0C2C2", "10", true, 4, "circle"],
+        "CCSM4": ["c4", "#C0C2C2", "2", true, 4, "circle"],
+        "bcccsm11": ["bc", "#C0C2C2", "7", true, 4, "circle"],
+        "CNRMCM5": ["c5", "#C0C2C2", "5", true, 4, "circle"],
+        "IPSLCM5BLR": ["IB", "#C0C2C2", "5", true, 4, "circle"],
+        "HadGEM2CC365": ["hc", "#C0C2C2", "5", true, 4, "circle"],
+        "bcccsm11m": ["bm", "#C0C2C2", "5", true, 4, "circle"],
+        "CSIROMk360": ["bm", "#C0C2C2", "5", true, 4, "circle"],
+        "MIROC5": ["m5", "#C0C2C2", "5", true, 4, "circle"],
+        "BNUESM": ["BN", "#C0C2C2", "5", true, 4, "circle"],
+        "HadGEM2ES365": ["hs", "#C0C2C2", "5", true, 4, "circle"],
+
     },
     labels:{
         "tmax":["Degrees (°C)","°C"],

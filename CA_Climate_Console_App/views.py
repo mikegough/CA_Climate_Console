@@ -23,6 +23,7 @@ from django.views.decorators.csrf import csrf_exempt
 @gzip_page
 @csrf_exempt
 def index(request):
+    print ("index")
     domain = request.get_host()
     if 'climatedashboard.org' in domain:
         return view2(request)
@@ -30,7 +31,7 @@ def index(request):
         return view1(request)
 
 def view1(request):
-
+    print ("view1")
     studyarea = request.resolver_match.url_name
     template=request.GET.get('template','template1')
 
@@ -571,6 +572,81 @@ def view2(request):
             return HttpResponse(json.dumps(context))
         else:
             return render(request, template+'.html', context)
+
+@gzip_page
+@csrf_exempt
+def view3(request):
+
+    studyarea = request.resolver_match.url_name
+    template=request.GET.get('template','template1')
+
+    #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
+
+    if request.method == 'POST':
+        WKT = request.POST.get('wktPOST')
+        table=request.POST.get('reporting_units')
+        categoricalFields=request.POST.get('name_field')
+        ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
+        ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
+
+    else:
+        WKT=request.GET.get('user_wkt')
+        table=request.GET.get('reporting_units')
+        categoricalFields=request.GET.get('name_field')
+
+    ############################################# INPUT PARAMETERS #####################################################
+
+    stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
+
+    if studyarea=='conus':
+
+        if table == None:
+            table="ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields="name"
+
+        template='conus'
+        config_file="config_conus.js"
+
+
+    ########################################### INITIALIZATION RESPONSE ################################################
+    if not WKT:
+        context={'initialize': 1,
+                 'config_file': config_file,
+                 'count': 0}
+        return render(request, template+'.html', context)
+
+    else:
+        cursor = connection.cursor()
+        def getValues(cursor, ru_set_id, ru_id):
+          cursor.execute('select concat(m.code, v.code, s.code, t.code), d.value \
+            from models m, variables v, seasons s, time_periods t, data d  \
+            where m.id = d.model_id and v.id = d.var_id and s.id = d.season_id and t.id = d.time_id \
+            and d.ru_set_id = %s and d.ru_id = %s', (ru_set_id, ru_id))
+          res = cursor.fetchall()
+          return {r[0] + "_avg": round(r[1],2) for r in res}
+
+        data = getValues(cursor, 1, 5)
+        resultsJSON = json.dumps(data)
+        print resultsJSON
+
+        WKT_SelectedPolys = WKT
+        count = 1
+        columnChartColors = ""
+        categoricalValues = "a"
+
+        context = {
+            'initialize': 0,
+             'WKT_SelectedPolys': WKT_SelectedPolys,
+             'count': count,
+             'resultsJSON': resultsJSON,
+             'categoricalValues': categoricalValues,
+             'columnChartColors': columnChartColors,
+             'error': 0,
+             'config_file':config_file,
+        }
+
+    return HttpResponse(json.dumps(context))
+
 
 @gzip_page
 @csrf_exempt
