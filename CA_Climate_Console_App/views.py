@@ -605,9 +605,13 @@ def view3(request):
         ru_set_id = cursor.fetchone()[0]
 
         # Get reporting unit id
-        query = "SELECT id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
+        query = "SELECT name, id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
         cursor.execute(query)
-        ru_id = cursor.fetchone()[0]
+        results = cursor.fetchone()
+        ru_name = results[0]
+        ru_id = results[1]
+
+        print ru_id
 
         # Get outline of selected features
         query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
@@ -639,7 +643,7 @@ def view3(request):
              'WKT_SelectedPolys': ru_wkt,
              'count': count,
              'resultsJSON': resultsJSON,
-             'categoricalValues': categoricalValues,
+             'categoricalValues': ru_name,
              'columnChartColors': columnChartColors,
              'error': 0,
              'config_file':config_file,
