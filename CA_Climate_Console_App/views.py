@@ -578,65 +578,65 @@ def view2(request):
 def view3(request):
 
     studyarea = request.resolver_match.url_name
-    template=request.GET.get('template','template1')
 
-    #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
+    if studyarea == 'conus':
+        template = 'conus.html'
+        config_file = "config_conus.js"
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        context = {
+            'initialize': 1,
+            'config_file': config_file,
+            'count': 0
+        }
+        return render(request, template, context)
+
+    else:
         WKT = request.POST.get('wktPOST')
-        table=request.POST.get('reporting_units')
-        categoricalFields=request.POST.get('name_field')
-        ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
-        ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
+        WKT=WKT.replace('%', ' ')
+        WKT="SRID=4326;"+WKT
+        ru_table = request.POST.get('reporting_units')
 
-    else:
-        WKT=request.GET.get('user_wkt')
-        table=request.GET.get('reporting_units')
-        categoricalFields=request.GET.get('name_field')
-
-    ############################################# INPUT PARAMETERS #####################################################
-
-    stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
-
-    if studyarea=='conus':
-
-        if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
-            categoricalFields="name"
-
-        template='conus'
-        config_file="config_conus.js"
-
-
-    ########################################### INITIALIZATION RESPONSE ################################################
-    if not WKT:
-        context={'initialize': 1,
-                 'config_file': config_file,
-                 'count': 0}
-        return render(request, template+'.html', context)
-
-    else:
         cursor = connection.cursor()
-        def getValues(cursor, ru_set_id, ru_id):
-          cursor.execute('select concat(m.code, v.code, s.code, t.code), d.value \
-            from models m, variables v, seasons s, time_periods t, data d  \
-            where m.id = d.model_id and v.id = d.var_id and s.id = d.season_id and t.id = d.time_id \
-            and d.ru_set_id = %s and d.ru_id = %s', (ru_set_id, ru_id))
-          res = cursor.fetchall()
-          return {r[0] + "_avg": round(r[1],2) for r in res}
 
-        data = getValues(cursor, 1, 5)
+        # Get reporting unit set id (ru_set_id)
+        query = "SELECT id from reporting_unit_sets where name = '%s'" % ru_table
+        cursor.execute(query)
+        ru_set_id = cursor.fetchone()[0]
+
+        # Get reporting unit id
+        query = "SELECT id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
+        cursor.execute(query)
+        ru_id = cursor.fetchone()[0]
+
+        # Get outline of selected features
+        query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
+        cursor.execute(query)
+        ru_wkt = cursor.fetchone()[0]
+
+        def getValues(cursor, ru_set_id, ru_id):
+            query = "select concat(m.code, v.code, s.code, t.code), d.value \
+                from models m, variables v, seasons s, time_periods t, data d  \
+                where m.id = d.model_id and v.id = d.var_id and s.id = d.season_id and t.id = d.time_id \
+                and d.ru_set_id = %s and d.ru_id in (%s) " % (ru_set_id, ru_id)
+            print query
+            cursor.execute(query)
+            res = cursor.fetchall()
+            return {r[0] + "_avg": round(r[1], 2) for r in res}
+
+        data = getValues(cursor, ru_set_id, ru_id)
+
         resultsJSON = json.dumps(data)
         print resultsJSON
 
-        WKT_SelectedPolys = WKT
+        #WKT_SelectedPolys = WKT
         count = 1
         columnChartColors = ""
         categoricalValues = "a"
 
         context = {
             'initialize': 0,
-             'WKT_SelectedPolys': WKT_SelectedPolys,
+             'WKT_SelectedPolys': ru_wkt,
              'count': count,
              'resultsJSON': resultsJSON,
              'categoricalValues': categoricalValues,
@@ -645,7 +645,7 @@ def view3(request):
              'config_file':config_file,
         }
 
-    return HttpResponse(json.dumps(context))
+        return HttpResponse(json.dumps(context))
 
 
 @gzip_page

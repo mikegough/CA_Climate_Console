@@ -12,15 +12,8 @@ hasEcosystemServices=true;
 initialBaseMap="streetMap";
 
 reportingUnits={
-     // "Reporting Units Label":["database_table_name","name_field","json_file"]
-    /*
-    "Counties": ["ca_reporting_units_county_boundaries_5_simplify","name","CA_Reporting_Units_County_Boundaries_5_simplify.json"],
-    "Jepson Ecoregions":["ca_jepson_ecoregions_2_simplify","name","CA_Reporting_Units_Jepson_Ecoregions_2_simplify.json"],
-    "USDA Ecoregions":["ca_reporting_units_bailey_ecoregions_pre_simplify","name","CA_Reporting_Units_Bailey_Ecoregions_2_simplify.json"],
-    "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
-     "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems_ti","",""],
-    */
-    "States": ["ca_reporting_units_county_boundaries_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
+    //"States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
+    "States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
     "HUC4 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_watersheds_huc4_point_5_simplify.json"],
     "Ecoregion Sections": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_sections_5_simplify.json"],
     "Ecoregion Provinces": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_provinces_5_simplify.json"],
@@ -32,7 +25,7 @@ climateParams = {
     timePeriodLabels:['1981-2010', '2011-2020', '2021-2030', '2031-2040', '2041-2050', '2051-2060', '2061-2070', '2071-2080', '2081-2090', '2091-2099'],
     models: {
         // "MODEL Name(No underscores)": ["field_code_abbreviation", "point_chart_color", "Data Basin Layer Index", "initial visibility", "point symbol size", "point symbol shape"]
-        "PRISM": ["pm", "black", "0", true, 4, "circle"],
+        "Historical (PRISM)": ["pm", "black", "0", true, 4, "circle"],
         "MIROCESM": ["me", "#C0C2C2", "10", true, 4, "circle"],
         "IPSLCM5AMR": ["me", "#C0C2C2", "10", true, 4, "circle"],
         "CanESM2": ["c2", "#C0C2C2", "6", true, 4, "circle"],
