@@ -9,15 +9,15 @@ selectedClimateDivision='94';
 zoomLevel=4;
 areaChart=true;
 hasEcosystemServices=true;
-initialBaseMap="streetMap";
+initialBaseMap="oceans";
 
 reportingUnits={
     //"States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
     "States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
-    "HUC4 Watersheds": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_watersheds_huc4_point_5_simplify.json"],
-    "Ecoregion Sections": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_sections_5_simplify.json"],
-    "Ecoregion Provinces": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_provinces_5_simplify.json"],
-    "Bird Conservation Regions": ["ca_reporting_units_huc5_watersheds_5_simplify", "name", "conus_reporting_units_bird_conservation_regions_5_simplify.json"],
+    "HUC4 Watersheds": ["conus_reporting_units_watersheds_huc4_point_5_simplify", "name", "conus_reporting_units_watersheds_huc4_point_5_simplify.json"],
+    "Ecoregion Sections": ["conus_reporting_units_baileys_ecoregions_sections_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_sections_5_simplify.json"],
+    "Ecoregion Provinces": ["conus_reporting_units_baileys_ecoregions_provinces_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_provinces_5_simplify.json"],
+    "Bird Conservation Regions": ["conus_reporting_units_bird_conservation_regions_5_simplify", "name", "conus_reporting_units_bird_conservation_regions_5_simplify.json"],
 };
 
 climateParams = {

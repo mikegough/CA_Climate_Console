@@ -138,95 +138,120 @@
 
 <style>
 
-    #header{
-        background:#4F6375;
-        background:#424242;
-        background: #0D5625;
-        background: #0D77B6;
-        background: #030303;
-        border-bottom: 2px solid #444444;
-    }
+   .container {
+    z-index:2
+}
 
-    .toolTitle, .toolTitle2 {
-        background:#0D5625;
-        background:#0D77B6;
-        background:#424242;
-        color:#FFC425;
-        color:white;
-        color:#bfb7b7;
-        color:#b7b7b7;
-        color:#e4e4e4;
-        font-family:helvetica;
+#logo {
+	float: left;
+	position: absolute;
+	left: 12px;
+	top: 15px;
+	height: 50px;
+	z-index: 3;
+}
 
-    }
-    .info2Subtitle {
-        font-size: .5em;
-    }
+#leftImage {
+	float: left;
+	position: absolute;
+    left: 6px;
+	top: 9px;
+	border: 2px solid #475147 !important;
+	height: 92px;
+    border-radius:10px;
+}
 
-    #title {
-        text-align: center;
-        color: #FFC425;
-        color: #AFDEFA;
-        color: #5EA1CB;
-        font-size: 34px;
-        font-weight: bolder;
-        font-family: Helvetica;
-        font-variant: small-caps;
-        letter-spacing: 5px;
-        text-shadow: 0px 0px 0px
-    }
-    #title2 {
-        color:#bfb7b7;
+#rightImage {
+	float: right;
+	position: absolute;
+	right: 6px;
+    border: 2px solid #475147 !important;
+	height: 92px;
+	top: 9px;
+    border-radius:10px;
+}
 
-    }
+.toolTitle, .toolTitle2 {
+	background: #394445;
+	background: -moz-linear-gradient(-45deg, #394445 0%, #424f4e 3%, #5d6d69 24%, #596a65 37%, #424f4e 96%, #353f41 100%);
+	background: -webkit-linear-gradient(-45deg, #394445 0%,#424f4e 3%,#5d6d69 24%,#596a65 37%,#424f4e 96%,#353f41 100%);
+	background: linear-gradient(135deg, #394445 0%,#424f4e 3%,#5d6d69 24%,#596a65 37%,#424f4e 96%,#353f41 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#394445', endColorstr='#353f41',GradientType=1 );
+	background: #4F6375;
+	color: white;
+	font-family: arial;
+	font-size: 20px;
+}
 
-    #sub_title {
-        font-family:arial;
-        font-size: 17px;
-        text-align: center;
-        letter-spacing: 4px;
-        text-shadow: 0px 0px 0px black;
-    }
+ul.tabs li.selected a, ul.tabs li.selected a:hover{
+    background-color:#455251;
+    color: #FEAF23;
+}
 
-    ul.tabs li.selected a, ul.tabs li.selected a:hover{
-        background-color:#0D4D6C;
-        color: #FEAF23;
-    }
+#header{
 
-    #leftImage {
-        float: left;
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        height: 150px;
-    }
+    background:#424242;
+    background: #0D5625;
+    background: #030303;
+    background: #0D77B6;
+    background: #125B86;
+    background:#5B6B67;
+    background:#4F6375;
+    width:100%;
 
-    #rightImage {
-        float: right;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        height: 117px;
-        border-radius:10px;
-    }
-    .select_form2 {
-        font-family: Verdana,Geneva,sans-serif !important;
-        font-size: 12px !important;
-        white-space: nowrap;
-        text-align: center;
-        position:relative;
-        left: -2px;
-    }
+    margin-left:auto;
+    margin-right:auto;
 
-    ul.tabs li.selected a, ul.tabs li.selected a:hover {
-        background-color: #0D5625;
-        color: #FEAF23;
-    }
+    border-bottom: 2px solid #444444;
 
-    #variable_selection_formSelectBoxItContainer #variable_selection_formSelectBoxIt{
-        max-width: 180px !important;
-    }
+}
 
+#title_container {
+    width:100%
+    text-align:center;
+}
+
+
+#title {
+	text-align: center;
+	font-size: 36px;
+	font-weight: bolder;
+	letter-spacing: 6px;
+	text-shadow: 1px 1px 5px #0D0E0D;
+	color: #FFF;
+	width: 555px;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	display: inline-block;
+	background: #4F6375;
+	padding: 12px 30px 8px 30px;
+	top: 9px;
+	height: 76px;
+	border-width: 0px 2px 0px 2px;
+	border-color: #475147;
+	border-style: solid;
+	border-radius: 50px;
+	box-shadow: inset 25px 0px 25px -30px #2F352F, inset -25px 0px 25px -30px #2F352F;
+	font-variant: all-petite-caps;
+}
+
+#title2{
+    color:#FFE370;
+}
+
+#sub_title {
+	font-size: 16px;
+	text-align: center;
+	letter-spacing: 1.5px;
+	text-shadow: 1px 1px 2px black;
+	color: #FFAC41;
+	font-style: italic;
+	font-weight: bold;
+	/* font-variant: none; */
+	font-family: verdana;
+	font-variant: all-petite-caps;
+}
 
 </style>
 
@@ -255,16 +280,20 @@
     <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/forest_header.png"></div>
     <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/cbi_logo_large.gif"></div>
     <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/tryptic.png"></div>
-    -->
     <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/bald_eagle.png"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/us_globe.png"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/ocean_l.png"></div>
+    -->
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/forest.jpg"></div>
 
     <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
       <span id="sub_title"><script>document.write(subTitle)</script></span>
     </div>
     <!--
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/ocean_r.png"></div>
     <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/iceberg.png"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/forest.jpg"></div>
     -->
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/forest.jpg"></div>
 </div>
 
 <span id="DataBasinLinkBox">
@@ -328,7 +357,7 @@
             <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
             <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
             <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
-            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();preLoadOverlay(vtype_images)">Climate Impacts</a></li>
+            <!-- <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();preLoadOverlay(vtype_images)">Climate Impacts</a></li> -->
             <!-- <li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Carbon & Fire</a></li>-->
             <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
             <li><a id="view3Link" href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"></a></li>
