@@ -87,13 +87,13 @@ a:hover {
     letter-spacing:4px;
 }
 
-#map_and_charts_container{
-    height: -moz-calc(100% - 151px);
-    height: -webkit-calc(100% - 151px);
-    height: calc(100% - 151px);
-    border-bottom:2px solid #444444;
-    overflow-y:hidden;
-    margin-bottom:20px;
+#map_and_charts_container {
+	height: -moz-calc(100% - 146px);
+	height: -webkit-calc(100% - 146px);
+	height: calc(100% - 146px);
+	border-bottom: 2px solid #444444;
+	overflow-y: hidden;
+	margin-bottom: 20px;
 }
 
 #map{
@@ -2184,7 +2184,7 @@ div#pop-up2 {
 #scroll_for_more {
 	background-color: #47A3DA;
 	position: fixed;
-	bottom: 34px;
+	bottom: 29px;
 	padding: 2px 20px;
 	border-radius: 10px 10px 0px 0px;
 	color: white;
