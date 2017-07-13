@@ -21,7 +21,6 @@ function createChart(climateVariable, statistic, season) {
 
     for (model in climateParams['models']){
 
-
         modelAbbreviation=climateParams['models'][model][0]
 
         //Data To Plot (line1Values, line2Values, etc)
@@ -357,7 +356,7 @@ function updateData(climateVariable, statistic, season, model_index) {
         $('#MetricLabel').html('Millimeters (mm)');
         $('#EnglishLabel').html('Inches (in)');
     }
-    else if (climateVariable=='arid' || climateVariable=='pred') {
+    else if (climateVariable=='arid' || climateVariable=='pred' || climateVariable=='vpr' || climateVariable=='vpd') {
         $('#units_selector').hide()
     }
 
