@@ -421,6 +421,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
                                <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value, document.getElementById("model_selection_form").value)'>
                                <!-- Annual Averages -->
+                               <optgroup label = "Climate Variable:">
                                <option value="tmax" selected>Maximum Temperature</option>
                                <option value="tmin">Minimum Temperature</option>
                                <option value="prec">Precipitation</option>
@@ -430,6 +431,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                <div class="styled-select2" id="ss4">
                                    <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
                                    <select id="model_selection_form">
+                                        <optgroup label = "Climate Model:">
                                         <option value="1" selected> MIROCESM</option>
                                         <option value="2">	IPSLCM5AMR	</option>
                                         <option value="3">	CanESM2	</option>
@@ -455,6 +457,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                <div class="styled-select2" id="ss2">
                                    <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value,document.getElementById("model_selection_form").value)'>
                                    <!-- Annual Averages -->
+                                   <optgroup label = "Statistic:">
                                    <option class="avg" value="avg" selected >Average</option>
                                    <option class="delta" value="delta">Change</option>
                                    <!-- <option class="anom" value="anom">Anomaly</option> -->
@@ -463,6 +466,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                <div style="display:none" class="styled-select2" id="ss3">
                                    <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value,document.getElementById("model_selection_form").value,document.getElementById("model_selection_form").value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
                                        <!-- Annual Averages -->
+                                       <optgroup label = "Season:">
                                        <option value="s0" selected >Annual</option>
                                        <option value="s1">Jan-Feb-Mar</option>
                                        <option value="s2">Apr-May-Jun</option>
