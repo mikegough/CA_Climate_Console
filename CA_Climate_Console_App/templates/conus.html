@@ -140,7 +140,6 @@
 
 #scroll_for_more {
     z-index: 99999;
-    display:none;
 }
 
 .container {
@@ -260,6 +259,19 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 	font-variant: all-petite-caps;
 }
 
+#variable_selection_formSelectBoxItContainer #variable_selection_formSelectBoxIt{
+    /* max-width: 100px !important; */
+}
+
+#model_selection_formSelectBoxItContainer #model_selection_formSelectBoxIt{
+     /* max-width: 149px !important; */
+}
+
+#statistic_selection_formSelectBoxItContainer #statistic_selection_formSelectBoxIt{
+    max-width: 90 !important;
+}
+
+
 #footer {
 	color:white;
 	background-color: #4F6375;
@@ -267,6 +279,10 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 
 #footer a:link {
 	color: white;
+}
+
+#footer a:visited {
+    color: white;
 }
 
 </style>
@@ -432,26 +448,26 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                    <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
                                    <select id="model_selection_form">
                                         <optgroup label = "Climate Model:">
-                                        <option value="1" selected> MIROCESM</option>
-                                        <option value="2">	IPSLCM5AMR	</option>
-                                        <option value="3">	CanESM2	</option>
-                                        <option value="4">	NorESM1M	</option>
-                                        <option value="5">	MRICGCM3	</option>
-                                        <option value="6">	IPSLCM5ALR	</option>
-                                        <option value="7">	MIROCESMCHEM	</option>
-                                        <option value="8">	GFDLESM2M	</option>
-                                        <option value="9">	inmcm4	</option>
-                                        <option value="10">	GFDLESM2G	</option>
-                                        <option value="11">	CCSM4	</option>
-                                        <option value="12">	bcccsm11	</option>
-                                        <option value="13">	CNRMCM5	</option>
-                                        <option value="14">	IPSLCM5BLR	</option>
-                                        <option value="15">	HadGEM2CC365	</option>
-                                        <option value="16">	bcccsm11m	</option>
-                                        <option value="17">	CSIROMk360	</option>
-                                        <option value="18">	MIROC5	</option>
-                                        <option value="19">	BNUESM	</option>
-                                        <option value="20">	HadGEM2ES365	</option>
+                                        <option value = "1" selected>	bcccsm11	</option>
+                                        <option value = "2">	bcccsm11m	</option>
+                                        <option value = "3">	BNUESM	</option>
+                                        <option value = "4">	CanESM2	</option>
+                                        <option value = "5">	CCSM4	</option>
+                                        <option value = "6">	CNRMCM5	</option>
+                                        <option value = "7">	CSIROMk360	</option>
+                                        <option value = "8">	GFDLESM2G	</option>
+                                        <option value = "9">	GFDLESM2M	</option>
+                                        <option value = "10">	HadGEM2CC365	</option>
+                                        <option value = "11">	HadGEM2ES365	</option>
+                                        <option value = "12">	inmcm4	</option>
+                                        <option value = "13">	IPSLCM5ALR	</option>
+                                        <option value = "14">	IPSLCM5AMR	</option>
+                                        <option value = "15">	IPSLCM5BLR	</option>
+                                        <option value = "16">	MIROC5	</option>
+                                        <option value = "17">	MIROCESM	</option>
+                                        <option value = "18">	MIROCESMCHEM	</option>
+                                        <option value = "19">	MRICGCM3	</option>
+                                        <option value = "20">	NorESM1M	</option>
                                    </select>
                                </div>
                                <div class="styled-select2" id="ss2">
@@ -586,6 +602,20 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 </td>
                             </tr>
                             -->
+                            <!-- VPR -->
+                            <tr>
+                                <td>
+                                    <div class="quick_vpr"><i class="wi wi-barometer"></i></div>
+                                </td>
+                                <td>
+                                    The average vapor pressure in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_vpr_t1"></span> the historical average by
+                                    <p>
+                                    <b><span id="quick_value_vpr_t1">1.8</span></b></span><span class="quick_value_vpr_units"> Pascals (Pa) </span> over the next 10 years<br>
+                                    <span id="increase_or_decrease_vpr_t2"></span><b><span id="quick_value_vpr_t2">2.9</span></b></span><span class="quick_value_precip_units"> Pascals (Pa)</span> over the 10 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                    <p>
+                                </td>
+                            </tr>
                         </table>
 
                     </div>
