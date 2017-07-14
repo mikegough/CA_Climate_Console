@@ -108,7 +108,7 @@
 <script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
 
 <script src="{{STATIC_URL}}Highcharts/area_chart.js"></script>
- <script src="{{STATIC_URL}}Highcharts/spline_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/spline_chart.js"></script>
 
 <script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
 
@@ -138,7 +138,12 @@
 
 <style>
 
-   .container {
+#scroll_for_more {
+    z-index: 99999;
+    display:none;
+}
+
+.container {
     z-index:2
 }
 
@@ -183,9 +188,9 @@
 	font-size: 20px;
 }
 
-ul.tabs li.selected a, ul.tabs li.selected a:hover{
-    background-color:#455251;
-    color: #FEAF23;
+ul.tabs li.selected a, ul.tabs li.selected a:hover {
+	background-color: #4F6375;
+	color: #FFE370;
 }
 
 #header{
@@ -219,7 +224,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 	letter-spacing: 6px;
 	text-shadow: 1px 1px 5px #0D0E0D;
 	color: #FFF;
-	width: 555px;
+	/* width: 555px; */
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
@@ -234,6 +239,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 	border-radius: 50px;
 	box-shadow: inset 25px 0px 25px -30px #2F352F, inset -25px 0px 25px -30px #2F352F;
 	font-variant: all-petite-caps;
+	min-width: 580px;
+	width: 40%;
 }
 
 #title2{
@@ -251,6 +258,15 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 	/* font-variant: none; */
 	font-family: verdana;
 	font-variant: all-petite-caps;
+}
+
+#footer {
+	color:white;
+	background-color: #4F6375;
+}
+
+#footer a:link {
+	color: white;
 }
 
 </style>
@@ -278,22 +294,33 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 <div id="header">
     <!--
     <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/forest_header.png"></div>
-    <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/cbi_logo_large.gif"></div>
     <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/tryptic.png"></div>
     <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/bald_eagle.png"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/us_globe.png"></div>
     <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/ocean_l.png"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/basin_l.jpg"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/rainbow_l.jpg"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/basin_l.jpg"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/sunrise_l.jpg"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/skyline_l.png"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/utah_l.jpg"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/sunrise_l.jpg"></div>
     -->
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/forest.jpg"></div>
+    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/yellowstone_l.jpg"></div>
 
     <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
       <span id="sub_title"><script>document.write(subTitle)</script></span>
     </div>
     <!--
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/iceberg.png"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/basin_r.jpg"></div>
     <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/forest.jpg"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/rainbow_r.jpg"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/rainbow2_r.jpg"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/basin_r.jpg"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/mcdonald_r.jpg"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/skyline_r.png"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/bison_r.jpg"></div>
     -->
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/forest.jpg"></div>
+    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/utah_r.jpg"></div>
 </div>
 
 <span id="DataBasinLinkBox">
@@ -397,13 +424,13 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                                <option value="tmax" selected>Maximum Temperature</option>
                                <option value="tmin">Minimum Temperature</option>
                                <option value="prec">Precipitation</option>
-                               <option value="pet">PET</option>
+                               <option value="vpr">Vapor Pressure</option>
                                </select>
                                </div>
                                <div class="styled-select2" id="ss4">
                                    <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
                                    <select id="model_selection_form">
-                                        <option value="1" selected>	MIROCESM	</option>
+                                        <option value="1" selected> MIROCESM</option>
                                         <option value="2">	IPSLCM5AMR	</option>
                                         <option value="3">	CanESM2	</option>
                                         <option value="4">	NorESM1M	</option>
@@ -541,6 +568,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                             -->
 
                             <!-- PET -->
+                            <!--
                             <tr>
                                 <td>
                                     <div class="quick_pet"><i class="wi wi-flip-vertical wi-raindrops"></i></div>
@@ -553,6 +581,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                                     <p>
                                 </td>
                             </tr>
+                            -->
                         </table>
 
                     </div>
@@ -1101,7 +1130,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 
             </div>
 
-            <div id="view5" class="views">
+            <div id="view5" class="views" style="display:none">
                 <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                     Currently Selected:
                     <span class="selectedFeaturesShortList"></span>
@@ -1227,7 +1256,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 </div>
 
 <div id="footer" class="no-print">
-    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2016 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
+    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2017 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
 
 <script>
