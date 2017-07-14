@@ -828,6 +828,13 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     top:-7px;
 }
 
+.quick_vpr{
+    color:#607283;
+    font-size:3em;
+    position:relative;
+    top:-7px;
+}
+
 .arrow_dir{
     position:relative;
     top: 3px;
