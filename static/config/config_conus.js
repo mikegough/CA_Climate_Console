@@ -29,9 +29,9 @@ climateParams = {
         "MIROCESM": ["me", "#C0C2C2", "10", true, 4, "circle"],
         "IPSLCM5AMR": ["me", "#C0C2C2", "10", true, 4, "circle"],
         "CanESM2": ["c2", "#C0C2C2", "6", true, 4, "circle"],
-        "NorESM1M": ["NM", "#C0C2C2", "8", true, 4, "circle"],
+        "NorESM1M": ["nm", "#C0C2C2", "8", true, 4, "circle"],
         "MRICGCM3": ["mi", "#C0C2C2", "8", true, 4, "circle"],
-        "IPSLCM5ALR": ["IA", "#C0C2C2", "0", true, 4, "circle"],
+        "IPSLCM5ALR": ["ia", "#C0C2C2", "0", true, 4, "circle"],
         "MIROCESMCHEM": ["mc", "#C0C2C2", "10", true, 4, "circle"],
         "GFDLESM2M": ["g5", "#C0C2C2", "10", true, 4, "circle"],
         "inmcm4": ["in", "#C0C2C2", "10", true, 4, "circle"],
@@ -39,12 +39,12 @@ climateParams = {
         "CCSM4": ["c4", "#C0C2C2", "2", true, 4, "circle"],
         "bcccsm11": ["bc", "#C0C2C2", "7", true, 4, "circle"],
         "CNRMCM5": ["c5", "#C0C2C2", "5", true, 4, "circle"],
-        "IPSLCM5BLR": ["IB", "#C0C2C2", "5", true, 4, "circle"],
+        "IPSLCM5BLR": ["ib", "#C0C2C2", "5", true, 4, "circle"],
         "HadGEM2CC365": ["hc", "#C0C2C2", "5", true, 4, "circle"],
         "bcccsm11m": ["bm", "#C0C2C2", "5", true, 4, "circle"],
         "CSIROMk360": ["bm", "#C0C2C2", "5", true, 4, "circle"],
         "MIROC5": ["m5", "#C0C2C2", "5", true, 4, "circle"],
-        "BNUESM": ["BN", "#C0C2C2", "5", true, 4, "circle"],
+        "BNUESM": ["bn", "#C0C2C2", "5", true, 4, "circle"],
         "HadGEM2ES365": ["hs", "#C0C2C2", "5", true, 4, "circle"],
 
     },
@@ -59,12 +59,14 @@ climateParams = {
         "ppt":["mm","mm"],
         "pet":["mm","mm"],
         "arid":["Percent Change","%"],
-        "pred":["Percent Change","%"]
+        "pred":["Percent Change","%"],
+        "vpr":["Pascal(Pa)","Pascal(Pa)"],
+        "vpd":["Pascal(Pa)","Pascal(Pa)"]
     },
     legendHeight:"",
     legendLabels:["","","","","",""],
-    imageOverlayDIR:"TrimmedPNG",
-    overlayBounds:[[32.52777441016329, -124.41250000002108], [42.02083587646484, -114.1214454281304]],
+    imageOverlayDIR:"conus",
+    overlayBounds:[[24.080857826581145, -125.02083333333337], [49.93750000000001, -66.48264501549222]],
     boxPlot:false
 };
 
