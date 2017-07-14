@@ -558,6 +558,10 @@ function updateQuickViewTable(season,model){
 
             }
 
+            $('#quick_value_vpr_t1').html(resultsJSON[model_code_dropdown + 'vpd' + season + 't1_avg'])
+            $('#quick_value_vpr_t2').html(resultsJSON[model_code_dropdown + 'vpd' + season + 't2_avg'])
+
+            // Since there is no PET change, need to calculate on the fly
             if (Object.keys(resultsJSON).length != 0 && typeof resultsJSON['pmpet' + season + 't0_avg'] != "undefined"){
                 var pet_hist = resultsJSON['pmpet' + season + 't0_avg'].toFixed(2);
                 var pet_ee_t1 = resultsJSON[model_code_dropdown + 'pet' + season + 't1_avg'].toFixed(2);
@@ -618,6 +622,29 @@ function updateQuickViewTable(season,model){
             // Increase during the second time period and decrease during the first time period
             else if (resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'] > 0 && resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'] < 0) {
                 $('#increase_or_decrease_aridity_t2').html("increase ")
+            }
+
+            // VPR text modifications
+            if (resultsJSON[model_code_dropdown + 'vpd' + season + 't1_avg'] < 0) {
+                $('#increase_or_decrease_vpr_t1').html("fall below")
+            }
+            else {
+                $('#increase_or_decrease_vpr_t1').html("exceed")
+            }
+
+            // Both time periods increase or both time periods decrease.
+            if ((resultsJSON[model_code_dropdown + 'vpd' + season + 't1_avg'] < 0 && resultsJSON[model_code_dropdown + 'vpd' + season + 't2_avg'] < 0) || (resultsJSON[model_code_dropdown + 'vpd' + season + 't1_avg'] > 0 && resultsJSON[model_code_dropdown + 'vpd' + season + 't2_avg'] > 0)) {
+                $('#increase_or_decrease_vpr_t2').html("")
+            }
+
+            // Decrease during the second time period and increase during the first time period
+            else if (resultsJSON[model_code_dropdown + 'vpd' + season + 't2_avg'] < 0 && resultsJSON[model_code_dropdown + 'vpd' + season + 't1_avg'] > 0) {
+                $('#increase_or_decrease_vpr_t2').html("decrease ")
+            }
+
+            // Increase during the second time period and decrease during the first time period
+            else if (resultsJSON[model_code_dropdown + 'vpd' + season + 't2_avg'] > 0 && resultsJSON[model_code_dropdown + 'vpd' + season + 't1_avg'] < 0) {
+                $('#increase_or_decrease_vpr_t2').html("increase ")
             }
 
             // PET text modifications
