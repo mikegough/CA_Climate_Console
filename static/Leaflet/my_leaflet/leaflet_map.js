@@ -433,9 +433,12 @@ lightGray= L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/se
 worldTopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer');
 USATopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
 streetMap=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer');
-imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'),
-oceans=L.esri.tiledMapLayer('http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer'),
+imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer');
+oceans=L.esri.tiledMapLayer('http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer');
 
+if (typeof initialBaseMap == "undefined"){
+    initialBaseMap="worldTopo";
+}
 
 eval(initialBaseMap).addTo(map);
 
@@ -735,7 +738,7 @@ function create_post(newWKT) {
                 });
                 $('#all_point_chart_goodies').each(function (i) {
                     $(this).attr('data-step', '4');
-                    $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average annual maximum temperature for the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods.<p>You can use the dropdown menus to select a new climate variable, statistic, or season.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
+                    $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average annual maximum temperature for the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods.<p>You can use the dropdown menus at the top to specify what data to plot in the chart.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
                 });
 
                 $('#climate_quick_view_table').each(function (i) {
