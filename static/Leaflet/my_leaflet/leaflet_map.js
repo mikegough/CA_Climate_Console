@@ -147,7 +147,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         else {
 
             //Legend Title
-            timePeriod=layerToAddName.replace(/.*t0.*/,'1971-2000').replace(/.*t1.*/,'2016-2045').replace(/.*t2.*/,'2046-2075')
+            timePeriod=climateParams["timePeriodLabels"][parseInt(layerToAddName.match(/\d+$/)[0])];
             season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
 
             if (modelName == "PRISM") {
