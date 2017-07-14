@@ -173,6 +173,9 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
             } else if (layerToAddName.indexOf('pet') != -1  ){
                 var climateVariableLabel='PET'
+
+            } else if (layerToAddName.indexOf('vpr') != -1  ){
+                var climateVariableLabel='Vapor Pressure'
             }
 
             //Create Statistic Label
