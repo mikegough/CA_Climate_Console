@@ -441,6 +441,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                <option value="tmax" selected>Maximum Temperature</option>
                                <option value="tmin">Minimum Temperature</option>
                                <option value="prec">Precipitation</option>
+                               <option value="pet">PET</option>
                                <option value="vpr">Vapor Pressure</option>
                                </select>
                                </div>
@@ -588,7 +589,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                             -->
 
                             <!-- PET -->
-                            <!--
                             <tr>
                                 <td>
                                     <div class="quick_pet"><i class="wi wi-flip-vertical wi-raindrops"></i></div>
@@ -601,7 +601,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                     <p>
                                 </td>
                             </tr>
-                            -->
                             <!-- VPR -->
                             <tr>
                                 <td>
@@ -839,123 +838,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <p>
                 The historical means and forecast means displayed in the climate console come directly from the values in the climatological mean field (C MEAN) and the forecast mean field (F MEAN), respectively. The forecast mean corresponds to the 50% probability of exceedance value.
                 These data are automatically updated on the third Thursday of each month  (Barnston et al. 2000).
-
-                <h3>Terrestrial Intactness:</h3>
-                Terrestrial intactness is based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the State of California. Terrestrial intactness values are high in areas where these impacts are low.
-                <p>
-                This dataset, updated December 2016, is the most recent version (v30) created for the California Energy Commission using the open-source logic modeling framework Environmental Evaluation Modeling System (EEMS). Spatially-explicit logic modeling hierarchically integrates numerous and diverse datasets into composite layers, quantifying information in a continuous rather than binary fashion. This technique yields accessible decision-support products that state and federal agencies can use to craft scientifically-rigorous management strategies. The analysis was carried out at 1 sq. km resolution.
-                <p>
-                Input data used to create this version range in currency from 2011-2015; the majority of data portray the more recent condition of the landscape.
-                <p>
-                This model integrates agriculture development (from FRAP Vegetation, and CDL Cropscape), urban development (from LANDFIRE EVT and NLCD Impervious Surfaces), polluted areas (from NHD treatment ponds and EPA Superfund and Brownfield sites), linear development (OHV routes from owlsheadgps.com, roads from TIGER (broken down by type), utility lines, railroads, and pipelines from various state and BLM sources), point development (communication towers from the FCC), energy and mining development (from the state’s Office of Mine Reclamation mine dataset, larger mine footprints, state geothermal wells, USGS wind turbines, solar footprints, renewable projects in development, oil refineries and state oil/gas wells), clear cuts from Statewide Timber Harvest Plans, invasive vegetation (compiled from multiple sources including LANDFIRE EVT, NatureServe Landcover, and NISIMS BLM database), and measures of natural vegetation fragmentation calculated using FRAGSTATS (percent natural core area, number of patches, and nearest neighbor). Results are dependent on the quality of available input data for a given area.
-                <p>
-                This most recent version of the model (v30) addresses over-estimation of fragmentation impacts seen in previous versions (e.g. v24), which stemmed from invasive vegetation and fire effects in FRAGSTATS calculations. New fragmentation metrics shift focus to anthropogenic development. Invasive vegetation is now compartmentalized within the logic model and influences the overall impact/condition score to a lesser extent. Additional model refinements stratify road impacts by TIGER class, e.g. different weighting for interstates vs. local roads.
-                <p>
-                Results apply to terrestrial areas only. (Water bodies are omitted from the final dataset.)
-                <p>
-                The input data, intermediate layers, and final results of this analysis can be explored via the EEMS Explorer of Data Basin (http://databasin.org/), where they are accessible as online interactive maps showing the signature of human impact across the landscape.
-                <p>
-                Caution is warranted in interpreting this dataset because it provides a single estimate of terrestrial intactness based on available data. It does not directly address ecological value; the “Conservation Values” model does. The degree of terrestrial intactness likely varies for a particular species or conservation element, and may depend on additional factors or thresholds not included in this model. This model should be taken as a general measure of intactness that can serve as a template for evaluating across many species at the ecoregion scale, and provides a framework within which species-specific parameters can be incorporated for more detailed analyses.
-
-                <p>
-                <a href="https://databasin.org/datasets/e3ee00e8d94a4de58082fdbc91248a65" target="_blank">View or Download this dataset on Data Basin</a>
-		<p>
-                Click here <a target="_blank" href="{{STATIC_URL}}docs/CA_Terrestrial_Intactness_EEMS_methodologies_v30.pdf">here</a> to download the Terrestrial Intactness methodologies paper.  
-
-                <h3 id="aboutEEMSData">Condition & Impact Models: </h3>
-
-                <p>
-                We used the <a href="http://consbio.org/products/tools/environmental-evaluation-modeling-system-eems" target="_blank">Environmental Evaluation Modeling System (EEMS)</a>, a spatially explicit fuzzy logic modeling framework developed by Conservation Biology Institute (CBI) staff, to evaluate the potential impact of climate change throughout the study area. We defined potential impact as a combination of “site sensitivity” defined simply by soil characteristics and the nature and degree to which a site may experience a change in climate, which we refer to as “climate exposure”. The EEMS logic model for each of the evaluated metrics, site sensitivity, climate exposure, and potential climate impacts are described in the sections below.
-                <p>
-
-                Overview of the EEMS Modeling Process
-                <p>
-                EEMS derives from the Ecosystem Management Decision Support System (EMDS; Reynolds, 2006). With fuzzy logic modeling (a quick introduction to fuzzy logic modeling can be found at: <a href="http://tinyurl.com/ox76lhb" target="_blank">http://tinyurl.com/ox76lhb</a>), input variables are normalized by converting them to a common numeric domain or range (also referred to as fuzzy space) varying between, in this case, -1.0 (representing a "fully" false statement) and +1.0 (representing a "fully" true statement). Fuzzy values are assigned based on the relationship to a proposition. For instance, projected change in minimum temperature can be tested against the proposition, “will experience substantial departures from historical temperature” using fuzzy values varying between +1.0 (true statement) and -1.0 (false statement).
-                <p>
-                Normalized inputs are combined using logic operators to create a hierarchical, logic tree that produces an answer to a particular question (for instance “will this area experience considerable climate change?”). Each grid cell in the study area is evaluated independently, producing a map of fuzzy values answering the question for all the grid cells across the landscape.
-                <p>
-                We implemented the models using data in NetCDF format for the study area matching the domain of the input files.
-                <p>
-                To learn more about logic models, click on the play button below.
-                <div class="youTubeDiv">
-                    <img class="button_movie_eems" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
-                </div>
-
-                <!-- Inputs and results were converted to the project study area in ArcGIS Desktop (Esri, 2014) using nearest neighbor resampling.-->
-                <p>
-                <img id="sample_eems_chart_img" src="{{STATIC_URL}}img/sample_eems_chart.png"  onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_eems_chart.png\" width=\"900px\">",{title: "Sample EEMS Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true})'>
-                    The Condition & Impacts tab shows results for several EEMS models averaged over the area selected by the user. The bar colors correspond to colors of the model inputs on the map. Clicking on the bar causes the entire dataset to display in the map.<p><br>
-                <img id="sample_meemse_img" src="{{STATIC_URL}}img/sample_meemse.png" onclick='new Messi("<div id=\"messiDiv\"><img src=\"{{STATIC_URL}}img/sample_meemse.png\" width=\"799px\">",{title: "Sample Model Diagram", center:true, width:"950px", modal:true, modalOpacity:.4,center: true})'> In addition, when you click on a column, you’ll see the model diagram appear below the chart. The model diagram is an interactive graphical representation of the model used to create each of the EEMS results shown in the chart. The model flows from the bottom up &mdash; meaning that input nodes appear below the output nodes they create. The text in the gray boxes indicate the operation used to combine the input data (e.g., <i>Fuzzy Union</i>).
-                <p>
-                Clicking on any box makes the corresponding spatial dataset show up on the map on the left. By clicking on the color ramps on the right hand side of each box in the logic tree, the user can choose to display either of the two color scale (classified or stretched). When the user clicks on a box, the model diagram expands to show the underlying inputs used to create the box that was selected. Box colors indicate the number of inputs (see color scale below logic tree). The active box representing the map on display will be highlighted in green.
-                <p>
-                <h3>Site Sensitivity</h3>
-                The Site Sensitivity Model evaluates the study area for factors that make the landscape sensitive to climate change. These factors fall into two main branches of the model: soil sensitivity and water retention potential. As a final step in the model, we defined barren areas as having the lowest possible sensitivity since many of these areas will not be further degraded by climate change.
-                <p>
-                <a href="http://databasin.org/maps/new#datasets=d9631479be4f4464a266036b55d40c01&visibleLayers=6" target="_blank">View or Download this dataset on Data Basin</a>
-                <p>
-                <b>Soil Data for Soil Sensitivity Calculation</b>
-                <p>
-                    Soil data for this analysis were obtained from the conterminous United States Multi-Layer Soil Characteristics data (Miller & White 1998) and the STATSGO soil database (Soil Survey Staff 2015). All variables used are listed in Table 3.
-		<p>
-
-
-                <div class="tableDescriptions">Table 3 Soil variables used in the EEMS model, their acronym, the database, and URL where the data reside.</div>
-
-                <p>
-                <table class="modelDescriptionTable">
-                 <tr><th class="tinyHeader">Variable</th class="tinyHeader"><th class="tinyHeader">Acronym</th class="tinyHeader"><th class="tinyHeader">Database</th class="tinyHeader"><th class="tinyHeader">URL</th class="tinyHeader"></tr>
-                 <tr><td class="tg-yw4l">Available Water Capacity</td class="tg-yw4l"><td class="tg-yw4l">AWC</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">K-Factor</td class="tg-yw4l"><td class="tg-yw4l">Kffact</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">pH</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Depth to Bedrock</td class="tg-yw4l"><td class="tg-yw4l">RD</td class="tg-yw4l"><td class="tg-yw4l">CONUS-SOIL</td class="tg-yw4l"><td class="tg-yw4l">http://www.soilinfo.psu.edu/index.cgi?soil_data&conus&data_cov</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Salinity</td class="tg-yw4l"><td class="tg-yw4l">SAL</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw4l">Wind Erodibility Index</td class="tg-yw4l"><td class="tg-yw4l">WEG</td class="tg-yw4l"><td class="tg-yw4l">STATSGO</td class="tg-yw4l"><td class="tg-yw4l">https://gdg.sc.egov.usda.gov/</td class="tg-yw4l"></tr>
-                </table>
-                <p>
-                    <b>Processing of Soil Data</b>
-                <p>
-                    All soil variables were downloaded for the conterminous United States and processed in ESRI ArcInfo workstation (ESRI 2014). Polygon data were converted to a raster dataset with a cell size of 0.0083333333 decimal degrees. The data were then clipped to the state of California boundaries and exported in NetCDF format.
-                <p>
-                    <b>Calculation of Water Erodibility Index</b>
-                <p>
-                    The index of susceptibility to water erosion (LSKf) was calculated from the Universal Soil Loss Equation (Wischmeier & Smith 1978) which is given as:
-                <p>
-                    A = R * K * L * S * C * P &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp (3)
-                <p>
-                    where A is predicted average annual soil loss, R is measured rainfall erosivity, K is soil erodibility, L is slope length factor, S is steepness of the slope, and C and P represent the respective erosion reduction effects of management (C) and erosion control practices (P).
-                <p>
-                    Combining L and S represents the impact of topography on erosion and is calculated as (Hickey 2000):
-
-                <p>
-                    LS= (As/22.13)<sup>^0.4</sup>∙ (sinθ/0.09)<sup>^1.4</sup>∙1.4
-                <p>
-                    where As is the unit of contributing area (m), θ is the slope in radians. We then combined the K factor with LS to estimate the potential susceptibility of a soil to water erosion.
-                <p>
-
-                <h3> Climate Exposure</h3>
-                The Climate Exposure Model is based on aridity and climate. Climate factors include maximum temperature, minimum temperature, and precipitation on a seasonal basis and an annual basis. Change was calculated for two future time periods, 2016-2045 and 2046-2075, compared to the historical period, 1971-2000. Projections for three climate futures were used along with the ensemble mean values from those models. Temperature and precipitation differences were normalized using the standard deviation over the historical period via the following formula:
-                <br>
-                <div style="width:100%; text-align:center; margin-left:auto; margin-right:auto"> <img style="width:150px;" src="{{STATIC_URL}}img/ce_equation.png"></div>
-                <br>
-                <br>
-
-                where d is the difference, x<sub>f</sub> is the mean of the variable in the future period, x<sub>h</sub> is the mean of the variable in the historical period, and σ<sub>x<sub>h</sub></sub> is standard deviation of the variable in the historical period. Change in aridity was calculated as the percent change from the historical period. Projected future change is very high for temperatures and aridity. In order to capture both the differences across the region as well as the severity of change, nonlinear conversions were used to convert input data into fuzzy space:
-
-                <img src="{{STATIC_URL}}img/climate_chart1.png"><img src="{{STATIC_URL}}img/climate_chart2.png">
-
-                <div class="footnote" style="margin-left:40px">Original value to fuzzy value conversion curves for a) climate variables and b) aridity.</div>
-                <br>
-                <p>
-                <a href="http://databasin.org/datasets/c55b0a726487406bba0e17f4fe1b2cbb" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
-                <a href="http://databasin.org/datasets/d0e9905271294cd293160cff7115ce8f" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
-
-                <h3> Potential Climate Impact</h3>
-                EEMS model of potential climate impacts generated using data from STATSGO soils data and climate model results. Results from the Site Sensitivity and Climate Exposure models contribute equally to the results of the Potential Climate Impact model. As with the Climate Exposure Model, the Climate Impacts Model was run for each climate future (full results available on Data Basin). The results from the run with ensemble climate data are used in the Climate Console.
-                <p>
-                <a href="http://databasin.org/datasets/238aad251e784e4386620a4c51ef272a" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
-                <a href="http://databasin.org/datasets/022ab9e3565a4b11a08b94a3f69695b5" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
-                <p>
 
                 <h3 id="aboutEcosystemServicesData">Climate Impacts: </h3>
                 Climate Impacts data were simulated with the Dynamic Global Vegetation Model MC2 (<a target="_blank" href="http://bit.ly/2a9TrKD">http://bit.ly/2a9TrKD</a>) at 30 arc-secs. The model was run from 1895-2010 using PRISM historical data, and from 2011-2099 using the bias-corrected spatially downscaled (BCSD) climate futures (Thrasher et al. 2013) for 9 global climate models (because vapor pressure/relative humidity was missing for CMCC-CMS available results, it could not be used by MC2 which requires this input). All climate futures were run with the RCP8.5 emission scenario.
