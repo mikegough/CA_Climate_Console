@@ -595,6 +595,10 @@ def view3(request):
 
         WKT = "SRID=4326;" + request.POST.get('wktPOST').replace('%', ' ')
         ru_table = request.POST.get('reporting_units')
+        ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
+        ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
+
+        print ecosystem_services_continuous_tables
 
         cursor = connection.cursor()
 
@@ -642,11 +646,17 @@ def view3(request):
 
         columnChartColors = ""
 
+        if ecosystem_services_vtype_tables !="":
+            ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
+        else:
+            ecosystem_services_data=''
+
         context = {
             'initialize': 0,
              'WKT_SelectedPolys': ru_wkt,
              'count': count,
              'resultsJSON': resultsJSON,
+            'ecosystem_services_data':ecosystem_services_data,
              'categoricalValues': ru_name_list,
              'columnChartColors': columnChartColors,
              'error': 0,
