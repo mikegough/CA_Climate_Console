@@ -70,6 +70,19 @@ EEMSParams={
 
 ecosystemServicesParams={
     "overlayBounds":[[28.801987047618255, -124.73749542236328], [49.104166030883796, -101.99673917748265]],
+     "vtypeLookup" : {
+            'value_0': ['undefined', 'gray'],
+            'value_1': ['Taiga/Tundra', '#CCCCFF'],
+            'value_2': ['Conifer Forest', '#006633'],
+            'value_3': ['Mixed Forest', '#7FBF7B'],
+            'value_4': ['Broadleaf Forest', '#48F748'],
+            'value_5': ['Shrubland/Woodland/Savanna', '#996633'],
+            'value_6': ['Grassland', '#FFFF00'],
+            'value_7': ['Arid Land', '#FF0000'],
+            'value_8': ['Annual Agriculture', '#FFBF71'],
+            'value_9': ['Perennial Agriculture', '#FF8C00'],
+            'value_10': ['Developed/Mined', '#2D2D2D'],
+    },
     "LCC Boundaries": {
         "continuousTables": {
         },
