@@ -382,7 +382,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
             <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
             <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
             <!-- <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();preLoadOverlay(vtype_images)">Climate Impacts</a></li> -->
-            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Climate Impacts</a></li>
+            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices()">Climate Impacts</a></li>
             <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
             <li><a id="view3Link" href="#view3" onclick="$('#clickToMapInfo').hide()"><img src="{{STATIC_URL}}img/info.png"></a></li>
 
@@ -1159,7 +1159,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
             </div>
 
             <div id="view6">
-                <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units.</p></div>
+                <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
                 <!-- Start and Stop Buttons -->
                 <div class="select_container_2" id="view6_contents">
                     <form class="select_form2">
