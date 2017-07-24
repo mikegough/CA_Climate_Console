@@ -646,10 +646,11 @@ def view3(request):
 
         columnChartColors = ""
 
-        if ecosystem_services_vtype_tables !="":
-            ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
+        if ecosystem_services_vtype_tables != "":
+            #ecosystem_services_data = get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
+            ecosystem_services_data = get_ecosystem_services_data2(str(ru_set_id), str(ru_id_csv), ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
         else:
-            ecosystem_services_data=''
+            ecosystem_services_data = ''
 
         context = {
             'initialize': 0,
@@ -1173,7 +1174,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
     resultsDictMultiTable["vegetation_composition"]={}
     for vtype_table in vtype_tables:
         field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
-        print field_name_query
+        #print field_name_query
         cursor.execute(field_name_query)
         statsFieldsTuple=cursor.fetchone()
         statsFields = ",".join(statsFieldsTuple)
@@ -1189,7 +1190,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
             selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
         else:
             selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
-        print selectStatement
+        #print selectStatement
         cursor.execute(selectStatement)
         resultsDict={}
         #Get field names
@@ -1206,6 +1207,8 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
             #raise SystemExit(0)
 
         if resultsDict:
+            print "resultsDict"
+            print resultsDict
             resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
 
     #Continuous7
@@ -1216,7 +1219,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
         try:
             for continuous_table in continuous_tables:
                 field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
-                print field_name_query
+                #print field_name_query
                 cursor.execute(field_name_query)
                 statsFieldsTuple=cursor.fetchone()
                 if not all(statsFieldsTuple):
@@ -1234,7 +1237,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
                     selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
                 else:
                     selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
-                print selectStatement
+                #print selectStatement
                 cursor.execute(selectStatement)
                 resultsDict={}
                 #Get field names
@@ -1254,11 +1257,120 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
         except:
             print "No continuous MC2 data"
 
-    print resultsDictMultiTable["continuous7"]
+    #print resultsDictMultiTable["continuous7"]
     #Take fieldname,value pairs from the dict and dump to a JSON string.
     veg_composition_data=json.dumps(resultsDictMultiTable)
 
     return veg_composition_data
+
+# Created for the CONUS Console. Old method would have required 100 database tables.
+def get_ecosystem_services_data2(ru_set_id, ru_id, continuous_tables, vtype_tables):
+
+    vtype_master_table = "mc2_vtype_merge"
+    continuous_master_table = "mc2_continuous_merge"
+
+    #VTYPE
+    #Get a list of fields from the master vtype mc2 table
+    cursor = connection.cursor()
+    field_exclusions = "'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name', 'id', 'ru_id', 'ru_set_id', 'ru_set_name', 'console', 'model'"
+    field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_master_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+
+    cursor.execute(field_name_query)
+    statsFieldsTuple = cursor.fetchone()
+
+    resultsDictMultiTable = {}
+    resultsDictMultiTable["vegetation_composition"] = {}
+
+    # For each vtype_table defined in the config file...
+    # Don't really want to loop over each vtype_table since this could be handled in one query.
+    # Need to change the query and how the dictionary is constructed.
+    for vtype_table in vtype_tables:
+
+        statsFields = ",".join(statsFieldsTuple)
+        cursor = connection.cursor()
+        selectList = "SELECT "
+
+        for field in statsFields.split(','):
+            selectList += field + " as " + field +", "
+
+        #Remove Extra comma
+        selectList = selectList.rstrip(', ')
+
+        vtype_tableList = " FROM " + vtype_master_table
+        selectFieldsFromTable = selectList + vtype_tableList
+
+        selectStatement = selectFieldsFromTable + " where ru_set_id = " + ru_set_id + " and id = " + ru_id + " and ru_set_name = '" + vtype_table + "'"
+
+        cursor.execute(selectStatement)
+        resultsDict = {}
+
+        #Get field names
+        columns = [colName[0] for colName in cursor.description]
+
+        try:
+            for row in cursor:
+                for i in range(len(row)):
+                    if isinstance(row[i], basestring):
+                        resultsDict[columns[i]] = row[i].strip()
+                    else:
+                        resultsDict[columns[i]] = (float(round(row[i],2)))
+        except:
+            print "Error: No features selected"
+            #raise SystemExit(0)
+
+        if resultsDict:
+            resultsDictMultiTable["vegetation_composition"][vtype_table] = resultsDict
+
+    #Continuous7
+    field_exclusions = "'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name','id', 'ru_set_id', 'ru_set_name'"
+    resultsDictMultiTable["continuous7"] = {}
+
+    if continuous_tables:
+
+        field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_master_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+
+        cursor.execute(field_name_query)
+        statsFieldsTuple = cursor.fetchone()
+        if not all(statsFieldsTuple):
+            print "Missing data fields in master table."
+        statsFields = ",".join(statsFieldsTuple)
+
+        for continuous_table in continuous_tables:
+            cursor = connection.cursor()
+            selectList = "SELECT "
+            for field in statsFields.split(','):
+                selectList += field + " as " + field +", "
+            #Remove Extra comma
+
+            selectList = selectList.rstrip(', ')
+            continuous_tableList = " FROM " + continuous_master_table
+            selectFieldsFromTable = selectList + continuous_tableList
+            selectStatement = selectFieldsFromTable + " where ru_set_id = " + ru_set_id + " and id = " + ru_id + " and ru_set_name = '" + continuous_table + "'"
+
+            print selectStatement
+            cursor.execute(selectStatement)
+            resultsDict = {}
+            #Get field names
+            columns = [colName[0] for colName in cursor.description]
+            try:
+                for row in cursor:
+                    for i in range(len(row)):
+                        if isinstance(row[i], basestring):
+                            resultsDict[columns[i]] = row[i].strip()
+                        else:
+                            resultsDict[columns[i]] = (float(round(row[i],2)))
+            except:
+                print "Error: No features selected"
+                raise SystemExit(0)
+
+            resultsDictMultiTable["continuous7"][continuous_table] = resultsDict
+
+    print resultsDictMultiTable["continuous7"]
+
+    #Take fieldname,value pairs from the dict and dump to a JSON string.
+    mc2_data=json.dumps(resultsDictMultiTable)
+
+    return mc2_data
 
 def getColor(value, parameter):
     """Colors used in the highcharts chart"""
