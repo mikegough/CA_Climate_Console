@@ -121,15 +121,15 @@
 <script src="{{STATIC_URL}}js/general_js.js"></script>
 
 <script>
-    var static_url="{{STATIC_URL}}"
-    showChartOnMapSelect="PointChart"
-    var initialize={{initialize}}
-    var count="{{count}}"
-    var last_poly="{{WKT_SelectedPolys}}"
-    columnChartColors="{{columnChartColors}}"
-    unitsForChart="metric"
+    var static_url = "{{STATIC_URL}}";
+    showChartOnMapSelect = "PointChart";
+    var initialize = {{initialize}};
+    var count = "{{count}}";
+    var last_poly = "{{WKT_SelectedPolys}}";
+    columnChartColors = "{{columnChartColors}}";
+    unitsForChart = "metric";
 
-    // Required since there is no Ensemble
+    // Required in the CONUS console since there is no Ensemble
     var model_code_dropdown = "me";
 
     $('select').selectBoxIt({ autoWidth: false });
@@ -144,15 +144,6 @@
 
 .container {
     z-index:2
-}
-
-#logo {
-	float: left;
-	position: absolute;
-	left: 12px;
-	top: 15px;
-	height: 50px;
-	z-index: 3;
 }
 
 #leftImage {
@@ -193,28 +184,20 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 }
 
 #header{
-
+    /*
     background:#424242;
     background: #0D5625;
     background: #030303;
     background: #0D77B6;
     background: #125B86;
     background:#5B6B67;
+    */
     background:#4F6375;
     width:100%;
-
     margin-left:auto;
     margin-right:auto;
-
     border-bottom: 2px solid #444444;
-
 }
-
-#title_container {
-    width:100%
-    text-align:center;
-}
-
 
 #title {
 	text-align: center;
@@ -268,9 +251,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 }
 
 #statistic_selection_formSelectBoxItContainer #statistic_selection_formSelectBoxIt{
-    max-width: 90 !important;
+    max-width: 90px !important;
 }
-
 
 #footer {
 	color:white;
@@ -284,7 +266,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 #footer a:visited {
     color: white;
 }
-
 </style>
 
 </head>
