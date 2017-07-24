@@ -154,7 +154,6 @@ ecosystemServicesParams= {
             "noresm1m": "conus_reporting_units_states_usgs_albers_es_decadal_vtype_NorESM1_M",
         },
     },
-    /*
     "HUC4 Watersheds": {
         "continuousTables": {
             "bcccsm11m": "conus_reporting_units_watersheds_huc4_usgs_albers_es_decadal_bcc_csm1_1_m",
@@ -339,7 +338,6 @@ ecosystemServicesParams= {
             "noresm1m": "conus_reporting_units_bird_conservation_regions_usgs_albers_es_decadal_vtype_NorESM1_M",
         },
     },
-    */
 };
 
 
