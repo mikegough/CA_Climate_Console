@@ -575,6 +575,7 @@ def view2(request):
 
 @gzip_page
 @csrf_exempt
+# Used by the CONUS console
 def view3(request):
 
     studyarea = request.resolver_match.url_name
@@ -647,7 +648,6 @@ def view3(request):
         columnChartColors = ""
 
         if ecosystem_services_vtype_tables != "":
-            #ecosystem_services_data = get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
             ecosystem_services_data = get_ecosystem_services_data2(str(ru_set_id), str(ru_id_csv), ecosystem_services_continuous_tables, ecosystem_services_vtype_tables)
         else:
             ecosystem_services_data = ''
@@ -661,7 +661,7 @@ def view3(request):
              'categoricalValues': ru_name_list,
              'columnChartColors': columnChartColors,
              'error': 0,
-             'config_file':config_file,
+             'config_file': config_file,
         }
 
         return HttpResponse(json.dumps(context))
@@ -1265,6 +1265,8 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
 
 # Created for the CONUS Console. Old method would have required 100 database tables.
 def get_ecosystem_services_data2(ru_set_id, ru_id, continuous_tables, vtype_tables):
+
+    ru_id = str(ru_id.split(",")[0])
 
     vtype_master_table = "mc2_vtype_merge"
     continuous_master_table = "mc2_continuous_merge"
