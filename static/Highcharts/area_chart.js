@@ -145,8 +145,6 @@ function createAreaChart(model) {
         $("#area_chart").html("<div class='no_data_available'><img id='no_climate_impacts_alert_icon' src='"  +static_url +  "img/alert.png'> </p>Vegetation composition data are not available for the selected protected area</div>")
     }
 
-
-
     for (var key in data_for_chart) {
         //var veg_name=lookup(key)[0]
         //var veg_color=lookup(key)[1]
