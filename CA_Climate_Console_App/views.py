@@ -17,7 +17,6 @@ from django.views.decorators.gzip import gzip_page
 
 from collections import OrderedDict
 
-#Potential security hole.
 from django.views.decorators.csrf import csrf_exempt
 
 @gzip_page
@@ -93,42 +92,44 @@ def view1(request):
 
         if table == None:
             table = "utah_cop_reporting_units_blm_admin_units_1_5_simplify"
-            categoricalFields="name"
+            categoricalFields = "name"
 
         template = 'utah'
         config_file = "config_utah.js"
 
-    elif studyarea=='conus':
+    elif studyarea == 'conus':
 
         if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
-            categoricalFields="name"
+            table = "ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields = "name"
 
         template = 'conus'
         config_file = "config_conus.js"
 
-    elif studyarea=='dev':
+    elif studyarea == 'dev':
 
         if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
-            categoricalFields="name"
+            table = "ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields = "name"
 
-        template='ca_dev'
-        config_file="config_ca.js"
+        template = 'ca_dev'
+        config_file = "config_ca.js"
 
     ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
     cursor = connection.cursor()
-    field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
+    field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
     cursor.execute(field_name_query);
-    statsFieldsTuple=cursor.fetchone()
+    statsFieldsTuple = cursor.fetchone()
     statsFields = ",".join(statsFieldsTuple)
 
     ########################################### INITIALIZATION RESPONSE ################################################
     if not WKT:
-        context={'initialize': 1,
-                 'config_file': config_file,
-                 'count': 0}
+        context = {
+            'initialize': 1,
+            'config_file': config_file,
+            'count': 0
+        }
         return render(request, template+'.html', context)
 
     #################################### OR DATABASE QUERY (SELECT FEATURES) ###########################################
@@ -136,67 +137,67 @@ def view1(request):
     else:
 
         ################################### BUILD SELECT LIST (FIELDS & TABLES) ########################################
-        selectList="SELECT "
+        selectList = "SELECT "
 
         if ('POINT' in WKT):
             #Point selection. No Area Weighted Average in the query. Performance gains are minimal even with 900 fields.
             for field in statsFields.split(','):
-                selectList+=field + " as " + field + "_" + "avg, "
+                selectList += field + " as " + field + "_" + "avg, "
             if categoricalFields:
-                selectList+=categoricalFields + " as categorical_values, "
-            selectList+=" 1 as count, "
-            selectList+="ST_AsText(ST_SnapToGrid(ST_Force_2D(geom), .0001)) as outline_of_selected_features"
+                selectList += categoricalFields + " as categorical_values, "
+            selectList += " 1 as count, "
+            selectList += "ST_AsText(ST_SnapToGrid(ST_Force_2D(geom), .0001)) as outline_of_selected_features"
 
         else:
             #Area or line based selection, requiring Area Weighted Average
             for field in statsFields.split(','):
-                    selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
-            selectList+="count(*) as count "
+                    selectList += "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+            selectList += "count(*) as count "
             #Aggregates. Count, Unique CSV from categorical fields, Outline of selected features.
             if categoricalFields:
-                selectList+=", string_agg(" + categoricalFields + ", ',') as categorical_values"
+                selectList += ", string_agg(" + categoricalFields + ", ',') as categorical_values"
             #Sum of the area of selected features for area weighted average. Maybe report later.
-            #selectList+="sum(shape_area) as sum_area, "
-            selectList+=", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
+            #selectList += "sum(shape_area) as sum_area, "
+            selectList += ", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features"
 
-        tableList=" FROM " + table
+        tableList = " FROM " + table
 
         selectFieldsFromTable = selectList + tableList
 
         ############################ "WHERE" (ADD ASPATIAL SEARCH CONDITIONS) ##########################################
-        if WKT=='aspatial':
+        if WKT == 'aspatial':
 
-            queryField=request.GET.get('queryField')
-            operator=request.GET.get('operator').strip()
-            stringOrValue=request.GET.get('stringOrValue').lower().strip()
+            queryField = request.GET.get('queryField')
+            operator = request.GET.get('operator').strip()
+            stringOrValue = request.GET.get('stringOrValue').lower().strip()
 
             if operator == "LIKE":
-                selectStatement=selectFieldsFromTable + " where LOWER(" + queryField + ") " +  operator  + "%s"
+                selectStatement = selectFieldsFromTable + " where LOWER(" + queryField + ") " + operator + "%s"
             elif operator == ">" or operator == "<":
-                selectStatement=selectFieldsFromTable + " where " + queryField + operator + stringOrValue
+                selectStatement = selectFieldsFromTable + " where " + queryField + operator + stringOrValue
             else:
-                selectStatement=selectFieldsFromTable + " where LOWER(" + queryField + ") " + operator + " '" + \
+                selectStatement = selectFieldsFromTable + " where LOWER(" + queryField + ") " + operator + " '" + \
                                 stringOrValue + "'"
 
         ########################## or "WHERE" (ADD SPATIAL SEARCH CONDITIONS) ##########################################
         else:
 
-            WKT=WKT.replace('%', ' ')
-            WKT="SRID=4326;"+WKT
+            WKT = WKT.replace('%', ' ')
+            WKT = "SRID=4326;"+WKT
 
-            operator=None
-            selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + table + ".geom)"
+            operator = None
+            selectStatement = selectFieldsFromTable + " where ST_Intersects('" + WKT + "', " + table + ".geom)"
 
         ######################################## EXECUTE DATABASE QUERY ################################################
 
         if operator == "LIKE":
-            cursor.execute(selectStatement,['%' + stringOrValue + '%'] )
+            cursor.execute(selectStatement, ['%' + stringOrValue + '%'])
         else:
             cursor.execute(selectStatement)
 
         ################################# STORE COLUMN, VALUE PAIRS IN A DICT ##########################################
 
-        resultsDict={}
+        resultsDict = {}
 
         #Get field names
         columns = [colName[0] for colName in cursor.description]
@@ -207,117 +208,118 @@ def view1(request):
                     if isinstance(row[i], basestring):
                         resultsDict[columns[i]] = row[i].strip()
                     else:
-                        resultsDict[columns[i]] =(float(round(row[i],2)))
+                        resultsDict[columns[i]] = (float(round(row[i], 2)))
         except:
             print "Error: No features selected"
             raise SystemExit(0)
             #return render(request, template+'.html')
 
-        WKT_SelectedPolys=resultsDict['outline_of_selected_features']
+        WKT_SelectedPolys = resultsDict['outline_of_selected_features']
 
         if categoricalFields:
-            categoricalValues=[]
+            categoricalValues = []
             categoricalValues.extend(resultsDict['categorical_values'].split(','))
-            categoricalValues=list(set(categoricalValues))
+            categoricalValues = list(set(categoricalValues))
             categoricalValues.sort()
         else:
-            categoricalValues=[' ']
+            categoricalValues = [' ']
 
         #Remove these from the Dictionary before dumping to a JSON object (causing error & no need to send twice).
-        resultsDict.pop('outline_of_selected_features',0)
-        resultsDict.pop('categorical_values',0)
+        resultsDict.pop('outline_of_selected_features', 0)
+        resultsDict.pop('categorical_values', 0)
 
-        count=int(resultsDict["count"])
+        count = int(resultsDict["count"])
 
         #Take fieldname,value pairs from the dict and dump to a JSON string.
-        resultsJSON=json.dumps(resultsDict)
+        resultsJSON = json.dumps(resultsDict)
         #return HttpResponse(str(resultsDict.keys())+ str(resultsDict.values()))
         #return HttpResponse(resultsDict['tm_c4_2_avg'])
 
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
         #BAR COLORS
-        if studyarea=='sagebrush':
+        if studyarea == 'sagebrush':
 
-            columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-            columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
-            columnChartColor6=getColor(resultsDict["theobald_i_avg"], "theobald")
+            columnChartColor1 = getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor2 = getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor3 = getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            columnChartColor4 = getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            columnChartColor5 = getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            columnChartColor6 = getColor(resultsDict["theobald_i_avg"], "theobald")
 
-            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+            columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        elif studyarea=='drecp':
+        elif studyarea == 'drecp':
 
-            columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor2=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor3=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            columnChartColor6=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            columnChartColor1 = getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor2 = getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor3 = getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor4 = getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            columnChartColor5 = getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            columnChartColor6 = getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
 
-            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+            columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        elif studyarea=='utah':
+        elif studyarea == 'utah':
 
-            columnChartColor1=getColor(resultsDict["ti_union_avg"], "TI")
-            columnChartColor2=getColor(resultsDict["ai_100m_avg"], "TI")
-            columnChartColor3=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor4=getColor(resultsDict["eeccfz1530_avg"], "ClimateEEMS")
-            columnChartColor5=getColor(resultsDict["eeccfz4560_avg"], "ClimateEEMS")
-            columnChartColor6=getColor(resultsDict["eepifz1530_avg"], "ClimateEEMS")
-            columnChartColor7=getColor(resultsDict["eepifz4560_avg"], "ClimateEEMS")
+            columnChartColor1 = getColor(resultsDict["ti_union_avg"], "TI")
+            columnChartColor2 = getColor(resultsDict["ai_100m_avg"], "TI")
+            columnChartColor3 = getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor4 = getColor(resultsDict["eeccfz1530_avg"], "ClimateEEMS")
+            columnChartColor5 = getColor(resultsDict["eeccfz4560_avg"], "ClimateEEMS")
+            columnChartColor6 = getColor(resultsDict["eepifz1530_avg"], "ClimateEEMS")
+            columnChartColor7 = getColor(resultsDict["eepifz4560_avg"], "ClimateEEMS")
 
-            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+            columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
         else:
 
             #if table == "ca_reporting_units_1km_poly":
-            #    resultsDict["intactness_avg"]=0
-            #    resultsDict["hisensfz_avg"]=0
-            #    resultsDict["eecefzt1_avg"]=0
-            #    resultsDict["eecefzt2_avg"]=0
-            #    resultsDict["eepifzt1_avg"]=0
-            #    resultsDict["eepifzt2_avg"]=0
+            #    resultsDict["intactness_avg"] = 0
+            #    resultsDict["hisensfz_avg"] = 0
+            #    resultsDict["eecefzt1_avg"] = 0
+            #    resultsDict["eecefzt2_avg"] = 0
+            #    resultsDict["eepifzt1_avg"] = 0
+            #    resultsDict["eepifzt2_avg"] = 0
 
-            #    columnChartColors=6*"#444444,"
+            #    columnChartColors = 6*"#444444,"
 
 
             if table == "ca_reporting_units_1km_poly_join_eems":
-                resultsDict["intactness_avg"]=0
+                resultsDict["intactness_avg"] = 0
 
-            #columnChartColor1=getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor1=getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
-            columnChartColor2=getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
-            columnChartColor3=getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
-            #columnChartColor4=getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
-            #columnChartColor5=getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            #columnChartColor1 = getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor1 = getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor2 = getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor3 = getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            #columnChartColor4 = getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            #columnChartColor5 = getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
             # Took out potential impacts, so TI is Color4
-            columnChartColor4=getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor5=""
-            columnChartColor6=""
+            columnChartColor4 = getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor5 = ""
+            columnChartColor6 = ""
 
-            columnChartColors=columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+            columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
 
         if ecosystem_services_vtype_tables !="":
-            ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
+            ecosystem_services_data = get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
         else:
-            ecosystem_services_data=''
+            ecosystem_services_data = ''
 
         ########################################### RETURN RESULTS #####################################################
 
-        context={'initialize': 0,
-                 'WKT_SelectedPolys': WKT_SelectedPolys,
-                 'count': count,
-                 'resultsJSON': resultsJSON,
-                 'categoricalValues': categoricalValues,
-                 'columnChartColors': columnChartColors,
-                 'error': 0,
-                 'config_file':config_file,
-                 'ecosystem_services_data':ecosystem_services_data
-                 }
+        context = {
+            'initialize': 0,
+            'WKT_SelectedPolys': WKT_SelectedPolys,
+            'count': count,
+            'resultsJSON': resultsJSON,
+            'categoricalValues': categoricalValues,
+            'columnChartColors': columnChartColors,
+            'error': 0,
+            'config_file':config_file,
+            'ecosystem_services_data':ecosystem_services_data
+        }
 
     if request.method == 'POST':
         return HttpResponse(json.dumps(context))
@@ -329,27 +331,29 @@ def view1(request):
 def view2(request):
     #multi-lcc view
     WKT = request.POST.get('wktPOST')
-    table=request.POST.get('reporting_units')
-    categoricalFields=request.POST.get('name_field')
-    ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
-    ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
+    table = request.POST.get('reporting_units')
+    categoricalFields = request.POST.get('name_field')
+    ecosystem_services_continuous_tables = request.POST.getlist('ecosystem_services_continuous_tables[]')
+    ecosystem_services_vtype_tables = request.POST.getlist('ecosystem_services_vtype_tables[]')
 
     ############################################# INPUT PARAMETERS #####################################################
 
-    stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
+    stats_field_exclusions = "'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
     if table == None:
-        table="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!
-        categoricalFields="name,ru_type"
+        table = "multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!
+        categoricalFields = "name,ru_type"
 
-    template='multi-lcc'
-    config_file="config_multi-lcc.js"
+    template = 'multi-lcc'
+    config_file = "config_multi-lcc.js"
 
     ########################################### INITIALIZATION RESPONSE ################################################
     if not WKT:
-        context={'initialize': 1,
-                 'config_file': config_file,
-                 'count': 0}
+        context = {
+            'initialize': 1,
+            'config_file': config_file,
+            'count': 0
+        }
         return render(request, template+'.html', context)
 
     #################################### OR DATABASE QUERY (SELECT FEATURES) ###########################################
@@ -361,75 +365,75 @@ def view2(request):
         if "POINT" in WKT or "POLYGON" in WKT or "LINESTRING" in WKT:
             print "yes"
 
-            table="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2"
+            table = "multi_lcc_query_layer_protected_areas_soils_90_simplify_v2"
 
-            WKT=WKT.replace('%', ' ')
-            WKT="SRID=4326;"+WKT
+            WKT = WKT.replace('%', ' ')
+            WKT = "SRID=4326;"+WKT
 
-            spatial_filter_layer='multi_lcc_reporting_units_llc_boundaries_1_simplify'
-            query_layer="multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!!
+            spatial_filter_layer = 'multi_lcc_reporting_units_llc_boundaries_1_simplify'
+            query_layer = "multi_lcc_query_layer_protected_areas_soils_90_simplify_v2" #CHANGE IN DASHBOARD.JS TOO!!!!!
             print query_layer
 
             if "POINT" in WKT:
                 #Get geometery of LCC Boundary
-                spatial_filter_shape_query="SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom)"
+                spatial_filter_shape_query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom)"
                 cursor.execute(spatial_filter_shape_query)
-                spatial_filter_shape=cursor.fetchone()[0]
+                spatial_filter_shape = cursor.fetchone()[0]
 
                 #Get name. Should do in query above.
-                spatial_filter_name="SELECT name from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom)"
+                spatial_filter_name = "SELECT name from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom)"
                 cursor.execute(spatial_filter_name)
-                spatial_filter_name=cursor.fetchone()[0]
+                spatial_filter_name = cursor.fetchone()[0]
 
                 #Sub query to get the clicked shape used to be the spatial fitler
-                spatial_filter_shape_sub_query="(SELECT geom from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom))"
+                spatial_filter_shape_sub_query = "(SELECT geom from " + spatial_filter_layer + " where ST_Intersects('"+ WKT + "', " + spatial_filter_layer + ".geom))"
 
             else: #POLYGON or LINESTRING
-                spatial_filter_shape_sub_query="'"+ WKT + "'"
-                spatial_filter_shape=WKT
-                spatial_filter_name="User Defined Area"
+                spatial_filter_shape_sub_query = "'"+ WKT + "'"
+                spatial_filter_shape = WKT
+                spatial_filter_name = "User Defined Area"
 
             #Get all protected areas within LCC boundary
-            tabular_query="SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1, a.eetmads0t2, a.eetmids0t2, a.eepreds0t2, a.gis_acres from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
-
+            tabular_query = "SELECT distinct a.name, a.ru_type, a.eetmads0t1, a.eetmids0t1, a.eepreds0t1, a.eetmads0t2, a.eetmids0t2, a.eepreds0t2, a.gis_acres from " + query_layer + " as a, " + spatial_filter_layer + " as b where ST_Intersects(a.geom, " + spatial_filter_shape_sub_query + ")"
 
             cursor.execute(tabular_query)
 
             #Get all selected protected area data into an array
-            tabular_data={}
+            tabular_data = {}
 
             for row in cursor:
-                feature_name=row[0]
-                data=[]
-                ru_type=row[1]
-                tmax_delta_t1=float(row[2])
-                tmin_delta_t1=float(row[3])
-                prec_delta_t1=float(row[4])
-                tmax_delta_t2=float(row[5])
-                tmin_delta_t2=float(row[6])
-                prec_delta_t2=float(row[7])
-                gis_acres=round(row[8],0)
+                feature_name = row[0]
+                data = []
+                ru_type = row[1]
+                tmax_delta_t1 = float(row[2])
+                tmin_delta_t1 = float(row[3])
+                prec_delta_t1 = float(row[4])
+                tmax_delta_t2 = float(row[5])
+                tmin_delta_t2 = float(row[6])
+                prec_delta_t2 = float(row[7])
+                gis_acres = round(row[8],0)
                 data.extend([ru_type, tmax_delta_t1, tmin_delta_t1, prec_delta_t1, tmax_delta_t2, tmin_delta_t2, prec_delta_t2, gis_acres])
 
-                tabular_data[feature_name]=data
+                tabular_data[feature_name] = data
 
-            tabularResultsJSON=json.dumps(tabular_data)
+            tabularResultsJSON = json.dumps(tabular_data)
 
             #If empty, resultsJSON is null and response is unsuccessfull, thus triggering the "No Features Selected" error.
             if tabular_data:
                 #Required in the front end.
-                resultsJSON=json.dumps({})
+                resultsJSON = json.dumps({})
 
-            columnChartColors=''
+            columnChartColors = ''
 
-            context={'initialize': 0,
-                 'WKT_SelectedPolys': spatial_filter_shape,
-                 'resultsJSON': resultsJSON,
-                 'categoricalValues': spatial_filter_name,
-                 'columnChartColors': columnChartColors,
-                 'config_file':config_file,
-                 'tabularResultsJSON': tabularResultsJSON,
-                 }
+            context = {
+                'initialize': 0,
+                'WKT_SelectedPolys': spatial_filter_shape,
+                'resultsJSON': resultsJSON,
+                'categoricalValues': spatial_filter_name,
+                'columnChartColors': columnChartColors,
+                'config_file':config_file,
+                'tabularResultsJSON': tabularResultsJSON,
+            }
 
             if request.method == 'POST':
                 return HttpResponse(json.dumps(context))
@@ -442,43 +446,43 @@ def view2(request):
 
             ####################################### GET LIST OF FIELD NAMES FOR STATS ##########################################
 
-            field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
+            field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
 
             #print field_name_query
             cursor.execute(field_name_query);
-            statsFieldsTuple=cursor.fetchone()
+            statsFieldsTuple = cursor.fetchone()
             statsFields = ",".join(statsFieldsTuple)
 
             ################################### BUILD SELECT LIST (FIELDS & TABLES) ########################################
-            selectList="SELECT "
+            selectList = "SELECT "
 
             #Area or line based selection, requiring Area Weighted Average
             for field in statsFields.split(','):
-                    selectList+= "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
-            selectList+="count(*) as count "
+                    selectList += "sum(" + field + " * shape_area)/sum(shape_area)" + " as " + field + "_" + "avg" + ","
+            selectList += "count(*) as count "
             #Aggregates. Count, Unique CSV from categorical fields, Outline of selected features.
             if categoricalFields:
-                selectList+=", string_agg(" + categoricalFields + ", ',') as categorical_values"
+                selectList += ", string_agg(" + categoricalFields + ", ',') as categorical_values"
             #Sum of the area of selected features for area weighted average. Maybe report later.
-            #selectList+="sum(shape_area) as sum_area, "
-            selectList+=", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features, ST_AsText(ST_Centroid(st_union(geom))) as centroid"
+            #selectList += "sum(shape_area) as sum_area, "
+            selectList += ", ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features, ST_AsText(ST_Centroid(st_union(geom))) as centroid"
 
-            tableList=" FROM " + table
+            tableList = " FROM " + table
 
             selectFieldsFromTable = selectList + tableList
 
             ############################ "WHERE" (ADD ASPATIAL SEARCH CONDITIONS) ##########################################
 
-            #queryField=request.GET.get('queryField')
-            #operator=request.GET.get('operator').strip()
-            #stringOrValue=request.GET.get('stringOrValue').lower().strip()
+            #queryField = request.GET.get('queryField')
+            #operator = request.GET.get('operator').strip()
+            #stringOrValue = request.GET.get('stringOrValue').lower().strip()
 
-            stringOrValue='WKT'
-            queryField='name'
-            operator='='
+            stringOrValue = 'WKT'
+            queryField = 'name'
+            operator = '='
 
             #WKT here is the protected area name.
-            selectStatement=selectFieldsFromTable + " where " + queryField + " " + operator + " '" + WKT + "'"
+            selectStatement = selectFieldsFromTable + " where " + queryField + " " + operator + " '" + WKT + "'"
 
             #print selectStatement
 
@@ -491,7 +495,7 @@ def view2(request):
 
             ################################# STORE COLUMN, VALUE PAIRS IN A DICT ##########################################
 
-            resultsDict={}
+            resultsDict = {}
 
             #Get field names
             columns = [colName[0] for colName in cursor.description]
@@ -509,24 +513,24 @@ def view2(request):
                 #return render(request, template+'.html')
 
 
-            spatial_filter_shape=resultsDict['outline_of_selected_features']
+            spatial_filter_shape = resultsDict['outline_of_selected_features']
 
             if categoricalFields:
-                categoricalValues=[]
+                categoricalValues = []
                 categoricalValues.extend(resultsDict['categorical_values'].split(','))
-                categoricalValues=list(set(categoricalValues))
+                categoricalValues = list(set(categoricalValues))
                 categoricalValues.sort()
             else:
-                categoricalValues=[' ']
+                categoricalValues = [' ']
 
             #Remove these from the Dictionary before dumping to a JSON object (causing error & no need to send twice).
-            resultsDict.pop('outline_of_selected_features',0)
-            resultsDict.pop('categorical_values',0)
+            resultsDict.pop('outline_of_selected_features', 0)
+            resultsDict.pop('categorical_values', 0)
 
-            count=int(resultsDict["count"])
+            count = int(resultsDict["count"])
 
             #Take fieldname,value pairs from the dict and dump to a JSON string.
-            resultsJSON=json.dumps(resultsDict)
+            resultsJSON = json.dumps(resultsDict)
             #return HttpResponse(str(resultsDict.keys())+ str(resultsDict.values()))
             #return HttpResponse(resultsDict['tm_c4_2_avg'])
             print resultsJSON
@@ -534,38 +538,39 @@ def view2(request):
 
             ##################################### SET ADDITIONAL VARIABLES #################################################
 
-            resultsDict["intactness_avg"]=0
-            resultsDict["hisensfz_avg"]=0
-            resultsDict["eecefzt1_avg"]=0
-            resultsDict["eecefzt2_avg"]=0
-            resultsDict["eepifzt1_avg"]=0
-            resultsDict["eepifzt2_avg"]=0
+            resultsDict["intactness_avg"] = 0
+            resultsDict["hisensfz_avg"] = 0
+            resultsDict["eecefzt1_avg"] = 0
+            resultsDict["eecefzt2_avg"] = 0
+            resultsDict["eepifzt1_avg"] = 0
+            resultsDict["eepifzt2_avg"] = 0
 
-            columnChartColors=6*"#444444,"
+            columnChartColors = 6*"#444444,"
 
             ########################################### RETURN RESULTS #####################################################
 
             try:
-                centroid="SRID=4326;" + resultsDict['centroid']
+                centroid = "SRID=4326;" + resultsDict['centroid']
             except:
-                centroid=0
+                centroid = 0
 
             if ecosystem_services_vtype_tables != "":
-                ecosystem_services_data=get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, 'aspatial')
+                ecosystem_services_data = get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, 'aspatial')
             else:
-                ecosystem_services_data=''
+                ecosystem_services_data = ''
 
-            context={'initialize': 0,
-                     'WKT_SelectedPolys': spatial_filter_shape,
-                     'count': count,
-                     'resultsJSON': resultsJSON,
-                     'categoricalValues': categoricalValues,
-                     'columnChartColors': columnChartColors,
-                     'error': 0,
-                     'config_file':config_file,
-                     'centroid': centroid,
-                     'ecosystem_services_data':ecosystem_services_data
-                     }
+            context = {
+                'initialize': 0,
+                'WKT_SelectedPolys': spatial_filter_shape,
+                'count': count,
+                'resultsJSON': resultsJSON,
+                'categoricalValues': categoricalValues,
+                'columnChartColors': columnChartColors,
+                'error': 0,
+                'config_file':config_file,
+                'centroid': centroid,
+                'ecosystem_services_data':ecosystem_services_data
+            }
 
         if request.method == 'POST':
             return HttpResponse(json.dumps(context))
@@ -595,14 +600,14 @@ def view3(request):
 
         WKT = "SRID=4326;" + request.POST.get('wktPOST').replace('%', ' ')
         ru_table = request.POST.get('reporting_units')
-        ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
-        ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
+        ecosystem_services_continuous_tables = request.POST.getlist('ecosystem_services_continuous_tables[]')
+        ecosystem_services_vtype_tables = request.POST.getlist('ecosystem_services_vtype_tables[]')
 
         print ecosystem_services_continuous_tables
 
         cursor = connection.cursor()
 
-        # Get reporting unit set id, eg counties with ID=1 (ru_set_id)
+        # Get reporting unit set id, eg counties with ID = 1 (ru_set_id)
         query = "SELECT id from reporting_unit_sets where name = '%s'" % ru_table
         cursor.execute(query)
         ru_set_id = cursor.fetchone()[0]
@@ -670,11 +675,11 @@ def view3(request):
 @csrf_exempt
 def downscale(request):
     userWKT = request.POST.get('input')
-    coords=re.findall("[-+]?\d+[\.]?\d*", userWKT)
+    coords = re.findall("[-+]?\d+[\.]?\d*", userWKT)
     #print coords
-    lon_target=float(coords[0])
-    lat_target=float(coords[1])
-    #lat_target=44.5608
+    lon_target = float(coords[0])
+    lat_target = float(coords[1])
+    #lat_target = 44.5608
     #lon_target-123.2614
     #=========================================================
     #             SET OPENDAP PATH
@@ -692,47 +697,47 @@ def downscale(request):
     #=========================================================
     #             GET DATA HANDLES
     #=========================================================
-    filehandle=netCDF4.Dataset(pathname,'r',format="NETCDF4")
+    filehandle = netCDF4.Dataset(pathname,'r',format = "NETCDF4")
 
-    lats=filehandle.variables['lat'][:]
-    lons=filehandle.variables['lon'][:]
-    days_since_19000101=filehandle.variables['time'][:]
-    #tmax=filehandle.variables['tasmax']
-    #precip=filehandle.variables['pr']
+    lats = filehandle.variables['lat'][:]
+    lons = filehandle.variables['lon'][:]
+    days_since_19000101 = filehandle.variables['time'][:]
+    #tmax = filehandle.variables['tasmax']
+    #precip = filehandle.variables['pr']
 
-    #tmax=filehandle.variables['tasmax']
-    #precip=filehandle.variables['pr']
+    #tmax = filehandle.variables['tasmax']
+    #precip = filehandle.variables['pr']
 
-    #tmax=filehandle.variables['tmp2m']
-    #precip=filehandle.variables['prate']
+    #tmax = filehandle.variables['tmp2m']
+    #precip = filehandle.variables['prate']
 
-    tmax=filehandle.variables['tmp2m_anom']
-    precip=filehandle.variables['prate_anom']
+    tmax = filehandle.variables['tmp2m_anom']
+    precip = filehandle.variables['prate_anom']
 
-    #days_since_19000101=filehandle.variables['day'][0:20]
-    #variable=filehandle.variables['daily_maximum_temperature'][0:20]
+    #days_since_19000101 = filehandle.variables['day'][0:20]
+    #variable = filehandle.variables['daily_maximum_temperature'][0:20]
 
     #Get the closest lat and lon value in the netCDF File
     lon_index = np.abs(lons - lon_target).argmin()
     lat_index = np.abs(lats - lat_target).argmin()
 
-    time_num=len(days_since_19000101)
-    time_index=range(0,time_num,1)
+    time_num = len(days_since_19000101)
+    time_index = range(0,time_num,1)
 
     #Get the formatted dates and the data as lists
-    #dates=[str(netCDF4.num2date(int(i),'days since 1900-01-01',calendar='standard').date()) for i in days_since_19000101]
+    #dates = [str(netCDF4.num2date(int(i),'days since 1900-01-01',calendar = 'standard').date()) for i in days_since_19000101]
     #Abbreviated Month Format
     #print days_since_19000101
-    dates=[str(netCDF4.num2date(int(i),'days since 1900-01-01',calendar='standard').date().strftime("%b")) for i in days_since_19000101]
-    tmax_data=tmax[lon_index,lat_index, time_index].tolist()
-    precip_data=precip[lon_index,lat_index, time_index].tolist()
+    dates = [str(netCDF4.num2date(int(i),'days since 1900-01-01',calendar = 'standard').date().strftime("%b")) for i in days_since_19000101]
+    tmax_data = tmax[lon_index,lat_index, time_index].tolist()
+    precip_data = precip[lon_index,lat_index, time_index].tolist()
     #Historical Order of variables
-    #data=variable[time_index,lon_index,lat_index].tolist()
-    rounded_tmax_data=[round(x,2) for x in tmax_data ]
-    rounded_precip_data=[round(x,2) for x in precip_data ]
+    #data = variable[time_index,lon_index,lat_index].tolist()
+    rounded_tmax_data = [round(x,2) for x in tmax_data ]
+    rounded_precip_data = [round(x,2) for x in precip_data ]
     #print rounded_precip_data
 
-    context={
+    context = {
         'dates': dates,
         'tmax_data': rounded_tmax_data,
         'precip_data': rounded_precip_data
@@ -748,56 +753,56 @@ def generate_eems_tree(request):
     #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
     from EEMSBasePackage import EEMSCmd, EEMSProgram
 
-    eems_file_name=request.POST.get("eems_file_name")
+    eems_file_name = request.POST.get("eems_file_name")
     print eems_file_name
-    top_node=request.POST.get("top_node")
+    top_node = request.POST.get("top_node")
 
-    #eems_file_directory="static/config/eems"
+    #eems_file_directory = "static/config/eems"
     #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicitly type the path.
-    eems_file_directory="/home/consbio/webapps/static_climate_console/config/eems"
+    eems_file_directory = "/home/consbio/webapps/static_climate_console/config/eems"
 
-    eems_file=eems_file_directory + "/command_files/" + eems_file_name
-    eems_alias_file=eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
+    eems_file = eems_file_directory + "/command_files/" + eems_file_name
+    eems_alias_file = eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
 
-    dataset=''
+    dataset = ''
 
     #Determine EEMS v1 or EEMS v2
     if os.path.isfile(eems_file):
         eems_file_handle= open(eems_file,"r")
         for line in eems_file_handle:
             if re.match(r'^[a-zA-Z0-9_ ]+:', line):
-                eems_version=1
-                #top_node=lastLine.split(':')[0]
+                eems_version = 1
+                #top_node = lastLine.split(':')[0]
                 break
 
             elif re.match(r'^[a-zA-Z0-9_ ]+\(', line):
-                eems_version=2
+                eems_version = 2
                 break
 
         global eems_version
 
-    aliases={}
+    aliases = {}
 
     #Get Aliases
     if os.path.isfile(eems_alias_file):
-        eems_alias_file_handle=open(eems_alias_file,"r")
+        eems_alias_file_handle = open(eems_alias_file,"r")
         for line in eems_alias_file_handle:
-           fieldname=line.split(":")[0]
-           alias=line.split(":")[1].strip()
+           fieldname = line.split(":")[0]
+           alias = line.split(":")[1].strip()
            #If the eems command file has an explicit layer order defined, Add it to the alias separated by a dash. The layer index is used to open the appropriate layer in Data Basin.
            try:
                line.split(":")[2]
-               alias+=":" + line.split(":")[2].strip()
+               alias += ":" + line.split(":")[2].strip()
            except:
                pass
-           if alias=='':
-               alias=fieldname
-           aliases[fieldname]=alias
+           if alias == '':
+               alias = fieldname
+           aliases[fieldname] = alias
 
         eems_alias_file_handle.close()
 
     #Alphabetical order. Perhaps use this as the basis for determining layer index
-    #aliases=OrderedDict(sorted(aliases.items(), key=lambda t: t[0]))
+    #aliases = OrderedDict(sorted(aliases.items(), key = lambda t: t[0]))
 
     class EEMSFileParser(object):
         """
@@ -812,11 +817,11 @@ def generate_eems_tree(request):
             self.dataset_model = dataset_model
             self.dataset_attributes = ''
             #self.dataset_attributes = DatasetAttribute.objects.filter(
-            #    dataset_id=self.dataset_model.dataset.id
+            #    dataset_id = self.dataset_model.dataset.id
             #)
             #self.attribute_map = dict(self.dataset_attributes.values_list('attribute', 'alias'))
 
-        def get_model(self, validate=True):
+        def get_model(self, validate = True):
             """
             Method for generating the JSON model used by the EEMS explorer. The format of this is an entry "nodes" that
             is a dictionary of the individual nodes within the model. Each node will be formatted as :
@@ -841,7 +846,7 @@ def generate_eems_tree(request):
 
             if self.dataset_model.dataset.mapservice.is_netcdf:
                 # Validate against dataset layers
-                layers_in_dataset = self.dataset_model.dataset.mapservice.datasetlayer_set.values_list('layer_id', flat=True)
+                layers_in_dataset = self.dataset_model.dataset.mapservice.datasetlayer_set.values_list('layer_id', flat = True)
                 layers_not_in_dataset = [layer for layer in attributes_in_model if layer not in layers_in_dataset]
 
                 if layers_not_in_dataset:
@@ -853,7 +858,7 @@ def generate_eems_tree(request):
 
             else:
                 # Validate against dataset attributes
-                attributes_in_dataset = self.dataset_attributes.values_list('attribute', flat=True)
+                attributes_in_dataset = self.dataset_attributes.values_list('attribute', flat = True)
                 attributes_not_in_dataset = [att for att in attributes_in_model if att not in attributes_in_dataset]
 
                 if attributes_not_in_dataset:
@@ -904,7 +909,7 @@ def generate_eems_tree(request):
             'UNION', 'WTDAND', 'WTDMEAN', 'WTDUNION', 'XOR'
         ]
 
-        def get_model(self, validate=True):
+        def get_model(self, validate = True):
             # This makes the JSON
             command_model = {'nodes': {}}
 
@@ -1001,7 +1006,7 @@ def generate_eems_tree(request):
             )
         """
 
-        def get_model(self, validate=True):
+        def get_model(self, validate = True):
             command_model = {'nodes': {}}
 
             program = EEMSProgram(self.uploaded_file)
@@ -1064,26 +1069,26 @@ def generate_eems_tree(request):
     #Get Original JSON from Mike's Parser
     if eems_version == 1:
 
-        eems_file_parser=EEMSOneFileParser(eems_file_handle,dataset)
-        JSON=eems_file_parser.get_model()
+        eems_file_parser = EEMSOneFileParser(eems_file_handle,dataset)
+        JSON = eems_file_parser.get_model()
 
     elif eems_version == 2:
 
-        eems_file_parser=EEMSTwoFileParser(eems_file,dataset)
-        JSON=eems_file_parser.get_model()
+        eems_file_parser = EEMSTwoFileParser(eems_file,dataset)
+        JSON = eems_file_parser.get_model()
         #get rid of "Nodes"
         for k,v in JSON.iteritems():
-            JSON=v
+            JSON = v
 
     #Create new restructured JSON (JSON2) compatible with JIT, separate innto data key and children key
-    JSON2={}
+    JSON2 = {}
 
     for key,value in JSON.iteritems():
-        JSON2[key]={}
-        JSON2[key]['data']={}
+        JSON2[key] = {}
+        JSON2[key]['data'] = {}
         for sub_key,value in value.iteritems():
             if sub_key == 'children':
-                JSON2[key][sub_key]=value
+                JSON2[key][sub_key] = value
             else:
                 JSON2[key]['data'].update(JSON[key])
 
@@ -1094,27 +1099,27 @@ def generate_eems_tree(request):
         JSON2.pop('nodes')
 
     #for making the aliases file
-    SortedJSON2=OrderedDict(sorted(JSON2.items(), key=lambda t: t[0]))
-    count=0
+    SortedJSON2 = OrderedDict(sorted(JSON2.items(), key = lambda t: t[0]))
+    count = 0
     for k,v in SortedJSON2.iteritems():
         print k + ":" + k+":"+str(count)
-        count+=1
+        count += 1
 
     #Expand the pointers to children for each key
     #each variable become it's own key containing a completed dictinonary of all its children
     def expandChildren(JSON2):
         for k, v in JSON2.iteritems():
-            JSON2[k]['name']=k
-            JSON2[k]['id']=k
-            child_list=[]
+            JSON2[k]['name'] = k
+            JSON2[k]['id'] = k
+            child_list = []
             if isinstance(v, dict) and JSON2[k].has_key('children'):
               for child in JSON2[k]['children']:
                   child_list.append(child)
               JSON2[k].pop('children')
-              JSON2[k]['children']=[]
+              JSON2[k]['children'] = []
               JSON2[k]['children'].append({})
               for child in child_list:
-                  JSON2[k]['children'][0][child]=JSON2[child]
+                  JSON2[k]['children'][0][child] = JSON2[child]
             else:
               pass
         return JSON2
@@ -1122,42 +1127,42 @@ def generate_eems_tree(request):
     #Print the JSON Tree
     def createFinalJSONString(d):
         global eems_tree
-        eems_tree+='"id": ' + "'" + d['id'] + "',"
+        eems_tree += '"id": ' + "'" + d['id'] + "',"
         if d['name'] in aliases:
-           alias=aliases[d['name']]
+           alias = aliases[d['name']]
         else:
            alias = d['name']
-        eems_tree+='"name": ' + "'" + alias + "',"
-        eems_tree+='"data": '
-        eems_tree+=json.dumps(d['data'])
+        eems_tree += '"name": ' + "'" + alias + "',"
+        eems_tree += '"data": '
+        eems_tree += json.dumps(d['data'])
         eems_tree+=(",")
         if d.has_key('children'):
-            eems_tree+='"children": ['
+            eems_tree += '"children": ['
             for k,v in d['children'][0].iteritems():
-                eems_tree+="{"
+                eems_tree += "{"
                 createFinalJSONString(v)
-            eems_tree+="]},"
+            eems_tree += "]},"
         else:
-            eems_tree+="},"
+            eems_tree += "},"
 
-    expandedJSON=expandChildren(JSON2)
+    expandedJSON = expandChildren(JSON2)
 
     global eems_tree
     eems_tree = '{'
 
     createFinalJSONString(expandedJSON[top_node])
-    #print json.dumps(JSON2, indent=4, sort_keys=True)
+    #print json.dumps(JSON2, indent = 4, sort_keys = True)
 
-    eems_tree_dict=ast.literal_eval(eems_tree.rstrip(","))
+    eems_tree_dict = ast.literal_eval(eems_tree.rstrip(","))
 
     eems_file_handle.close()
 
     # To write json tree to file
-    #eems_json_file=open("F:/Projects2/EEMS_Online/json_models/" + top_node +".json",'w')
-    #eems_json_file.write(json.dumps(eems_tree_dict, indent=4, sort_keys=True))
+    #eems_json_file = open("F:/Projects2/EEMS_Online/json_models/" + top_node +".json",'w')
+    #eems_json_file.write(json.dumps(eems_tree_dict, indent = 4, sort_keys = True))
     #eems_json_file.close()
 
-    context={
+    context = {
         'eems_tree_dict': eems_tree_dict,
         'top_node': top_node
     }
@@ -1167,31 +1172,31 @@ def generate_eems_tree(request):
 def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_aspatial):
     #VTYPE
     cursor = connection.cursor()
-    #vtype_tables=['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
-    field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
-    resultsDictMultiTable={}
-    resultsDictMultiTable["vegetation_composition"]={}
+    #vtype_tables = ['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
+    field_exclusions = "'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
+    resultsDictMultiTable = {}
+    resultsDictMultiTable["vegetation_composition"] = {}
     for vtype_table in vtype_tables:
-        field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+        field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
         #print field_name_query
         cursor.execute(field_name_query)
-        statsFieldsTuple=cursor.fetchone()
+        statsFieldsTuple = cursor.fetchone()
         statsFields = ",".join(statsFieldsTuple)
         cursor = connection.cursor()
-        selectList="SELECT "
+        selectList = "SELECT "
         for field in statsFields.split(','):
-            selectList+=field + " as " + field +", "
+            selectList += field + " as " + field +", "
         #Extra comma
-        selectList=selectList.rstrip(', ')
-        vtype_tableList=" FROM " + vtype_table
+        selectList = selectList.rstrip(', ')
+        vtype_tableList = " FROM " + vtype_table
         selectFieldsFromTable = selectList + vtype_tableList
         if spatial_or_aspatial == 'spatial':
-            selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
+            selectStatement = selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
         else:
-            selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
+            selectStatement = selectFieldsFromTable + " where name = '" + WKT + "'"
         #print selectStatement
         cursor.execute(selectStatement)
-        resultsDict={}
+        resultsDict = {}
         #Get field names
         columns = [colName[0] for colName in cursor.description]
         try:
@@ -1208,37 +1213,37 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
         if resultsDict:
             print "resultsDict"
             print resultsDict
-            resultsDictMultiTable["vegetation_composition"][vtype_table]=resultsDict
+            resultsDictMultiTable["vegetation_composition"][vtype_table] = resultsDict
 
     #Continuous7
-    #continuous_tables=['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
-    field_exclusions="'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
-    resultsDictMultiTable["continuous7"]={}
+    #continuous_tables = ['ca_reporting_units_huc5_watersheds_es_decadal_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_hadgem2es' ]
+    field_exclusions = "'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
+    resultsDictMultiTable["continuous7"] = {}
     if continuous_tables:
         try:
             for continuous_table in continuous_tables:
-                field_name_query="SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
+                field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + continuous_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
                 #print field_name_query
                 cursor.execute(field_name_query)
-                statsFieldsTuple=cursor.fetchone()
+                statsFieldsTuple = cursor.fetchone()
                 if not all(statsFieldsTuple):
                     print "Missing data fields in " + continuous_table
                 statsFields = ",".join(statsFieldsTuple)
                 cursor = connection.cursor()
-                selectList="SELECT "
+                selectList = "SELECT "
                 for field in statsFields.split(','):
-                    selectList+=field + " as " + field +", "
+                    selectList += field + " as " + field +", "
                 #Extra comma
-                selectList=selectList.rstrip(', ')
-                continuous_tableList=" FROM " + continuous_table
+                selectList = selectList.rstrip(', ')
+                continuous_tableList = " FROM " + continuous_table
                 selectFieldsFromTable = selectList + continuous_tableList
                 if spatial_or_aspatial == 'spatial':
-                    selectStatement=selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
+                    selectStatement = selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
                 else:
-                    selectStatement=selectFieldsFromTable + " where name = '" + WKT + "'"
+                    selectStatement = selectFieldsFromTable + " where name = '" + WKT + "'"
                 #print selectStatement
                 cursor.execute(selectStatement)
-                resultsDict={}
+                resultsDict = {}
                 #Get field names
                 columns = [colName[0] for colName in cursor.description]
                 try:
@@ -1252,13 +1257,13 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
                     print "Error: No features selected"
                     raise SystemExit(0)
 
-                resultsDictMultiTable["continuous7"][continuous_table]=resultsDict
+                resultsDictMultiTable["continuous7"][continuous_table] = resultsDict
         except:
             print "No continuous MC2 data"
 
     #print resultsDictMultiTable["continuous7"]
     #Take fieldname,value pairs from the dict and dump to a JSON string.
-    veg_composition_data=json.dumps(resultsDictMultiTable)
+    veg_composition_data = json.dumps(resultsDictMultiTable)
 
     return veg_composition_data
 
