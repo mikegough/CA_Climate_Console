@@ -1565,7 +1565,6 @@ function activateMapForEcosystemServices(){
 $.each($("#leaflet-control-layers-group-2").find("label"), function(index,value){
 
     var wmsLayerName = $(this).text().trim()
-    console.log(wmsLayerName)
     if (typeof wmsLayers[wmsLayerName][5] != "undefined"){
             $(this).append(" <img class='reference_layer_help_icon' title='" + wmsLayers[wmsLayerName][5] + "' src='" + static_url + "img/help2.png'>")
         }
