@@ -1124,8 +1124,7 @@ $('#cbp-spmenu-s3').html("\
 			<a href='/sagebrush'>Sagebrush Climate Console</a>\
             <a href='http://climate.calcommons.org/' target='_blank'>Climate Commons</a>\
             <a href=''> &nbsp</a>\
-            \
-			<a href='/'>Sagebrush Climate Console</a>\
+			<a href='/sagebrush'>Sagebrush Climate Console</a>\
             <a href='http://climate.calcommons.org/' target='_blank'>Climate Commons</a>\
             <a href=''> &nbsp</a>\
     "
