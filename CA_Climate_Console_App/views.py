@@ -31,73 +31,72 @@ def index(request):
         return view1(request)
 
 def view1(request):
-    print ("view1")
     studyarea = request.resolver_match.url_name
-    template=request.GET.get('template','template1')
+    template = request.GET.get('template', 'template1')
 
     #################### REQUEST TYPE (POST through App OR (GET Through external OR initialize) ########################
 
     if request.method == 'POST':
         WKT = request.POST.get('wktPOST')
-        table=request.POST.get('reporting_units')
-        categoricalFields=request.POST.get('name_field')
-        ecosystem_services_continuous_tables=request.POST.getlist('ecosystem_services_continuous_tables[]')
-        ecosystem_services_vtype_tables=request.POST.getlist('ecosystem_services_vtype_tables[]')
+        table = request.POST.get('reporting_units')
+        categoricalFields = request.POST.get('name_field')
+        ecosystem_services_continuous_tables = request.POST.getlist('ecosystem_services_continuous_tables[]')
+        ecosystem_services_vtype_tables = request.POST.getlist('ecosystem_services_vtype_tables[]')
 
     else:
-        WKT=request.GET.get('user_wkt')
-        table=request.GET.get('reporting_units')
-        categoricalFields=request.GET.get('name_field')
+        WKT = request.GET.get('user_wkt')
+        table = request.GET.get('reporting_units')
+        categoricalFields = request.GET.get('name_field')
         #Near-term weather forecast data retrieved from NOAA through Cronjob.
 
     ############################################# INPUT PARAMETERS #####################################################
 
-    stats_field_exclusions="'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
+    stats_field_exclusions = "'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
-    if studyarea=='drecp':
-
-        if table == None:
-            table="drecp_reporting_units_county_boundaries_no_simplify"
-            categoricalFields="name_pcase"
-
-        template='drecp'
-        config_file="config_drecp.js"
-
-    elif studyarea=='ca':
+    if studyarea == 'drecp':
 
         if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
+            table = "drecp_reporting_units_county_boundaries_no_simplify"
+            categoricalFields = "name_pcase"
+
+        template = 'drecp'
+        config_file = "config_drecp.js"
+
+    elif studyarea == 'ca':
+
+        if table == None:
+            table = "ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields = "name"
+
+        template = 'ca'
+        config_file = "config_ca.js"
+
+    elif studyarea == 'multi-lcc':
+
+        if table == None:
+            table = "multi_lcc_reporting_units_llc_boundaries_1_simplify"
+            categoricalFields = "name"
+
+        template = 'multi-lcc'
+        config_file = "config_multi-lcc.js"
+
+    elif studyarea == 'sagebrush':
+
+        if table == None:
+            table = "ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields = "name"
+
+        template = 'sagebrush'
+        config_file = "config_sagebrush.js"
+
+    elif studyarea == 'utah':
+
+        if table == None:
+            table = "utah_cop_reporting_units_blm_admin_units_1_5_simplify"
             categoricalFields="name"
 
-        template='ca'
-        config_file="config_ca.js"
-
-    elif studyarea=='multi-lcc':
-
-        if table == None:
-            table="multi_lcc_reporting_units_llc_boundaries_1_simplify"
-            categoricalFields="name"
-
-        template='multi-lcc'
-        config_file="config_multi-lcc.js"
-
-    elif studyarea=='sagebrush':
-
-        if table == None:
-            table="ca_reporting_units_county_boundaries_5_simplify"
-            categoricalFields="name"
-
-        template='sagebrush'
-        config_file="config_sagebrush.js"
-
-    elif studyarea=='utah':
-
-        if table == None:
-            table="utah_cop_reporting_units_blm_admin_units_1_5_simplify"
-            categoricalFields="name"
-
-        template='utah'
-        config_file="config_utah.js"
+        template = 'utah'
+        config_file = "config_utah.js"
 
     elif studyarea=='conus':
 
@@ -105,8 +104,8 @@ def view1(request):
             table="ca_reporting_units_county_boundaries_5_simplify"
             categoricalFields="name"
 
-        template='conus'
-        config_file="config_conus.js"
+        template = 'conus'
+        config_file = "config_conus.js"
 
     elif studyarea=='dev':
 
