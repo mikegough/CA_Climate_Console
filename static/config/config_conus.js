@@ -1,6 +1,6 @@
 title="CONUS";
 subTitle="Climate Projections for the Continental United States";
-//studyAreaBoundary="CA_Boundary_5_simplify.json";
+studyAreaBoundary="";
 initialLat=35.496456056584165;
 initialLon=-105.0732421875;
 initialDownscaleMarkerLat=35.28;
