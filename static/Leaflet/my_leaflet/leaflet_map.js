@@ -469,14 +469,12 @@ if (typeof studyAreaBoundary != "undefined") {
         },
         "": {
 
-            //"Selected Features": results_poly,
             "Study Area Boundary": study_area_boundary,
-            //"Study Area Boundary": study_area_boundary.addTo(map),
         },
         "Reference Layers": {
         }
     };
-}else {
+} else {
     var groupedOverlays = {
         "Base Maps": {
             'Light Gray Base': lightGray,
@@ -558,8 +556,8 @@ if (typeof initialWMSLayer != "undefined") {
 map.on('baselayerchange', function (event) {
     activeReportingUnits = event.layer;
     activeReportingUnitsName = event.layer.options.name;
-    reporting_units=event.layer.options.dbtable;
-    name_field=event.layer.options.dbnamefield;
+    reporting_units = event.layer.options.dbtable;
+    name_field = event.layer.options.dbnamefield;
     if (event.name == "User Defined (1km)" ) {
         reporting_units=reportingUnits["User Defined (1km)"][0]; map.addLayer(study_area_boundary)
     }
@@ -584,8 +582,8 @@ if (typeof ecosystemServicesParams == "undefined"){
 function create_post(newWKT) {
     initialize=0
 
-    var continuousTablesList=[]
-    var vtypeTablesList=[]
+    var continuousTablesList=[];
+    var vtypeTablesList=[];
 
     if (typeof ecosystemServicesParams[activeReportingUnitsName] != "undefined") {
         $.each(ecosystemServicesParams[activeReportingUnitsName]["continuousTables"], function (key, value) {
