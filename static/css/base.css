@@ -1076,6 +1076,11 @@ tr.active td {
     margin-right: 25px !important;
 }
 
+#DataDownloadsHeader{
+	margin-left: 25px !important;
+	margin-right: 25px !important;
+}
+
 #sources {
     font-size:10px;
 }
@@ -2015,6 +2020,65 @@ div#pop-up2 {
 	display: inline-block;
 }
 
+#view7_contents {
+	position: relative;
+	margin: 25px 25px 25px 25px;
+	width: 429px;
+}
+
+#data_download_table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#data_download_table th {
+	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
+	font-size: 15px;
+	color: #FFE370;
+	font-weight: normal;
+	text-align: left;
+    border: solid #C2C2C2 1px !important;
+	padding: 5px;
+	background-color: #4F6375;
+}
+
+#data_download_Table td {
+	border: solid #C2C2C2 1px !important;
+	cursor: default;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	color: #606060;
+	font-size: .9em;
+}
+
+#data_download_Table td:last-child {
+    text-align:center;
+}
+
+#data_download_Table td:nth-child(4) {
+    text-align:center;
+}
+
+.info3_icon{
+    cursor:pointer;
+    height:22px;
+}
+
+.download_icon{
+    height:50px;
+}
+
+.metadata_div{
+    height:85% !important;
+}
+
+.save_as_pdf_button{
+	cursor: pointer;
+	float: right;
+}
+
 #spline_variable_dropdown {
 	white-space: nowrap;
 	width: 445px;
@@ -2212,6 +2276,10 @@ div#pop-up2 {
 .reference_layer_help_icon{
     height: 13px;
     cursor: help;
+}
+
+.ui-dialog {
+    background:white;
 }
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */

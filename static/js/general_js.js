@@ -197,6 +197,49 @@
 
      });
 
+    // Metadata Download
+     $(".info3_icon").on("click", function(){
+
+         var opt = {
+            autoOpen: false,
+            modal: true,
+            title: "Climate Console Data Download Information"
+        };
+
+         var this_info_button_id = this.id;
+         var this_content_id = this.id + "_content";
+         var this_title = this.title;
+         var pdf_button_id = this.id + "_pdf";
+
+         $("#"+ this_content_id).remove();
+
+         // Get the associated metadata file and load it into a div.
+         $.get(static_url + "data/metadata/" + this_info_button_id + ".html", function(data) {
+             // Needed to wrap button in a div with an id, in order to hide the button in the pdf.
+             var pdf_button = "<div id='pdf_button_container'><button id='" + pdf_button_id + "' class='save_as_pdf_button'>Save as PDF</button></div>";
+             $("<div id='" + this_content_id + "' class='metadata_div'/>").html(pdf_button + data).dialog(opt).dialog("open");
+         }).done(function(){
+             var doc = new jsPDF();
+             // After the file has been loaded, add PDF creation action to button. // specialElementHandlers is used to Ignore the save as pdf button
+             var specialElementHandlers = {
+                 '#pdf_button_container': function (element, renderer) {
+                     return true;
+                 }
+             };
+
+             $('#'+ pdf_button_id).on("click", function () {
+                 var content = $("#" + this_content_id).html();
+                 doc.fromHTML(content, 15, 15, {
+                     'width': 170,
+                     'elementHandlers': specialElementHandlers
+                 });
+                 doc.save(this_title);
+             });
+
+         });
+     });
+
+
 });
 
 /************************************************ TABLE TAB FUNCTIONS *************************************************/
