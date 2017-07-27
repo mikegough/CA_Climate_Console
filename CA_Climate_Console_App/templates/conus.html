@@ -138,7 +138,6 @@
     var model_code_dropdown = "me";
 
     $('select').selectBoxIt({ autoWidth: false });
-
 </script>
 
 <style>
@@ -294,34 +293,11 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 </div>
 
 <div id="header">
-    <!--
-    <div style="float:left;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/forest_header.png"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/tryptic.png"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/bald_eagle.png"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/ocean_l.png"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/basin_l.jpg"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/rainbow_l.jpg"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/basin_l.jpg"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/sunrise_l.jpg"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/skyline_l.png"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/utah_l.jpg"></div>
-    <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/sunrise_l.jpg"></div>
-    -->
     <div style="float:right;z-index:2"><img id="leftImage" src="{{STATIC_URL}}img/yellowstone_l.jpg"></div>
 
     <div id="title"><script>document.write(title)</script><span id="title2"> Climate Console</span><br>
       <span id="sub_title"><script>document.write(subTitle)</script></span>
     </div>
-    <!--
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/basin_r.jpg"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/forest.jpg"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/rainbow_r.jpg"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/rainbow2_r.jpg"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/basin_r.jpg"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/mcdonald_r.jpg"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/skyline_r.png"></div>
-    <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/bison_r.jpg"></div>
-    -->
     <div style="float:right;z-index:2"><img id="rightImage" src="{{STATIC_URL}}img/utah_r.jpg"></div>
 </div>
 
@@ -386,7 +362,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
             <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
             <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
             <!-- <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
-            <!-- <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();preLoadOverlay(vtype_images)">Climate Impacts</a></li> -->
             <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices()">Climate Impacts</a></li>
             <li><a href="#view7">Data Downloads</a></li>
             <!--<li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">About</a></li>-->
@@ -492,7 +467,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 document.getElementById('tab_container').style.display="none";
                             }
                         </script>
-
 
                         <div id="point_chart"></div>
 
@@ -616,31 +590,28 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 
             <div id="view3" class="views">
 
-                    <h3>Overview:</h3>
+               <h3>Overview:</h3>
 
-                    The Climate Console is a web mapping application designed for exploring climate projections and simulated impacts for a specified area of interest.
+                The Climate Console is a web mapping application designed for exploring climate projections and simulated impacts for a specified area of interest.
+                <p>
+
+                <h3>Instructions for Use: </h3>
+
+               <ol>
+                    <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
                     <p>
-
-                    <h3>Instructions for Use: </h3>
-
-                   <ol>
-                        <li>Select a reporting units layer <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start()" src="{{STATIC_URL}}img/info.png"> from the list provided in the upper left hand side of the map. Selecting "<i>User Defined (1km)</i>" will allow you to define an arbitrary area based on a 1km grid.</li>
-                        <p>
-                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
-                        <p>
-                        <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png"></li>
-                       <p>
-                       <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
-                       <p>
-                        <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
-                       <p>
-                        <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
-                       <p>
-                        <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. Click the point again to remove the dataset from the map.</li>
-                       <!--
-                        <li>Click the "variability" link in the point chart description to view box plots of the data.
-                        -->
-                    </ol>
+                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:160px" src="{{STATIC_URL}}img/layers.png"></div>
+                    <p>
+                    <li>Select a feature or set of features using the selection tools provided, or simply click on a feature of interest <img onmouseover="$('#view1Link').click(); gettingStartedIntro.start().goToStep(2)" src="{{STATIC_URL}}img/info.png"></li>
+                   <p>
+                   <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:200px" src="{{STATIC_URL}}img/map_click2.png"></div>
+                   <p>
+                    <li>The area weighted averages for the climate variables and EEMS model outputs for the selected area will appear in the charts on the right hand side of the screen. You can choose to plot a different climate variable by selecting the variable from the dropdown menu.</li>
+                   <p>
+                    <div style="margin-left:auto;margin-right:auto;text-align:center"><img style="width:240px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+                   <p>
+                    <li>Click a data point on the chart to display the corresponding dataset used to generate the plotted value. Click the point again to remove the dataset from the map.</li>
+                </ol>
 
                 <h3>Instructional Video:</h3>
 
@@ -648,16 +619,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <div class="youTubeDiv">
                     <img class="button_movie_intro" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
-                <!--
-                <h3>Interpreting the Box Plots: </h3>
-                <br>
-                <img style="margin-left:20px" src="{{STATIC_URL}}img/boxPlot.png">
-                <div class="footnote">
-                <sup>1</sup>The upper quartile (Q3) represents the middle value between the maximum and the median. 75% of the data fall below this line. 25% of the data fall above it.
-                <p>
-                <sup>2</sup>The lower quartile (Q1) represents the middle value between the minimum and the median. 75% of the data fall above this line. 25% of the data fall below it.
-                </div>
-                -->
                 <h3 id="aboutClimateData">Climate: </h3>
                 Climate refers to the statistical properties of weather over periods ranging from months to decades or more, and includes average conditions, and the range of variability, as well as the frequency of extreme events (definition borrowed from <a href="http://pics.uvic.ca/">Pacific Institute for Climate Solutions</a>).
                 <p>
@@ -891,35 +852,16 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <p/>
                 Barnston, A.G., He Y., Unger D. (2000) A forecast product that maximizes utility for state of the art seasonal climate prediction. Bull. Amer. Meteor. Soc. 81:1271-1279.
                 <p/>
-                <!--
-                Bi, D., Dix, M., Marsland, S.J., Siobhan O’Farrell, S., Rashid, H,, Uotila, P. et al. (2011). ACCESS: The Australian Coupled Climate Model for IPCC AR5 and CMIP5. Extended Abstracts, 18th Annual AMOS National Conf., Sydney, Australia, Australian Meteorological and Oceanographic Society, 123.
-                <p/>
-                Collins, W.J., Bellouin, N., Doutriaux-Boucher, M., Gedney, N., Halloran, P., Hinton, T. et al. (2011). Development and evaluation of an Earth-System model – HadGEM2. Geosci. Model Dev., 4, 1051-1075.
-                -->
                 <p/>
                 Daly, C., Halbleib, M., Smith, J.I., Gibson, W.P., Doggett, M.K., Taylor, G.H. et al. (2008). Physiographically sensitive mapping of climatological temperature and precipitation across the conterminous United States. Int J Climatol, 28, 2031-2064.
                 <p/>
                 Daly, C., R.P. Neilson, and D.L. Phillips. 1994. A statistical-topographic model for mapping climatological precipitation over mountainous terrain. J. Appl. Meteor., 33, 140-158.
                 <p/>
-                <!--
-                Donner, L.J., Wyman, B.L., Hemler, R.S., Horowitz, L.W., Ming, Y., Zhao, M. et al. (2011). The Dynamical Core, Physical Parameterizations, and Basic Simulation Characteristics of the Atmospheric Component AM3 of the GFDL Global Coupled Model CM3. J. Clim., 24, 3484-3519.
-                -->
                 <p/>
                 ESRI (2014). ArcGIS Desktop: Release 10. Available at: <a href="http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html" target="_blank">http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html</a> - /ESRI_ASCII_raster_format/009t0000000z000000/ Last accessed 3/25/15 2015.
                 <p/>
                 Feng, S. & Fu, Q. (2013). Expansion of global drylands under a warming climate. Atmos. Chem. Phys. Discuss., 13, 14637-14665.
                 <p/>
-                <!--
-                Gent, P.R., Danabasoglu, G., Donner, L.J., Holland, M.M., Hunke, E.C., Jayne, S.R. et al. (2011). The Community Climate System Model Version 4. J. Clim., 24, 4973-4991.
-                <p/>
-                GRASS (2015). Geographic Resources Analysis Support System (GRASS) Software. Open Source Geospatial Foundation.
-                <p/>
-                Hargreaves, G.H. & Allen, R.G. (2003). History and Evaluation of Hargreaves Evapotranspiration Equation. Journal of Irrigation and Drainage Engineering, 129, 53-63.
-                <p/>
-                Hickey, R. (2000). Slope angle and slope length solutions for GIS. Cartography, 29, 1-8.
-                <p/>
-                Maurer, E.P. & Hidalgo, H.G. (2008). Utility of daily vs. monthly large-scale climate data: an intercomparison of two statistical downscaling methods. Hydrol. Earth Syst. Sci., 12, 551-563.
-                -->
                 <p/>
                 Lawrence MG 2005. The Relationship between Relative Humidity and the Dewpoint Temperature in Moist Air: A Simple Conversion and Applications. Bulletin of the American Meteorological Society, 86 225-233.
                 <p/>
@@ -928,12 +870,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 Meinshausen, M., Smith, S.J., Calvin, K., Daniel, J.S., Kainuma, M.L.T., Lamarque, J.F. et al. (2011). The RCP greenhouse gas concentrations and their extensions from 1765 to 2300. Clim Change, 109, 213-241.
                 <p/>
                 Miller, D.A. & White, R.A. (1998). A conterminous United States multi-layer soil characteristic dataset for regional climate and hydrology modeling. Earth Interac, 2, 1-26.
-                <!--
-                NCL (2014). The NCAR Command Language UCAR/NCAR/CISL/VETS Boulder, CO.
-                -->
-                <!--
-                O'Daly, W., Keeley, F. & Woled, J. (2015). Perspectives and Guidance for Climate Change Analysis. California Department of Water Resources and Climate Change Technical Advisory Group, p. 142. Available at: <a href="http://www.water.ca.gov/climatechange/docs/2015/Perspectives_Guidance_Climate_Change_Analysis.pdf" target="_blank">http://www.water.ca.gov/climatechange/docs/2015/Perspectives_Guidance_Climate_Change_Analysis.pdf</a>.
-                -->
                 <p/>
                 Penman, H.L. 1948. Natural evaporation from open water, bare soil and grass. Proceedings of the Royal Society of London, A193: 120-146.
                 <p/>
@@ -941,32 +877,14 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <p/>
                 Scoccimarro, E., Gualdi, S., Bellucci, A., Sanna, A., Fogli, P.G., Manzini, E. et al. (2011). Effects of Tropical Cyclones on Ocean Heat Transport in a High-Resolution Coupled General Circulation Model. J. Clim., 24, 4368-4384.
                 <p/>
-                <!--
-                Soil Survey Staff (2015). State Soil Geographic (STATSGO) Database. Natural Resources Conservation Service, United States Department of Agriculture. Available at:http://www.ncgc.nrcs.usda.gov/products/datasets/statsgo/index.html2015.
-                -->
-                <p/>
                 Stocker, T. F., D. Qin, G. K. Plattner, M. Tignor, S. K. Allen, J. Boschung, A. Nauels, Y. Xia, V. Bex, and P. M. Midgley. (2013) Climate change 2013: The physical science basis. Intergovernmental panel on climate change, working group I contribution to the IPCC fifth assessment report (AR5). (<a href="http://www.epa-pictaural.com/ctr/m/cc/transcript/stocker.pdf" target="_blank">http://www.epa-pictaural.com/ctr/m/cc/transcript/stocker.pdf</a>)
                 <p/>
-                <!--
-                Šúri, M. & Hofierka, J. (2004). A New GIS-based Solar Radiation Model and Its Application to Photovoltaic Assessments. Transactions in GIS, 8, 175-190.
-                -->
-                <p/>
                 Taylor, K.E., Stouffer, R.J. & Meehl, G.A. (2012). An Overview of CMIP5 and the Experiment Design. Bulletin of the American Meteorological Society, 93, 485-498.
-                <p/>
-                <!--
-                Thrasher, B., Xiong, J., Wang, W., Melton, F., Michaelis, A. & Nemani, R. (2013). Downscaled Climate Projections Suitable for Resource Management. Eos, Transactions American Geophysical Union, 94, 321-323.
-                -->
                 <p/>
                 UNIDATA (2015). Network Common Data Form (NetCDF). Available at: <a href="http://www.unidata.ucar.edu/software/netcdf/" target="_blank">http://www.unidata.ucar.edu/software/netcdf/</a> Last accessed 3/25/15.
                 <p/>
                 Van Vuuren, D.P., Edmonds, J., Kainuma, M., Riahi, K., Thomson, A., Hibbard, K., Hurtt, G.C., Kram, T., Krey, V., Lamarque, J.F. and T. Masui. (2011) The representative concentration pathways: an overview. Climatic change, 109: 5-31.
                 <p/>
-                <!--
-                Voldoire, A., Sanchez-Gomez, E., Salas y Mélia, D., Decharme, B., Cassou, C., Sénési, S. et al. (2012). The CNRM-CM5.1 global climate model: description and basic evaluation. Clim Dynam, 40, 2091-2121.
-                <p/>
-                Watanabe, M., Suzuki, T., O’ishi, R., Komuro, Y., Watanabe, S., Emori, S. et al. (2010). Improved Climate Simulation by MIROC5: Mean States, Variability, and Climate Sensitivity. J. Clim., 23, 6312-6335.
-                <p/>
-                -->
                 Wischmeier, W.H. & Smith, D.D. (1978). Predicting rainfall erosion losses - A guide to conservation planning, United States Department of Agriculture, Science and Education Administration. No. 537. p. 85.
                 <p/>
                 <div style="height:800px"></div>
@@ -983,7 +901,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                     <a href="#" id="stop" title="Click to stop"><button id="stopDiv"></button></a>
 
                     <br>
-
                     <!-- Radio buttons generated dynamically based on dates in the text file -->
                     <form class="nearTermClimateForm" > </form>
 
@@ -1042,7 +959,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 
                 </script>
 
-                <div style="height:20px; float:left;position:relative;left:10px;top:0px;font-size:.8em">*Historical Period: 1971-2000</a></div>
+                <div style="height:20px; float:left;position:relative;left:10px;top:0px;font-size:.8em">*Historical Period: 1971-2000</div>
                 <div style="height:20px; float:right;position:relative;right:10px;top:0px;font-size:.8em"><a id="weatherInfoLink" href="" title="Click for information about the weather data">About the weather data</a></div>
 
                 <br>
@@ -1063,10 +980,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 </div>
                 <span class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
                 <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
-
-                <!--
-                <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Logic Model Results</span></div>
-                -->
                 <div id="column_chart"></div>
                 <div id="container">
                     <div id="log">
