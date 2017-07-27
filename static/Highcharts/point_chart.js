@@ -252,7 +252,7 @@ function createChart(climateVariable, statistic, season) {
                         /* Check for the model dropdown. If it exists, change the model dropdown when a user clicks on a point. Which also triggers a change in the image overlay and the quick view table. */
                         if ($("#model_selection_form").length) {
                             activeTimePeriod = this.index;
-                            // This fixes the issue when a dropdown change triggers another dropdown change (e.g., Arididty only has Change).
+                            // This fixes the issue when a dropdown change triggers another dropdown change (e.g., Aridity only has Change).
                             last_pngCode = "";
                             if (this.series.index != 0) {
                                 $('#model_selection_form').val(this.series.index).change();
@@ -339,7 +339,7 @@ function updateData(climateVariable, statistic, season, model_index) {
     }
 
     //Force statistic type for certain climate variables.
-    if (climateVariable=='pet') {
+    if (climateVariable=='pet' || climateVariable=='vpr') {
         statistic='avg'
     }
     else if (climateVariable=='arid') {

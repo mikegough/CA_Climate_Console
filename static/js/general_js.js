@@ -730,7 +730,7 @@ $(document).ready(function() {
          $(".avg,.children").hide();
          $(".anom,.children").hide();
         }
-        else if (selectedVal == "pet")
+        else if (selectedVal == "pet" || selectedVal == "vpr")
         {
          $('#statistic_selection_form').val('avg').change();
          //$("select#statistic_selection_form").prop("selectedIndex",0);
