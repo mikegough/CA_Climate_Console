@@ -219,7 +219,8 @@
              var pdf_button = "<div id='pdf_button_container'><button id='" + pdf_button_id + "' class='save_as_pdf_button'>Save as PDF</button></div>";
              $("<div id='" + this_content_id + "' class='metadata_div'/>").html(pdf_button + data).dialog(opt).dialog("open");
          }).done(function(){
-             var doc = new jsPDF();
+             var pdf_content = $("#" + this_content_id).get(0);
+             var doc = new jsPDF('p', 'mm', 'legal');
              // After the file has been loaded, add PDF creation action to button. // specialElementHandlers is used to Ignore the save as pdf button
              var specialElementHandlers = {
                  '#pdf_button_container': function (element, renderer) {
@@ -228,9 +229,9 @@
              };
 
              $('#'+ pdf_button_id).on("click", function () {
-                 var content = $("#" + this_content_id).html();
-                 doc.fromHTML(content, 15, 15, {
-                     'width': 170,
+                 doc.fromHTML(pdf_content, 10, 10, {
+                     'width': 192,
+                     'pagesplit': true,
                      'elementHandlers': specialElementHandlers
                  });
                  doc.save(this_title);
@@ -1345,7 +1346,7 @@ function updateClimateHelpContent(){
     });
     $('#all_point_chart_goodies').each(function (i) {
         $(this).attr('data-step', '3');
-        $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
+        $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
     });
     gettingStartedIntro2.goToStep(3).start();
 
