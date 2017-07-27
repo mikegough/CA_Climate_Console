@@ -517,12 +517,17 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     padding-right:20px;
     overflow-y:auto;
     overflow-x:hidden;
+    color: #606060;
 }
 
 .modelDescriptionTable {
     cursor:default;
     border:1px solid;
     border-collapse:collapse;
+}
+
+.modelDescriptionTable td:first-child{
+    white-space:nowrap;
 }
 
 
