@@ -100,9 +100,12 @@
 <script src="{{STATIC_URL}}deps/IntroJS/intro.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
 
+<!-- underscore -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="{{STATIC_URL}}deps/html2pdf/html2pdf.js"></script>
 
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/point_chart.js"></script>
@@ -433,26 +436,26 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                    <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
                                    <select id="model_selection_form">
                                         <optgroup label = "Climate Model:">
-                                        <option value = "1" selected>	bcccsm11	</option>
-                                        <option value = "2">	bcccsm11m	</option>
+                                        <option value = "1" selected>	BCCCSM1.1	</option>
+                                        <option value = "2">	BCCCSM1.1M	</option>
                                         <option value = "3">	BNUESM	</option>
                                         <option value = "4">	CanESM2	</option>
                                         <option value = "5">	CCSM4	</option>
-                                        <option value = "6">	CNRMCM5	</option>
-                                        <option value = "7">	CSIROMk360	</option>
-                                        <option value = "8">	GFDLESM2G	</option>
-                                        <option value = "9">	GFDLESM2M	</option>
-                                        <option value = "10">	HadGEM2CC365	</option>
-                                        <option value = "11">	HadGEM2ES365	</option>
-                                        <option value = "12">	inmcm4	</option>
-                                        <option value = "13">	IPSLCM5ALR	</option>
-                                        <option value = "14">	IPSLCM5AMR	</option>
-                                        <option value = "15">	IPSLCM5BLR	</option>
+                                        <option value = "6">	CNRM.CM5	</option>
+                                        <option value = "7">	CSIRO-Mk3.6.0	</option>
+                                        <option value = "8">	GFDL-ESM2G	</option>
+                                        <option value = "9">	GFDL-ESM2M	</option>
+                                        <option value = "10">	HadGEM2-CC365	</option>
+                                        <option value = "11">	HadGEM2-ES365	</option>
+                                        <option value = "12">	INM-CM4	</option>
+                                        <option value = "13">	IPSL-CM5A-LR	</option>
+                                        <option value = "14">	IPSL-CM5A-MR	</option>
+                                        <option value = "15">	IPSL-CM5B-LR	</option>
                                         <option value = "16">	MIROC5	</option>
-                                        <option value = "17">	MIROCESM	</option>
-                                        <option value = "18">	MIROCESMCHEM	</option>
-                                        <option value = "19">	MRICGCM3	</option>
-                                        <option value = "20">	NorESM1M	</option>
+                                        <option value = "17">	MIROC-ESM	</option>
+                                        <option value = "18">	MIROC-ESM-CHEM	</option>
+                                        <option value = "19">	MRI-CGCM3	</option>
+                                        <option value = "20">	NorESM1-M	</option>
                                    </select>
                                </div>
                                <div class="styled-select2" id="ss2">
@@ -498,7 +501,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                         <div style="display:none" id="point_chart_description"></div>
 
                     </div> <!--all_point_chart_goodies -->
-                    <div id="climate_info_link_div"><br>Scenario:RCP8.5/Resolution:30arc-secs. <a href="" id="modelInfoLink" title="Click for information about the climate data" >Learn more about the climate data</a></div>
+                    <div id="climate_info_link_div"><br>Scenario:RCP8.5/Resolution:2.5 arc-mins. <a href="" id="modelInfoLink" title="Click for information about the climate data" >Learn more about the climate data</a></div>
 
                     <div id="climate_quick_view">
 
@@ -665,15 +668,19 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 
                 To learn more about the differences between climate and weather, click on the play button below.
 
-
                 <div class="youTubeDiv">
                     <img class="button_movie_climate" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
 
                 For more information on climate models use the following link to a presentation created by the Pacific Institute for Climate Solutions: <a href="http://pics.uvic.ca/insights/module1_lesson4/player.html">http://pics.uvic.ca/insights/module1_lesson4/player.html</a>.
                 <p>
-                Climate data used for the historical period (1981-2010) correspond to the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al. 2008).
-                    For future climate projections, we selected 20 climate models, either General Circulation Models (GCMs) or Earth System Models (ESMs), (Table 1) from the 5th Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012).
+                <b>Historical Climate Data (PRISM)</b><p>
+                Climate data used for the historical period (1981-2010) correspond to the LT71m PRISM (Parameter-elevation Relationships on Independent Slopes Model) 2.5 arc-minute spatial climate dataset for the Conterminous United States (Daly et al. 2008).
+                <p>
+                The LT71m PRISM dataset is a gridded time series of monthly-modeled values for precipitation (rain + melted snow), maximum, minimum, and mean temperatures. It uses data from station networks that have at least some stations with ≥ 20 years of observed data. To create a grid with PRISM, Daly et al. (2008) use the climatologically-aided interpolation (CAI) method with 1971-2000 monthly climatologies.
+                <p>
+                <b>Future Climate Projections (MACA)</b><p>
+                For future climate projections, we selected 20 climate models, either General Circulation Models (GCMs) or Earth System Models (ESMs), (Table 1) from the 5th Coupled Model Intercomparison Project (CMIP5; Taylor et al. 2012).
                 <div class="tableDescriptions">Table 1 List of models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) used for the analysis.</div>
                     <p>
                     <table class="modelDescriptionTable">
@@ -692,11 +699,11 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                         <td class="tg-yw4l">BCC-CSM1.1m</td>
                         <td class="tg-yw4l">Beijing Climate Center Climate System Model</td>
                     </tr>
-                <tr>
-                    <td class="tg-yw4l">3</td>
-                    <td class="tg-yw4l">BNUESM</td>
-                    <td class="tg-yw4l">College of Global Change and Earth System Science, Beijing Normal University </td>
-                </tr>
+                    <tr>
+                        <td class="tg-yw4l">3</td>
+                        <td class="tg-yw4l">BNUESM</td>
+                        <td class="tg-yw4l">College of Global Change and Earth System Science, Beijing Normal University </td>
+                    </tr>
                       <tr>
                         <td class="tg-yw4l">4</td>
                         <td class="tg-yw4l">CanESM2</td>
@@ -712,127 +719,90 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                         <td class="tg-yw4l">CNRM.CM5</td>
                         <td class="tg-yw4l">Centre National de Recherches Météorologiques Coupled Global Climate Model, version 5.1</td>
                       </tr>
-
-                <tr>
-                    <td class="tg-yw4l">7</td>
-                    <td class="tg-yw4l">CSIRO-Mk3.6.0</td>
-                    <td class="tg-yw4l">Commonwealth Scientific and Industrial Research Organisation in collaboration with the Queensland Climate Change Centre of Excellence</td>
-                </tr>
-                      <tr>
-                        <td class="tg-yw4l">8</td>
-                        <td class="tg-yw4l">GFDL-ESM2G</td>
+                    <tr>
+                        <td class="tg-yw4l">7</td>
+                        <td class="tg-yw4l">CSIRO-Mk3.6.0</td>
+                        <td class="tg-yw4l">Commonwealth Scientific and Industrial Research Organisation in collaboration with the Queensland Climate Change Centre of Excellence</td>
+                    </tr>
+                          <tr>
+                            <td class="tg-yw4l">8</td>
+                            <td class="tg-yw4l">GFDL-ESM2G</td>
+                            <td class="tg-yw4l">Geophysical Fluid Dynamics Laboratory</td>
+                          </tr>
+                    <tr>
+                        <td class="tg-yw4l">9</td>
+                        <td class="tg-yw4l">GFDL-ESM2M</td>
                         <td class="tg-yw4l">Geophysical Fluid Dynamics Laboratory</td>
-                      </tr>
-                <tr>
-                    <td class="tg-yw4l">9</td>
-                    <td class="tg-yw4l">GFDL-ESM2M</td>
-                    <td class="tg-yw4l">Geophysical Fluid Dynamics Laboratory</td>
-                </tr>
-                      <tr>
-                        <td class="tg-yw4l">10</td>
-                        <td class="tg-yw4l">HadGEM2-CC3365</td>
+                    </tr>
+                          <tr>
+                            <td class="tg-yw4l">10</td>
+                            <td class="tg-yw4l">HadGEM2-CC3365</td>
+                            <td class="tg-yw4l"> Met Office Hadley Centre (additional HadGEM2-ES realizations contributed by Instituto Nacional de Pesquisas Espaciais)</td>
+                          </tr>
+                    <tr>
+                        <td class="tg-yw4l">11</td>
+                        <td class="tg-yw4l">HadGEM2-ES3365</td>
                         <td class="tg-yw4l"> Met Office Hadley Centre (additional HadGEM2-ES realizations contributed by Instituto Nacional de Pesquisas Espaciais)</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">12</td>
+                        <td class="tg-yw4l">INM-CM4</td>
+                        <td class="tg-yw4l"> Institute for Numerical Mathematics</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">13</td>
+                        <td class="tg-yw4l">IPSL-CM5A-LR</td>
+                        <td class="tg-yw4l"> Institut Pierre-Simon Laplace</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">14</td>
+                        <td class="tg-yw4l">IPSL-CM5A-MR</td>
+                        <td class="tg-yw4l"> Institut Pierre-Simon Laplace</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">15</td>
+                        <td class="tg-yw4l">IPSL-CM5B-LR</td>
+                        <td class="tg-yw4l"> Institut Pierre-Simon Laplace</td>
+                    </tr>
+                      <tr>
+                        <td class="tg-yw4l">16</td>
+                        <td class="tg-yw4l">MIROC5</td>
+                        <td class="tg-yw4l">Model for Interdisciplinary Research on Climate, version 5</td>
                       </tr>
-                <tr>
-                    <td class="tg-yw4l">11</td>
-                    <td class="tg-yw4l">HadGEM2-ES3365</td>
-                    <td class="tg-yw4l"> Met Office Hadley Centre (additional HadGEM2-ES realizations contributed by Instituto Nacional de Pesquisas Espaciais)</td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">12</td>
-                    <td class="tg-yw4l">INM-CM4</td>
-                    <td class="tg-yw4l"> Institute for Numerical Mathematics</td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">13</td>
-                    <td class="tg-yw4l">IPSL-CM5A-LR</td>
-                    <td class="tg-yw4l"> Institut Pierre-Simon Laplace</td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">14</td>
-                    <td class="tg-yw4l">IPSL-CM5A-MR</td>
-                    <td class="tg-yw4l"> Institut Pierre-Simon Laplace</td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">15</td>
-                    <td class="tg-yw4l">IPSL-CM5B-LR</td>
-                    <td class="tg-yw4l"> Institut Pierre-Simon Laplace</td>
-                </tr>
-                  <tr>
-                    <td class="tg-yw4l">16</td>
-                    <td class="tg-yw4l">MIROC5</td>
-                    <td class="tg-yw4l">Model for Interdisciplinary Research on Climate, version 5</td>
-                  </tr>
-                <tr>
-                    <td class="tg-yw4l">17</td>
-                    <td class="tg-yw4l">MIROC-ESM</td>
-                    <td class="tg-yw4l">Japan Agency for Marine-Earth Science and Technology, Atmosphere and Ocean Research Institute (The University of Tokyo), and National Institute for Environmental Studies</td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">18</td>
-                    <td class="tg-yw4l">MIROC-ESM-CHEM </td>
-                    <td class="tg-yw4l">Japan Agency for Marine-Earth Science and Technology, Atmosphere and Ocean Research Institute (The University of Tokyo), and National Institute for Environmental Studies</td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">19</td>
-                    <td class="tg-yw4l">MRI-CGCM3</td>
-                    <td class="tg-yw4l">Meteorological Research Institute </td>
-                </tr>
-                <tr>
-                    <td class="tg-yw4l">20</td>
-                    <td class="tg-yw4l">NorESM1-M</td>
-                    <td class="tg-yw4l">Norwegian Climate Centre </td>
-                </tr>
-                    </table>
-                    <!--
-                    Click <a target="_blank" href="{{STATIC_URL}}docs/CMIP5_Models_Used.pdf">here</a> for more information on the models listed above.
-                    -->
-
+                    <tr>
+                        <td class="tg-yw4l">17</td>
+                        <td class="tg-yw4l">MIROC-ESM</td>
+                        <td class="tg-yw4l">Japan Agency for Marine-Earth Science and Technology, Atmosphere and Ocean Research Institute (The University of Tokyo), and National Institute for Environmental Studies</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">18</td>
+                        <td class="tg-yw4l">MIROC-ESM-CHEM </td>
+                        <td class="tg-yw4l">Japan Agency for Marine-Earth Science and Technology, Atmosphere and Ocean Research Institute (The University of Tokyo), and National Institute for Environmental Studies</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">19</td>
+                        <td class="tg-yw4l">MRI-CGCM3</td>
+                        <td class="tg-yw4l">Meteorological Research Institute </td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">20</td>
+                        <td class="tg-yw4l">NorESM1-M</td>
+                        <td class="tg-yw4l">Norwegian Climate Centre </td>
+                    </tr>
+                </table>
                 <p>
                 The 20 GCM/ESMs capture a wide range of projected changes in both average annual temperature and precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al. 2011, van Vuuren et al. 2011). RCP8.5 is a highly energy-intensive scenario that results from high population growth and a moderate rate of technology development without establishment of climate change policies.
                 <p>
-
-                <!--
-                    <img style="cursor:pointer" title="Click to Enlarge" src="{{STATIC_URL}}img/model_comparison_chart.png" onclick='new Messi("<p><p><img src=\"{{STATIC_URL}}img/model_comparison_chart.png\" width=\"900px\"><div style=\"margin-top:30px; margin-left:auto; margin-right:auto; width:800px\"><i>Figure 1: Evaluation of the projected change in temperature and precipitation for nine models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) under the representative concentration pathway 8.5 (RCP8.5) for the time period 2046–2075 compared to a 1971-2000 base climatology. The models HadGEM-ES, CanESM2.1, CCSM4, and CNRM-CM5 represent the “hot-dry”, “hot-wet”, “warm-dry”, and “warm-wet” scenarios respectively.</i>", {title: "Model Comparison Chart", center:true, width:"1000px", modal:true, modalOpacity:.4,center: true});' width="438px">
-                    <div class="footnote">
-                        <i>Figure 1 (Click to Enlarge): Evaluation of the projected change in temperature and precipitation for nine models from phase 5 of the Coupled Model Intercomparison Project (CMIP5) under the representative concentration pathway 8.5 (RCP8.5) for the time period 2046–2075 compared to a 1971-2000 base climatology. The models HadGEM-ES, CanESM2.1, CCSM4, and CNRM-CM5 represent the “hot-dry”, “hot-wet”, “warm-dry”, and “warm-wet” scenarios respectively.</i>
-                    </div>
-                -->
+                We chose ten ten-year periods to represent the projected futures. Each of the climate model projections were averaged over those periods.
                 <p>
-                We used the downscaled climate projections from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire continental US.
-                We chose ten ten-year periods to represent the projected futures.
-                Each of the climate model projections were averaged over those periods.
+                The climate data used for the future projections were provided by the Multivariate Adaptive Constructed Analogs (MACA) project (Abatzoglou, Brown, 2011).
+                MACA is a statistical downscaling method which utilizes a training dataset (i.e. a meteorological observation dataset) to remove historical biases and match spatial patterns in climate model output.
                 <p>
                  <b>Calculation of Climate Variables</b>
                 <p>
                 Climate variable values (tmax, tmin, and prec) were calculated as means of annual average temperatures and of annual total precipitation for each time period.
                 <p>
                 Potential evapotranspiration (PET) was also calculated for historical and future periods using the Linacre method for estimating evaporation rates (Linacre 1977).
-                <p>
-                <!--
-                Aridity was defined as P/PET where P is annual precipitation. The percentage change in aridity was calculated by following Feng and Fu's method (2013):
-                <p>
-                Δ(P/PET)/(P/PET)≈ΔP/P−ΔPET/PET    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    (2)
-                <p>
-                All climate variables for historic and future projections were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014).
-                <p>
-
-                <!--
-                <div class="tableDescriptions"> Table 2 Climate variables (maximum temperature – tmax, minimum temperature – tmin, precipitation – prec, and potential evapotranspiration – PET) used in the analysis. Seasons were defined as Winter (October – March) and Summer (April – September). Delta values for the future periods were calculated by subtracting historical values from future values.</div>
-                -->
-                <!--
-                <p>
-
-                <table class="modelDescriptionTable">
-                <tr><th class="tinyHeader" colspan="4">1971-2000</th><th class="tinyHeader" colspan="4">2016-2045</th><th class="tinyHeader" colspan="4">2046-2075</th></tr>
-                 <tr><td class="tg-yw4l tinyHeader"></td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Average for the Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Seas-<br>onal</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Average for the Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Seas-<br>onal</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Seas-<br>sons</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Average for the Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Seas-<br>onal</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Period</td class="tg-yw4l tinyHeader"><td class="tg-yw4l tinyHeader">Delta for Seas-<br>sons</td class="tg-yw4l tinyHeader"></tr>
-                 <tr><td class="tg-yw41 tinyHeader">Tmax</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw41 tinyHeader">Tmin</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw41 tinyHeader">Prec</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw41 tinyHeader">PET</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"></tr>
-                 <tr><td class="tg-yw41 tinyHeader">Aridity</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">&nbsp;</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"><td class="tg-yw4l">X</td class="tg-yw4l"></tr>
-                </table>
-                -->
                 <p>
                 The delta or change values between historic and future for minimum and maximum temperature were calculated by subtracting historical values from future values. However, for precipitation, change was calculated as a percent change from the historical (((future-historical) / historical) * 100).
                 <p>
@@ -844,16 +814,24 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                      Representative Concentration Pathways (RCPs) describe future concentrations and emissions of greenhouse gases, air pollutants and land-use change, created by four different international teams using different sets of assumptions. The word ‘representative’ means that each RCP is only one of many possible scenarios found in the literature. The term ‘concentration’ is used because atmospheric concentrations of greenhouse gases are the primary simulation product rather than emissions. RCPs are tagged for their radiative forcing target level for year 2100. RCP2.6 is a stringent mitigation scenario that aims to keep global warming below 2°C above pre-industrial temperatures, with radiative forcing peaks near 3 W/m2 before 2100 and then declines. RCP4.5 and RCP6.0 are two intermediate stabilization scenarios in which radiative forcing is stabilized at approximately 4.5 W/m2 and 6.0 W/m2 after 2100. RCP8.5 (used here) is a scenario with high greenhouse gas emissions where radiative forcing reaches >8.5 W/m2 by 2100 and continues to rise for some  time. (Van Vuuren et al. 2011; Stocker et al. 2013)
                 </div>
 
+                <!-- Moved to above -->
+                <!--
                 <b>Description of Climate Model Datasets</b>
                 <p>
                 The LT71m PRISM dataset is a gridded time series of monthly-modeled values for precipitation (rain + melted snow), maximum, minimum, and mean temperatures. It uses data from station networks that have at least some stations with ≥ 20 years of observed data. To create a grid with PRISM, Daly et al. (2008) use the climatologically-aided interpolation (CAI) method with 1971-2000 monthly climatologies.
                 <p>
+                -->
+                <!-- REPLACE -->
+                <!--
                 The NEX US-DCP30 future climate dataset includes climate projections from 34 GCMs that have been statistically downscaled to 30 arc-second spatial resolution using the Bias-Correction Spatial Disaggregation (BCSD) method (Maurer and Hidalgo 2008). First the bias in temperature and precipitation projections is corrected by comparing GCM results with “observations” from the PRISM dataset. The projections are then downscaled to the finer 30 arc-second grid using the complex spatial interpolation method during the “spatial-disaggregation” step (Thrasher et al. 2013).
                 <p>
+                -->
+                <!--
                 <b>Climate Data Extraction</b>
                 <p>
                 All PRISM data used for the historical period were converted from the ESRI ASCII raster format (ESRI 2014) to the Network Common Data Form (NetCDF; Rew et al. 1997, UNIDATA 2015). We discovered that when the NEX data were processed by Thrasher et al. (2013) the left lower corners of the PRISM data were erroneously used as the center coordinates for processing the NEX NetCDF files. Therefore, the origin of the NEX US-DCP30 data had to be altered to conform to the PRISM data. The NEX grids were adjusted by one-half grid cell (0.004166666667 decimal degrees) so that the two datasets would be spatially aligned and consistent.
                 <p>
+                -->
                 <!--
                 Once all of the data were in the NetCDF format and spatially aligned, climate variables [maximum average monthly temperature (tmax), minimum average monthly temperature (tmin), and average monthly precipitation (prec)] were extracted just for the state of California. The multi-model ensemble was then created for each variable by taking the un-weighted mean of the projections from the ten climate models of interest.
                 -->
@@ -886,9 +864,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <h3 id="aboutEcosystemServicesData">Climate Impacts: </h3>
                 The climate impacts data consists of decadal means (modes in the case of vtype_agg) of variables output by <a target="_blank" href="http://bit.ly/2a9TrKD">MC2</a> runs of the ConUS, at 2.5 arc-minute resolution, using MACA downscaled data for 20 GCMs. They use rcp 8.5, and values represent potential vegetation without fire-suppression.
                 <p>
-                Because the model runs used historical (PRISM) climate through 2014, the value for the first decade (2011-2020) is a combination of the final 4 years of the run using PRISM data, and the first 6 years of the run using MACA-downscaled data.
-                <p>
-                'Year' on the chart corresponds to the start of each decade.
+                Because the model runs used historical (PRISM) climate through 2014, the value for the first decade (2011-2020) is a combination of the final 4 years of the run using PRISM data, and the first 6 years of the run using MACA-downscaled data. Since the future runs end in 2099, the final decade is a mean (mode) of 9 years (2091-2099) rather than 10 as for the other decades. Time values for each step in the charts represent the beginning of each decade.
                 <p>
                 The values in the vtype_agg data were aggregated from the fine-grained classes of MC2 output into simplified classes before the 10-year modes were calculated. The vegetation classes are:
                 <br>
@@ -923,21 +899,6 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 7. climatic water deficit (CWD) which corresponds to the difference between potential and actual evapotranspiration.
                 <p/>
 
-                <!--
-                Ben Sleeter's land-use data includes perennial agriculture, which we simulated in MC2
-                by clearing all vegetation in the year of conversion to agriculture, allowing growth
-                for 5 years, and then harvesting half of NPP from above-ground woody components. After
-                40 years, perennial agriculture was cleared and the cycle started over. Above-ground grass
-                was removed yearly.
-
-                Ben also calculated backcast timber harvests to provide a smooth ramp to the present.
-                He did this by running his state-transition model backward from 2000. Since clearcuts
-                are represented as transitions between years, this produced no clearcuts for 2000.
-                As the clearcut simulation was a simple interpolation, we shifted it forward by a year
-                to provide representative year-2000 clearcut data (and no clearcuts in 1896).
-                <p/>
-                -->
-
                 The version of MC2 that was used here uses the Natural Resources Conservation Service (NRCS) runoff curve method ( <a target="_blank" href=" http://bit.ly/2aawHpu"> http://bit.ly/2aawHpu</a>)
                 <p/>
                 Postprocessing of the data involved projecting to USA_Contiguous_Albers_Equal_Area_Conic_USGS_version (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
@@ -945,6 +906,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <a name="refs"></a>
                 <h3>References:</h3>
                 <p/>
+                Abatzoglou, J.T., and T.J. Brown. 2012, A Comparison of Statistical Downscaling Methods Suited for Wildfire Applications, International Journal of Climatology, 32: 772-780
+                <p>
                 Arora, V.K., Scinocca, J.F., Boer, G.J., Christian, J.R., Denman, K.L., Flato, G.M. et al. (2011). Carbon emission limits required to satisfy future representative concentration pathways of greenhouse gases. Geophys Res Lett, 38, L05805, doi: 10.1029/2010GL046270.
                 <p/>
                 Barnston, A.G., He Y., Unger D. (2000) A forecast product that maximizes utility for state of the art seasonal climate prediction. Bull. Amer. Meteor. Soc. 81:1271-1279.
@@ -1254,10 +1217,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 -->
                 <div id="view7_contents" style="display:inline-block">
                     <table id="data_download_table">
-                        <tr><th>Data</th><th>Size</th><th>Format</th><th>info</th><th>Download</th></tr>
-                        <!--
+                        <tr><th>Data Set</th><th>Size</th><th>Format</th><th>info</th><th>Download</th></tr>
                         <tr><td>Climate Data</td><td>3.05GB</td><td>NetCDF</td><td><img class="info3_icon" id="conus_climate_data_info" title="CONUS Climate Console - Climate Data Information and Terms of Use" src="{{STATIC_URL}}img/info3.png"></a></td><td><a href="{{STATIC_URL}}data/downloads/conus/climate_data.zip"><img class="download_icon" src="{{STATIC_URL}}img/download.png"></a></td></tr>
-                        -->
                         <tr><td>Climate Impacts</td><td>2.05GB</td><td>NetCDF</td><td><img class="info3_icon" id="conus_climate_impacts_data_info" title="CONUS Climate Console - Climate Impacts Data Information" src="{{STATIC_URL}}img/info3.png"></a></td><td><a href="{{STATIC_URL}}data/downloads/conus/climate_impacts_data.zip"><img class="download_icon" src="{{STATIC_URL}}img/download.png"></a></td></tr>
                         <tr><td>Weather (temp)</td><td>164KB</td><td>Text</td><td><img class="info3_icon" id="conus_weather_temp_info" title="CONUS Climate Console - Weather Data Information" src="{{STATIC_URL}}img/info3.png"></a></td><td><a href="{{STATIC_URL}}data/noaa/climate/cpcllftd.dat" target="_blank"><img class="download_icon" src="{{STATIC_URL}}img/download.png"></a></td></tr>
                         <tr><td>Weather (precip)</td><td>173KB</td><td>Text</td><td><img class="info3_icon" id="conus_weather_precip_info" title="CONUS Climate Console - Weather Data Information" src="{{STATIC_URL}}img/info3.png"></a></td><td><a href="{{STATIC_URL}}data/noaa/climate/cpcllfpd.dat" target="_blank"><img class="download_icon" src="{{STATIC_URL}}img/download.png"></a></td></tr>

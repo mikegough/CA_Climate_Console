@@ -2033,7 +2033,7 @@ div#pop-up2 {
 
 #data_download_table th {
 	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Helvetica,sans-serif;
-	font-size: 15px;
+	font-size: .9em;
 	color: #FFE370;
 	font-weight: normal;
 	text-align: left;
@@ -2071,6 +2071,7 @@ div#pop-up2 {
 }
 
 .metadata_div{
+    font-size:12px;
     height:85% !important;
 }
 
