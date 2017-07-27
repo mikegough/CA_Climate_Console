@@ -739,7 +739,7 @@ function create_post(newWKT) {
                 });
                 $('#all_point_chart_goodies').each(function (i) {
                     $(this).attr('data-step', '4');
-                    $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average annual maximum temperature for the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for two future time periods.<p>You can use the dropdown menus at the top to specify what data to plot in the chart.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
+                    $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average annual maximum temperature for the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>You can use the dropdown menus at the top to specify what data to plot in the chart.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
                 });
 
                 $('#climate_quick_view_table').each(function (i) {
