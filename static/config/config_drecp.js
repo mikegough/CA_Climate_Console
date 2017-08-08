@@ -20,6 +20,20 @@ reportingUnits={
 
 }
 
+headerLinks={
+    // Row 1
+    "California Climate Console": "/ca",
+    "CONUS Climate Console": "/conus",
+    // Row 2
+    "DRECP Climate Console": "/drecp",
+    "Landscape Climate Dashboard": "/multi-lcc",
+    "Climate Commons": "http://climate.calcommons.org/",
+    // Row 3
+    "Sagebrush Climate Console": "/sagebrush",
+    "CBI Climate Center": "http://climate.databasin.org/",
+    "Cal-Adapt": "http://climate.databasin.org",
+};
+
 climateParams={
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],

@@ -10,6 +10,20 @@ zoomLevel=5
 areaChart=false
 initialBaseMap="worldTopo";
 
+headerLinks={
+    // Row 1
+    "California Climate Console": "/ca",
+    "CONUS Climate Console": "/conus",
+    // Row 2
+    "DRECP Climate Console": "/drecp",
+    "Landscape Climate Dashboard": "/multi-lcc",
+    "Climate Commons": "http://climate.calcommons.org/",
+    // Row 3
+    "Sagebrush Climate Console": "/sagebrush",
+    "CBI Climate Center": "http://climate.databasin.org/",
+    "Cal-Adapt": "http://climate.databasin.org",
+};
+
 reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
     "Counties": ["sagebrush_reporting_units_county_boundaries_2_simplify","name","Sagebrush_Reporting_Units_Counties_2_Simplify.json"],

@@ -1154,41 +1154,39 @@ preload([
     static_url + 'img/info_rotate5_hover.png',
 ]);
 
-$('#cbp-spmenu-s3').html("\
-   			<h3>Climate Tools & Links</h3>\
-			<a href='/ca'>California Climate Console</a>\
-			<a href='/conus'>CONUS Climate Console</a>\
-            <a href='javascript:void(0);' id='close_explore'>&#10006</a>\
-            \
-			<a href='/drecp'>DRECP Climate Console</a>\
-			<a href='/multi-lcc'>Landscape Climate Dashboard</a>\
-            <a href='http://climate.databasin.org/' target='_blank'>CBI Climate Center</a>\
-            \
-			<!--<a href='?studyarea=utah'>Utah/Colorado Plateau Climate Console</a>-->\
-			<a href='/sagebrush'>Sagebrush Climate Console</a>\
-            <a href='http://climate.calcommons.org/' target='_blank'>Climate Commons</a>\
-            <a href='http://cal-adapt.org/' target='_blank'>Cal-Adapt</a>\
-            <a href=''> &nbsp</a>\
-    "
-)
+// Create the header links from the links object in the config file.
+$('#cbp-spmenu-s3').html("<h3>Climate Tools & Links</h3>");
 
-/* Slide Out Menu Variables & Functions */
-var
-    menuTop = document.getElementById( 'cbp-spmenu-s3' ),
-    showTop = document.getElementById( 'showTop' ),
-    closeExplore = document.getElementById('close_explore')
-    body = document.body;
+if (typeof headerLinks != "undefined") {
+    var link_count = 1;
+    $.each(headerLinks, function (key, value) {
 
-showTop.onclick = function() {
-    classie.toggle( this, 'active' );
-    classie.toggle( menuTop, 'cbp-spmenu-open' );
-};
+        if (link_count == 3) {
+            $('#cbp-spmenu-s3').append("<a href='javascript:void(0);' id='close_explore'>&#10006</a>")
+        }
 
-closeExplore.onclick = function() {
-    classie.toggle( showTop, 'active' );
-    classie.toggle( menuTop, 'cbp-spmenu-open' );
-};
+        $('#cbp-spmenu-s3').append("<a href='" + value + "'>" + key + "</a>")
+        link_count += 1
+    });
 
+    /* Slide Out Menu Variables & Functions */
+    var
+        menuTop = document.getElementById( 'cbp-spmenu-s3' ),
+        showTop = document.getElementById( 'showTop' ),
+        closeExplore = document.getElementById('close_explore'),
+        body = document.body;
+
+    showTop.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( menuTop, 'cbp-spmenu-open' );
+    };
+
+    closeExplore.onclick = function() {
+        classie.toggle( showTop, 'active' );
+        classie.toggle( menuTop, 'cbp-spmenu-open' );
+    };
+
+}
 
 });//]]>
 

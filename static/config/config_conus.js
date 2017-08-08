@@ -11,6 +11,19 @@ areaChart=true;
 hasEcosystemServices=true;
 initialBaseMap="oceans";
 
+headerLinks={
+    // Row 1
+    "California Climate Console": "/ca",
+    "CONUS Climate Console": "/conus",
+    // Row 2
+    "DRECP Climate Console": "/drecp",
+    "Landscape Climate Dashboard": "/multi-lcc",
+    "CMIP5": "http://cmip-pcmdi.llnl.gov/cmip5/",
+    // Row 3
+    "Sagebrush Climate Console": "/sagebrush",
+    "CBI Climate Center": "http://climate.databasin.org/",
+};
+
 reportingUnits={
     //"States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
     "States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
@@ -340,5 +353,24 @@ ecosystemServicesParams= {
     },
 };
 
+climate_links = {
+    "/ca": "California Climate Console"
+};
 
+/* Slide Out Menu Variables & Functions */
+var
+    menuTop = document.getElementById( 'cbp-spmenu-s3' ),
+    showTop = document.getElementById( 'showTop' ),
+    closeExplore = document.getElementById('close_explore')
+body = document.body;
+
+showTop.onclick = function() {
+    classie.toggle( this, 'active' );
+    classie.toggle( menuTop, 'cbp-spmenu-open' );
+};
+
+closeExplore.onclick = function() {
+    classie.toggle( showTop, 'active' );
+    classie.toggle( menuTop, 'cbp-spmenu-open' );
+};
 
