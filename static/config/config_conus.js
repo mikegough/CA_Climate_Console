@@ -353,24 +353,3 @@ ecosystemServicesParams= {
     },
 };
 
-climate_links = {
-    "/ca": "California Climate Console"
-};
-
-/* Slide Out Menu Variables & Functions */
-var
-    menuTop = document.getElementById( 'cbp-spmenu-s3' ),
-    showTop = document.getElementById( 'showTop' ),
-    closeExplore = document.getElementById('close_explore')
-body = document.body;
-
-showTop.onclick = function() {
-    classie.toggle( this, 'active' );
-    classie.toggle( menuTop, 'cbp-spmenu-open' );
-};
-
-closeExplore.onclick = function() {
-    classie.toggle( showTop, 'active' );
-    classie.toggle( menuTop, 'cbp-spmenu-open' );
-};
-
