@@ -1,13 +1,13 @@
-title="Sagebrush"
-subTitle="Climate Projections for the Western United States"
-studyAreaBoundary="Sagebrush_Study_Area_Boundary.json"
-initialLat=40
-initialLon=-113
-initialDownscaleMarkerLat=40
-initialDownscaleMarkerLon=-111
-selectedClimateDivision='49'
-zoomLevel=5
-areaChart=false
+title="Sagebrush";
+subTitle="Climate Projections for the Western United States";
+studyAreaBoundary="Sagebrush_Study_Area_Boundary.json";
+initialLat=40;
+initialLon=-113;
+initialDownscaleMarkerLat=40;
+initialDownscaleMarkerLon=-111;
+selectedClimateDivision='49';
+zoomLevel=5;
+areaChart=false;
 initialBaseMap="worldTopo";
 
 headerLinks={
@@ -28,19 +28,13 @@ reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
     "Counties": ["sagebrush_reporting_units_county_boundaries_2_simplify","name","Sagebrush_Reporting_Units_Counties_2_Simplify.json"],
     "Ecoregions":["sagebrush_reporting_units_epa_liii_ecoregions_1_simplify","us_l3name","Sagebrush_Reporting_Units_EPA_LIII_Ecoregions_1_simplify.json"],
-    //"HUC5 Watersheds": ["sagebrush_reporting_units_huc5_watersheds_no_simplify", "name", "Sagebrush_Reporting_Units_HUC5_Watersheds_.2_Simplify.json"],
-    /*
-     "BLM Field Offices":["ca_reporting_units_blm_field_offices_7_simplify", "name", "CA_Reporting_Units_BLM_Field_Offices_7_simplify.json"],
-    "National Forests": ["ca_reporting_units_usfs_national_forests_15_simplify","name","CA_Reporting_Units_USFS_National_Forests_15_simplify.json"],
-    "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems","",""],
-    */
-}
+};
 
 // Optional image overlay for reporting units where the JSON file would be too large for display in Leaflet.
 reportingUnitsImageOverlays={
     // "Reporting Units Label":["database_table_name","name_field","PNG file", PNG bounding coordinates]
     "HUC5 Watersheds" : ["sagebrush_reporting_units_huc5_watersheds_no_simplify", "name", "Leaflet/myPNG/reporting_units/sagebrush_huc5_watersheds.png",  [[28.9114643715872, -124.81250000044], [49.2118646821555, -101.342451577466]]]
-}
+};
 
 wmsLayers={
         // "Layer Title":["wms service url", "legend name", "wms layer name", "on or off on page load", "source"]
@@ -49,9 +43,9 @@ wmsLayers={
         "Resilience and Resistance" : ["https://www.sciencebase.gov/arcgis/services/Catalog/55229c34e4b027f0aee3cfa5/MapServer/WMSServer?","r_and_r.png", "0", "off", "https://www.sciencebase.gov/catalog/item/55229c34e4b027f0aee3cfa5", "This layer depicts a simplified index of relative ecosystem resilience to disturbance and resistance to cheatgrass(\"R&R\"), providing a tool for rapid risk assessment across the range of sage-grouse. Potential ecosystem R&R depends in part on the biophysical conditions an area is capable of supporting and soil temperature and moisture regimes can be used to depict this gradient at large scales. Soils data were derived from two primary sources: 1) completed and interim soil surveys available through the Soil Survey Geographic Database (SSURGO), and 2) the State Soils Geographic Database (STATSGO2) to fill gaps where SSURGO data were not available. Using best available information and expert input, each soil temperature and moisture regime/moisture subclass was placed into one of three categories of relative R&R: high, moderate, and low. Soils with high water tables, wetlands, or frequent ponding that would not typically support sagebrush were not rated."],
         "Historic Greater Sage-Grouse Range" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/52e17ac3e4b0d0c3df9a3968?service=wms","science_base_generic.png", "sb:Historic_GSG_Range", "off", "https://www.sciencebase.gov/catalog/item/52e17ac3e4b0d0c3df9a3968"],
         "Great Basin Sage-Grouse Concentration Areas" : ["https://www.sciencebase.gov/catalogMaps/mapping/ows/56a7ba52e4b0b28f1184d966?service=wms","science_base_generic.png", "sb:footprint", "off", "https://www.sciencebase.gov/catalog/item/56a7ba52e4b0b28f1184d966"],
-}
+};
 
-climateParams = {
+climateParams={
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models:{
@@ -80,7 +74,7 @@ climateParams = {
     imageOverlayDIR:"sagebrushPNG",
     overlayBounds:[[24.059825151287345, -125.00416666645106], [49.50416665670897, -101.3421483544936]],
     boxPlot:false
-}
+};
 
 modelInfoText='The time series climate data used to represent the historical period (1971-2000) were obtained from the LT71m PRISM 30 arc-second spatial climate dataset for the Conterminous United States (Daly et al., 2008). We selected ten of the 34 CMIP5 General Circulation Models (GCMs) that have been shown to reproduce several observed climate metrics and that captured the full range of projected change for both annual average temperature and annual precipitation under the representative concentration pathway 8.5 (RCP8.5; Meinshausen et al., 2011; van Vuuren et al., 2011). We then obtained downscaled time series climate projections for the selected GCMs from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al., 2013) for the entire spatial extent of the study area and for the period 2016-2075 time. The multi-model ensemble mean of the 10 downscaled climate models was calculated for each of the climate variables.'
 
@@ -102,7 +96,5 @@ EEMSParams={
     /* used the extent from the vector clipping mask */
     "overlayBounds2":[[28.9713024690001, -124.763583911], [49.0031387380001, -101.345043443]],
     "overlayBounds3":[[31.30479955912671, -124.73750686645512], [49.02916526794433, -102.02248116866267]],
-
 };
-
 

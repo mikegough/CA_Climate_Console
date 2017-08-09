@@ -1,13 +1,13 @@
-title="DRECP"
-subTitle="Desert Renewable Energy Conservation Plan"
-studyAreaBoundary="DRECP_Bdy_20110128.json"
-initialLat=34.8
-initialLon=-116.7
-initialDownscaleMarkerLat=35.28
-initialDownscaleMarkerLon=-116.54
-selectedClimateDivision='94'
-zoomLevel=8
-initialBaseMap="worldTopo"
+title="DRECP";
+subTitle="Desert Renewable Energy Conservation Plan";
+studyAreaBoundary="DRECP_Bdy_20110128.json";
+initialLat=34.8;
+initialLon=-116.7;
+initialDownscaleMarkerLat=35.28;
+initialDownscaleMarkerLon=-116.54;
+selectedClimateDivision='94';
+zoomLevel=8;
+initialBaseMap="worldTopo";
 
 reportingUnits={
     // "Reporting Units Label":["database_table_name","name_field","json_file"]
@@ -18,7 +18,7 @@ reportingUnits={
     "DETO Recovery Units": ["drecp_reporting_units_deto_recovery_units_no_simplify", "unit_name", "DRECP_Reporting_Units_DETO_Recovery_Units_no_simplify.json"],
     "User Defined (1km)": ["drecp_reporting_units_1km_poly_v2", "",""],
 
-}
+};
 
 headerLinks={
     // Row 1
@@ -63,7 +63,7 @@ climateParams={
     overlayBounds:[[32.52468802685505, -118.77083333561102], [37.53750228881834, -114.00019713887225]],
     boxPlot:true
 
-}
+};
 
 EEMSParams={
     defaultRenderer:'stretched',

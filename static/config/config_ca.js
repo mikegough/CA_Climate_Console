@@ -36,7 +36,7 @@ reportingUnits={
     "User Defined (1km)": ["ca_reporting_units_1km_poly_join_eems_ti","",""],
 };
 
-climateParams = {
+climateParams={
     timePeriods:2,
     timePeriodLabels:['Historical <br>(1971-2000)', '2016-2045', '2046-2075'],
     models: {
