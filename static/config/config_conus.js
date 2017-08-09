@@ -33,6 +33,11 @@ reportingUnits={
     "Bird Conservation Regions": ["conus_reporting_units_bird_conservation_regions_5_simplify", "name", "conus_reporting_units_bird_conservation_regions_5_simplify.json"],
 };
 
+wmsLayers= {
+    // "Layer Title":["wms service url", "legend name", "wms layer name", "on or off on page load", "source"]
+    "USGS NLCD 2011": ["http://raster.nationalmap.gov/arcgis/services/LandCover/USGS_EROS_LandCover_NLCD/MapServer/WMSServer?", "usgs_nlcd.png", "33", "off", "https://www.sciencebase.gov/catalog/item/54419279e4b0b0a643c73e9b"],
+};
+
 climateParams = {
     timePeriods:9,
     timePeriodLabels:['1981-2010', '2011-2020', '2021-2030', '2031-2040', '2041-2050', '2051-2060', '2061-2070', '2071-2080', '2081-2090', '2091-2099'],
