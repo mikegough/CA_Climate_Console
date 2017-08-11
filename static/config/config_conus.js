@@ -1,6 +1,6 @@
 title="CONUS";
 subTitle="Climate Projections for the Continental United States";
-studyAreaBoundary="";
+studyAreaBoundary="conus_boundary_simplified.json";
 initialLat=35.496456056584165;
 initialLon=-105.0732421875;
 initialDownscaleMarkerLat=35.28;
@@ -31,6 +31,7 @@ reportingUnits={
     "Ecoregion Sections": ["conus_reporting_units_baileys_ecoregions_sections_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_sections_5_simplify.json"],
     "Ecoregion Provinces": ["conus_reporting_units_baileys_ecoregions_provinces_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_provinces_5_simplify.json"],
     "Bird Conservation Regions": ["conus_reporting_units_bird_conservation_regions_5_simplify", "name", "conus_reporting_units_bird_conservation_regions_5_simplify.json"],
+    "User Defined (4km)": ["netcdf", "", ""],
 };
 
 wmsLayers= {

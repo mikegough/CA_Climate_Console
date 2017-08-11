@@ -561,6 +561,9 @@ map.on('baselayerchange', function (event) {
     if (event.name == "User Defined (1km)" ) {
         reporting_units=reportingUnits["User Defined (1km)"][0]; map.addLayer(study_area_boundary)
     }
+    else if (event.name == "User Defined (4km)" ) {
+        reporting_units=reportingUnits["User Defined (4km)"][0]; map.addLayer(study_area_boundary)
+    }
     // Reporting units using image overlays. Add study area boundary to allow for click to select
     else if (typeof event.layer.options.type != "undefined" && event.layer.options.type == "ImageOverlayType") {
          map.addLayer(study_area_boundary)

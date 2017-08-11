@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 import re
+from django.conf import settings
+
 #import netCDF4
 
 import numpy as np
@@ -18,6 +20,12 @@ from django.views.decorators.gzip import gzip_page
 from collections import OrderedDict
 
 from django.views.decorators.csrf import csrf_exempt
+
+import glob
+from rasterstats import zonal_stats
+from rasterstats import point_query
+from osgeo import ogr
+from osgeo import osr
 
 @gzip_page
 @csrf_exempt
@@ -302,7 +310,7 @@ def view1(request):
             columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
 
-        if ecosystem_services_vtype_tables !="":
+        if ecosystem_services_vtype_tables != "":
             ecosystem_services_data = get_ecosystem_services_data(WKT,ecosystem_services_continuous_tables, ecosystem_services_vtype_tables, "spatial")
         else:
             ecosystem_services_data = ''
@@ -598,60 +606,75 @@ def view3(request):
 
     else:
 
-        WKT = "SRID=4326;" + request.POST.get('wktPOST').replace('%', ' ')
+        user_wkt = request.POST.get('wktPOST')
+        WKT = "SRID=4326;" + user_wkt.replace('%', ' ')
         ru_table = request.POST.get('reporting_units')
         ecosystem_services_continuous_tables = request.POST.getlist('ecosystem_services_continuous_tables[]')
         ecosystem_services_vtype_tables = request.POST.getlist('ecosystem_services_vtype_tables[]')
 
-        print ecosystem_services_continuous_tables
-
         cursor = connection.cursor()
+        if ru_table != "netcdf":
 
-        # Get reporting unit set id, eg counties with ID = 1 (ru_set_id)
-        query = "SELECT id from reporting_unit_sets where name = '%s'" % ru_table
-        cursor.execute(query)
-        ru_set_id = cursor.fetchone()[0]
-
-        # Get a list of individual reporting unit id's intersecting the user wkt
-        ru_name_list = []
-        ru_id_list = []
-        query = "SELECT name, id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
-        cursor.execute(query)
-        results = cursor.fetchall()
-        count = len(results)
-        for row in results:
-            ru_name_list.append(row[0])
-            ru_id_list.append(str(row[1]))
-
-        ru_id_csv = (",").join(ru_id_list)
-
-        # Get outline of selected features. Could calculate area here, but probably preferable to precalculate in a PCS.
-        #query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)), ST_Area(ST_Union(geom)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
-        query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
-        cursor.execute(query)
-        results = cursor.fetchone()
-        ru_wkt = results[0]
-        #sum_area = results[1]
-        #print sum_area
-
-        def getValues(cursor, ru_set_id, ru_id_csv, ru_table):
-
-            query = "select concat(m.code, v.code, s.code, t.code) as climate_code, sum(d.value * ru.area)/sum(ru.area) as value \
-                from models m, variables v, seasons s, time_periods t, data d, %s ru \
-                where m.id = d.model_id and v.id = d.var_id and s.id = d.season_id and t.id = d.time_id \
-                and d.ru_set_id = %s and d.ru_id in (%s) and ru.id = d.ru_id group by climate_code" % (ru_table, ru_set_id, ru_id_csv)
-            print query
+            # Get reporting unit set id, eg counties with ID = 1 (ru_set_id)
+            query = "SELECT id from reporting_unit_sets where name = '%s'" % ru_table
             cursor.execute(query)
-            res = cursor.fetchall()
-            return {r[0] + "_avg": round(r[1], 2) for r in res}
+            ru_set_id = cursor.fetchone()[0]
 
-        data = getValues(cursor, ru_set_id, ru_id_csv, ru_table)
+            # Get a list of individual reporting unit id's intersecting the user wkt
+            ru_name_list = []
+            ru_id_list = []
+            query = "SELECT name, id from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
+            cursor.execute(query)
+            results = cursor.fetchall()
+            count = len(results)
+            for row in results:
+                ru_name_list.append(row[0])
+                ru_id_list.append(str(row[1]))
+
+            ru_id_csv = (",").join(ru_id_list)
+
+            # Get outline of selected features. Could calculate area here, but probably preferable to precalculate in a PCS.
+            #query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)), ST_Area(ST_Union(geom)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
+            query = "SELECT ST_AsText(ST_SnapToGrid(ST_Force_2D(ST_Union(geom)), .0001)) as outline_of_selected_features from %s where ST_Intersects('%s', %s.geom)" % (ru_table, WKT, ru_table)
+            cursor.execute(query)
+            results = cursor.fetchone()
+            ru_wkt = results[0]
+            #sum_area = results[1]
+            #print sum_area
+
+            def getValues(cursor, ru_set_id, ru_id_csv, ru_table):
+
+                query = "select concat(m.code, v.code, s.code, t.code) as climate_code, sum(d.value * ru.area)/sum(ru.area) as value \
+                    from models m, variables v, seasons s, time_periods t, data d, %s ru \
+                    where m.id = d.model_id and v.id = d.var_id and s.id = d.season_id and t.id = d.time_id \
+                    and d.ru_set_id = %s and d.ru_id in (%s) and ru.id = d.ru_id group by climate_code" % (ru_table, ru_set_id, ru_id_csv)
+                print query
+                cursor.execute(query)
+                res = cursor.fetchall()
+                return {r[0] + "_avg": round(r[1], 2) for r in res}
+
+            data = getValues(cursor, ru_set_id, ru_id_csv, ru_table)
+
+        else:
+
+            ru_set_id = "User Defined"
+            ru_id_csv = "User Defined"
+            ru_name_list = "User Defined"
+            count = 1
+
+            # Calculate the zonal means for each of the NetCDF files in the study area directory.
+            data = calc_zonal_mean_netcdf(user_wkt, studyarea)
+            data['outline_of_selected_features'] = WKT
+
+            ru_wkt = data['outline_of_selected_features']
+            data['categorical_values'] = "User Defined"
+
 
         resultsJSON = json.dumps(data)
 
         columnChartColors = ""
 
-        if ecosystem_services_vtype_tables != "":
+        if ecosystem_services_vtype_tables:
             ecosystem_services_data = get_ecosystem_services_data2(str(ru_set_id), str(ru_id_csv))
         else:
             ecosystem_services_data = ''
@@ -747,7 +770,6 @@ def downscale(request):
 
 @gzip_page
 @csrf_exempt
-#Needs to be added to urls.py
 def generate_eems_tree(request):
 
     #from django.utils.translation import pgettext_lazy, pgettext, gettext as _
@@ -757,9 +779,7 @@ def generate_eems_tree(request):
     print eems_file_name
     top_node = request.POST.get("top_node")
 
-    #eems_file_directory = "static/config/eems"
-    #On Webfaction. EEMSBasepackage doesn't have any knowledge of the static files dir, so need to explicitly type the path.
-    eems_file_directory = "/home/consbio/webapps/static_climate_console/config/eems"
+    eems_file_directory = settings.STATICFILES_DIRS[0] + "/config/eems"
 
     eems_file = eems_file_directory + "/command_files/" + eems_file_name
     eems_alias_file = eems_file_directory + "/aliases/" + eems_file_name.replace('eem','txt')
@@ -1375,6 +1395,242 @@ def get_ecosystem_services_data2(ru_set_id, ru_id):
     mc2_data = json.dumps(resultsDictMultiTable)
 
     return mc2_data
+
+def calc_zonal_mean_netcdf(user_wkt, study_area):
+
+    print user_wkt
+    if study_area == "conus":
+        dst_epsg = 102003 #USA Contiguous Albers Equal Area Conic
+
+
+    raster_extension = "tif"
+
+    # Project WKT using ogr
+    geom = ogr.CreateGeometryFromWkt(user_wkt)
+    source = osr.SpatialReference()
+    source.ImportFromEPSG(4326)
+    target = osr.SpatialReference()
+    target.ImportFromEPSG(dst_epsg)
+    transform = osr.CoordinateTransformation(source, target)
+    geom.Transform(transform)
+    wkt_proj = geom.ExportToWkt()
+
+    # Project WKT using PostGIS
+    #cursor = connection.cursor()
+    #query = "SELECT ST_AsGeoJSON(ST_Transform(ST_GeomFromText('" + user_wkt + "', '4326'), '%s'))" % dst_epsg
+    #print query
+    #cursor.execute(query)
+    #wkt_proj = cursor.fetchone()[0]
+
+    raster_dir = settings.STATICFILES_DIRS[0] + "/data/tif/%s/climate" % study_area
+    files = [y for x in os.walk(raster_dir) for y in glob.glob(os.path.join(x[0], '*.tif'))]
+
+    print raster_dir
+
+    results_dict = {}
+
+    for file in files:
+        filename = os.path.basename(file)
+        climate_code = getClimateCode(filename)
+
+        if "POINT" in user_wkt:
+            value = point_query(wkt_proj, file)[0]
+
+        else:
+            value = zonal_stats(wkt_proj, file, stats="mean")[0]["mean"]
+
+        results_dict[climate_code + "_avg"] = round(value, 2)
+
+    return results_dict
+
+def getClimateCode(Name):
+
+    def getSeasonAbbreviation(Name):
+       if "JFM" in Name:
+          return "s1"
+       elif "AMJ" in Name or "Summer" in Name:
+          return "s2"
+       elif "JAS" in Name:
+          return "s3"
+       elif "OND" in Name or "Winter" in Name:
+          return "s4"
+       else:
+          return "s0"
+
+    def getVariableAbbreviation(Name):
+      if "_pr" in Name or "_ppt" in Name:
+        if "delta" in Name or "_pct_" in Name:
+            if "summer" in Name.lower():
+              return "prsd"
+            elif "winter" in Name.lower():
+              return "prwd"
+            else:
+              return "pred"
+        elif "anom" in Name:
+          return "prea"
+        elif "summer" in Name.lower():
+          return "pres"
+        elif "winter" in Name.lower():
+          return "prew"
+        else:
+          return "prec"
+      elif "_tasmax" in Name or "_tmax" in Name:
+         if "delta" in Name:
+             if "summer" in Name.lower():
+                  return "masd"
+             elif "winter" in Name.lower():
+                  return "mawd"
+             else:
+                  return "tmad"
+         elif "anom" in Name:
+            return "tmaa"
+         elif "summer" in Name.lower():
+            return "tmas"
+         elif "winter" in Name.lower():
+            return "tmaw"
+         else:
+            return "tmax"
+      elif "_tasmin" in Name or "_tmin" in Name:
+          if "delta" in Name:
+              if "summer" in Name.lower():
+                  return "misd"
+              elif "winter" in Name.lower():
+                  return "miwd"
+              else:
+                  return "tmid"
+          elif "anom" in Name:
+             return "tmia"
+          elif "summer" in Name.lower():
+             return "tmis"
+          elif "winter" in Name.lower():
+             return "tmiw"
+          else:
+             return "tmin"
+      elif "_pet" in Name:
+          #No Deltas for pet
+          if "summer" in Name.lower():
+             return "pets"
+          elif "winter" in Name.lower():
+             return "petw"
+          else:
+             return "pet"
+      elif "_aridity" in Name:
+          #All Deltas for Aridity
+          if "summer" in Name.lower():
+             return "arsd"
+          elif "winter" in Name.lower():
+             return "arwd"
+          else:
+             return "arid"
+      elif "_vpr" in Name:
+          if "delta" in Name or "_pct_" in Name:
+              if "summer" in Name.lower():
+                  return "vpsd"
+              elif "winter" in Name.lower():
+                  return "vpwd"
+              else:
+                  return "vpd"
+          else:
+              return "vpr"
+
+    def getTimePeriodAbbreviation(Name):
+      if "1645" in Name or "1530" in Name or "1120" in Name:
+        return "t1"
+      elif "4675" in Name or "4560" in Name or "2130" in Name:
+         return "t2"
+      elif "3140" in Name:
+          return "t3"
+      elif "4150" in Name:
+          return "t4"
+      elif "5160" in Name:
+          return "t5"
+      elif "6170" in Name:
+          return "t6"
+      elif "7180" in Name:
+          return "t7"
+      elif "8190" in Name:
+          return "t8"
+      elif "9199" in Name:
+          return "t9"
+      elif "7100" in Name or "6899" or "8110" in Name:
+         return "t0"
+
+    def getModelAbbreviation(Name):
+
+      #Note that these have dashes from the netCDF filenames, not underscores like the datasets.
+
+       if "CCSM4" in Name:
+          modelAbbreviation='C4'
+       elif "ensemble" in Name:
+          modelAbbreviation='ee'
+       elif "GFDL-ESM2G" in Name:
+           modelAbbreviation='g4'
+       elif "GFDL-ESM2M" in Name:
+           modelAbbreviation='g5'
+       elif "GFDL" in Name:
+          modelAbbreviation='G3'
+       elif "MRI-CGCM3" in Name:
+           modelAbbreviation='mi'
+       elif "MRI" in Name:
+          modelAbbreviation='M3'
+       elif "CanESM2" in Name:
+          modelAbbreviation='C2'
+       elif "MIROC5" in Name:
+          modelAbbreviation='M5'
+       elif "MIROC-ESM-CHEM" in Name:
+           modelAbbreviation='mc'
+       elif "MIROC-ESM" in Name:
+           modelAbbreviation='me'
+       elif "HadGEM2-ES" in Name:
+          modelAbbreviation='HS'
+       elif "HadGEM2-CC" in Name:
+          modelAbbreviation='HC'
+       elif "CNRM-CM5" in Name:
+          modelAbbreviation='C5'
+       elif "CMCC-CM" in Name:
+          modelAbbreviation='CM'
+       elif "CESM1-BGC" in Name:
+          modelAbbreviation='CC'
+       elif "CESM1-CAM5" in Name:
+           modelAbbreviation='C5'
+       elif "ACCESS1-0" in Name:
+          modelAbbreviation='A0'
+       elif "bcc-csm1-1-m" in Name:
+           modelAbbreviation='bm'
+       elif "bcc-csm1-1" in Name:
+           modelAbbreviation='bc'
+       elif "CSIRO-Mk3-6-0" in Name:
+           modelAbbreviation='c0'
+       elif "IPSL-CM5A-MR" in Name:
+           modelAbbreviation='ir'
+       elif "NorESM1-M" in Name:
+           modelAbbreviation='nm'
+       elif "BNU-ESM" in Name:
+           modelAbbreviation='BN'
+       elif "inmcm4" in Name:
+           modelAbbreviation='in'
+       elif "IPSL-CM5A-LR" in Name:
+           modelAbbreviation='ia'
+       elif "IPSL-CM5A-MR" in Name:
+           modelAbbreviation='ir'
+       elif "IPSL-CM5B-LR" in Name:
+           modelAbbreviation='ib'
+       elif "PRISM" in Name:
+          modelAbbreviation='pm'
+       else:
+          modelAbbreviation="NoModel"
+       return modelAbbreviation
+
+    modelAbbreviation=getModelAbbreviation(Name)
+    variable=getVariableAbbreviation(Name)
+    season=getSeasonAbbreviation(Name)
+    timePeriod=getTimePeriodAbbreviation(Name)
+
+    try:
+        climateCode = (modelAbbreviation+variable+season+timePeriod).lower()
+    except:
+        climateCode = Name
+    return climateCode
 
 def getColor(value, parameter):
     """Colors used in the highcharts chart"""
