@@ -403,7 +403,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                <option value="tmax" selected>Maximum Temperature</option>
                                <option value="tmin">Minimum Temperature</option>
                                <option value="prec">Precipitation</option>
-                               <option value="pet">PET</option>
+                               <option value="pet">Potential Evaporation</option>
                                <option value="vpr">Vapor Pressure</option>
                                </select>
                                </div>
@@ -615,7 +615,10 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 
                 <h3>Instructional Video:</h3>
 
-                Click on the play button below to view an instructional video on the California Climate Console. The video will open in a popup.<br><br><br>
+                Click on the play button below to view an instructional video on the <b>California Climate Console</b>. While this video was created for the California Climate Console, and not the CONUS Climate Console, there is a significant amount of overlap between the two applications.
+                Note, however, that there are some differences between the two applications, and certain features available in one application may not be available in the other.
+
+                The video will open in a popup.<br><br><br>
                 <div class="youTubeDiv">
                     <img class="button_movie_intro" style="margin-top:10px; height:70px; cursor:pointer"  title="Click to view an instructional video" class="youTubeIcon" src="{{STATIC_URL}}img/YouTube-icon-full_color.png"></a>
                 </div>
@@ -806,7 +809,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                 <p>
                 Because the model runs used historical (PRISM) climate through 2014, the value for the first decade (2011-2020) is a combination of the final 4 years of the run using PRISM data, and the first 6 years of the run using MACA-downscaled data. Since the future runs end in 2099, the final decade is a mean (mode) of 9 years (2091-2099) rather than 10 as for the other decades. Time values for each step in the charts represent the beginning of each decade.
                 <p>
-                The values in the vtype_agg data were aggregated from the fine-grained classes of MC2 output into simplified classes before the 10-year modes were calculated. The vegetation classes are:
+                The fine-grained vegetation classes from MC2 were simplified before the 10-year modes were calculated. The vegetation classes are:
                 <br>
                 <br>1: Tundra
                 <br>2: Taiga tundra
@@ -841,7 +844,7 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
 
                 The version of MC2 that was used here uses the Natural Resources Conservation Service (NRCS) runoff curve method ( <a target="_blank" href=" http://bit.ly/2aawHpu"> http://bit.ly/2aawHpu</a>)
                 <p/>
-                Postprocessing of the data involved projecting to USA_Contiguous_Albers_Equal_Area_Conic_USGS_version (NAD83) and calculating the zonal mean (for continuous variables) or area tabulation (for vtype_agg) for a select set of reporting units using ArcGIS 10.3.
+                Postprocessing of the MC2 data involved projecting each dataset to Albers Equal Area (USGS Contiguous US version) and calculating the zonal mean (for continuous variables) or area tabulation (for vegetation class) for a select set of reporting units using ArcGIS 10.3.
 
                 <a name="refs"></a>
                 <h3>References:</h3>

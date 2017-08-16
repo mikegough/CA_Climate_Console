@@ -172,7 +172,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
                 var climateVariableLabel='Aridity'
 
             } else if (layerToAddName.indexOf('pet') != -1  ){
-                var climateVariableLabel='PET'
+                var climateVariableLabel='Potential Evapotranspiration'
 
             } else if (layerToAddName.indexOf('vpr') != -1  ){
                 var climateVariableLabel='Vapor Pressure'
