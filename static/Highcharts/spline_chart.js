@@ -288,11 +288,9 @@ function animateMapContinuous(){
             pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
             swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYear, "EcosystemServices");
 
-            if (typeof pngName == "undefined") {
-                var legendName = continuousVariableForSlider  + "_" + actualModelName;
-                var legendTitle = continuousVariableForSlider + " " + chartSettings["variables"][continuousVariableForSlider][1];
-                swapLegend(legendName, null, "EcosystemServices", legendTitle)
-            }
+            var legendName = continuousVariableForSlider  + "_" + actualModelName;
+            var legendTitle = continuousVariableForSlider + " " + chartSettings["variables"][continuousVariableForSlider][1];
+            swapLegend(legendName, null, "EcosystemServices", legendTitle);
 
             $("#continuousMapSlider").slider('value', currentYear);
             //Last year. Restart
