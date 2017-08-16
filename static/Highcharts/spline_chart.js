@@ -276,21 +276,28 @@ function createSplineChart(model,y1_variable,y2_variable) {
 
 //array to store the setTimeout functions for each year. Needed since JS is single threaded. Need to destroy the [] on stop button push.
 var timeouts = [];
-var datePause = 2011
-var delayTime = 1000
+var datePause = 2011;
+var delayTime = 1000;
 function animateMapContinuous(){
-    var dateRange=_.range(datePause,2101,10)
+    var dateRange=_.range(datePause,2101,10);
     var startDate = new Date(1850,01,1);
     $.each(dateRange, function(index, currentYear){
         timeouts.push(setTimeout(function () {
             datePause = currentYear
             endDate = new Date(currentYear, 01, 1);
             pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
-            swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+            swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYear, "EcosystemServices");
+
+            if (typeof pngName == "undefined") {
+                var legendName = continuousVariableForSlider  + "_" + actualModelName;
+                var legendTitle = continuousVariableForSlider + " " + chartSettings["variables"][continuousVariableForSlider][1];
+                swapLegend(legendName, null, "EcosystemServices", legendTitle)
+            }
+
             $("#continuousMapSlider").slider('value', currentYear);
             //Last year. Restart
             if (index == dateRange.length - 1) {
-                datePause = 2011
+                datePause = 2011;
                 animateMapContinuous()
             }
         }, (index + 1) * delayTime));
