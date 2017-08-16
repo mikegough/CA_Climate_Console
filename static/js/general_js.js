@@ -1119,7 +1119,8 @@ $('#stop').click(function(e){
 
 $('#start2').click(function(e){
     e.preventDefault();
-    animateMap()
+    animateMap();
+    $(".info").html("");
 });
 
 $('#stop2').click(function(e){
