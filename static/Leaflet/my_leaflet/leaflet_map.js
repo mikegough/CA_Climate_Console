@@ -498,6 +498,7 @@ map.on('overlayadd', function (eventLayer) {
     if (typeof wmsLayers != "undefined" && typeof wmsLayers[eventLayer.name] != "undefined") {
         var legend_url = static_url + 'Leaflet/my_leaflet/legends/' + wmsLayers[eventLayer.name][1];
         $('.info_wms').prepend("<div id ='" + wms_legend_div_id + "'><div id='legendHeader'>" + eventLayer.name + "</div><img class='wms_legend' src=" + legend_url + "><br><div class='wms_source'> <a target='_blank' href='" + wmsLayers[eventLayer.name][4] + "'>Click to View Source </a></div><hr></div>")
+        $(".info_wms").show();
     }
 });
 
@@ -506,6 +507,7 @@ map.on('overlayremove', function (eventLayer) {
     var wms_legend_div_id = this._leaflet_id;
     if (typeof wmsLayers != "undefined" && typeof wmsLayers[eventLayer.name] != "undefined") {
         $("#" + wms_legend_div_id).remove()
+        $(".info_wms").hide();
     }
 });
 
