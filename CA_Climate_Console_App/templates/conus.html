@@ -142,6 +142,12 @@
 
 <style>
 
+.tg-yw4l {
+	border: 1px solid;
+	font-size: 12px;
+	cursor: default;
+}
+
 #scroll_for_more {
     z-index: 99999;
 }
@@ -497,8 +503,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 <td>
                                     The average max temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
                                     <p>
-                                    <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 10 years<br>
-                                    <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 10 years after that
+                                    <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the first future time period<br>
+                                    <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the second future time period
                                     <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
                                 </td>
                             </tr>
@@ -511,8 +517,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 <td>
                                     The average min temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
                                     <p>
-                                    <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 10 years<br>
-                                    <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 10 years after that
+                                    <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the first future time period<br>
+                                    <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the second future time period
                                     <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
                                 </td>
                             </tr>
@@ -525,8 +531,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 <td>
                                     The average precipitation in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_precip_t1"></span> the historical average by
                                     <p>
-                                    <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_precip_units">%</span> over the next 10 years<br>
-                                    <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_precip_units">%</span> over the 10 years after that
+                                    <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_precip_units">%</span> over the first future time period<br>
+                                    <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_precip_units">%</span> over the second future time period
                                     <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
                                     <p>
                                     <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
@@ -557,8 +563,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 <td>
                                     The average potential evapotranspiration in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_pet_t1"></span> the historical average by
                                     <p>
-                                    <b><span id="quick_value_pet_t1"></span></b></span><span class="quick_value_pet_units">%</span> over the next 10 years<br>
-                                    <span id="increase_or_decrease_pet_t2"></span><b><span id="quick_value_pet_t2"></span></b></span><span class="quick_value_pet_units">%</span> over the 10 years after that
+                                    <b><span id="quick_value_pet_t1"></span></b></span><span class="quick_value_pet_units">%</span> over the first future time period<br>
+                                    <span id="increase_or_decrease_pet_t2"></span><b><span id="quick_value_pet_t2"></span></b></span><span class="quick_value_pet_units">%</span> over the second future time period
                                     <p>
                                 </td>
                             </tr>
@@ -570,8 +576,8 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover {
                                 <td>
                                     The average vapor pressure in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_vpr_t1"></span> the historical average by
                                     <p>
-                                    <b><span id="quick_value_vpr_t1">1.8</span></b></span><span class="quick_value_vpr_units"> Pascals (Pa) </span> over the next 10 years<br>
-                                    <span id="increase_or_decrease_vpr_t2"></span><b><span id="quick_value_vpr_t2">2.9</span></b></span><span class="quick_value_precip_units"> Pascals (Pa)</span> over the 10 years after that
+                                    <b><span id="quick_value_vpr_t1">1.8</span></b></span><span class="quick_value_vpr_units"> Pascals (Pa) </span> over the first future time period<br>
+                                    <span id="increase_or_decrease_vpr_t2"></span><b><span id="quick_value_vpr_t2">2.9</span></b></span><span class="quick_value_precip_units"> Pascals (Pa)</span> over the second future time period
                                     <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
                                     <p>
                                 </td>
