@@ -27,7 +27,7 @@ headerLinks={
 reportingUnits={
     //"States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
     "States": ["conus_reporting_units_states_point_5_simplify","NAME","conus_reporting_units_states_point_5_simplify.json"],
-    "HUC4 Watersheds": ["conus_reporting_units_watersheds_huc4_point_5_simplify", "name", "conus_reporting_units_watersheds_huc4_point_5_simplify.json"],
+    "Watersheds (HUC2)": ["conus_reporting_units_watersheds_huc4_point_5_simplify", "name", "conus_reporting_units_watersheds_huc4_point_5_simplify.json"],
     "Ecoregion Sections": ["conus_reporting_units_baileys_ecoregions_sections_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_sections_5_simplify.json"],
     "Ecoregion Provinces": ["conus_reporting_units_baileys_ecoregions_provinces_5_simplify", "name", "conus_reporting_units_baileys_ecoregions_provinces_5_simplify.json"],
     "Bird Conservation Regions": ["conus_reporting_units_bird_conservation_regions_5_simplify", "name", "conus_reporting_units_bird_conservation_regions_5_simplify.json"],
@@ -173,7 +173,7 @@ ecosystemServicesParams= {
             "noresm1m": "conus_reporting_units_states_usgs_albers_es_decadal_vtype_NorESM1_M",
         },
     },
-    "HUC4 Watersheds": {
+    "Watersheds (HUC2)": {
         "continuousTables": {
             "bcccsm11m": "conus_reporting_units_watersheds_huc4_usgs_albers_es_decadal_bcc_csm1_1_m",
             "bcccsm11": "conus_reporting_units_watersheds_huc4_usgs_albers_es_decadal_bcc_csm1_1_r",
