@@ -93,9 +93,12 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
-        document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+        document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
+        $(".info").hide();
 
     } else {
+
+        $(".info").show();
 
        if (typeof Data_Basin_ID_Dict != 'undefined' ) {
            dbid = Data_Basin_ID_Dict[layerToAddName]
@@ -615,6 +618,7 @@ function create_post(newWKT) {
         },
         // handle a successful response
         success : function(json) {
+            $(".info2").show();
             timesRun=initialize+1
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
@@ -704,7 +708,7 @@ function create_post(newWKT) {
 
             //Populate the list of selected features in the bottom left hand corner.
             if (reporting_units != "onekm"){
-                $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
+                $('.info2').html("Currently Selected: "+response['categoricalValues'])
             }
             else {
                 $('.info2').html("")
@@ -880,6 +884,7 @@ function selectFeature(e){
 }
 
 function highlightFeature(e) {
+    $(".info2").show();
     var layer = e.target;
     layer.setStyle(hoverStyle)
 
@@ -890,11 +895,13 @@ function highlightFeature(e) {
 }
 
 function resetHighlight(e) {
+    $(".info2").hide();
     var layer= e.target
     layer.setStyle(defaultStyle)
 
     if (initialize==0 && reporting_units != "onekm" && typeof response != 'undefined') {
-        $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
+        $(".info2").show();
+        $('.info2').html("Currently Selected: "+response['categoricalValues'])
     }
     else {
         info2.update('');
@@ -1178,8 +1185,10 @@ function activateMapForDefault(){
     $('.leaflet-draw').show();
 
     //map.addLayer(results_poly)
-    document.getElementsByClassName('info2')[0].innerHTML='';
-    document.getElementsByClassName('info')[0].innerHTML='';
+    //document.getElementsByClassName('info2')[0].innerHTML='';
+
+    $('.info2').html("Currently Selected: "+response['categoricalValues'])
+    //document.getElementsByClassName('info')[0].innerHTML='';
 }
 
 
@@ -1274,6 +1283,8 @@ function selectClimateDivision(e) {
 }
 
 function activateMapForClimateForecast(){
+
+    $(".info").show();
 
     // Get climate_division_polygon that contains the results_poly_centroid
     var layer = leafletPip.pointInLayer(results_poly_centroid, near_term_climate_divisions_layer, true);
@@ -1542,6 +1553,9 @@ $(".get-markers").on("click", getAllMarkers);
 //**************************************** Ecosystem Services ********************************************************//
 
 function activateMapForEcosystemServices(){
+
+    $(".info").hide();
+    $('.info2').html("Currently Selected: "+response['categoricalValues']);
 
     map.removeLayer(near_term_climate_divisions);
     document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
