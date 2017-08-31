@@ -882,6 +882,7 @@ function selectFeature(e){
 }
 
 function highlightFeature(e) {
+    $(".info2").show();
     var layer = e.target;
     layer.setStyle(hoverStyle)
 
@@ -892,10 +893,12 @@ function highlightFeature(e) {
 }
 
 function resetHighlight(e) {
+    $(".info2").hide();
     var layer= e.target
     layer.setStyle(defaultStyle)
 
     if (initialize==0 && reporting_units != "onekm" && typeof response != 'undefined') {
+        $(".info2").show();
         $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
     }
     else {
