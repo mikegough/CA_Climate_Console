@@ -225,6 +225,8 @@ function createColumnChart(){
 
 function initialize_tree(layerToAdd){
 
+    swapImageOverlay("single_transparent_pixel")
+
     modelForTree=layerToAdd
 
     eems_file_name=EEMSParams['models'][modelForTree][6]
