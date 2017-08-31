@@ -617,6 +617,7 @@ function create_post(newWKT) {
         },
         // handle a successful response
         success : function(json) {
+            $(".info2").show();
             timesRun=initialize+1
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
