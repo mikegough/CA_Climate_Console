@@ -1557,7 +1557,6 @@ function activateMapForEcosystemServices(){
     document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
 
     $("div.leaflet-draw").hide();
-    swapImageOverlay("single_transparent_pixel");
 
     if (typeof pngCloverYear !=  "undefined"){
         swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
