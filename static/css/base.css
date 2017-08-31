@@ -1345,6 +1345,16 @@ ul#mainNav a {
     max-width:700px;
 }
 
+.info2{
+    color:#5083B0;
+    font-weight:bold;
+    display:none;
+}
+
+.info {
+    display: none;
+}
+
 .info_wms{
     padding: 6px 8px;
     font: 17px/19px Book Antiqua,Palatino,Palatino Linotype,Palatino LT STD,Georgia,serif;

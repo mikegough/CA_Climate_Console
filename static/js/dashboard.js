@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $(".info").show();
     /*$("div.leaflet-top:nth-child(1)").hide()*/
     $("#dynamicDataTable").tablesorter();
     document.title = title + " Climate Dashboard"

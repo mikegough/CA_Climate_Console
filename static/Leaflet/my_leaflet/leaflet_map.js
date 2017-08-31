@@ -94,8 +94,10 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
         document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+        $(".info").hide();
 
     } else {
+        $(".info").show();
 
        if (typeof Data_Basin_ID_Dict != 'undefined' ) {
            dbid = Data_Basin_ID_Dict[layerToAddName]
@@ -1178,8 +1180,10 @@ function activateMapForDefault(){
     $('.leaflet-draw').show();
 
     //map.addLayer(results_poly)
-    document.getElementsByClassName('info2')[0].innerHTML='';
-    document.getElementsByClassName('info')[0].innerHTML='';
+    //document.getElementsByClassName('info')[0].innerHTML='';
+    map.removeLayer(climate_PNG_overlay);
+    $(".info").hide();
+
 }
 
 
@@ -1274,7 +1278,7 @@ function selectClimateDivision(e) {
 }
 
 function activateMapForClimateForecast(){
-
+    $(".info").show();
     // Get climate_division_polygon that contains the results_poly_centroid
     var layer = leafletPip.pointInLayer(results_poly_centroid, near_term_climate_divisions_layer, true);
 
@@ -1542,6 +1546,8 @@ $(".get-markers").on("click", getAllMarkers);
 //**************************************** Ecosystem Services ********************************************************//
 
 function activateMapForEcosystemServices(){
+
+    swapImageOverlay("single_transparent_pixel");
 
     map.removeLayer(near_term_climate_divisions);
     document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
