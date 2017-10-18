@@ -28,7 +28,7 @@ function createColumnChart(){
         $('#column_chart').highcharts({
               chart: {
                     type: 'column',
-                    width:550,
+                    width:510,
                     height:380,
                     marginTop:25,
 

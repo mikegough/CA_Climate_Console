@@ -2380,9 +2380,9 @@ margin-bottom: 5px;
 .collapsible_div {
 	overflow-x: auto;
 	overflow-y: hidden;
-	width: calc(100% - 20px);
 	background-color: white;
-	padding: 0px 10px 10px 10px;
+	min-width: 35vw;
+	padding: 0px 20px;
 }
 
 #intro {
