@@ -387,7 +387,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/info_rotate5.png');
+    background:url('../../img/info_rotate5.png');
     background-size:20px;
     background-repeat:no-repeat;
 
@@ -399,7 +399,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/info_rotate5_hover.png');
+    background:url('../../img/info_rotate5_hover.png');
     background-size:20px;
     background-repeat:no-repeat;
 }
@@ -421,7 +421,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 .views{
-    padding-top:8px;
+	padding-right: 20px;
 }
 
 #view1{
@@ -879,7 +879,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/start.png');
+    background:url('../../img/start.png');
     background-size:25px;
     background-repeat:no-repeat;
 
@@ -895,7 +895,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/stop.png');
+    background:url('../../img/stop.png');
     background-size:25px;
     background-repeat:no-repeat;
 
@@ -920,7 +920,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/start.png');
+    background:url('../../img/start.png');
     background-size:25px;
     background-repeat:no-repeat;
 
@@ -936,7 +936,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/stop.png');
+    background:url('../../img/stop.png');
     background-size:25px;
     background-repeat:no-repeat;
 
@@ -961,7 +961,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/start.png');
+    background:url('../../img/start.png');
     background-size:25px;
     background-repeat:no-repeat;
 
@@ -977,7 +977,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../img/stop.png');
+    background:url('../../img/stop.png');
     background-size:25px;
     background-repeat:no-repeat;
 
@@ -1472,7 +1472,7 @@ div.callout {
 	border-radius: 4px;
 	z-index: 2;
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
-	background-image: url('../img/transparency2.png');
+	background-image: url('../../img/transparency2.png');
 	background-size: contain;
 }
 
@@ -2491,7 +2491,7 @@ margin-bottom: 5px;
 }
 
 #intro_image_div {
-	background: url("../img/poppies.jpg");
+	background: url("../../img/poppies.jpg");
 	width: 100%;
 	margin: 20px 10px 10px 0px;
 	border-radius: 5px;

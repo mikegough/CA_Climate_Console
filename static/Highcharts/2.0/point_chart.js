@@ -87,7 +87,7 @@ function createChart(climateVariable, statistic, season) {
             exporting: {
                 enabled:true,
                 allowHTML:true,
-                 buttons: {
+                buttons: {
                     contextButton: {
                         align:'right',
                         y:-10,
