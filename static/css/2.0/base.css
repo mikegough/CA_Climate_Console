@@ -2336,7 +2336,7 @@ margin-bottom: 5px;
 
 .header, .right_header {
 	font-family: Helvetica;
-	color: white;
+	color: #ede4e4;
 	font-weight: bold;
 	cursor: pointer;
 	height: 22px;
@@ -2349,7 +2349,7 @@ margin-bottom: 5px;
 	position: relative;
 	min-width: 150px;
 	background-color: #1B6186 !important;
-	border: 1px solid #1B6186 !important;
+	border: 1px solid #135578 !important;
 }
 
 .header:hover, .header:focus {
