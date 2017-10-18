@@ -77,7 +77,7 @@ function createChart(climateVariable, statistic, season) {
                 marginTop:25,
             },
             title: {
-                text: 'Click a point to map the data',
+                text: 'Click any point to map the data',
                 style: { "color": "#666666", "fontSize": "11px" },
                 y:-2
             },

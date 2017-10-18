@@ -19,11 +19,12 @@ function createAreaChart(model) {
         $('#area_chart').highcharts({
             chart: {
                 type: 'areaspline',
-                width: 440,
-                height:360,
+                width: 570,
+                height:520,
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,
+                marginBottom:190,
                 backgroundColor:'rgba(255, 255, 255, 0)'
                 /*screws up placement of legend in chrome. */
                 /*marginBottom:150*/

@@ -159,7 +159,12 @@ ul.tabs li a{
 	font-size: 13px !important;
 	margin-top: 20px !important;
 	white-space: nowrap;
-    margin-left: 30px;
+}
+
+#veg_select_form{
+    width:450px;
+    margin-left:80px;
+
 }
 
 .styled-select2{
@@ -225,9 +230,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     font: 9pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif
 }
 
-#column_chart{
-    margin-top:35px;
-    margin-left:20px;
+#column_chart {
+	margin-top: 35px;
+	margin-left: 20px;
+	width: 510px;
 }
 
 .label {
@@ -349,12 +355,6 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #EEMS_info_link_div {
-    height: 20px;
-    float: right;
-    position: relative;
-    right: 20px;
-    top: 17px;
-    font-size: .8em;
 }
 
 /* About Tab */
@@ -382,17 +382,19 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 .info_icon{
+    display:none !important;
     position:relative;
     top:10px;
     display:inline-block;
     height:28px;
     width:28px;
-    background:url('../../img/info_rotate5.png');
+    background:url('../../img/info3.png');
     background-size:20px;
     background-repeat:no-repeat;
 
 }
 
+/*
 .info_icon:hover{
     position:relative;
     top:10px;
@@ -403,6 +405,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     background-size:20px;
     background-repeat:no-repeat;
 }
+*/
 
 
 .gradientDivisionLine{
@@ -575,13 +578,13 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 .tab_help {
-    cursor: pointer;
-    position: relative;
-    left: 12px;
-    z-index: 9999;
-    float: left;
-    top: 8px;
-    height: 20px;
+	cursor: pointer;
+	position: relative;
+	z-index: 9999;
+	float: left;
+	top: 10px;
+	height: 20px;
+	left: -10px;
 }
 
 #infovis-canvaswidget{
@@ -905,7 +908,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 	z-index: 1;
 	left: 2px;
 	float: left;
-	top: -145px;
+	top: -166px;
 }
 
 #startDiv2{
@@ -946,7 +949,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 	z-index: 1;
 	left: 2px;
 	float: left;
-	top: -67px;
+	top: -71px;
 }
 
 #startDiv3{
@@ -1931,7 +1934,9 @@ div.clickToMapInfo {
 }
 
 #container {
-    height:358px
+	display: none;
+	height: 430px;
+	margin-top: 20px;
 }
 
 #showTop{
@@ -2103,16 +2108,22 @@ div#pop-up2 {
 	width: 445px;
 	position: relative;
 	height: 70px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #ecosystem_services_model_div {
+	margin-left: 45px;
+}
+
+#ecosystem_services_continuous_model_div {
 }
 
 #ecoServClimateModelLabel {
 	border-radius: 6px 0px 0px 6px;
-	padding-left: 43px;
+	padding-left: 50px;
 	border-right: 0px;
-	width: 120px;
+	width: 170px;
 	text-align: right;
 }
 
@@ -2152,26 +2163,23 @@ div#pop-up2 {
 
 #vegMapSlider {
 	position: relative;
-	top: 5px;
+	top: 10px;
 	opacity: .85;
-	width: 329px;
+	width: 445px;
 	margin-right: auto;
 	margin-left: auto;
 	z-index: 1;
 	cursor: pointer !important;
-	left: 0px;
+	left: 5px;
 }
 
 #continuousMapSlider {
-	position: relative;
-	top: 5px;
+	top: 15px;
 	opacity: .85;
-	width: 293px;
-	margin-right: auto;
-	margin-left: auto;
+	width: 390px;
 	z-index: 1;
 	cursor: pointer !important;
-	left: -2px;
+	margin-left: 0px;
 }
 
 .label {
@@ -2383,6 +2391,7 @@ margin-bottom: 5px;
 	background-color: white;
 	min-width: 35vw;
 	padding: 0px 20px;
+	text-align: center;
 }
 
 #intro {
@@ -2501,6 +2510,21 @@ margin-bottom: 5px;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+}
+
+.introjs-tooltip {
+	position: absolute;
+	visibility: visible;
+	padding: 10px;
+	background-color: white;
+	min-width: 400px;
+	border-radius: 3px;
+	box-shadow: 0 1px 10px rgba(0,0,0,.4);
+	-webkit-transition: opacity 0.1s ease-out;
+	-moz-transition: opacity 0.1s ease-out;
+	-ms-transition: opacity 0.1s ease-out;
+	-o-transition: opacity 0.1s ease-out;
+	transition: opacity 0.1s ease-out;
 }
 
 

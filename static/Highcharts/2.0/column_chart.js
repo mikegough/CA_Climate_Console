@@ -1,7 +1,7 @@
 var attributes =[]
 for (EEMSModel in EEMSParams["models"]){
     var imageToOverlay=EEMSParams['models'][EEMSModel][6].replace(".eem","") + "_" + EEMSParams['models'][EEMSModel][7];
-    attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='initialize_tree(&quot;" + EEMSModel +"&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>");
+    attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='initialize_tree(&quot;" + EEMSModel +"&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <br><div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>");
 }
 
 function createColumnChart(){
@@ -29,9 +29,14 @@ function createColumnChart(){
               chart: {
                     type: 'column',
                     width:510,
-                    height:380,
+                    height:350,
                     marginTop:25,
 
+                },
+                title: {
+                    text: 'Click any column to map the data',
+                    style: { "color": "#666666", "fontSize": "11px" },
+                    y:-2
                 },
                 credits: {
                     enabled: false
@@ -84,16 +89,6 @@ function createColumnChart(){
                         },
                     }
                 },
-                title: {
-
-                    text: ' ',
-                    margin: 15,
-
-                },
-                subtitle: {
-                    //text: '511574.7544' + 'N , ' + 'E3849223.0376' + 'E, UTM 11N, NAD83'
-                },
-
                 xAxis: {
                     maxPadding:0,
                     endOnTick: true,
@@ -187,6 +182,7 @@ function createColumnChart(){
                     point: {
                             events: {
                                 click: function() {
+                                    $("#container").show();
                                     var layerToAdd = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
 
                                     //Update MEEMSE2.0 values
