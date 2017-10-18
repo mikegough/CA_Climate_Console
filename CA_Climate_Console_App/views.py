@@ -78,6 +78,15 @@ def view1(request):
         template = 'ca'
         config_file = "config_ca.js"
 
+    elif studyarea == 'ca2':
+
+        if table == None:
+            table = "ca_reporting_units_county_boundaries_5_simplify"
+            categoricalFields = "name"
+
+        template = 'ca2'
+        config_file = "config_ca.js"
+
     elif studyarea == 'multi-lcc':
 
         if table == None:

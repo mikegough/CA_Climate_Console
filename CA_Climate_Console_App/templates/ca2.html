@@ -1,0 +1,650 @@
+<html>
+<head>
+<title></title>
+<link rel="shortcut icon" href="{{STATIC_URL}}img/sun.ico">
+
+<script> var static_url="{{STATIC_URL}}" </script>
+
+<!-- Configuration File -->
+<script src="{{STATIC_URL}}config/{{config_file}}"></script>
+
+<!-- A Dictionary containing Image Overlay Name to Data Basin ID Lookup for the Data Basin link-->
+<script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
+
+<!-- Alertify -->
+<script src="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/src/alertify.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.core.css">
+<!-- include a theme, can be included into the core instead of 2 separate files -->
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.default.css">
+
+<!-- JIT -->
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/base.css" rel="stylesheet" />
+<link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/Spacetree.css" rel="stylesheet" />
+
+<script src="{{STATIC_URL}}deps/Jit/Jit-2.0.1/jit.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Spacetree.js"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/terrestrial_intactness.json"></script>
+<script src="{{STATIC_URL}}Jit/My_Jit/Jit_Models/ecological_values.json"></script>
+
+<!-- Leaflet -->
+<!--<script src="{{STATIC_URL}}deps/Leaflet/leaflet-0.7.3/leaflet.js"></script>-->
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+
+<!-- ESRI Leaflet -->
+<script src="{{STATIC_URL}}deps/ESRI_Leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+
+<!-- Leaflet.draw -->
+<script src="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.draw-master/dist/leaflet.draw.css" />
+
+<!-- leaflet.grouped-layer-control-->
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.css" />
+<script src="{{STATIC_URL}}deps/Leaflet/Leaflet.grouped-layer-control/leaflet.groupedlayercontrol.js"></script>
+
+<script src='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.js'></script>
+<link href='{{STATIC_URL}}deps/Leaflet/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
+
+<!--  Point in polygon for selecting the climate division containing the selected reporting unit -->
+<script src='{{STATIC_URL}}deps/Leaflet-pip/v0.0.2/leaflet-pip.js'></script>
+
+<!--Brendan's Zoom Tool -->
+<link rel="stylesheet" href="{{STATIC_URL}}Leaflet/addOns/ZoomBox/L.Control.ZoomBox.css" />
+<script src="{{STATIC_URL}}Leaflet/addOns/ZoomBox/L.Control.ZoomBox.min.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+<!-- Omnivore -->
+<script src='{{STATIC_URL}}deps/Leaflet/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+<!-- Geonames -->
+<script src="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Geonames/L.Control.Geonames.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+
+<!-- Jquery-->
+<script src="{{STATIC_URL}}deps/jquery/jquery-2.1.4.min.js"></script>
+
+<!-- JQuery Slider -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- Tabs -->
+<script src="{{STATIC_URL}}deps/TabContent/tabcontent.js" type="text/javascript"></script>
+<link href="{{STATIC_URL}}deps/TabContent/tabcontent.css" rel="stylesheet" type="text/css" />
+
+<!-- Highcharts -->
+<!-- Latest Stable Version v4.1.5 as of 5/6/2015. Latest version at http://code.highcharts.com/highcharts.js -->
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_4.1.5/highcharts.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_more_4.1.0/highcharts-more.js"></script>
+<script src="{{STATIC_URL}}deps/Highcharts/highcharts_exporting_4.1.10/exporting.js"></script>
+
+<!-- Messi -->
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Messi/messi.css" />
+<script src="{{STATIC_URL}}deps/Messi/messi.js"></script>
+
+<!--selectBoxIt (Styled Select Boxes) -->
+<link type="text/css" rel="stylesheet" href="{{STATIC_URL}}deps/SelectBoxIt/css/jquery.selectBoxIt.css" />
+<script src="{{STATIC_URL}}deps/SelectBoxIt/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="{{STATIC_URL}}deps/SelectBoxIt/js/jquery.selectBoxIt.min.js"></script>
+
+<!-- Slide Out Menu -->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/SlidePushMenus/css/default.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/SlidePushMenus/css/component.css" />
+<script src="{{STATIC_URL}}deps/SlidePushMenus/js/modernizr.custom.js"></script>
+
+<!--Classie - class helper functions by @desandro https://github.com/desandro/classie -->
+<script src="{{STATIC_URL}}deps/SlidePushMenus/js/classie.js"></script>
+
+<!-- intro.js -->
+<script src="{{STATIC_URL}}deps/IntroJS/intro.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/IntroJS/introjs.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+<!-- My Charts -->
+<script src="{{STATIC_URL}}Highcharts/2.0/point_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
+
+<script src="{{STATIC_URL}}Highcharts/2.0/area_chart.js"></script>
+<script src="{{STATIC_URL}}Highcharts/2.0/spline_chart.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
+
+<!-- My CSS -->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/2.0/base.css">
+
+<!-- My JS -->
+<script src="{{STATIC_URL}}js/2.0/general_js.js"></script>
+<script src="{{STATIC_URL}}js/2.0/navigation.js"></script>
+
+<script>
+    var static_url="{{STATIC_URL}}"
+    showChartOnMapSelect="PointChart"
+    var initialize={{initialize}}
+    var count="{{count}}"
+    var last_poly="{{WKT_SelectedPolys}}"
+    columnChartColors="{{columnChartColors}}"
+    unitsForChart="metric"
+
+    $('select').selectBoxIt({ autoWidth: false });
+
+</script>
+
+<style>
+    #poppyImage {
+        position: absolute;
+        height: 175px;
+        left: -90px;
+        top: -60px;
+    }
+
+    #rightImage {
+        position: absolute;
+        right: -30px;
+        top: 0px;
+    }
+
+    .toolTitle, .toolTitle2 {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#003d5e+0,0d4a68+17,085677+100 */
+    background: #003d5e; /* Old browsers */
+    background: -moz-linear-gradient(left,  #003d5e 0%, #0d4a68 17%, #085677 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #003d5e 0%,#0d4a68 17%,#085677 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #003d5e 0%,#0d4a68 17%,#085677 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#003d5e', endColorstr='#085677',GradientType=1 ); /* IE6-9 */
+    color: #FEAF23;
+    }
+
+    ul.tabs li.selected a, ul.tabs li.selected a:hover{
+        background-color:#0D4D6C;
+        color: #FEAF23;
+    }
+
+</style>
+
+</head>
+
+<body class="claro">
+
+<!-- Slide Out Menu -->
+<div id="SlideOutMenuDiv">
+    <nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
+        <!-- Links written in general_js.js -->
+    </nav>
+
+    <div class="container">
+        <div class="main">
+            <section>
+                <!-- Class "cbp-spmenu-open" gets applied to menu -->
+                <button id="showTop">&#x25BC Explore More Climate Tools &#x25BC</button>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div id="header">
+    <div id="title">
+        <script>document.write(title)</script><span id="title2"> Climate Console</span><br>
+    </div>
+</div>
+
+     <div id="intro">
+        <!--
+        <div id="subtitle">Mapping climate exposure and terrestrial resilience across nature's stage in the pacific northwest.</div>
+        -->
+        <div id="intro_image_div"></div>
+        <div class="intro_header">Welcome</div>
+
+         The Climate Console is a web mapping application designed for exploring climate change projections, simulated impacts, and fuzzy logic (EEMS) model results for a specified area of interest.
+        <div class="intro_header">Getting Started</div>
+        <div>
+            <div class="getting_started_text">
+                <!--<span class="helper_number">1</span>-->1. Select a reporting units layer <img style="cursor:pointer" onclick='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">
+            </div>
+            <div class="interp_image_div"><img style="width:140px" src="{{STATIC_URL}}img/layers.png"></div>
+            <div class="getting_started_text">
+                <!-- <span class="helper_number">2</span>-->2. Select a feature or set of features in the map <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">
+            </div><!--onmouseover='gettingStartedIntro.start().goToStep(2)'-->
+            <!--<div style="margin-left:auto;margin-right:auto;text-align:center"><img  style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>-->
+            <div class="interp_image_div"><img style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>
+
+            <div class="getting_started_text">
+            <!-- <span class="helper_number">2</span>-->3. Explore results generated for the selected area
+            </div>
+            <div class="interp_image_div"><img style="width:180px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+        </div>
+
+    </div>
+
+    <div id="side_tab"><img class="rotate_90" id="side_tab_arrow"src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+
+    <div id="map"></div>
+
+    <div title="Adjust the opacity of this layer" id='control' class='ui-opacity'>
+      <div id='handle' class='handle'></div>
+    </div>
+
+    <!-- needs to go below the map and the opacity handle -->
+    <script src="{{STATIC_URL}}Leaflet/my_leaflet/leaflet_map.js"></script>
+
+    <div class="loading">
+        <img class="loading_image" src='{{STATIC_URL}}img/loader_circular.gif'><br>
+        <div class="loading_text">&nbsp Loading...</div>
+    </div>
+
+    <div id="results">
+        <div class="results_container">
+            <div class="header" id="climate_header">Climate Projections<img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="collapsible_div">
+
+                    <div id="all_point_chart_goodies">
+                        <!-- <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(); "> -->
+                        <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                            Currently Selected:
+                            <span class="selectedFeaturesShortList"></span>
+                            <span class="additionalFeaturesCount"></span>
+                        </div>
+                        <span  class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                        <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
+                        <div class="select_container_2">
+                           <form class="select_form2">
+                               <div class="styled-select2" id="ss1">
+                               <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                               <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value, document.getElementById("model_selection_form").value)'>
+                               <!-- Annual Averages -->
+                               <optgroup label = "Variable:">
+                               <option value="tmax" selected>Max Temp</option>
+                               <option value="tmin">Min Temp</option>
+                               <option value="prec">Precipitation</option>
+                               <option value="arid">Aridity</option>
+                               <option value="pet">PET</option>
+                               </select>
+                               </div>
+                               <div class="styled-select2" id="ss4">
+                                   <!-- On change, hit the event handler in general_js.js, which changes the color, updates the quickview table, and changes the image overlay. -->
+                                   <select id="model_selection_form">
+                                       <optgroup label = "Climate Model:">
+                                       <option value="1" selected>Ensemble</option>
+                                       <option value="2">CNRM (Warm/Wet)</option>
+                                       <option value="3">CCSM4 (Warm/Dry)</option>
+                                       <option value="4">CanEMS2 (Hot/Wet)</option>
+                                       <option value="5">HadGEM2ES (Hot/Dry)</option>
+                                       <option value="6">ACCESS</option>
+                                       <option value="7">CESM1</option>
+                                       <option value="8">CMCC</option>
+                                       <option value="9">GFDL</option>
+                                       <option value="10">HadGEM2CC</option>
+                                       <option value="11">MIROC5</option>
+                                   </select>
+                               </div>
+                               <div class="styled-select2" id="ss2">
+                                   <select id="statistic_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, this.value, document.getElementById("season_selection_form").value,document.getElementById("model_selection_form").value)'>
+                                   <!-- Annual Averages -->
+                                   <optgroup label = "Statistic:">
+                                   <option class="avg" value="avg" selected >Average</option>
+                                   <option class="delta" value="delta">Change</option>
+                                   <!-- <option class="anom" value="anom">Anomaly</option> -->
+                                   </select>
+                               </div>
+                               <div class="styled-select2" id="ss3">
+                                   <select id="season_selection_form" onchange='updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, this.value,document.getElementById("model_selection_form").value,document.getElementById("model_selection_form").value); updateQuickViewTable(document.getElementById("season_selection_form").value)'>
+                                       <!-- Annual Averages -->
+                                       <optgroup label = "Season:">
+                                       <option value="s0" selected >Annual</option>
+                                       <option value="s1">Jan-Feb-Mar</option>
+                                       <option value="s2">Apr-May-Jun</option>
+                                       <option value="s3">Jul-Aug-Sep</option>
+                                       <option value="s4">Oct-Nov-Dec</option>
+                                   </select>
+                               </div>
+                               <div id="units_selector">
+                                   <b>Units:</b>
+                                   <input checked='checked' onchange="changeUnits('metric')" type="radio" name="units" value="metric"><span id="MetricLabel">&deg;Celsius</span>
+                                   <input onchange="changeUnits('english')" type="radio" name="units" value="english"><span id="EnglishLabel">&deg;Fahrenheit</span>
+                               </div>
+                           </form>
+                           </div>
+
+                        <div id="point_chart"></div>
+
+                        <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
+
+                        <div style="display:none" id="point_chart_description"></div>
+
+                    </div> <!--all_point_chart_goodies -->
+                    <!--
+                    <div id="climate_info_link_div"><br>Scenario:RCP8.5/Resolution:30arc-secs. <a href="" id="modelInfoLink" title="Click for information about the climate data" >Learn more about the climate data</a></div>
+                    -->
+
+                   <!-- <div id="scroll_for_more">&#9660 Scroll to see more &#9660</div>-->
+            </div>
+        </div>
+        <div class="results_container">
+            <div class="header header full_border_radius" id="climate_table_header">Climate Projections Table<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="collapsible_div" style="display:none">
+                    <div id="climate_quick_view">
+
+                        <table id="climate_quick_view_table">
+                            <tr>
+                                <th colspan="2">
+                                    <!--
+                                    <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
+                                    -->
+                                    <span style="font-weight:normal;font-size:1em">Projected Change (<span id="modelLabel">Ensemble(Averages)</span>, <span id="seasonLabel">Annual</span>)</span>
+                                </th>
+                            </tr>
+
+                            <!-- TMAX -->
+                            <tr>
+                                <td style="max-width:20px;text-align:center">
+                                    <div class="quick_therm_tmax"><i class="wi wi-thermometer"></i></div>
+                                </td>
+                                <td>
+                                    The average max temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
+                                    <p>
+                                        <b><span id="quick_value_tmax_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                    <b><span id="quick_value_tmax_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                </td>
+                            </tr>
+
+                            <!-- TMIN -->
+                            <tr>
+                                <td style="max-width:20px; text-align:center">
+                                    <div class="quick_therm_tmin"><i class="wi wi-thermometer"></i></div>
+                                </td>
+                                <td>
+                                    The average min temperature in <span id="quick_view_place_name"> the selected area <span> is projected to exceed the historical average by
+                                    <p>
+                                        <b><span id="quick_value_tmin_t1">1.8</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the next 30 years<br>
+                                    <b><span id="quick_value_tmin_t2">2.9</span></b></span>&deg;<span class="quick_value_temp_units">C</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                </td>
+                            </tr>
+
+                            <!-- PRECIP -->
+                            <tr>
+                                <td>
+                                    <div class="quick_rain"><i class="wi wi-rain-mix"></i></div>
+                                </td>
+                                <td>
+                                    The average precipitation in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_precip_t1"></span> the historical average by
+                                    <p>
+                                        <b><span id="quick_value_precip_t1">1.8</span></b></span><span class="quick_value_precip_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_precip_t2"></span><b><span id="quick_value_precip_t2">2.9</span></b></span><span class="quick_value_precip_units">%</span> over the 30 years after that
+                                    <!--<span class='arrow_dir'><div class='quick_value_range'>(<span id="quick_value_range_tmax_t1">1.5-3.4</span>)</div></span>-->
+                                    <p>
+                                        <span style="font-size:.73em">(Note that precipitation projections vary widely among models)</span>
+                                </td>
+                            </tr>
+
+                            <!-- Aridity -->
+                            <tr>
+                                <td>
+                                    <div class="quick_aridity"><i class="wi wi-day-haze"></i></div>
+                                </td>
+                                <td>
+                                    The average aridity in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_aridity_t1"></span> the historical average by
+                                    <p>
+                                        <b><span id="quick_value_aridity_t1"></span></b></span><span class="quick_value_aridity_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_aridity_t2"></span><b><span id="quick_value_aridity_t2"></span></b></span><span class="quick_value_aridity_units">%</span> over the 30 years after that
+                                    <p>
+                                </td>
+                            </tr>
+
+                            <!-- PET -->
+                            <tr>
+                                <td>
+                                    <div class="quick_pet"><i class="wi wi-flip-vertical wi-raindrops"></i></div>
+                                </td>
+                                <td>
+                                    The average potential evapotranspiration in <span id="quick_view_place_name"> the selected area <span> is projected to <span id="increase_or_decrease_pet_t1"></span> the historical average by
+                                    <p>
+                                        <b><span id="quick_value_pet_t1"></span></b></span><span class="quick_value_pet_units">%</span> over the next 30 years<br>
+                                    <span id="increase_or_decrease_pet_t2"></span><b><span id="quick_value_pet_t2"></span></b></span><span class="quick_value_pet_units">%</span> over the 30 years after that
+                                    <p>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+            </div>
+        </div>
+
+        <div class="results_container">
+            <div class="header header full_border_radius" id="eems_header">Condition & Impacts (EEMS) <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="collapsible_div" style="display:none">
+                     <div id="view5" class="views">
+                <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                    Currently Selected:
+                    <span class="selectedFeaturesShortList"></span>
+                    <span class="additionalFeaturesCount"></span>
+                </div>
+                <span class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
+
+                <!--
+                <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Logic Model Results</span></div>
+                -->
+                <div id="column_chart"></div>
+                <div id="container">
+                    <div id="log">
+                        <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
+                        <div id="initialTreeInfo">
+                            <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
+                        </div>
+                    </div>
+                <div id="infovis"></div>
+
+                <div id="right-container" style="display:none">
+                     <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
+                </div>
+
+                </div>
+                <div id="MEEMSE_footer">
+                    <div id="MEEMSE_node_count_legend">
+                        <span title="Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes.">
+                        <table class="MEEMSE_node_count_legend_table">
+                            <tr>
+                                <td rowspan="2" style="width: 200px; min-width: 55px; text-align: right; padding-right: 8px;">Number of<br>Inputs</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color:#AAAAAA"></td>
+                                <td style="background-color:#BBAAAA"></td>
+                                <td style="background-color:#CCAAAA"></td>
+                                <td style="background-color:#DDAAAA"></td>
+                                <td style="background-color:#EEAAAA"></td>
+                                <td style="background-color:#FFAAAA"></td>
+                            </tr>
+                        </table>
+                        </span>
+                        <span title="Green nodes represent the active branch (the branch for which the input nodes are displayed), with the lowest green node being the one that is visible in the map.">
+                        <table class="MEEMSE_node_count_legend_table" style="width:70px">
+                            <tr>
+                            <td style="min-width: 58px; line-height:7px; text-align:right">Active</td>
+                            <td style="min-width:8px; background-color:#A6C8A6"></td>
+                            </tr>
+                        </table>
+                        </span>
+                    </div>
+
+                    <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
+
+               </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="results_container">
+
+            <div class="header header full_border_radius" id="climate_impacts_header">Vegetation (MC2)<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="collapsible_div" style="display:none">
+                    <div id="view6">
+                <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
+                <!-- Start and Stop Buttons -->
+                <div class="select_container_2" id="view6_contents">
+                    <form class="select_form2">
+                        <div id="ecosystem_services_model_div">
+                            <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options">Climate Model <span class="verticalSeparatorLine">|</span></span>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                                <!-- Annual Averages -->
+                                <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
+                                <option value="canesm2">CanESM2 (Hot/Wet)</option>
+                                <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
+                            </select>
+                        </div>
+                    </form>
+                    <!--
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
+                    -->
+                    <div id="area_chart"></div>
+                    <div id="vegMapSliderContainer"></div>
+                    <div id="playButtons2">
+                        <a href="#" id="start2" title="Click to automatically cycle through the time steps"><button id="startDiv2"></button></a>
+                        <a href="#" id="stop2" title="Click to stop"><button id="stopDiv2"></button></a>
+                    </div>
+            </div>
+
+        </div>
+            </div>
+        </div>
+
+        <div class="results_container">
+
+            <div class="header header full_border_radius" id="climate_impacts_header">Carbon, Fire, and Water (MC2)<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="collapsible_div" style="display:none">
+                    <div id="view6">
+                <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
+                <!-- Start and Stop Buttons -->
+                <div class="select_container_2" id="view6_contents">
+                    <form class="select_form2">
+                        <div id="ecosystem_services_model_div">
+                            <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Climate Model <span class="verticalSeparatorLine">|</span></span>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                                <!-- Annual Averages -->
+                                <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
+                                <option value="canesm2">CanESM2 (Hot/Wet)</option>
+                                <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
+                            </select>
+                        </div>
+                    </form>
+                    <!--
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader" style="padding-right:20px;">Carbon, Fire, and Water</div>
+                    -->
+                    <div id="spline_variable_dropdown">
+                        <form class="select_form2">
+                            <div id="AdditionalESVariablesY1">
+                                <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Y1 Axis Variable<span class="verticalSeparatorLine">|</span></span>
+                                <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value); continuousVariableForSlider=this.value' >
+                                    <!-- Annual Averages -->
+                                    <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
+                                    <option value="c_forest">Live Forest Carbon</option>
+                                    <option value="c_dead_abo">Above Ground Dead Biomass</option>
+                                    <option value="nbp">Net Biological Production</option>
+                                </select>
+                            </div>
+                            <p>
+                            <div id="AdditionalESVariablesY2">
+                                <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Y2 Axis Variable<span class="verticalSeparatorLine">|</span></span>
+                                <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value); continuousVariableForSlider=this.value' >
+                                    <!-- Annual Averages -->
+                                    <option value="cwd">Climatic Water Deficit</option>
+                                    <option value="consumed">Biomass Consumed by Fire</option>
+                                    <option value="h2o_stream">Stream Flow</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <p>
+                <div id="spline_chart"></div>
+                <div id="playButtons3">
+                    <a href="#" id="start3" title="Click to automatically cycle through the time steps"><button id="startDiv3"></button></a>
+                    <a href="#" id="stop3" title="Click to stop"><button id="stopDiv3"></button></a>
+                </div>
+                <!--
+                <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
+                -->
+            </div>
+
+        </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+<div id="footer" class="no-print">
+    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2017 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
+</div>
+
+<script>
+    $(function() {
+      //Calls the selectBoxIt method on your HTML select box.
+      $("select").selectBoxIt();
+    });
+
+    $("select").selectBoxIt({
+    // Sets default text to appear for the drop down
+        aggressiveChange: true
+    });
+
+    //enable intro.js  on the control layers
+    gettingStartedIntro=introJs();
+</script>
+
+<!-- div for the mouseover legend items text -->
+<div id="pop-up"></div>
+<div id="pop-up2"></div>
+<div id="pop-up3"></div>
+
+<div id="movie_intro"><iframe width="715" height="538" src="https://www.youtube.com/embed/Eyhnq6-V6xs" frameborder="0" allowfullscreen></iframe></div>
+<div id="movie_climate"><iframe width="715" height="538" src="https://www.youtube.com/embed/67bI2DJmqJQ" frameborder="0" allowfullscreen></iframe></div>
+<div id="movie_eems"><iframe width="715" height="538" src="https://www.youtube.com/embed/xzwcpYgRml4" frameborder="0" allowfullscreen></iframe></div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-76493740-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script>
+
+    $('.button_movie_intro').click(function(){
+        $('#movie_intro').dialog('open');
+    });
+
+    $('.button_movie_climate').click(function(){
+        $('#movie_climate').dialog('open');
+    });
+
+    $('.button_movie_eems').click(function(){
+        $('#movie_eems').dialog('open');
+    });
+
+    $('#movie_intro').dialog({autoOpen:false,modal: true, resizable: false});
+    $('#movie_climate').dialog({autoOpen:false,modal: true, resizable: false});
+    $('#movie_eems').dialog({autoOpen:false,modal: true, resizable: false});
+
+</script>
+
+</body>
+</html>
