@@ -707,8 +707,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 #climate_quick_view {
 	text-align: center;
 	margin-top: 20px;
-	width: calc(100% - 20px);
-	padding: 10px;
+	padding: 20px 45px;
 }
 
 #climate_quick_view_table {
