@@ -114,6 +114,7 @@
 <script src="{{STATIC_URL}}Highcharts/2.0/area_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/2.0/spline_chart.js"></script>
 
+<script src="{{STATIC_URL}}Highcharts/2.0/distribution.js"></script>
 
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}deps/weather-icons-master/css/weather-icons.min.css">
 
@@ -326,6 +327,14 @@
                    <!-- <div id="scroll_for_more">&#9660 Scroll to see more &#9660</div>-->
             </div>
         </div>
+
+        <div class="results_container">
+            <div class="header" id="climate_departure_header"><span class="selected_watershed_icon"></span> Climate Departure <img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="collapsible_div">
+                <table class="results_table" id="climate_table"><tr></tr></table>
+            </div>
+        </div>
+
         <div class="results_container">
             <div class="header header full_border_radius" id="climate_table_header">Climate Projections Table<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" style="display:none">

@@ -27,6 +27,12 @@ from rasterstats import point_query
 from osgeo import ogr
 from osgeo import osr
 
+import rasterio
+from rasterio import mask
+import geojson
+import shapely.wkt
+from django.utils.crypto import get_random_string
+
 @gzip_page
 @csrf_exempt
 def index(request):
@@ -57,6 +63,8 @@ def view1(request):
         #Near-term weather forecast data retrieved from NOAA through Cronjob.
 
     ############################################# INPUT PARAMETERS #####################################################
+
+    print table
 
     stats_field_exclusions = "'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
@@ -1451,6 +1459,143 @@ def calc_zonal_mean_netcdf(user_wkt, study_area):
         results_dict[climate_code + "_avg"] = round(value, 2)
 
     return results_dict
+
+@gzip_page
+@csrf_exempt
+def extract_raster_values(request):
+
+    user_wkt = request.POST.get("last_poly")
+    g1 = shapely.wkt.loads(user_wkt)
+    g2 = geojson.Feature(geometry=g1, properties={})
+
+    features = []
+    features.append(g2.geometry)
+
+    rasters = get_raster_defs()
+    results = {}
+
+    # for each raster group (e.g., "cns")
+    for raster_group, raster_subgroups in rasters.items():
+        results[raster_group] = {}
+        for raster_subgroup, raster_subgroup_list in raster_subgroups.items():
+            results[raster_group][raster_subgroup] = []
+            # for each raster_dict in that raster groups list.
+            for raster_dict in raster_subgroup_list:
+
+                if raster_dict["raster"]:
+                    tif_file = "static/data/raster/ca/{}".format(raster_dict["raster"])
+
+
+                    with rasterio.open(tif_file) as src:
+                        out_image, out_transform = rasterio.mask.mask(src, features, crop=True)
+                        out_meta = src.meta.copy()
+
+                    out_meta.update({"driver": "GTiff",
+                                     "height": out_image.shape[1],
+                                     "width": out_image.shape[2],
+                                     "transform": out_transform})
+
+                    RASTER_ID = get_random_string(length=32)
+                    clipped_raster = settings.TEMP_DIR + RASTER_ID + ".tif"
+
+                    with rasterio.open(clipped_raster, "w", **out_meta) as dest:
+                        dest.write(out_image)
+
+                    with rasterio.open(clipped_raster, 'r') as src:
+                        array = src.read(1, masked=True)
+
+                    # Remove masked values
+
+                    raw_data_array = (array[~array.mask])
+                                        # Temporary dictionary to store the results of this raster definition
+                    raster_definition_dict = {}
+
+                    raster_definition_dict["title"] = raster_dict["title"]
+                    raster_definition_dict["series"] = raster_dict["series"]
+                    raster_definition_dict["stats"] = {}
+
+                    raster_definition_dict["stats"]["mean"] = round(float(array.mean()), 1)
+                    raster_definition_dict["stats"]["min"] = round(float(array.min()), 1)
+                    raster_definition_dict["stats"]["max"] = round(float(array.max()), 1)
+                    raster_definition_dict["stats"]["sd"] = round(float(array.std()), 1)
+
+                    raster_definition_dict["raw_data"] = json.loads(json.dumps(raw_data_array.tolist()))
+
+                    try:
+                        raster_definition_dict["netcdf"] = raster_dict["netcdf"]
+                    except:
+                        pass
+
+                    raster_definition_dict["chart_type"] = raster_dict["chart_type"]
+
+                    try:
+                        raster_definition_dict["bins"] = raster_dict["bins"]
+                    except:
+                        pass
+
+                    try:
+                        raster_definition_dict["data_type"] = raster_dict["data_type"]
+
+                        if raster_definition_dict["data_type"] == "categorical":
+                            binned_data_array = bin_the_data(raster_definition_dict["raw_data"], raster_dict["labels"], raster_dict["sort"])
+                            raster_definition_dict["binned_data"] = binned_data_array
+                            del raster_definition_dict["raw_data"]
+                            print (raster_dict["title"] + ": Success")
+                    except:
+                        print (raster_dict["title"] + ": Failed to bin data")
+                        pass
+
+                    try:
+                        raster_definition_dict["labels"] = raster_dict["labels"]
+                    except:
+                        pass
+                    try:
+                        raster_definition_dict["color"] = raster_dict["color"]
+                    except:
+                        pass
+                    try:
+                        raster_definition_dict["series_opacity"] = raster_dict["series_opacity"]
+                    except:
+                        pass
+                    results[raster_group][raster_subgroup].append(raster_definition_dict)
+
+                    os.remove(clipped_raster)
+
+    context = {
+        "selected_reporting_unit_results": results,
+    }
+
+    return HttpResponse(json.dumps(context, sort_keys=True))
+
+def get_raster_defs():
+
+    rasters = {}
+    rasters["Climate"] = {}
+
+    climate_colors = ["rgba(67,67,67,.4)", "rgba(255,0,0,.4)", "rgba(0,102,200,.4)"]
+    climate_opacity = [.4, .3, .3]
+
+    rasters["Climate"]["1_tmin"] = [
+        {"raster": "PRISM_tmin7100_ann.tif", "title": "Min Temperature (C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "HadGEM2-ES_tmin4675.tif", "title": "Min Temperature (C)", "series": "HadGEM2-ES (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "CanESM2_tmin4675.tif", "title": "Min Temperature (C)", "series": "CanESM2 (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[2], "series_opacity":climate_opacity[2]},
+    ]
+
+    rasters["Climate"]["2_tmax"] = [
+        {"raster": "PRISM_tmax7100_ann.tif",  "title": "Max Temperature (C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0],"series_opacity": climate_opacity[0]},
+        {"raster": "HadGEM2-ES_tmax4675.tif", "title": "Max Temperature (C)", "series": "HadGEM2-ES (2046 - 2075)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[1],"series_opacity": climate_opacity[1]},
+        {"raster": "CanESM2_tmax4675.tif", "title": "Max Temperature (C)", "series": "CanESM2 (2046 - 2075)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[2],"series_opacity":climate_opacity[2]},
+    ]
+
+    rasters["Climate"]["3_ppt"] = [
+        {"raster": "PRISM_ppt7100_ann.tif", "title": "Precipitation (mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "HadGEM2-ES_ppt4675.tif", "title": "Precipitation (mm)", "series": "HadGEM2-ES (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "CanESM2_ppt4675.tif", "title": "Precipitation (mm)", "series": "CanESM2 (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+    ]
+
+
+    return rasters
+
 
 def getClimateCode(Name):
 

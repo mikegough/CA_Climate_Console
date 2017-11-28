@@ -555,11 +555,12 @@ map.on('overlayadd', function (event) {
     activeReportingUnitsName = event.layer.options.name;
     reporting_units = event.layer.options.dbtable;
     name_field = event.layer.options.dbnamefield;
+
     if (event.name == "User Defined (1km)" ) {
-        reporting_units=reportingUnits["User Defined (1km)"][0]; map.addLayer(study_area_boundary)
+        reporting_units=reportingUnits["User Defined (1km)"][0]; //map.addLayer(study_area_boundary)
     }
     else if (event.name == "User Defined (4km)" ) {
-        reporting_units=reportingUnits["User Defined (4km)"][0]; map.addLayer(study_area_boundary)
+        reporting_units=reportingUnits["User Defined (4km)"][0]; //map.addLayer(study_area_boundary)
     }
     // Reporting units using image overlays. Add study area boundary to allow for click to select
     else if (typeof event.layer.options.type != "undefined" && event.layer.options.type == "ImageOverlayType") {
@@ -580,7 +581,11 @@ if (typeof ecosystemServicesParams == "undefined"){
 
 // AJAX for posting
 function create_post(newWKT) {
-    initialize=0
+    initialize=0;
+
+   if (side_panel_status == "visible"){
+    $("#side_tab").click();
+   }
 
     var continuousTablesList=[];
     var vtypeTablesList=[];
@@ -691,6 +696,8 @@ function create_post(newWKT) {
             results_poly.addTo(map)
             results_poly.setStyle({color:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:0, opacity:1})
             results_poly.bringToFront()
+
+            extract_raster_values(last_poly)
 
             //layerControl.addOverlay(results_poly, "Current Selection");
 
@@ -855,6 +862,33 @@ function create_post(newWKT) {
         }
 
     });
+}
+
+function extract_raster_values(last_poly) {
+
+    $.ajax({
+        url: "/extract_raster_values", // the endpoint (for a specific view configured in urls.conf /view_name/)
+        //Webfactional
+        //url : "/climate", // the endpoint
+        type: "POST", // http method
+        //data sent to django view with the post request
+        //data : { the_post : $('#post-text').val() },
+        data: {
+            last_poly: last_poly,
+        },
+          success: function (response) {
+               response_json = JSON.parse(response);
+               results_json = response_json["selected_reporting_unit_results"];
+
+               // <Data>, <table_id>, <chart subtitle>, <show in legend>
+               create_charts(results_json["Climate"],"climate_table", false, true);
+           },
+           // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                alert('There was an error processing your request. Please try again');
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+           },
+    })
 }
 
 function onEachFeature(feature, layer) {
@@ -1565,3 +1599,184 @@ $.each($("#leaflet-control-layers-group-2").find("label"), function(index,value)
 
 });
 
+
+//************************************ Climate Distribution Charts ****************************************************//
+
+
+function create_charts(results_json_group, table_name, sub_title, show_in_legend, legend_position = "top") {
+
+    // results_json_group = results_json["CNS"] or results_json["Climate"]
+
+    $("#"+ table_name).empty();
+    $("#"+ table_name).append("<tr></tr>");
+
+    // Create the table to hold the charts
+    $.each(results_json_group, function (key, object) {
+        $("#" + table_name + " tr").append("<td class='chart_table' id='" + key + "'></td>");
+
+    });
+
+
+    $.each(results_json_group, function (key, object) {
+
+        var chart_title = object[0]["title"];
+        var chart_type = object[0]["chart_type"];
+        var data_type = object[0]["data_type"];
+        var bins;
+        if (typeof object[0]["bins"] != "undefined") {
+            bins = object[0]["bins"];
+        }
+        else{
+            bins = ''
+        }
+        var color_by_point;
+        var labels;
+        if (typeof object[0]["labels"] != "undefined") {
+            labels = object[0]["labels"];
+            color_by_point = true;
+        }
+        else{
+            labels = ''
+            color_by_point = false;
+        }
+        // Create the chart
+        create_histogram(key, chart_title, sub_title, data_type, labels, chart_type);
+
+        var chart = $("#" + key).highcharts();
+
+        count = 1;
+
+        var layer_id;
+        var legend_container_id = key + "_legend_container";
+        $("#" + key).append("<div id='" + legend_container_id + "' class='legend_container'><div>");
+
+        $.each(object, function(index, object) {
+
+            if (typeof object["color"] != "undefined") {
+                series_color = object["color"]
+            }
+
+            if (typeof object["series_opacity"] != "undefined") {
+                series_opacity = object["series_opacity"]
+            }
+
+            var map_icon_id = layer_id;
+
+            var raw_data = object["raw_data"];
+            var min = object["stats"]["min"];
+            var max = object["stats"]["max"];
+            var mean = object["stats"]["mean"];
+
+            if (typeof object["binned_data"] != "undefined") {
+                binnedData = object["binned_data"];
+            }
+
+            else{
+                // The data are continuous, so bin them accordingly.
+                binnedData = binData(raw_data, min, max, bins);
+                cell_count = object["raw_data"].length
+
+                // Have to handle these two differently because the binnedData array structure is different from the categorical (which uses x:, y:, color:).
+                $.each(binnedData, function(index, array){
+                    percent_area = parseFloat((binnedData[index][1]/cell_count * 100).toFixed(1));
+                    binnedData[index][1] = percent_area;
+                })
+            }
+
+            if (typeof series_color == "undefined"){
+                series_color = Highcharts.getOptions().colors[count]
+            }
+
+            if (typeof series_opacity == "undefined"){
+                series_opacity = .3
+            }
+            chart.addSeries({
+                name: object["series"],
+                type: chart_type,
+                connectNulls: true,
+                min:0,
+                lineWidth:2,
+                colorByPoint:color_by_point,
+                data: binnedData,
+                fillOpacity:series_opacity,
+                borderColor: '#666666',
+                color: series_color ,
+                marker: {
+                    enabled: false
+                },
+                showInLegend: show_in_legend,
+            });
+
+            count += 1;
+
+            // Set the starting tic for the xAxis equal to the minimum data value (preventing -1's in the Resilience class chart).
+            var min_val = chart.xAxis[0].getExtremes().dataMin;
+            chart.xAxis[0].update({min:min_val});
+
+            /*
+            if (typeof xAxis_categories != "undefined") {
+                chart.xAxis[0].setCategories(xAxis_categories);
+            }
+            */
+
+            if (sub_title) {
+                // Only really works if there is 1 series per chart.
+                var subtitle = "<div id='histogram_subtitle'>Mean:" + mean + "<br>Min:" + min + "<br>Max:" + max + "</div>";
+                chart.setTitle(null, { text: subtitle});
+            }
+
+        });
+    });
+
+}
+
+function binData(data,min,max,bins) {
+
+    var hData = new Array(), //the output array
+        size = data.length //how many data points
+    if (bins == '') {
+        bins = 20; //determine how many bins we need
+        //bins = Math.round(Math.sqrt(size)); //determine how many bins we need
+        bins = bins > 50 ? 50 : bins; //adjust if more than 50 cells
+    }
+    //var //max = Math.max.apply(null, data), //lowest data value
+    //min = Math.min.apply(null, data), //highest data value
+    var range = max - min, //total range of the data
+        width = range / bins, //size of the bins
+        bin_bottom, //place holders for the bounds of each bin
+        bin_top;
+
+    //loop through the number of cells
+    for (var i = 0; i < bins; i++) {
+
+        //set the upper and lower limits of the current cell
+        bin_bottom = min + (i * width);
+        bin_top = bin_bottom + width;
+
+        //check for and set the x value of the bin
+        if (!hData[i]) {
+            hData[i] = new Array();
+            hData[i][0] = bin_bottom + (width / 2);
+        }
+
+        //loop through the data to see if it fits in this bin
+        for (var j = 0; j < size; j++) {
+            var x = data[j];
+
+            //adjust if it's the first pass
+            i == 0 && j == 0 ? bin_bottom -= 1 : bin_bottom = bin_bottom;
+
+            //if it fits in the bin, add it
+            if (x > bin_bottom && x <= bin_top) {
+                !hData[i][1] ? hData[i][1] = 1 : hData[i][1]++;
+            }
+        }
+    }
+    $.each(hData, function (i, point) {
+        if (typeof point[1] == 'undefined') {
+            hData[i][1] = null;
+        }
+    });
+    return hData;
+
+}
