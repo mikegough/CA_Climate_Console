@@ -280,7 +280,7 @@ function swapImageOverlay(layerName,modelType) {
 
         $("#clickToMapInfo").hide();
         //Transparency slider
-        elements=document.getElementsByClassName('ui-opacity');
+        elements = document.getElementsByClassName('ui-opacity');
         map.removeLayer(climate_PNG_overlay);
         //ti
         if (climate_PNG_overlay_url.search(layerName)> 0 && lastRenderer==renderer){
@@ -536,6 +536,7 @@ if (typeof wmsLayers != "undefined") {
 
 // Adding the climate legend after adding the WMS legend makes it go above the WMS legend.
 dynamic_legend.addTo(map);
+
 
 /*
 layerControl = L.control.layers(reportingUnitLayers, overlayMaps, {collapsed:false, position:'topleft', width:'300px'} ).addTo(map);

@@ -1465,14 +1465,14 @@ div.callout {
 	background: #FFFFFF;
 	position: absolute;
 	left: 120px;
-	bottom: 71px;
+	bottom: 80px;
 	/* top: 240px; */
 	height: 150px;
 	/* width: 28px; */
 	width: 15px;
 	border: 1px solid rgba(0,0,0,0.4);
 	border-radius: 4px;
-	z-index: 2;
+	z-index: 9999;
 	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 	background-image: url('../../img/transparency2.png');
 	background-size: contain;

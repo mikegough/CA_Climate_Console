@@ -1575,22 +1575,34 @@ def get_raster_defs():
     climate_colors = ["rgba(67,67,67,.4)", "rgba(255,0,0,.4)", "rgba(0,102,200,.4)"]
     climate_opacity = [.4, .3, .3]
 
-    rasters["Climate"]["1_tmin"] = [
-        {"raster": "PRISM_tmin7100_ann.tif", "title": "Min Temperature (C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
-        {"raster": "HadGEM2-ES_tmin4675.tif", "title": "Min Temperature (C)", "series": "HadGEM2-ES (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
-        {"raster": "CanESM2_tmin4675.tif", "title": "Min Temperature (C)", "series": "CanESM2 (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[2], "series_opacity":climate_opacity[2]},
+    rasters["Climate"]["1_tmax"] = [
+        {"raster": "hist_tmax.tif",  "title": "Max Temp of the Warmest Month<br>(C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0],"series_opacity": climate_opacity[0]},
+        {"raster": "hadgem_tmax.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[1],"series_opacity": climate_opacity[1]},
+        {"raster": "canesm_tmax.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[2],"series_opacity":climate_opacity[2]},
     ]
 
-    rasters["Climate"]["2_tmax"] = [
-        {"raster": "PRISM_tmax7100_ann.tif",  "title": "Max Temperature (C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0],"series_opacity": climate_opacity[0]},
-        {"raster": "HadGEM2-ES_tmax4675.tif", "title": "Max Temperature (C)", "series": "HadGEM2-ES (2046 - 2075)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[1],"series_opacity": climate_opacity[1]},
-        {"raster": "CanESM2_tmax4675.tif", "title": "Max Temperature (C)", "series": "CanESM2 (2046 - 2075)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[2],"series_opacity":climate_opacity[2]},
+    rasters["Climate"]["2_tmin"] = [
+        {"raster": "hist_tmin.tif", "title": "Min Temp of the Coolest Month<br>(C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hadgem_tmin.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "canesm_tmin.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[2], "series_opacity":climate_opacity[2]},
     ]
 
     rasters["Climate"]["3_ppt"] = [
-        {"raster": "PRISM_ppt7100_ann.tif", "title": "Precipitation (mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
-        {"raster": "HadGEM2-ES_ppt4675.tif", "title": "Precipitation (mm)", "series": "HadGEM2-ES (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
-        {"raster": "CanESM2_ppt4675.tif", "title": "Precipitation (mm)", "series": "CanESM2 (2046 - 2075)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+        {"raster": "hist_ppt.tif", "title": "Annual Precipitation<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hadgem_ppt.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "canesm_ppt.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+    ]
+
+    rasters["Climate"]["4_ppt_wetest"] = [
+        {"raster": "hist_wet_qtr.tif", "title": "Precipitation of the Wettest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hadgem_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "canesm_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+    ]
+
+    rasters["Climate"]["5_ppt_driest"] = [
+        {"raster": "hist_dry_qtr.tif", "title": "Precipitation of the Driest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hadgem_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "canesm_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
 

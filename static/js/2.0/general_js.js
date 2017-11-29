@@ -1350,15 +1350,15 @@ function updateClimateHelpContent(number){
         'tooltipPosition': 'left'
     });
     $('#all_point_chart_goodies').each(function (i) {
-        $(this).attr('data-step', '3');
+        $(this).attr('data-step', '5');
         $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
     });
     $('#climate_quick_view').each(function (i) {
-        $(this).attr('data-step', '4');
+        $(this).attr('data-step', '6');
         $(this).attr('data-intro', '<div id="climate_table_help_content"><b>A snapshot of climate change projections</b><p>The Projected Change table provides a quick snapshot of the changes that are projected to occur within the selected area.</div>');
     });
     $('#column_chart').each(function (i) {
-        $(this).attr('data-step', '5');
+        $(this).attr('data-step', '7');
         $(this).attr('data-intro', '<div id="eems_chart_help_content"><b>Condition & Impact Models </b><p>This chart shows the results of several Fuzzy Logic (EEMS) models averaged over the selected area. <p>Clicking on any column will display the corresponding dataset in the map. <p>In addition, when you click on a column, you\'ll see the model diagram appear below the chart. The model diagram is an interactive graphical representation of the model used to create each of the EEMS results shown in the chart. The model flows from the bottom up &mdash; meaning that input nodes appear below the output nodes they create. The text in the gray boxes indicate the operation used to combine the input data (e.g., Fuzzy Union). <p>Clicking on any box makes the corresponding spatial dataset show up on the map on the left. By clicking on the color ramps on the right hand side of each box in the logic tree, the user can choose to display either of the two color scale (classified or stretched). When the user clicks on a box, the model diagram expands to show the underlying inputs used to create the box that was selected. Box colors indicate the number of inputs (see color scale below logic tree). The active box representing the map on display will be highlighted in green. <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">Learn more about the condition & impact models</a></div></div>');
     });
     gettingStartedIntro2.goToStep(number).start();

@@ -24,7 +24,7 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
         marginTop: margin_top,
         marginRight:20,
         height:300,
-        width:300,
+        width:310,
       },
       title: {
         text: label,
