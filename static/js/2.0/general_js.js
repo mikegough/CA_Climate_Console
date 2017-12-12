@@ -37,31 +37,25 @@
      //If using introJs, the function needs to be called in the script section at the bottom of the template.
      if (typeof introJs  == "function") {
 
-         /*
-         $('.leaflet-control-layers-expanded').each(function (i) {
-             $(this).attr('data-step', '1')
-             $(this).attr('data-intro', '<b>Reporting units</b> define the ecological or administrative boundaries for which the climate projections will be calculated. By selecting counties, for example, you will be able to examine the climate projections for a specified county or counties of interest.')
-         });
-         */
          $('.leaflet-control-layers').each(function (i) {
-             $(this).attr('data-step', '1')
+             $(this).attr('data-step', '1');
              $(this).attr('data-intro', '<b>Reporting units</b> define the ecological or administrative boundaries for which the climate projections will be calculated. By selecting counties, for example, you will be able to examine the climate projections for a specified county or counties of interest.')
          });
 
          $('.leaflet-draw').each(function (i) {
-             $(this).attr('data-step', '2')
+             $(this).attr('data-step', '2');
              //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
              $(this).attr('data-intro', 'A <b>feature</b> refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features (selected features will be those that intersect the drawn shape), or simply click on a single feature of interest in the map.')
          });
 
          $('.leaflet-geonames-search').each(function (i) {
              $(this).attr('data-step', '3')
-             //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
              $(this).attr('data-intro', 'You can also click here to select a feature based on the location of a specified place name.')
          });
 
          //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
-         gettingStartedIntro.setOptions({'showStepNumbers': false, 'showBullets': 'false', 'tooltipPosition': 'right'});
+         //gettingStartedIntro.setOptions({'showStepNumbers': false, 'showBullets': 'false', 'tooltipPosition': 'right'});
+         gettingStartedIntro.setOptions({ 'showStepNumbers': false, 'showBullets': 'false', 'tooltipPosition': 'left', 'exitOnOverlayClick': true, 'showProgress': false});
      }
 
     /*  If we decide to make the link go to the About tab.*/
@@ -246,6 +240,10 @@
          });
      });
 
+     $('.tab_help').click(function (evt) {
+         evt.stopPropagation();
+         return false;
+     });
 
 });
 
@@ -1341,6 +1339,37 @@ function updateEcosystemServicesCharts(dropDownValue) {
     }
 
 }
+ function updateClimateHelpContent(){
+     gettingStartedIntro2 = introJs();
+     gettingStartedIntro2.setOptions({
+         'showStepNumbers': false,
+         'showBullets': 'false',
+         'tooltipPosition': 'left'
+     });
+     /*
+     $('#all_point_chart_goodies').each(function (i) {
+         $(this).attr('data-step', '1');
+         $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
+     });
+     */
+     gettingStartedIntro2.goToStep(1).start();
+ }
+
+ /*
+function updateClimateHelpContent(){
+    gettingStartedIntro2 = introJs();
+    gettingStartedIntro2.setOptions({
+        'showStepNumbers': false,
+        'showBullets': 'false',
+        'tooltipPosition': 'left'
+    });
+    $('#all_point_chart_goodies').each(function (i) {
+        $(this).attr('data-step', '3');
+        $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
+    });
+    gettingStartedIntro2.goToStep(3).start();
+
+}
 
 function updateClimateHelpContent(number){
     gettingStartedIntro2 = introJs();
@@ -1350,20 +1379,21 @@ function updateClimateHelpContent(number){
         'tooltipPosition': 'left'
     });
     $('#all_point_chart_goodies').each(function (i) {
-        $(this).attr('data-step', '5');
+        $(this).attr('data-step', '1');
         $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
     });
     $('#climate_quick_view').each(function (i) {
-        $(this).attr('data-step', '6');
+        $(this).attr('data-step', '2');
         $(this).attr('data-intro', '<div id="climate_table_help_content"><b>A snapshot of climate change projections</b><p>The Projected Change table provides a quick snapshot of the changes that are projected to occur within the selected area.</div>');
     });
     $('#column_chart').each(function (i) {
-        $(this).attr('data-step', '7');
+        $(this).attr('data-step', '3');
         $(this).attr('data-intro', '<div id="eems_chart_help_content"><b>Condition & Impact Models </b><p>This chart shows the results of several Fuzzy Logic (EEMS) models averaged over the selected area. <p>Clicking on any column will display the corresponding dataset in the map. <p>In addition, when you click on a column, you\'ll see the model diagram appear below the chart. The model diagram is an interactive graphical representation of the model used to create each of the EEMS results shown in the chart. The model flows from the bottom up &mdash; meaning that input nodes appear below the output nodes they create. The text in the gray boxes indicate the operation used to combine the input data (e.g., Fuzzy Union). <p>Clicking on any box makes the corresponding spatial dataset show up on the map on the left. By clicking on the color ramps on the right hand side of each box in the logic tree, the user can choose to display either of the two color scale (classified or stretched). When the user clicks on a box, the model diagram expands to show the underlying inputs used to create the box that was selected. Box colors indicate the number of inputs (see color scale below logic tree). The active box representing the map on display will be highlighted in green. <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">Learn more about the condition & impact models</a></div></div>');
     });
     gettingStartedIntro2.goToStep(number).start();
 
 }
+ */
 
 
 function addEventHandlerForModelChange(){
@@ -1477,6 +1507,22 @@ function preLoadOverlay(arrayOfImages) {
     });
 }
 
+function load_help_content(title, file) {
+
+     $.ajax({ url : static_url + "help/" + file,
+        global: false,
+        dataType: "text",
+        success : function (data) {
+
+                alertify.alert("<div class='info_header'>" + title + "</div><div class='info_popup'>" + data  + "</div>", function(e){
+
+                })
+
+        }
+    });
+
+}
+
 vtype_images = [
 "vtype_agg_canesm2__58804",
 "vtype_agg_canesm2__62457",
@@ -1524,3 +1570,4 @@ vtype_images = [
 "vtype_agg_hadgem2es__88024",
 "vtype_agg_cnrm__58804",
 ]
+

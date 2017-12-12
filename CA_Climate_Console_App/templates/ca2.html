@@ -12,10 +12,10 @@
 <script src="{{STATIC_URL}}Leaflet/my_leaflet/data_basin_id_dictionary.js"></script>
 
 <!-- Alertify -->
-<script src="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/src/alertify.js"></script>
-<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.core.css">
+<script src="{{STATIC_URL}}deps/Alertify/0.3.11/alertify.min.js"></script>
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/0.3.11/alertify.core.css">
 <!-- include a theme, can be included into the core instead of 2 separate files -->
-<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/alertify.js-0.3.11/themes/alertify.default.css">
+<link rel="stylesheet" href="{{STATIC_URL}}deps/Alertify/0.3.11/alertify.bootstrap.min.css">
 
 <!-- JIT -->
 <link type="text/css" href="{{STATIC_URL}}Jit/My_Jit/base.css" rel="stylesheet" />
@@ -206,11 +206,11 @@
         <div class="intro_header">Getting Started</div>
         <div>
             <div class="getting_started_text">
-                <!--<span class="helper_number">1</span>-->1. Select a reporting units layer <img style="cursor:pointer" onclick='gettingStartedIntro.start()' src="{{STATIC_URL}}img/info.png">
+                <!--<span class="helper_number">1</span>-->1. Select a reporting units layer <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStepNumber(1)' src="{{STATIC_URL}}img/info.png">
             </div>
             <div class="interp_image_div"><img style="width:140px" src="{{STATIC_URL}}img/layers.png"></div>
             <div class="getting_started_text">
-                <!-- <span class="helper_number">2</span>-->2. Select a feature or set of features in the map <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStep(2)' src="{{STATIC_URL}}img/info.png">
+                <!-- <span class="helper_number">2</span>-->2. Select a feature or set of features in the map <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStepNumber(2)' src="{{STATIC_URL}}img/info.png">
             </div><!--onmouseover='gettingStartedIntro.start().goToStep(2)'-->
             <!--<div style="margin-left:auto;margin-right:auto;text-align:center"><img  style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>-->
             <div class="interp_image_div"><img style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>
@@ -241,9 +241,12 @@
 
     <div id="results">
         <div class="results_container">
-            <div class="header" id="climate_header">Climate Projections<img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="header" id="climate_header">
+                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="load_help_content('Climate Projections', 'climate_projections.html')">
+                Climate Projections<img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png">
+            </div>
             <div class="collapsible_div">
-                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(5);">
+                <!--<img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(1);">-->
 
                     <div id="all_point_chart_goodies">
                         <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
@@ -319,34 +322,20 @@
 
                         <div style="display:none" id="point_chart_description"></div>
 
-                    </div> <!--all_point_chart_goodies -->
-                    <!--
-                    <div id="climate_info_link_div"><br>Scenario:RCP8.5/Resolution:30arc-secs. <a href="" id="modelInfoLink" title="Click for information about the climate data" >Learn more about the climate data</a></div>
-                    -->
-
-                   <!-- <div id="scroll_for_more">&#9660 Scroll to see more &#9660</div>-->
+                    </div>
             </div>
         </div>
 
         <div class="results_container">
-            <div class="header" id="climate_departure_header"><span class="selected_watershed_icon"></span> Bioclimatic Variables <img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div">
-                <table class="results_table" id="climate_table"><tr></tr></table>
-            </div>
-        </div>
-
-        <div class="results_container">
-            <div class="header header full_border_radius" id="climate_table_header">Climate Projections Table<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="header header full_border_radius" id="climate_table_header">
+                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="load_help_content('Climate Projections Table', 'climate_projections_table.html')">
+                Climate Projections Table<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" style="display:none">
-                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png">
                     <div id="climate_quick_view">
 
                         <table id="climate_quick_view_table">
                             <tr>
                                 <th colspan="2">
-                                    <!--
-                                    <span style="font-weight:normal;font-size:1em">A quick look at what the model averages are saying...</span>
-                                    -->
                                     <span style="font-weight:normal;font-size:1em">Projected Change (<span id="modelLabel">Ensemble(Averages)</span>, <span id="seasonLabel">Annual</span>)</span>
                                 </th>
                             </tr>
@@ -429,9 +418,21 @@
         </div>
 
         <div class="results_container">
+            <div class="header" id="climate_departure_header">
+                <div class="help_img_container">
+                    <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="load_help_content('Bioclimatic Variables', 'bioclimatic_variables.html')">
+                </div>
+                <span class="selected_watershed_icon"></span> Climate Departure (Bioclimatic Variables) <img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png">
+            </div>
+            <div class="collapsible_div">
+                <table class="results_table" id="climate_table"><tr></tr></table>
+            </div>
+        </div>
+
+
+        <div class="results_container">
             <div class="header header full_border_radius" id="eems_header">Condition & Impacts (EEMS) <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" style="display:none">
-                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png">
                 <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                     Currently Selected:
                     <span class="selectedFeaturesShortList"></span>
@@ -500,7 +501,6 @@
 
             <div class="header header full_border_radius" id="climate_impacts_header">Vegetation (MC2)<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" style="display:none">
-                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png">
                 <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
                 <!-- Start and Stop Buttons -->
                     <form class="select_form2" id="veg_select_form">
@@ -530,7 +530,6 @@
 
             <div class="header header full_border_radius" id="climate_impacts_header">Carbon, Fire, and Water (MC2)<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" style="display:none">
-                <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png">
                 <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
                 <!-- Start and Stop Buttons -->
                     <form class="select_form2">
@@ -603,7 +602,8 @@
     });
 
     //enable intro.js  on the control layers
-    gettingStartedIntro=introJs();
+    gettingStartedIntro=introJs()
+
 </script>
 
 <!-- div for the mouseover legend items text -->

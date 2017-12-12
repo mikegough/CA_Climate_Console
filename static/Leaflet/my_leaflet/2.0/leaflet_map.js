@@ -620,22 +620,22 @@ function create_post(newWKT) {
             $("#results").show();
 
             $(".info2").show();
-            timesRun=initialize+1
+            timesRun=initialize+1;
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
 
-            response=JSON.parse(json)
-            resultsJSON=JSON.parse(response.resultsJSON)
+            response=JSON.parse(json);
+            resultsJSON=JSON.parse(response.resultsJSON);
 
-            centroid=resultsJSON['centroid']
+            centroid=resultsJSON['centroid'];
 
             if (centroid != 0 && typeof centroid != 'undefined') {
-                centerLat = centroid.split("(")[1].split(" ")[1].replace(")", "")
-                centerLon = parseFloat(centroid.split("(")[1].split(" ")[0])+2.5
-                centerCoords = []
+                centerLat = centroid.split("(")[1].split(" ")[1].replace(")", "");
+                centerLon = parseFloat(centroid.split("(")[1].split(" ")[0])+2.5;
+                centerCoords = [];
 
-                centerCoords.push(centerLat)
-                centerCoords.push(centerLon)
+                centerCoords.push(centerLat);
+                centerCoords.push(centerLon);
 
                 map.setView(centerCoords, 7);
             }
@@ -684,25 +684,25 @@ function create_post(newWKT) {
             initialize=response.initialize;
 
             if (typeof results_poly != 'undefined') {
-                map.removeLayer(results_poly)
+                map.removeLayer(results_poly);
                 //layerControl.removeLayer(results_poly)
             }
 
-            last_poly=response.WKT_SelectedPolys
-            results_poly = omnivore.wkt.parse(last_poly)
+            last_poly = response.WKT_SelectedPolys;
+            results_poly = omnivore.wkt.parse(last_poly);
             results_poly_centroid = results_poly.getBounds().getCenter();
 
             //Allows for clicking reporting units that are beneath the selected feature(s).
-            results_poly.on('click',function(e){selectFeature(e) })
-            results_poly.addTo(map)
+            results_poly.on('click',function(e){selectFeature(e) });
+            results_poly.addTo(map);
             results_poly.setStyle({color:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:0, opacity:1})
-            results_poly.bringToFront()
+            results_poly.bringToFront();
 
-            extract_raster_values(last_poly)
+            extract_raster_values(last_poly);
 
             //layerControl.addOverlay(results_poly, "Current Selection");
 
-            refreshSelectedFeaturesTab()
+            refreshSelectedFeaturesTab();
             //createDynamicDataTable()
 
             //Populate the list of selected features in the bottom left hand corner.
@@ -714,7 +714,7 @@ function create_post(newWKT) {
             }
 
             //column chart colors.
-            columnChartColorsCSV=response['columnChartColors']
+            columnChartColorsCSV=response['columnChartColors'];
 
             //create the charts.
             if (showChartOnMapSelect=="PointChart"){
@@ -735,37 +735,20 @@ function create_post(newWKT) {
             }
             createColumnChart();
 
+
             if (typeof first_query_complete == 'undefined' &&  typeof introJs == 'function') {
 
                 addEventHandlerForModelChange();
-
-                gettingStartedIntro2 = introJs();
-                gettingStartedIntro2.setOptions({
-                    'showStepNumbers': false,
-                    'showBullets': 'false',
-                    'tooltipPosition': 'left'
-                });
-                $('#all_point_chart_goodies').each(function (i) {
-                    $(this).attr('data-step', '4');
-                    $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b> <p>This chart shows the average annual maximum temperature for the historical period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>You can use the dropdown menus at the top to specify what data to plot in the chart.<div>Clicking any point in the chart will display the corresponding dataset in the map.</div>')
-                });
-
-                $('#climate_quick_view_table').each(function (i) {
-                    $(this).attr('data-step', '5');
-                    //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
-                    $(this).attr('data-intro', 'The <b>Projected Change</b> table provides a quick snapshot of the changes that are projected to occur within the selected area.<p>Click on the "About" tab for more information about the Climate Console.')
-                });
-                //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
 
                 var cookie=getCookie("climateConsole");
 
                 if (cookie==null || cookie=="") {
                    setCookie("climateConsole", "1",90);
-                   gettingStartedIntro2.goToStep(4).start()
+                   //gettingStartedIntro.goToStepNumber(4).start()
                 }
 
                 $( ".select_form2" ).change(function() {
-                      gettingStartedIntro2.exit()
+                      gettingStartedIntro.exit()
                 });
             }
 
@@ -912,7 +895,7 @@ function selectFeature(e){
 function highlightFeature(e) {
     $(".info2").show();
     var layer = e.target;
-    layer.setStyle(hoverStyle)
+    layer.setStyle(hoverStyle);
 
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
@@ -922,8 +905,8 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
     $(".info2").hide();
-    var layer= e.target
-    layer.setStyle(defaultStyle)
+    var layer= e.target;
+    layer.setStyle(defaultStyle);
 
     if (initialize==0 && reporting_units != "onekm" && typeof response != 'undefined') {
         $(".info2").show();
