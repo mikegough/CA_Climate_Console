@@ -1562,7 +1562,11 @@ def extract_raster_values(request):
 
                     os.remove(clipped_raster)
 
-    results["Climate"]["1_tmax"].append(extract_text_values())
+
+    macrogroup_bioclim_results = extract_text_values("CA Foothills and Valley Forests and Woodlands")
+
+    for k,v in macrogroup_bioclim_results.iteritems():
+        results["Climate"][k].append(v)
 
     context = {
         "selected_reporting_unit_results": results,
@@ -1578,37 +1582,37 @@ def get_raster_defs():
     climate_colors = ["rgba(67,67,67,.4)", "rgba(255,0,0,.4)", "rgba(0,102,200,.4)"]
     climate_opacity = [.4, .3, .3]
 
-    rasters["Climate"]["1_tmax"] = [
+    rasters["Climate"]["bio5"] = [
         {"raster": "hist_tmax.tif",  "title": "Max Temp of the Warmest Month<br>(C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0],"series_opacity": climate_opacity[0]},
         {"raster": "hadgem_tmax.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[1],"series_opacity": climate_opacity[1]},
         {"raster": "canesm_tmax.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous",  "chart_type": "areaspline", "color": climate_colors[2],"series_opacity":climate_opacity[2]},
     ]
 
-    rasters["Climate"]["2_tmin"] = [
+    rasters["Climate"]["bio6"] = [
         {"raster": "hist_tmin.tif", "title": "Min Temp of the Coolest Month<br>(C)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_tmin.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_tmin.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[2], "series_opacity":climate_opacity[2]},
     ]
 
-    rasters["Climate"]["3_ppt"] = [
+    rasters["Climate"]["bio_12"] = [
         {"raster": "hist_ppt.tif", "title": "Annual Precipitation<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_ppt.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_ppt.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
-    rasters["Climate"]["4_ppt_wetest"] = [
+    rasters["Climate"]["bio_8"] = [
         {"raster": "hist_wet_qtr.tif", "title": "Precipitation of the Wettest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
-    rasters["Climate"]["5_ppt_driest"] = [
+    rasters["Climate"]["bio_9"] = [
         {"raster": "hist_dry_qtr.tif", "title": "Precipitation of the Driest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
-    rasters["Climate"]["6_cwd"] = [
+    rasters["Climate"]["cwd"] = [
         {"raster": "hist_cwd.tif", "title": "Climatic Water Deficit<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_cwd.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_cwd.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
@@ -1617,23 +1621,40 @@ def get_raster_defs():
 
     return rasters
 
-def extract_text_values():
+def extract_text_values(macrogroup):
 
-    file = r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\test.txt"
-    reader = csv.reader(open(file), delimiter=',')
-    sheet = list(reader)
+    results = {}
 
-    raw_data = []
-    for line in sheet:
-        raw_data.append(round(float(line[0]), 2))
+    with open(r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\macrogrp_climate_vars_only_historical\M09_climate_variables.txt") as file:
+        reader = csv.reader(file)
+        header_list = reader.next()
+        header_list_filtered = [header.replace("bio12", "bio_12") for header in header_list if header not in ('model', 'y', 'x')]
+        #raw_data = [round(float(row[0]), 1) for row in reader]
 
-    max_val = max(raw_data)
-    min_val = min(raw_data)
-    mean_val = 0
+        raw_data = {}
+        for header in header_list_filtered:
+            raw_data[header] = []
 
-    bio5 = {"title": "Precipitation of the Driest Quarter<br>(mm)", "series": "CA Foothills and Valley Forests and Woodlands", "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data, "stats": {"mean": mean_val, "max": max_val, "min": min_val}}
+        for line in reader:
+            count = 0
+            for header in header_list_filtered:
+                raw_data[header].append(round(float(line[count]), 2))
+                count += 1
 
-    return bio5
+        max_val = {}
+        min_val = {}
+        for header in header_list_filtered:
+            max_val[header] = max(raw_data[header])
+            min_val[header] = min(raw_data[header])
+
+        mean_val = 1
+
+        results["bio5"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio5"], "stats": {"mean": mean_val, "max": max_val["bio5"], "min": min_val["bio5"]}}
+        results["bio6"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio6"], "stats": {"mean": mean_val, "max": max_val["bio6"], "min": min_val["bio6"]}}
+        results["bio_12"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_12"], "stats": {"mean": mean_val, "max": max_val["bio_12"], "min": min_val["bio_12"]}}
+        results["cwd"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["cwd"], "stats": {"mean": mean_val, "max": max_val["cwd"], "min": min_val["cwd"]}}
+
+    return results
 
 def getClimateCode(Name):
 
