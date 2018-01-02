@@ -1619,7 +1619,7 @@ def get_raster_defs():
 
 def extract_text_values():
 
-    file = r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\M09_climate_variables.txt"
+    file = r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\test.txt"
     reader = csv.reader(open(file), delimiter=',')
     sheet = list(reader)
 
