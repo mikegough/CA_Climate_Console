@@ -32,6 +32,7 @@ from rasterio import mask
 import geojson
 import shapely.wkt
 from django.utils.crypto import get_random_string
+import csv
 
 @gzip_page
 @csrf_exempt
@@ -1561,6 +1562,8 @@ def extract_raster_values(request):
 
                     os.remove(clipped_raster)
 
+    results["Climate"]["1_tmax"].append(extract_text_values())
+
     context = {
         "selected_reporting_unit_results": results,
     }
@@ -1605,9 +1608,32 @@ def get_raster_defs():
         {"raster": "canesm_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
+    rasters["Climate"]["6_cwd"] = [
+        {"raster": "hist_cwd.tif", "title": "Climatic Water Deficit<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hadgem_cwd.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "canesm_cwd.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+    ]
+
 
     return rasters
 
+def extract_text_values():
+
+    file = r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\M09_climate_variables.txt"
+    reader = csv.reader(open(file), delimiter=',')
+    sheet = list(reader)
+
+    raw_data = []
+    for line in sheet:
+        raw_data.append(round(float(line[0]), 2))
+
+    max_val = max(raw_data)
+    min_val = min(raw_data)
+    mean_val = 0
+
+    bio5 = {"title": "Precipitation of the Driest Quarter<br>(mm)", "series": "CA Foothills and Valley Forests and Woodlands", "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data, "stats": {"mean": mean_val, "max": max_val, "min": min_val}}
+
+    return bio5
 
 def getClimateCode(Name):
 

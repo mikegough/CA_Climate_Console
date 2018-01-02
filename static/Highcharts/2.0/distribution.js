@@ -23,7 +23,7 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
         marginLeft: margin_left,
         marginTop: margin_top,
         marginRight:20,
-        height:300,
+        height:350,
         width:310,
       },
       title: {
