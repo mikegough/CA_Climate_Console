@@ -422,7 +422,32 @@
                 <div class="help_img_container">
                     <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="load_help_content('Bioclimatic Variables', 'bioclimatic_variables.html')">
                 </div>
-                <span class="selected_watershed_icon"></span> Climate Departure <img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png">
+                <span class="selected_watershed_icon"></span>Climate Departure <img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png">
+            </div>
+            <div id="macrogroup_dropdown_container" class="collapsible_div">
+                Plot a Vegetation Macrogroup:
+                <select id="macrogroup_dropdown">
+                    <option id="none" selected value="none" >None</option>
+                    <option value='M09'>California Foothill and Valley Forests and Woodlands</option>
+                    <option value='M20'>Subalpine Aspen Forests and Pine Woodlands</option>
+                    <option value='M23'>North Coastal Mixed Evergreen and Montane Conifer Forests</option>
+                    <option value='M24'>Pacific Northwest Conifer Forests</option>
+                    <option value='M25'>Pacific Northwest Subalpine Forest</option>
+                    <option value='M26'>Great Basin Pinyon-Juniper Woodland</option>
+                    <option value='M43'>Chaparral</option>
+                    <option value='M44'>Coastal Sage Scrub</option>
+                    <option value='M45'>California Grassland and Flower fields</option>
+                    <option value='M50'>North Coast Deciduous Scrub and Terrace Prairie</option>
+                    <option value='M52'>Montane Chaparral</option>
+                    <option value='M88'>Mojave and Sonoran Desert Scrub</option>
+                    <option value='M92'>Desert Wash Woodland and Scrub</option>
+                    <option value='M93'>Shadscale-Saltbush Scrub</option>
+                    <option value='M96'>Big Sagebrush Scrub</option>
+                    <option value='M97'>Great Basin Dwarf Sagebrush Scrub</option>
+                    <option value='M98'>Great Basin Upland Scrub</option>
+                    <option value='M110'>California Foothill and Coastal Rock Outcrop Vegetation</option>
+                    <option value='M117'>Sparsely Vegetated Desert Dune</option>
+                </select>
             </div>
             <div class="collapsible_div">
                 <table class="results_table" id="climate_table"><tr></tr></table>

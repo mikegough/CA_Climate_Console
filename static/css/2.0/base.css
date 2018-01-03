@@ -2377,6 +2377,30 @@ margin-bottom: 5px;
     background:transparent !important
 }
 
+.selectboxit-text[data-val="none"] {
+    color: gray;
+    font-style: italic;
+}
+
+#macrogroup_dropdownSelectBoxIt{
+    max-width:400px;
+}
+
+#macrogroup_dropdownSelectBoxItText{
+}
+
+#macrogroup_dropdown_container {
+	text-align: left;
+	display: none;
+	overflow-y: visible !important;
+	overflow-x: visible !important;
+	background-color: #EDEDED;
+	padding: 5px;
+	line-height: 30px;
+	padding-left: 10px;
+	white-space: nowrap;
+}
+
 .header, .right_header {
 	font-family: Helvetica;
 	color: #ede4e4;

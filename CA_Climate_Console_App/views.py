@@ -1469,6 +1469,9 @@ def extract_raster_values(request):
     g1 = shapely.wkt.loads(user_wkt)
     g2 = geojson.Feature(geometry=g1, properties={})
 
+    macrogroup_code = request.POST.get("macrogroup_code")
+    macrogroup_name = request.POST.get("macrogroup_name")
+
     features = []
     features.append(g2.geometry)
 
@@ -1562,11 +1565,11 @@ def extract_raster_values(request):
 
                     os.remove(clipped_raster)
 
+    if macrogroup_code != "none":
+        macrogroup_bioclim_results = extract_text_values(macrogroup_code, macrogroup_name)
 
-    macrogroup_bioclim_results = extract_text_values("CA Foothills and Valley Forests and Woodlands")
-
-    for k,v in macrogroup_bioclim_results.iteritems():
-        results["Climate"][k].append(v)
+        for k,v in macrogroup_bioclim_results.iteritems():
+            results["Climate"][k].append(v)
 
     context = {
         "selected_reporting_unit_results": results,
@@ -1621,12 +1624,14 @@ def get_raster_defs():
 
     return rasters
 
-def extract_text_values(macrogroup):
+def extract_text_values(macrogroup_code, macrogroup_name):
 
     results = {}
 
-    with open(r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\macrogrp_climate_vars_only_historical\M09_climate_variables.txt") as file:
-        reader = csv.reader(file)
+    macrogroup_file = r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\macrogrp_dist_climate_vars" + os.sep + macrogroup_code + "_dist_climate_variables.txt"
+
+    with open(macrogroup_file) as f:
+        reader = csv.reader(f)
         header_list = reader.next()
         header_list_filtered = [header.replace("bio12", "bio_12") for header in header_list if header not in ('model', 'y', 'x')]
         #raw_data = [round(float(row[0]), 1) for row in reader]
@@ -1643,16 +1648,17 @@ def extract_text_values(macrogroup):
 
         max_val = {}
         min_val = {}
+
         for header in header_list_filtered:
             max_val[header] = max(raw_data[header])
             min_val[header] = min(raw_data[header])
 
         mean_val = 1
 
-        results["bio5"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio5"], "stats": {"mean": mean_val, "max": max_val["bio5"], "min": min_val["bio5"]}}
-        results["bio6"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio6"], "stats": {"mean": mean_val, "max": max_val["bio6"], "min": min_val["bio6"]}}
-        results["bio_12"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_12"], "stats": {"mean": mean_val, "max": max_val["bio_12"], "min": min_val["bio_12"]}}
-        results["cwd"] = {"title": "", "series": macrogroup, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["cwd"], "stats": {"mean": mean_val, "max": max_val["cwd"], "min": min_val["cwd"]}}
+        results["bio5"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio5"], "stats": {"mean": mean_val, "max": max_val["bio5"], "min": min_val["bio5"]}}
+        results["bio6"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio6"], "stats": {"mean": mean_val, "max": max_val["bio6"], "min": min_val["bio6"]}}
+        results["bio_12"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_12"], "stats": {"mean": mean_val, "max": max_val["bio_12"], "min": min_val["bio_12"]}}
+        results["cwd"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["cwd"], "stats": {"mean": mean_val, "max": max_val["cwd"], "min": min_val["cwd"]}}
 
     return results
 

@@ -850,6 +850,9 @@ function create_post(newWKT) {
 
 function extract_raster_values(last_poly) {
 
+    var macrogroup_code = $("#macrogroup_dropdown").val();
+    var macrogroup_name = $("#macrogroup_dropdown").find('option:selected').text();
+
     $.ajax({
         url: "/extract_raster_values", // the endpoint (for a specific view configured in urls.conf /view_name/)
         //Webfactional
@@ -859,8 +862,13 @@ function extract_raster_values(last_poly) {
         //data : { the_post : $('#post-text').val() },
         data: {
             last_poly: last_poly,
+            macrogroup_code: macrogroup_code,
+            macrogroup_name: macrogroup_name,
         },
           success: function (response) {
+
+              $("#macrogroup_dropdown_container").show();
+
                response_json = JSON.parse(response);
                results_json = response_json["selected_reporting_unit_results"];
 

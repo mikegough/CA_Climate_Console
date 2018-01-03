@@ -1523,6 +1523,10 @@ function load_help_content(title, file) {
 
 }
 
+$(document).on("change", "#macrogroup_dropdown", function(){
+    extract_raster_values(last_poly);
+ });
+
 vtype_images = [
 "vtype_agg_canesm2__58804",
 "vtype_agg_canesm2__62457",
