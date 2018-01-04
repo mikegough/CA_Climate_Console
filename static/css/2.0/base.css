@@ -2595,10 +2595,20 @@ margin-bottom: 5px;
 	-o-transition: opacity 0.1s ease-out;
 	transition: opacity 0.1s ease-out;
 }
+.selectboxit-container span, .selectboxit-container .selectboxit-options a {
+	height: 28px;
+	line-height: 28px;
+	display: block;
+}
 
 /*
 .introjs-prevbutton, .introjs-nextbutton {
     display: none;
+}
+*/
+/*
+ul.selectboxit-options {
+    max-height: 580px;
 }
 */
 

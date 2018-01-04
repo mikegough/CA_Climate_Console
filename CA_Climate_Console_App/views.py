@@ -1568,7 +1568,7 @@ def extract_raster_values(request):
     if macrogroup_code != "none":
         macrogroup_bioclim_results = extract_text_values(macrogroup_code, macrogroup_name)
 
-        for k,v in macrogroup_bioclim_results.iteritems():
+        for k, v in macrogroup_bioclim_results.iteritems():
             results["Climate"][k].append(v)
 
     context = {
@@ -1603,17 +1603,31 @@ def get_raster_defs():
         {"raster": "canesm_ppt.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
-    rasters["Climate"]["bio_8"] = [
-        {"raster": "hist_wet_qtr.tif", "title": "Precipitation of the Wettest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
-        {"raster": "hadgem_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
-        {"raster": "canesm_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+    rasters["Climate"]["bio_13"] = [
+        {"raster": "hist_bio13.tif", "title": "Precipitation of the Driest Month<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hadgem_bio13.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "hadgem_bio13.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
-    rasters["Climate"]["bio_9"] = [
-        {"raster": "hist_dry_qtr.tif", "title": "Precipitation of the Driest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
-        {"raster": "hadgem_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
-        {"raster": "canesm_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+    rasters["Climate"]["bio_14"] = [
+        {"raster": "hist_bio14.tif", "title": "Precipitation of the Wettest Month<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "ccsm4_bio14.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+        {"raster": "canesm_bio14.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
+
+    # Driest and wetest quarter.
+
+#    rasters["Climate"]["bio_16"] = [
+#        {"raster": "hist_dry_qtr.tif", "title": "Precipitation of the Driest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+#        {"raster": "hadgem_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+#        {"raster": "canesm_dry_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+#    ]
+#
+#    rasters["Climate"]["bio_17"] = [
+#        {"raster": "hist_wet_qtr.tif", "title": "Precipitation of the Wettest Quarter<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+#        {"raster": "hadgem_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
+#        {"raster": "canesm_wet_qtr.tif", "title": "", "series": "Future (2046 - 2075, CanESM2)", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
+#    ]
 
     rasters["Climate"]["cwd"] = [
         {"raster": "hist_cwd.tif", "title": "Climatic Water Deficit<br>(mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
@@ -1633,7 +1647,7 @@ def extract_text_values(macrogroup_code, macrogroup_name):
     with open(macrogroup_file) as f:
         reader = csv.reader(f)
         header_list = reader.next()
-        header_list_filtered = [header.replace("bio12", "bio_12") for header in header_list if header not in ('model', 'y', 'x')]
+        header_list_filtered = [header.replace("bio12", "bio_12").replace("bio13", "bio_13").replace("bio14", "bio_14") for header in header_list if header not in ('model', 'y', 'x')]
         #raw_data = [round(float(row[0]), 1) for row in reader]
 
         raw_data = {}
@@ -1658,6 +1672,8 @@ def extract_text_values(macrogroup_code, macrogroup_name):
         results["bio5"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio5"], "stats": {"mean": mean_val, "max": max_val["bio5"], "min": min_val["bio5"]}}
         results["bio6"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio6"], "stats": {"mean": mean_val, "max": max_val["bio6"], "min": min_val["bio6"]}}
         results["bio_12"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_12"], "stats": {"mean": mean_val, "max": max_val["bio_12"], "min": min_val["bio_12"]}}
+        results["bio_13"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_13"], "stats": {"mean": mean_val, "max": max_val["bio_13"], "min": min_val["bio_13"]}}
+        results["bio_14"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_14"], "stats": {"mean": mean_val, "max": max_val["bio_14"], "min": min_val["bio_14"]}}
         results["cwd"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["cwd"], "stats": {"mean": mean_val, "max": max_val["cwd"], "min": min_val["cwd"]}}
 
     return results

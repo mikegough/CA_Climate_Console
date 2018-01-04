@@ -245,6 +245,7 @@
          return false;
      });
 
+
 });
 
 /************************************************ TABLE TAB FUNCTIONS *************************************************/
@@ -1524,8 +1525,33 @@ function load_help_content(title, file) {
 }
 
 $(document).on("change", "#macrogroup_dropdown", function(){
+
     extract_raster_values(last_poly);
+
+    var png_file = $(this).val();
+    swapImageOverlay("none", "");
+    swapImageOverlay(png_file, "bioclim");
+    last_png_overlay = png_file;
+
  });
+
+$(document).on("mouseover", ".macrogroup_option", function () {
+    var macrogroup_id=$(this)[0].dataset.val;
+    swapImageOverlay("none", "");
+    swapImageOverlay(macrogroup_id, "bioclim")
+});
+
+
+$(document).on("mouseout", ".macrogroup_option", function () {
+   if (typeof last_png_overlay != "undefined") {
+
+         swapImageOverlay("none", "");
+         swapImageOverlay(last_png_overlay, "bioclim")
+    }
+    else {
+         swapImageOverlay("none", "");
+     }
+});
 
 vtype_images = [
 "vtype_agg_canesm2__58804",

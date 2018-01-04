@@ -274,6 +274,11 @@ function swapImageOverlay(layerName,modelType) {
         else if (modelType=="EcosystemServices"){
             overlay_bounds = ecosystemServicesParams["overlayBounds"];
         }
+
+        else if (modelType == "bioclim") {
+
+            overlay_bounds = [[32.427039656896916, -124.50659879999502], [42.06857458777702, -113.50224080966714]]
+        }
         else{
             overlay_bounds = climateParams['overlayBounds'];
         }
@@ -287,6 +292,7 @@ function swapImageOverlay(layerName,modelType) {
             map.removeLayer(climate_PNG_overlay);
             climate_PNG_overlay_url="";
             //Transparency slider
+
             for (var i = 0; i < elements.length; i++) {
                 elements[i].style.display = elements[i].style.display = 'none';
             }
@@ -328,8 +334,8 @@ function swapImageOverlay(layerName,modelType) {
 }
 
 var defaultStyle = {
-    color: '#F8981D',
-    weight:2,
+    color: '#737373',
+    weight:1,
     dashArray: 0,
     fillOpacity:0,
     opacity:1
@@ -1141,8 +1147,8 @@ function activateMapForDefault(){
     else{
         activeReportingUnits.eachLayer(function (layer) {
             layer.setStyle({
-                color: '#F8981D',
-                weight: 2,
+                color: '#737373',
+                weight: 1,
                 dashArray: 0,
                 fillOpacity: 0,
                 opacity: 1
@@ -1152,7 +1158,7 @@ function activateMapForDefault(){
     }
 
     defaultStyle = {
-        color: '#F8981D',
+        color: '#737373',
         weight:2,
         dashArray: 0,
         fillOpacity:0,
