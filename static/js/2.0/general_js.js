@@ -1527,7 +1527,6 @@ function load_help_content(title, file) {
 $(document).on("change", "#macrogroup_dropdown", function(){
 
     extract_raster_values(last_poly);
-
     var png_file = $(this).val();
     swapImageOverlay("none", "");
     swapImageOverlay(png_file, "bioclim");
@@ -1536,9 +1535,11 @@ $(document).on("change", "#macrogroup_dropdown", function(){
  });
 
 $(document).on("mouseover", ".macrogroup_option", function () {
+    $('.info').empty();
     var macrogroup_id=$(this)[0].dataset.val;
     swapImageOverlay("none", "");
     swapImageOverlay(macrogroup_id, "bioclim")
+Gj
 });
 
 
