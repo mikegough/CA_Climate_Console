@@ -1039,7 +1039,7 @@ $(window).load(function(){
         $("#view6").css("opacity", "0");
         $("#initialization_container").css("background-color", "white");
         $("#initialization_text").css("opacity", "0");
-        $(".loading").css("display", "block");
+        //startLoading();
     });
 
     $(document).ajaxComplete(function(){
@@ -1048,7 +1048,7 @@ $(window).load(function(){
         $("#view3").css("opacity", "1");
         $("#view5").css("opacity", "1");
         $("#view6").css("opacity", "1");
-        $(".loading").css("display", "none");
+        //endLoading();
         //Handles case where initial selection is made using draw tools, and no features selected. Show getting started info again.
         $("#initialization_text").css("opacity", "1");
         //map.removeLayer(layer)
@@ -1463,6 +1463,7 @@ function load_help_content(title, file) {
 
 $(document).on("change", "#macrogroup_dropdown", function(){
 
+    startLoadingDeparture();
     extract_raster_values(last_poly);
     var png_file = $(this).val();
     swapImageOverlay("none", "");

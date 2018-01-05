@@ -599,6 +599,8 @@ if (typeof ecosystemServicesParams == "undefined"){
 
 // AJAX for posting
 function create_post(newWKT) {
+
+    startLoading();
     initialize=0;
 
    if (side_panel_status == "visible"){
@@ -666,7 +668,6 @@ function create_post(newWKT) {
                     $("#dataTableDiv").css("width","")
                     $("#detailedView").css("width","")
                     $("#detailedView").css("float","")
-                    $(".loading").css("width", "")
 
             }
 
@@ -860,6 +861,9 @@ function create_post(newWKT) {
             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        },
+        complete: function (jqXHR, status){
+            endLoading();
         }
 
     });
@@ -897,6 +901,10 @@ function extract_raster_values(last_poly) {
                 alert('There was an error processing your request. Please try again');
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
            },
+           complete: function (jqXHR, status){
+                endLoadingDeparture();
+           }
+
     })
 }
 
@@ -996,6 +1004,7 @@ function toWKT(layer) {
 map.on('draw:created', function (e) {
 
     $(document).ajaxComplete(function(){
+        endLoading();
         //Remove user-drawn shape after a successful post.
         if (map.hasLayer(layer)){
             map.removeLayer(layer)
@@ -1182,7 +1191,7 @@ function activateMapForDefault(){
 
     $(document).ajaxStart(function(){
         //show spinner
-        $(".loading").css("display", "block");
+        //startLoading();
     });
 
 
@@ -1316,7 +1325,7 @@ function activateMapForClimateForecast(){
 
     $(document).ajaxStart(function(){
         //hide spinner on the weather-forecast tab
-        $(".loading").css("display", "none");
+        endLoading();
     });
 
     $('#clickToMapInfo').hide();
@@ -1592,7 +1601,7 @@ function activateMapForEcosystemServices(){
 
     $(document).ajaxStart(function(){
         //show spinner
-        $(".loading").css("display", "block");
+        startLoading();
     });
 
 }
@@ -1788,5 +1797,26 @@ function binData(data,min,max,bins) {
     });
     return hData;
 
+}
+
+function startLoading(){
+    $(".loading").css("display", "block");
+    $(".loading_contents").css("opacity", .5);
+}
+
+function endLoading(){
+    $(".loading:not(#loading_departure)").css("display", "none");
+    $(".loading_contents:not(#loading_contents_departure)").css("opacity", 1);
+}
+
+function startLoadingDeparture(){
+    $("#loading_departure").css("display", "block");
+    $(".loading_contents").css("opacity", .5);
+}
+
+function endLoadingDeparture(){
+    $("#loading_departure").css("display", "none");
+    $(".loading_contents").css("opacity", 1);
+    $(".loading_contents_departure").css("opacity", 1);
 }
 

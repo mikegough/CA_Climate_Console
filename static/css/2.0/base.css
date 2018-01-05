@@ -86,18 +86,16 @@ a:hover {
 	left: 400px;
 }
 
-.loading{
-    display: none;
-    float: right;
-    position: absolute;
-    right: 0px;
-    width: 479px;
-    height: 100%;
-    z-index: 9999999;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 20%
+.loading, .loading_departure {
+	display: block;
+	position: absolute;
+	height: 100%;
+	z-index: 9999999;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: calc(100% - 20px);
+	top: 40%;
 }
 
 .loading_text {
@@ -2377,7 +2375,7 @@ margin-bottom: 5px;
 .results_container {
 	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 	margin-bottom: 5px;
-    background:transparent !important
+	background: white;
 }
 
 .selectboxit-text[data-val="none"] {
@@ -2455,6 +2453,8 @@ margin-bottom: 5px;
 	min-width: 35vw;
 	padding: 0px 20px;
 	text-align: center;
+	overflow-y: hidden;
+	position: relative;
 }
 
 #intro {
