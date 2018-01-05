@@ -255,14 +255,13 @@
                 Climate Projections<img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png">
             </div>
             <div class="collapsible_div">
-                <div class="loading">
-                    <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
-                    <!--<div class="loading_text">&nbsp Loading...</div>-->
-                </div>
-                <!--<img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="updateClimateHelpContent(1);">-->
-
+            <div class="loading">
+                <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
+                <!--<div class="loading_text">&nbsp Loading...</div>-->
+            </div>
+            </div>
+            <div class="collapsible_div">
                 <div class="loading_contents">
-
                     <div id="all_point_chart_goodies">
                         <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                             Currently Selected:
@@ -466,10 +465,12 @@
                 </select>
             </div>
             <div class="collapsible_div">
-                <div class="loading" id="loading_departure">
-                    <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
-                    <!--<div class="loading_text">&nbsp Loading...</div>-->
-                </div>
+            <div class="loading" id="loading_departure">
+                <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
+                <!--<div class="loading_text">&nbsp Loading...</div>-->
+            </div>
+            </div>
+            <div class="collapsible_div" id="collapsible_div_climate_departure">
                 <div class="loading_contents" id="loading_contents_departure">
                     <table class="results_table" id="climate_table"><tr></tr></table>
                 </div>

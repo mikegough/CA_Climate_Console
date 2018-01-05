@@ -888,7 +888,6 @@ function extract_raster_values(last_poly) {
         },
           success: function (response) {
 
-              $("#macrogroup_dropdown_container").show();
 
                response_json = JSON.parse(response);
                results_json = response_json["selected_reporting_unit_results"];
@@ -1811,12 +1810,11 @@ function endLoading(){
 
 function startLoadingDeparture(){
     $("#loading_departure").css("display", "block");
-    $(".loading_contents").css("opacity", .5);
+    $("#loading_contents_departure").css("opacity", .5);
 }
 
 function endLoadingDeparture(){
     $("#loading_departure").css("display", "none");
-    $(".loading_contents").css("opacity", 1);
-    $(".loading_contents_departure").css("opacity", 1);
+    $("#loading_contents_departure").css("opacity", 1);
 }
 

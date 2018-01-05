@@ -60,10 +60,12 @@ $(document).on("click", ".header", function () {
         // Get this collapsible div
         var this_collapsible_div = $(this).siblings(".collapsible_div");
 
+        /*
         // If a library has been loaded, collapse other divs on header click.
         if (typeof library_selected != "undefined" && library_selected == true){
             collapseOtherDivs(this)
         }
+        */
 
         // Toggle the border radius
         $(this).toggleClass("full_border_radius");
@@ -74,9 +76,7 @@ $(document).on("click", ".header", function () {
 
         // Slide toggle this div.
         this_collapsible_div.slideToggle(400, function () {
-
         });
-
 
 
 });

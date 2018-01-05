@@ -87,15 +87,16 @@ a:hover {
 }
 
 .loading, .loading_departure {
-	display: block;
-	position: absolute;
-	height: 100%;
+	display: inline;
+	position: absolute !important;
+	/* height: 0px; */
 	z-index: 9999999;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 	width: calc(100% - 20px);
-	top: 40%;
+	top: 50%;
+	background-color: transparent !important;
 }
 
 .loading_text {
@@ -2376,6 +2377,7 @@ margin-bottom: 5px;
 	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 	margin-bottom: 5px;
 	background: white;
+    position:relative;
 }
 
 .selectboxit-text[data-val="none"] {
@@ -2392,7 +2394,6 @@ margin-bottom: 5px;
 
 #macrogroup_dropdown_container {
 	text-align: left;
-	display: none;
 	overflow-y: visible !important;
 	overflow-x: visible !important;
 	background-color: #EDEDED;
@@ -2454,7 +2455,10 @@ margin-bottom: 5px;
 	padding: 0px 20px;
 	text-align: center;
 	overflow-y: hidden;
-	position: relative;
+}
+
+#collapsible_div_climate_departure{
+    height:370px;
 }
 
 #intro {
