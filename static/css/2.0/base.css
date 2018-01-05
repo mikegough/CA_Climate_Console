@@ -1406,6 +1406,9 @@ ul#mainNav a {
 }
 
 
+#control {
+    display:none !important
+}
 
 .leaflet-control-layers-expanded{
     padding-bottom:0px !important;

@@ -251,8 +251,11 @@ if (typeof climate_PNG_overlay != 'undefined') {
 
 base_data_PNG_overlay="";
 
+var opacitySlider;
+
 //Function used by the Climate chart to add PNGs. Obviates the need to manually define each image overlay object.
 function swapImageOverlay(layerName,modelType) {
+
 
         //This is for multi-lcc overlays.
         if (map.hasLayer(base_data_PNG_overlay)){
@@ -318,10 +321,18 @@ function swapImageOverlay(layerName,modelType) {
 
         }
 
-        lastRenderer=renderer
+        if (typeof opacitySlider  != "undefined") {
+            map.removeControl(opacitySlider);
+        }
+
+        opacitySlider = new L.Control.opacitySlider();
+        map.addControl(opacitySlider);
+        opacitySlider.setOpacityLayer(climate_PNG_overlay);
+
+        lastRenderer=renderer;
 
         //For keeping table row selected
-        climate_PNG_overlay.name=layerName
+        climate_PNG_overlay.name=layerName;
 
         // allLayers is not used in this app. If image overlays can come from a different source (e.g., bar chart.)
         // define allLayers as a list of those layers to be removed when this function is called.
@@ -1778,3 +1789,4 @@ function binData(data,min,max,bins) {
     return hData;
 
 }
+
