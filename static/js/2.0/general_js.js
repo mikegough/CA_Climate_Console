@@ -759,8 +759,8 @@ function acquireNearTermClimate() {
     //Called once during initial page load.
 
     // TEMPERATURE
-    allTempDataArray=[]
-    allTempDeltaDict={}
+    allTempDataArray=[];
+    allTempDeltaDict={};
 
     $.ajax({
         type: "GET",
@@ -781,12 +781,12 @@ function acquireNearTermClimate() {
         //Dictionary of all deltas For Setting Map Symbology
         //allTempDeltaDict[division][period]=value
         for (var i=0; i< allTempDataArray.length; i++){
-            division=allTempDataArray[i][3]
+            division=allTempDataArray[i][3];
 
-            temp_climatological_mean=allTempDataArray[i][19]
-            temp_forecast_mean=allTempDataArray[i][18]
+            temp_climatological_mean=allTempDataArray[i][19];
+            temp_forecast_mean=allTempDataArray[i][18];
 
-            delta=temp_forecast_mean-temp_climatological_mean
+            delta=temp_forecast_mean-temp_climatological_mean;
 
             if ( !(division in allTempDeltaDict)) {
                 allTempDeltaDict[division]=[]
@@ -795,8 +795,8 @@ function acquireNearTermClimate() {
         }
     }
 
-    allPrecipDataArray=[]
-    allPrecipDeltaDict={}
+    allPrecipDataArray=[];
+    allPrecipDeltaDict={};
 
     // PRECIPITATION
     $.ajax({
@@ -814,12 +814,12 @@ function acquireNearTermClimate() {
         }
 
         for (var i=0; i< allPrecipDataArray.length; i++){
-            division=allPrecipDataArray[i][3]
+            division=allPrecipDataArray[i][3];
 
-            precip_climatological_mean=allPrecipDataArray[i][19]
-            precip_forecast_mean=allPrecipDataArray[i][18]
+            precip_climatological_mean=allPrecipDataArray[i][19];
+            precip_forecast_mean=allPrecipDataArray[i][18];
 
-            delta=precip_forecast_mean-precip_climatological_mean
+            delta=precip_forecast_mean-precip_climatological_mean;
 
             if ( !(division in allPrecipDeltaDict)) {
                 allPrecipDeltaDict[division]=[]
@@ -829,18 +829,18 @@ function acquireNearTermClimate() {
     }
 
 
-    firstYearInFile=allTempDataArray[0][0]
-    firstMonthInFile=allTempDataArray[0][1]
+    firstYearInFile=allTempDataArray[0][0];
+    firstMonthInFile=allTempDataArray[0][1];
 
 }
 
-month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function createDynamicMonthlyRadioButtons(){
 
-    $(".nearTermClimateForm").empty()
+    $(".nearTermClimateForm").empty();
 
-    month_list=[]
-    year_list=[]
+    month_list=[];
+    year_list=[];
 
     //The inintial lead of "1" in the file is automatically factored in since new Date(2016,2) returns March.
     firstDateInFile=new Date(firstYearInFile,firstMonthInFile)
@@ -849,11 +849,11 @@ function createDynamicMonthlyRadioButtons(){
         //firstDateInFile.getMonth() below for March returns 2, which is the correct index for March in the short list array.
         //If the first month in the file is a 2, the first value stored in the month variable will be a 3
         //which is what is wanted because of the lead.
-        month = month_names_short[firstDateInFile.getMonth()]
-        year = String(firstDateInFile.getFullYear())
+        month = month_names_short[firstDateInFile.getMonth()];
+        year = String(firstDateInFile.getFullYear());
         firstDateInFile.setMonth(firstDateInFile.getMonth()+1);
-        month_list[i]=month
-        year_list[i]=year
+        month_list[i]=month;
+        year_list[i]=year;
 
     }
 
@@ -863,15 +863,15 @@ function createDynamicMonthlyRadioButtons(){
 
         if (year_list[i] == year_list[i+1] && year_list[i+1]== year_list[i+2]){
 
-            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_list[i])
+            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_list[i]);
 
             $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '"><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">'+ date_labels[i] + ' </div></input><br>')
         }
         else {
 
-            year_span = year_list[i].slice(-2) + "-" + (parseInt(year_list[i].slice(-2)) + 1)
+            year_span = year_list[i].slice(-2) + "-" + (parseInt(year_list[i].slice(-2)) + 1);
 
-            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_span)
+            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_span);
 
             $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '" ><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">' + date_labels[i] + ' </div></input><br>')
 
@@ -886,7 +886,7 @@ function generateNearTermClimateResults(period,division) {
     //Function to replace the contents of table 2 & table 3 when a user clicks on a climate division or changes the Time Frame
 
     //Update Climate Divsion # at the top of the tab
-    $('#climateDivision').html(division)
+    $('#climateDivision').html(division);
 
     // TEMPERATURE
     temp_array=[]
@@ -897,14 +897,14 @@ function generateNearTermClimateResults(period,division) {
         }
     }
 
-    temp_climatological_mean=Number(temp_array[19])
-    temp_forecast_mean=Number(temp_array[18])
-    temp_change=temp_forecast_mean-temp_climatological_mean
-    temp_change_rounded=Math.round(temp_change * 100) / 100
-    temp_ninety_percent_confidence_interval=temp_array[6] + "&deg;F - "  + temp_array[16] + "&deg;F"
+    temp_climatological_mean=Number(temp_array[19]);
+    temp_forecast_mean=Number(temp_array[18]);
+    temp_change=temp_forecast_mean-temp_climatological_mean;
+    temp_change_rounded=Math.round(temp_change * 100) / 100;
+    temp_ninety_percent_confidence_interval=temp_array[6] + "&deg;F - "  + temp_array[16] + "&deg;F";
 
     // PRECIPITATION
-    precip_array=[]
+    precip_array=[];
 
     for (var i=0; i< allPrecipDataArray.length; i++){
         if (allPrecipDataArray[i][3] == division && allPrecipDataArray[i][2] == period){
@@ -912,11 +912,11 @@ function generateNearTermClimateResults(period,division) {
         }
     }
 
-    precip_climatological_mean=precip_array[19]
-    precip_forecast_mean=precip_array[18]
-    precip_change=precip_forecast_mean-precip_climatological_mean
-    precip_change_rounded=Math.round(precip_change * 100) / 100
-    precip_ninety_percent_confidence_interval=precip_array[6] + " in. - "  + precip_array[16] + " in."
+    precip_climatological_mean=precip_array[19];
+    precip_forecast_mean=precip_array[18];
+    precip_change=precip_forecast_mean-precip_climatological_mean;
+    precip_change_rounded=Math.round(precip_change * 100) / 100;
+    precip_ninety_percent_confidence_interval=precip_array[6] + " in. - "  + precip_array[16] + " in.";
 
     //console.log(precip_array)
 
@@ -927,7 +927,7 @@ function generateNearTermClimateResults(period,division) {
 
     $('#nearTermClimateWrapper').empty();
 
-    $('#nearTermClimateWrapper').append('<br><div id="dynamicNearTermClimateTableDiv"></div>')
+    $('#nearTermClimateWrapper').append('<br><div id="dynamicNearTermClimateTableDiv"></div>');
     $('#dynamicNearTermClimateTableDiv').append('<table class="dynamicNearTermClimateTable" id="nearTermChangeTable"></table>');
 
     var nearTermClimateTable=$('#dynamicNearTermClimateTableDiv').children();
@@ -965,37 +965,37 @@ function generateNearTermClimateResults(period,division) {
     //Table 3
 
     $('#nearTermClimateWrapper2').empty();
-    $('#nearTermClimateWrapper2').append('<div id="dynamicNearTermClimateTableDiv2"></div>')
+    $('#nearTermClimateWrapper2').append('<div id="dynamicNearTermClimateTableDiv2"></div>');
     $('#dynamicNearTermClimateTableDiv2').append('<table class="dynamicNearTermClimateTable" id="nearTermDetailsTable"></table>');
 
     var nearTermClimateTable2=$('#dynamicNearTermClimateTableDiv2').children();
 
-    nearTermClimateTable2.append("<tr><td>Historical Mean*</td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>")
-    nearTermClimateTable2.append("<tr><td>Forecast Mean</td><td>"+temp_forecast_mean+"&deg;F</td><td>"+precip_forecast_mean+" in.</td></tr>")
-    nearTermClimateTable2.append("<tr><td>90% Confidence</td><td>"+temp_ninety_percent_confidence_interval+ "</td><td>"+precip_ninety_percent_confidence_interval+"</td></tr>")
+    nearTermClimateTable2.append("<tr><td>Historical Mean*</td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>");
+    nearTermClimateTable2.append("<tr><td>Forecast Mean</td><td>"+temp_forecast_mean+"&deg;F</td><td>"+precip_forecast_mean+" in.</td></tr>");
+    nearTermClimateTable2.append("<tr><td>90% Confidence</td><td>"+temp_ninety_percent_confidence_interval+ "</td><td>"+precip_ninety_percent_confidence_interval+"</td></tr>");
 
     // Adjust the thermometer and rain gauge levels based on the change
     // +21 to offset for Historical Mean
-    $('#thermometerAfter').css('height', (temp_change_rounded * 37 + 67) + "px")
-    $('#rainGaugeAfter').css('height', (precip_change_rounded * 37 + 67) + "px")
+    $('#thermometerAfter').css('height', (temp_change_rounded * 37 + 67) + "px");
+    $('#rainGaugeAfter').css('height', (precip_change_rounded * 37 + 67) + "px");
 
 
     //test new noaa chart
     if (typeof createNoaa3Month == "function") {
 
 
-                var temp_array_selected_division = []
-                j = 0
+                var temp_array_selected_division = [];
+                j = 0;
                 for (var i = 0; i < allTempDataArray.length; i++) {
                     if (allTempDataArray[i][3] == division) {
-                        temp_array_selected_division[j] = allTempDataArray[i]
+                        temp_array_selected_division[j] = allTempDataArray[i];
                         j += 1
                     }
                 }
 
                 //test new noaa chart
-                var precip_array_selected_division = []
-                j = 0
+                var precip_array_selected_division = [];
+                j = 0;
                 for (var i = 0; i < allPrecipDataArray.length; i++) {
                     if (allPrecipDataArray[i][3] == division) {
                         precip_array_selected_division[j] = allPrecipDataArray[i]
@@ -1003,7 +1003,7 @@ function generateNearTermClimateResults(period,division) {
                     }
                 }
 
-                countTimesNoaa3MonthCalled+=1
+                countTimesNoaa3MonthCalled+=1;
 
                 //Prevent NT charts from reloading if the climate divios
                 //This has to be called twice for some reason in order for the charts to sync up.
@@ -1028,22 +1028,6 @@ function showInfoPopup(layerToDescribe){
 }
 
 $(window).load(function(){
-
-    // Original method for loading JSON files for JIT. parseJSON is too strict about the JSON format.
-    // Load in header of HTML file instead.
-    /*
-    $.ajax(static_url + "Jit/My_Jit/Jit_Models/terrestrial_intactness.json", {
-                dataType: 'text',
-                async: false,
-                success: function (data) {
-                    json_eecefz = $.parseJSON(data);
-                },
-                error : function(xhr,errmsg,err) {
-                    console.log(xhr.status + ": " + xhr.responseText);
-                    console.log("Problem loading json file");
-                }
-    });
-    */
 
      //Comment out to prevent spinner on click. Uncomment in the map draw function.
     $(document).ajaxStart(function(){
@@ -1071,14 +1055,8 @@ $(window).load(function(){
 
         //Update MEEMSE2.0 values
         if (typeof st != 'undefined' && typeof resultsJSON[modelForTree+"_avg"] != 'undefined') {
-            //defineJSONtree()
-            //st.loadJSON(json)
-            //st.refresh()
-            //Temporary proof of concept
-            //$(".EEMS_Tree_Value").remove()
-            //$("#" + top_node).append("<div class='EEMS_Tree_Value'>"  + resultsJSON['c5tmids1t1_avg'] + "</div>")
 
-            $(".EEMS_Tree_Value").remove()
+            $(".EEMS_Tree_Value").remove();
             $("#" + top_node).append("<div class='EEMS_Tree_Value'>" + resultsJSON[modelForTree + "_avg"] + "</div>")
         }
 
@@ -1099,7 +1077,7 @@ function startCycle(){
             change();
         },
         2000);
-    }
+    };
 
     $(function () {
         change();
@@ -1356,47 +1334,6 @@ function updateEcosystemServicesCharts(dropDownValue) {
      gettingStartedIntro2.goToStep(1).start();
  }
 
- /*
-function updateClimateHelpContent(){
-    gettingStartedIntro2 = introJs();
-    gettingStartedIntro2.setOptions({
-        'showStepNumbers': false,
-        'showBullets': 'false',
-        'tooltipPosition': 'left'
-    });
-    $('#all_point_chart_goodies').each(function (i) {
-        $(this).attr('data-step', '3');
-        $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
-    });
-    gettingStartedIntro2.goToStep(3).start();
-
-}
-
-function updateClimateHelpContent(number){
-    gettingStartedIntro2 = introJs();
-    gettingStartedIntro2.setOptions({
-        'showStepNumbers': false,
-        'showBullets': 'false',
-        'tooltipPosition': 'left'
-    });
-    $('#all_point_chart_goodies').each(function (i) {
-        $(this).attr('data-step', '1');
-        $(this).attr('data-intro', '<div id="climate_chart_help_content"><b>The observed past and the projected future</b><p>This chart shows the historical climate conditions for the period ' +  (climateParams['timePeriodLabels'][0]).replace('Historical','').replace('<br>','') + ' within the selected area, as well as the modeled projections for a set of future time periods.<p>Each value represents the mean average calculated across the selected area and the time period indicated on the x-axis. You can use the dropdown menus at the top to specify what data to plot in the chart. <div>Clicking any point in the chart will display the corresponding dataset in the map. For more information about the climate data click on the <img src="'+static_url+ 'img/info.png"> tab.</div>');
-    });
-    $('#climate_quick_view').each(function (i) {
-        $(this).attr('data-step', '2');
-        $(this).attr('data-intro', '<div id="climate_table_help_content"><b>A snapshot of climate change projections</b><p>The Projected Change table provides a quick snapshot of the changes that are projected to occur within the selected area.</div>');
-    });
-    $('#column_chart').each(function (i) {
-        $(this).attr('data-step', '3');
-        $(this).attr('data-intro', '<div id="eems_chart_help_content"><b>Condition & Impact Models </b><p>This chart shows the results of several Fuzzy Logic (EEMS) models averaged over the selected area. <p>Clicking on any column will display the corresponding dataset in the map. <p>In addition, when you click on a column, you\'ll see the model diagram appear below the chart. The model diagram is an interactive graphical representation of the model used to create each of the EEMS results shown in the chart. The model flows from the bottom up &mdash; meaning that input nodes appear below the output nodes they create. The text in the gray boxes indicate the operation used to combine the input data (e.g., Fuzzy Union). <p>Clicking on any box makes the corresponding spatial dataset show up on the map on the left. By clicking on the color ramps on the right hand side of each box in the logic tree, the user can choose to display either of the two color scale (classified or stretched). When the user clicks on a box, the model diagram expands to show the underlying inputs used to create the box that was selected. Box colors indicate the number of inputs (see color scale below logic tree). The active box representing the map on display will be highlighted in green. <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">Learn more about the condition & impact models</a></div></div>');
-    });
-    gettingStartedIntro2.goToStep(number).start();
-
-}
- */
-
-
 function addEventHandlerForModelChange(){
 
     // Only for model change. All other dropdowns need to go through the updateData function to plot the new data.
@@ -1417,7 +1354,7 @@ function addEventHandlerForModelChange(){
 
         chart.series[this.value].markerGroup.toFront();
         last_model_name = chart.series[this.value].name;
-        last_model_id = this.value
+        last_model_id = this.value;
         var modelCode  = climateParams['models'][last_model_name][0];
         var season = document.getElementById("season_selection_form").value;
         var variable = document.getElementById("variable_selection_form").value;
@@ -1538,8 +1475,7 @@ $(document).on("mouseover", ".macrogroup_option", function () {
     $('.info').empty();
     var macrogroup_id=$(this)[0].dataset.val;
     swapImageOverlay("none", "");
-    swapImageOverlay(macrogroup_id, "bioclim")
-Gj
+    swapImageOverlay(macrogroup_id, "bioclim");
 });
 
 
