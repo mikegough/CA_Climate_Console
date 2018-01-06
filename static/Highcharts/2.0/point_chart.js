@@ -72,14 +72,15 @@ function createChart(climateVariable, statistic, season) {
             chart: {
                 zoomType: 'xy',
                 type: 'scatter',
-                width: 570,
-                height:320,
-                marginTop:25,
+                height:400,
+                marginTop:35,
+                marginRight:60,
+                marginLeft:100
             },
             title: {
                 text: 'Click any point to map the data',
-                style: { "color": "#666666", "fontSize": "11px" },
-                y:-2
+                style: { "color": "#666666", "fontSize": "13px" },
+                y:0
             },
             credits: {
                 enabled:false
@@ -96,11 +97,10 @@ function createChart(climateVariable, statistic, season) {
                 filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason+")",
                 chartOptions: {
                     chart:{
+                        /*
                         height:500,
                         width:600,
-                        margin:100,
-                        marginBottom:110,
-                        marginTop:100,
+                        */
                     },
                     legend: {
                         y:-5
@@ -137,10 +137,19 @@ function createChart(climateVariable, statistic, season) {
             },
             xAxis: {
                 categories: climateParams["timePeriodLabels"],
+                labels: {
+                    style: {
+                        fontSize: '15px'
+                    }
+                }
             },
             yAxis: {
                 title: {
-                    text: yAxisLabel
+                    text: yAxisLabel,
+                    margin:40,
+                    style: {
+                        fontSize: '15px'
+                    }
                 },
                 plotLines: [{
                     value: 0,
