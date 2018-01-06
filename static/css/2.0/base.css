@@ -760,21 +760,19 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     padding-right:30px
 }
 
-#climate_quick_view_table td{
-    border:1px solid #C0D0E0;
-    color:#606060;
-    /*text-align:center;*/
-    text-align:left;
-    vertical-align:middle;
-    min-height:100px;
-    height:100px;
-    padding:9px;
-    padding-top:11px;
-    /*
-    width:33.33%;
-    */
-    font-size:13px;
-    cursor:default;
+#climate_quick_view_table td {
+	border: 1px solid #C0D0E0;
+	color: #606060;
+	/* text-align: center; */
+	text-align: left;
+	vertical-align: middle;
+	min-height: 100px;
+	height: 100px;
+	padding: 9px;
+	padding-top: 11px;
+	/* width: 33.33%; */
+	font-size: 1.0em;
+	cursor: default;
 }
 
 .climate_quick_view_label_column{
@@ -2441,7 +2439,7 @@ margin-bottom: 5px;
 	padding: 10px;
 	border-radius: 5px 5px 0px 0px;
 	width: calc(100% - 20px);
-	font-size: 1.1em;
+	font-size: 1.2em;
 	position: relative;
 	min-width: 400px;
 	background-color: #1B6186 !important;
