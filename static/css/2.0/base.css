@@ -188,7 +188,7 @@ ul.tabs li a{
 	color: #606060;
 	font: 9pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif;
 	text-align: center;
-	width: 590px;
+	width: 529px;
 }
 
 #units_selector input {
@@ -201,19 +201,26 @@ ul.tabs li a{
     left:0px;
 }
 
-#point_chart_info {
+#point_chart_description {
 	float: right;
-	width: 140px;
-	top: 150px;
-	position: absolute;
-	right: 45px;
+	position: relative;
 	text-align: left;
 	color: #595656;
 	background-color: #EDEDED;
-	border-radius: 5px;
 	padding: 10px;
 	text-align: center;
 	font: 10pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif;
+	width: calc(100% - 560px);
+	border-left: 1px solid #DCDCDC;
+	height: 400px;
+	right: -20px;
+    text-align:left;
+}
+
+#point_chart_description_header {
+	padding-top: 13px;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 
 #point_click_img_div {
@@ -227,12 +234,14 @@ ul.tabs li a{
     height:100px
 }
 
+/*
 #point_chart_description{
     margin-left:40px;
     margin-right:20px;
     color:#606060;
     font: 9pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif
 }
+*/
 
 div#point_chart_description a,a:visited{
     color:#0054A8;
@@ -465,6 +474,8 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 	padding-right: 20px;
 	margin-left: 10px;
 	margin-bottom: 10px;
+    width:500px;
+    float:left;
 }
 
 .additionalFeaturesCount{

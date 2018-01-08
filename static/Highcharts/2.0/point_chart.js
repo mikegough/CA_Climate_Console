@@ -60,7 +60,8 @@ function createChart(climateVariable, statistic, season) {
     )
 
 
-    document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average annual " + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
+    document.getElementById('point_chart_description').innerHTML="<div id='point_chart_description_header'>Description</div> <p" +
+        ">" + "Within the area selected on the map, the average annual " + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart to the left shows the modeled projections for two future time periods within this same area. Each point represents a different climate model.<p>Click on any point to display the dataset used to generate the plotted value."
     if (climateParams['boxPlot']==true) {
         $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
     }
@@ -72,10 +73,10 @@ function createChart(climateVariable, statistic, season) {
             chart: {
                 zoomType: 'xy',
                 type: 'scatter',
-                height:400,
+                height:300,
                 marginTop:35,
                 marginRight:60,
-                marginLeft:100
+                marginLeft:80
             },
             title: {
                 text: 'Click any point to map the data',
@@ -139,16 +140,16 @@ function createChart(climateVariable, statistic, season) {
                 categories: climateParams["timePeriodLabels"],
                 labels: {
                     style: {
-                        fontSize: '15px'
+                        fontSize: '14px'
                     }
                 }
             },
             yAxis: {
                 title: {
                     text: yAxisLabel,
-                    margin:40,
+                    margin:20,
                     style: {
-                        fontSize: '15px'
+                        fontSize: '14px'
                     }
                 },
                 plotLines: [{
@@ -543,7 +544,7 @@ function updateData(climateVariable, statistic, season, model_index) {
     }
 
     if((selectedClimateStat=="Average" && climateVariable != "arid") || climateVariable == "pet" ) {
-            document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + historicalDataToPlot[0] +" "+valueSuffix + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
+            document.getElementById('point_chart_description').innerHTML="<div id='point_chart_description_header'>Description:</div> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + historicalDataToPlot[0] +" "+valueSuffix + ". " + "The chart to the left shows the modeled projections for two future time periods within this same area. Each point represents a different climate model. <p> Click on any point to display the dataset used to generate the plotted value."
             if (climateParams['boxPlot']==true) {
                 $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
             }

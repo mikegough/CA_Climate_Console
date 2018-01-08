@@ -263,6 +263,7 @@
             <div class="collapsible_div">
                 <div class="loading_contents">
                     <div id="all_point_chart_goodies">
+
                         <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                             Currently Selected:
                             <span class="selectedFeaturesShortList"></span>
@@ -278,11 +279,11 @@
                                <select id="variable_selection_form" onchange='updateData(this.value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value, document.getElementById("model_selection_form").value)'>
                                <!-- Annual Averages -->
                                <optgroup label = "Variable:">
-                               <option value="tmax" selected>Maximum Temperature</option>
-                               <option value="tmin">Minimum Temperature</option>
+                               <option value="tmax" selected>Max Temp</option>
+                               <option value="tmin">Min Temp</option>
                                <option value="prec">Precipitation</option>
                                <option value="arid">Aridity</option>
-                               <option value="pet">Potential Evaporation</option>
+                               <option value="pet">PET</option>
                                </select>
                                </div>
                                <div class="styled-select2" id="ss4">
@@ -337,8 +338,12 @@
 
                         <span style="position:relative"><span id="legendTips" style="position:absolute; display:none">legend tips</span></span>
 
+                        <!--
                         <div style="display:none" id="point_chart_description"></div>
+                        -->
 
+                    </div>
+                    <div id="point_chart_description">
                     </div>
                 </div>
             </div>
