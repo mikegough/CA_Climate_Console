@@ -28,13 +28,15 @@ function createColumnChart(){
         $('#column_chart').highcharts({
               chart: {
                     type: 'column',
-                    width:510,
-                    height:350,
+                    width:500,
+                    height:425,
                     marginTop:25,
+                    marginBottom:70
 
                 },
                 title: {
                     text: 'Click any column to map the data',
+                    text: '',
                     style: { "color": "#666666", "fontSize": "11px" },
                     y:-2
                 },
@@ -182,6 +184,7 @@ function createColumnChart(){
                     point: {
                             events: {
                                 click: function() {
+                                    $("#MEEMSE_footer").show();
                                     $("#container").show();
                                     var layerToAdd = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
 

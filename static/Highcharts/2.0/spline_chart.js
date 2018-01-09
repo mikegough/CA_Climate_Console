@@ -88,7 +88,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
         $('#spline_chart').highcharts({
             chart: {
                 zoomType: 'xy',
-                width: 570,
+                width: 530,
                 height: 500,
                 marginTop:45,
                 marginLeft:65,
@@ -96,6 +96,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
             },
             title: {
                 text: 'Click a point to map the data',
+                text: '',
                 style: { "color": "#666666", "fontSize": "11px" }
             },
             credits: {

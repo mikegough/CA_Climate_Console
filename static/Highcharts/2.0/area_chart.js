@@ -19,8 +19,8 @@ function createAreaChart(model) {
         $('#area_chart').highcharts({
             chart: {
                 type: 'areaspline',
-                width: 570,
-                height:520,
+                width: 500,
+                height:480,
                 marginLeft: 40,
                 marginRight: 30,
                 marginTop:10,

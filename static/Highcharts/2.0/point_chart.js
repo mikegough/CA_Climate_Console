@@ -17,17 +17,17 @@ function createChart(climateVariable, statistic, season) {
     //Data to plot comes from the resultsJSON dictionary (example: resultsJSON['m5arids2t1_avg'], where m5arids2t1 is the field name in the postGIS database.)
     //m5=MIROC5,arid=aridity(delta),s2=Season2,t1=Season1,avg=database statistic
 
-    var timePeriodCount=climateParams['timePeriods']
+    var timePeriodCount=climateParams['timePeriods'];
 
     for (model in climateParams['models']){
 
-        modelAbbreviation=climateParams['models'][model][0]
+        modelAbbreviation=climateParams['models'][model][0];
 
         //Data To Plot (line1Values, line2Values, etc)
         //Historical (PRISM)
         if (modelAbbreviation == 'pm'){
             if (statistic=='anom' || statistic =='delta' ){
-                eval("var " + "line"+seriesNumber+"Values=[0]")
+                eval("var " + "line"+seriesNumber+"Values=[0]");
                 pm_LayersToAdd=['single_transparent_pixel']
             } else {
                 eval("var " + "line"+seriesNumber+"Values=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]")
@@ -37,16 +37,16 @@ function createChart(climateVariable, statistic, season) {
 
         else{
 
-            eval("var " + "line"+seriesNumber+"Values=['']")
-            eval("var " + modelAbbreviation+"_LayersToAdd=['']")
+            eval("var " + "line"+seriesNumber+"Values=['']");
+            eval("var " + modelAbbreviation+"_LayersToAdd=['']");
             var j=1;
             //For Each Time Period
             while(j<=timePeriodCount) {
-                var value=modelAbbreviation+climateVariable+season+'t'+j
+                var value=modelAbbreviation+climateVariable+season+'t'+j;
                 //Push data into series array
-                eval("line"+seriesNumber+"Values").push(resultsJSON[value+'_'+db_statistic])
+                eval("line"+seriesNumber+"Values").push(resultsJSON[value+'_'+db_statistic]);
                 //Layers to Add
-                eval(modelAbbreviation+"_LayersToAdd").push(value)
+                eval(modelAbbreviation+"_LayersToAdd").push(value);
                 j++;
             }
         }
@@ -55,16 +55,13 @@ function createChart(climateVariable, statistic, season) {
     }
 
 
-    $('#point_chart_description').append(
-        " Click on a point to display the dataset used to generate the plotted value. "
-    )
+    updatePointDescription(climateVariable, line1Values);
 
-
-    document.getElementById('point_chart_description').innerHTML="<div id='point_chart_description_header'>Description</div> <p" +
-        ">" + "Within the area selected on the map, the average annual " + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart to the left shows the modeled projections for two future time periods within this same area. Each point represents a different climate model.<p>Click on any point to display the dataset used to generate the plotted value."
+    /*
     if (climateParams['boxPlot']==true) {
         $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
     }
+    */
 
     /**************************************** End Description *********************************************************/
 
@@ -73,13 +70,14 @@ function createChart(climateVariable, statistic, season) {
             chart: {
                 zoomType: 'xy',
                 type: 'scatter',
-                height:300,
+                height:330,
                 marginTop:35,
-                marginRight:60,
-                marginLeft:80
+                marginRight:50,
+                marginLeft:60
             },
             title: {
                 text: 'Click any point to map the data',
+                text: '',
                 style: { "color": "#666666", "fontSize": "13px" },
                 y:0
             },
@@ -523,39 +521,7 @@ function updateData(climateVariable, statistic, season, model_index) {
 
     //chart.redraw()
 
-
-    /******************************************** Description *********************************************************/
-
-    $('#point_chart_description').append(
-        " Click on a point to display the dataset used to generate the plotted value. "
-    )
-
-    selectedClimateVar=selectedClimateVar.replace("PET", "potential evapotranspiration")
-
-    if (selectedClimateSeason=="Annual"){
-        seasonalMonthlyModifier=" "
-        annualModifier=" annual "
-        selectedClimateSeason=selectedClimateSeason.toLowerCase()
-    }
-    else
-    {
-        seasonalMonthlyModifier=" (for the months of " + selectedClimateSeason + ")"
-        annualModifier=""
-    }
-
-    if((selectedClimateStat=="Average" && climateVariable != "arid") || climateVariable == "pet" ) {
-            document.getElementById('point_chart_description').innerHTML="<div id='point_chart_description_header'>Description:</div> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + historicalDataToPlot[0] +" "+valueSuffix + ". " + "The chart to the left shows the modeled projections for two future time periods within this same area. Each point represents a different climate model. <p> Click on any point to display the dataset used to generate the plotted value."
-            if (climateParams['boxPlot']==true) {
-                $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
-            }
-            /*
-            $('#point_chart_description').append("<div style='position:relative; float:right; right:0px; width:40px; margin-left:5px'><img style='width:20px; position:absolute; bottom:-20px;' src='"+static_url + "img/boxPlotIcon.png'></div>")
-            */
-        }
-
-    else if (selectedClimateStat=='Change' || climateVariable == "arid") {
-            document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "The chart above shows modeled predictions of average "  + annualModifier + selectedClimateVar.toLowerCase()  + " change " +  seasonalMonthlyModifier + " during two future time periods within the area selected on the map. Click on any point to display the dataset used to generate the plotted value."
-        }
+    updatePointDescription(climateVariable, historicalDataToPlot);
 
     chart.yAxis[0].setTitle({
         text: yAxisLabel
@@ -567,8 +533,39 @@ function updateData(climateVariable, statistic, season, model_index) {
 
     changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic)
 
+
 }
 
 
+function updatePointDescription(climateVariable, historicalDataToPlot){
 
+    selectedClimateVarLong = selectedClimateVar.replace("PET", "potential evapotranspiration").replace("Temp", "temperature").replace("Max", "maximum").replace("Min", "minimum");
 
+    if (selectedClimateSeason=="Annual"){
+        seasonalMonthlyModifier=" ";
+        annualModifier=" annual ";
+        selectedClimateSeason=selectedClimateSeason.toLowerCase()
+    }
+    else
+    {
+        seasonalMonthlyModifier=" (for the months of " + selectedClimateSeason + ")";
+        annualModifier=""
+    }
+
+    if(selectedClimateStat=="Average") {
+        document.getElementById('point_chart_description').innerHTML="<div class='description_header'>Description</div><p>" + "This chart shows the historical average " + annualModifier + selectedClimateVarLong.toLowerCase() + seasonalMonthlyModifier + " within the selected area (" + historicalDataToPlot[0] +" "+valueSuffix + "), as well as the modeled projections for two future time periods. Each point represents a different climate model. <p> Click any point to toggle the corresponding map layer on/off in the map."
+        if (climateParams['boxPlot']==true) {
+            $('#point_chart_description').append(" Explore " + selectedClimateVarLong + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
+        }
+        /*
+         $('#point_chart_description').append("<div style='position:relative; float:right; right:0px; width:40px; margin-left:5px'><img style='width:20px; position:absolute; bottom:-20px;' src='"+static_url + "img/boxPlotIcon.png'></div>")
+         */
+    }
+    else if (selectedClimateStat=='Change' || climateVariable == "arid") {
+        document.getElementById('point_chart_description').innerHTML="<div class='description_header'>Description</div><p>" + "This chart shows the modeled projections of average "  + annualModifier + selectedClimateVarLong.toLowerCase()  + " change " +  seasonalMonthlyModifier + " for two future time periods within the area selected on the map. Each point represents a different climate model. <p>Click any point to display the map layer used to generate the plotted value."
+    }
+
+    $("#point_chart_description").append('<div id="point_chart_info"><div id="point_click_img_div"><img id="point_click_img" src="' + static_url + 'img/point_click.png">');
+    $("#point_chart_description").append('<div onclick="load_help_content(\'Climate Projections\', \'climate_projections.html\')" class="learn_more">Learn more... </div>');
+
+}

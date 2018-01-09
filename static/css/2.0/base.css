@@ -156,14 +156,20 @@ ul.tabs li a{
 .select_form2 {
 	font-family: Verdana,Geneva,sans-serif !important;
 	font-size: 13px !important;
-	margin-top: 20px !important;
 	white-space: nowrap;
+	width: 400px;
+    margin-top: 20px !important;
 }
 
-#veg_select_form{
-    width:450px;
-    margin-left:80px;
+#select_form2_continuous_model {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
 
+#veg_select_form {
+	width: 420px;
+	margin-left: 60px;
 }
 
 .styled-select2{
@@ -201,37 +207,70 @@ ul.tabs li a{
     left:0px;
 }
 
-#point_chart_description {
+.description {
 	float: right;
 	position: relative;
 	text-align: left;
 	color: #595656;
-	background-color: #EDEDED;
-	padding: 10px;
+	background-color: #F4F4F4;
+	padding: 10px 10px 10px 12px;
 	text-align: center;
 	font: 10pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif;
-	width: calc(100% - 560px);
+	width: calc(100% - 555px);
 	border-left: 1px solid #DCDCDC;
-	height: 400px;
+	height: 100%;
 	right: -20px;
-    text-align:left;
+	text-align: left;
 }
 
-#point_chart_description_header {
+.description_header {
 	padding-top: 13px;
 	font-weight: bold;
 	font-size: 1.2em;
+	color: #BF5A4A;
+	font-family: arial;
+}
+
+#MEEMSE_description {
+	height: 435px;
+	border-bottom: 1px solid #DCDCDC;
 }
 
 #point_click_img_div {
-    width: 100%;
-    margin-left:auto;
-    margin-right:auto;
-    text-align:center;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	top: 10px;
+	position: relative;
 }
 
-#point_click_img{
-    height:100px
+#point_click_img {
+	height: 70px;
+	top: -8px;
+	position: relative;
+}
+
+.learn_more {
+	font-size: 1.2em;
+	font-weight: bold;
+	float: right;
+	margin-top: 20px;
+	cursor: pointer;
+	color: #3F92C5;
+	font-family: arial;
+}
+
+.learn_more:hover {
+    text-decoration:underline;
+}
+
+#learn_more_departure {
+	float: right;
+	position: absolute;
+	display: inline;
+	margin-top: 0px;
+	right: 10px;
 }
 
 /*
@@ -266,9 +305,9 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 }
 
 #column_chart {
-	margin-top: 35px;
 	margin-left: 20px;
 	width: 510px;
+	padding-top: 30px;
 }
 
 .label {
@@ -286,9 +325,11 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     z-index: 999999 !important;
 }
 
-#area_chart{
-    margin-top:0px;
-    margin-left:15px;
+#area_chart {
+	margin-top: 0px;
+	margin-left: 15px;
+	width: 500px;
+	float: left;
 }
 
 #spline_chart{
@@ -345,11 +386,17 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     margin-bottom:15%;
 }
 
+#MEEMSE_chart_and_description{
+}
+
 #MEEMSE_footer{
     position: relative;
     bottom: 15px;
     height: 50px;
-    background: rgba(255, 255, 255, 0.7) none repeat scroll 0% 0%;"
+    background: rgba(255, 255, 255, 0.7) none repeat scroll 0% 0%;
+    width: 200px;
+    margin-top:20px;
+    display:none;
 }
 #MEEMSE_node_count_legend{
     visibility:hidden;
@@ -476,6 +523,18 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 	margin-bottom: 10px;
     width:500px;
     float:left;
+}
+
+#all_area_chart_goodies {
+    width:530px;
+	float: left;
+	position: relative;
+}
+
+#all_spline_chart_goodies {
+    width:530px;
+    float: left;
+    position: relative;
 }
 
 .additionalFeaturesCount{
@@ -747,8 +806,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 
 #climate_quick_view {
 	text-align: center;
-	margin-top: 20px;
-	padding: 20px 45px;
+	margin-top: 3px;
+	padding: 15px 15px;
+	float: left;
+	width: 500px;
 }
 
 #climate_quick_view_table {
@@ -782,7 +843,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 	padding: 9px;
 	padding-top: 11px;
 	/* width: 33.33%; */
-	font-size: 1.0em;
+	font-size: .9em;
 	cursor: default;
 }
 
@@ -1974,7 +2035,7 @@ div.clickToMapInfo {
 #container {
 	display: none;
 	height: 430px;
-	margin-top: 20px;
+	margin-top: 40px;
 }
 
 #showTop{
@@ -2177,11 +2238,10 @@ div#pop-up2 {
 
 #spline_variable_dropdown {
 	white-space: nowrap;
-	width: 445px;
+	width: 100%;
 	position: relative;
 	height: 70px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: 66px;
 }
 
 #ecosystem_services_model_div {
@@ -2193,10 +2253,11 @@ div#pop-up2 {
 
 #ecoServClimateModelLabel {
 	border-radius: 6px 0px 0px 6px;
-	padding-left: 50px;
+	padding-left: 10px;
 	border-right: 0px;
-	width: 170px;
+	width: 120px;
 	text-align: right;
+	padding-right: 40px;
 }
 
 .verticalSeparatorLine{
@@ -2237,7 +2298,7 @@ div#pop-up2 {
 	position: relative;
 	top: 10px;
 	opacity: .85;
-	width: 445px;
+	width: 380px;
 	margin-right: auto;
 	margin-left: auto;
 	z-index: 1;
@@ -2407,6 +2468,7 @@ margin-bottom: 5px;
 	top: 50px;
 	right: 0px;
 	width: 50%;
+	min-width: 800px;
 }
 
 .results_container {
@@ -2422,7 +2484,9 @@ margin-bottom: 5px;
 }
 
 #macrogroup_dropdownSelectBoxIt{
+    /*
     max-width:400px;
+    */
 }
 
 #macrogroup_dropdownSelectBoxItText{
@@ -2440,7 +2504,7 @@ margin-bottom: 5px;
 }
 
 .header, .right_header {
-	font-family: Helvetica;
+	font-family: arial;
 	color: #ede4e4;
 	font-weight: bold;
 	cursor: pointer;
@@ -2493,8 +2557,24 @@ margin-bottom: 5px;
 	overflow-y: hidden;
 }
 
+#collapsible_div_point_chart {
+    max-height: 460px;
+}
+
+#collapsible_div_change_table{
+    max-height:783px;
+}
+
 #collapsible_div_climate_departure{
     height:370px;
+}
+
+#collapsible_div_area_chart {
+    max-height: 580px;
+}
+
+#collapsible_div_spline_chart {
+    max-height: 755px;
 }
 
 #intro {

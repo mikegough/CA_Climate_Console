@@ -78,6 +78,9 @@ $(document).on("click", ".header", function () {
         this_collapsible_div.slideToggle(400, function () {
         });
 
+        // Scroll to the bottom of the results div.
+        $("#results").animate({ scrollTop: $("#results")[0].scrollHeight }, 1000);
+
 
 });
 
