@@ -2309,10 +2309,10 @@ div#pop-up2 {
 #continuousMapSlider {
 	top: 15px;
 	opacity: .85;
-	width: 390px;
+	width: 365px;
 	z-index: 1;
 	cursor: pointer !important;
-	margin-left: 0px;
+	margin-left: 5px;
 }
 
 .label {
