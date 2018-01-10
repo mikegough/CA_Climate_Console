@@ -1487,8 +1487,7 @@ def extract_raster_values(request):
             for raster_dict in raster_subgroup_list:
 
                 if raster_dict["raster"]:
-                    tif_file = "static/data/raster/ca/{}".format(raster_dict["raster"])
-
+                    tif_file = settings.STATICFILES_DIRS[0] + "/data/raster/ca/{}".format(raster_dict["raster"])
 
                     with rasterio.open(tif_file) as src:
                         out_image, out_transform = rasterio.mask.mask(src, features, crop=True)
@@ -1642,7 +1641,7 @@ def extract_text_values(macrogroup_code, macrogroup_name):
 
     results = {}
 
-    macrogroup_file = r"E:\Projects\DRECP_CA\Tasks\Web_Applications\Climate_Console\CA_Climate_Console\static\data\txt\macrogrp_dist_climate_vars" + os.sep + macrogroup_code + "_dist_climate_variables.txt"
+    macrogroup_file = settings.STATICFILES_DIRS[0] + "/data/txt/macrogrp_dist_climate_vars" + os.sep + macrogroup_code + "_dist_climate_variables.txt"
 
     with open(macrogroup_file) as f:
         reader = csv.reader(f)
