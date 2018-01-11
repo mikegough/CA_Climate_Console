@@ -21,7 +21,7 @@ headerLinks={
     // Row 3
     "Sagebrush Climate Console": "/sagebrush",
     "CBI Climate Center": "http://climate.databasin.org/",
-    "Cal-Adapt": "http://climate.databasin.org",
+    "Cal-Adapt": "http://cal-adapt.org/",
 };
 
 reportingUnits={
