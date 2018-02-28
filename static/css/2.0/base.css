@@ -2567,8 +2567,8 @@ margin-bottom: 5px;
     max-height:783px;
 }
 
-#collapsible_div_climate_departure{
-    height:370px;
+#collapsible_div_climate_departure {
+	height: 370px;
 }
 
 #collapsible_div_area_chart {
@@ -2577,6 +2577,13 @@ margin-bottom: 5px;
 
 #collapsible_div_spline_chart {
     max-height: 755px;
+}
+
+#legend_toggle_note {
+	text-align: left;
+	color: #666666;
+	height: 0px;
+	margin-left: 17px;
 }
 
 #intro {
