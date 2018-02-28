@@ -348,7 +348,7 @@
 
         <div class="results_container">
             <div class="header header full_border_radius" id="climate_table_header">
-                Climate Change Table<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+                Climate Projection Summaries<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" id="collapsible_div_change_table" style="display:none">
                     <div id="climate_quick_view">
 
@@ -452,10 +452,10 @@
                     <img title="Click for help" class="tab_help" src="{{STATIC_URL}}img/help2.png" onclick="load_help_content('Bioclimatic Variables', 'bioclimatic_variables.html')">
                 </div>
                 -->
-                <span class="selected_watershed_icon"></span>Climate Departure <img class="collapse_icon" src="{{STATIC_URL}}img/collapse_down_arrow.png">
+                <span class="selected_watershed_icon"></span>Climate & Vegetation Departure <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png">
             </div>
             <div id="macrogroup_dropdown_container" class="collapsible_div" style="display:none">
-                Check future suitability of:
+                Select a Vegetation Type:
                 <select id="macrogroup_dropdown">
                     <option id="none" selected value="none" >None</option>
                     <option value='M09' class='macrogroup_option' >California Foothill and Valley Forests and Woodlands</option>
@@ -490,11 +490,12 @@
                 <div class="loading_contents" id="loading_contents_departure">
                     <table class="results_table" id="climate_table"><tr></tr></table>
                 </div>
+                <div> Note: Click on any legend item to toggle that curve on/off in the chart.</div>
             </div>
         </div>
 
         <div class="results_container">
-            <div class="header header full_border_radius" id="eems_header">Condition & Exposure (EEMS) <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="header header full_border_radius" id="eems_header">Site Condition & Climate Exposure <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" style="display:none">
                 <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                     Currently Selected:
@@ -574,7 +575,7 @@
 
         <div class="results_container">
 
-            <div class="header header full_border_radius" id="climate_impacts_header">Land Cover (MC2)<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="header header full_border_radius" id="climate_impacts_header">Projected Land Cover Change <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" id="collapsible_div_area_chart" style="display:none">
                 <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
                 <div id="all_area_chart_goodies">
@@ -618,7 +619,7 @@
 
         <div class="results_container">
 
-            <div class="header header full_border_radius" id="climate_impacts_header">Carbon, Fire, and Water (MC2)<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
+            <div class="header header full_border_radius" id="climate_impacts_header">Projected Change in Carbon, Fire, and Water<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
             <div class="collapsible_div" id="collapsible_div_spline_chart" style="display:none">
                 <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
                 <div id="all_spline_chart_goodies">
@@ -667,6 +668,7 @@
                         <a href="#" id="start3" title="Click to automatically cycle through the time steps"><button id="startDiv3"></button></a>
                         <a href="#" id="stop3" title="Click to stop"><button id="stopDiv3"></button></a>
                     </div>
+                    <div style="position:relative; left:-25px">Note: These variables may or may not be related.</div>
                     <!--
                     <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
                     -->
