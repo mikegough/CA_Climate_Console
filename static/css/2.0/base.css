@@ -629,9 +629,9 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     font-size:.8em;
 }
 
-
-.youTubeIcon{
-    height:70px;
+.video_iframe{
+	text-align: center;
+	margin: 20px;
 }
 
 .youTubeDiv{
