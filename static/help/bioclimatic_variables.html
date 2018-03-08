@@ -12,5 +12,16 @@ The reporting unit illustrated in figure 3 would have a <b>low</b> climate depar
 
 <div style="width:100%; text-align:center; margin-left:auto; margin-right:auto"> <img style="" src="static_climate_console/help/img/low_climate_departure.png"></div>
 <span style="font-size:.8em">Figure 3: Low Climate Departure</span>
+<p>
 
+Additionally you can display a curve depicting the amount of land area occupied by a vegetation type across the state of California. Comparing these (orange) curves with the curves for the historical and future bioclimatic variables provides an indication of how future changes in these conditions could change the distribution of that vegetation type. In the example below, the curve for chaparral has significant overlap with historical max and min temp, but less overlap with the future curves for those variables, with temperatures growing warmer than currently conducive for California's chaparral communities. Selecting a vegetation type also displays the distribution of that vegetation type on the map.
+<p>
+
+<b>Vegetation Data:</b>
+<p>
+We used the CalFire-FRAP 30m California statewide land cover dataset to represent vegetation cover within the study area (CalFire-FRAP 2015). These data were produced by the California Department of Forestry and Fire Protection from the "best available data" land cover data and were cross-walked to macro-groups based on the Manual of California Vegetation that was used in the 2015 California State Wildlife Action Plan (California Department of Fish and Wildlife 2015). 
+<p>
+We resampled 30m data the map to the approximately 1km (30 arc second) spatial resolution (consistent with the climate data) using a majority filter in Esri's ArcGIS software (ESRI 2014). The data were then converted to the Network Common Data Form (NetCDF; Rew et al. 1997; UNIDATA 2015).
+<p>
+Afterwards we used the macro-group classification to select the nineteen vegetation types occurring the within the study area (Table 2). Of the thirty-one resampled types only nineteen had a distribution greater than 0.2% or were an upland macro-group and thus were used in the climate exposure analysis.
 
