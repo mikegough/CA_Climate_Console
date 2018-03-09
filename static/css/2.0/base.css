@@ -321,6 +321,10 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
     padding:13px;
 }
 
+
+.highcharts-legend {
+}
+
 .highcharts-tooltip span {
     opacity: 1;
     z-index: 999999 !important;
@@ -2137,6 +2141,32 @@ div#pop-up2 {
     max-width: 100%;
 }
 
+.info_table {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.info_table th {
+	color: #626060;
+	background-color: #e0dede;
+	padding: 10px;
+}
+
+.info_table td {
+	background-color: #CBDFF3;
+	color: #606060;
+	text-align: left;
+	padding-left: 50px;
+}
+
+.info_table td:first-child {
+    padding-left: 70px
+}
+
+.info_table td:nth-child(2){
+    padding-left: 50px
+}
+
 .info_header {
     font-size: 1.4em;
     color: #4E80BB;
@@ -2568,7 +2598,38 @@ margin-bottom: 5px;
 }
 
 #collapsible_div_climate_departure {
-	height: 370px;
+	height: 400px;
+}
+
+.histogram_subtitle {
+    text-align:left;
+    line-height: 18px;
+    white-space: nowrap;
+    min-width: 300px;
+    cursor:default;
+}
+
+.climate_exposure_icon{
+    height:15px;
+}
+
+#hadgem2_departure_label {
+	/*background-color: #FF9999;
+	display: inline-block;
+	height: 12px;
+	width: 16px;
+	top: 2px;
+	position: relative;
+	*/
+}
+#canesm2_departure_label {
+    /*background-color: #B2D1EE;
+	display: inline-block;
+	height: 12px;
+	width: 16px;
+	top: 2px;
+	position: relative;
+	*/
 }
 
 #collapsible_div_area_chart {
@@ -2583,7 +2644,19 @@ margin-bottom: 5px;
 	text-align: left;
 	color: #666666;
 	height: 0px;
-	margin-left: 17px;
+	margin-left: 10px;
+	position: relative;
+	top: -10px;
+}
+
+
+#legend_toggle_note {
+	text-align: left;
+	color: #666666;
+	height: 0px;
+	margin-left: 10px;
+	position: relative;
+	top: -10px;
 }
 
 #intro {

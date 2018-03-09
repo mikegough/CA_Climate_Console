@@ -1,14 +1,50 @@
-The Climate Departure chart shows the distribution of cell values within the selected area for a set of bioclimatic variables for the historical period (1971-2000) as well as two future time periods (2016-2045 and 2046-2075). Two future models were selected, a Hot/Wet model (CanESM2) and a Hot/Dry model (HadGEM2-ES). 
+For the selected area, Climate Departure helps answer the question...
 <p>
-Climate departure refers to how different the future climate is expected to be from the historical climate. Where climate departure is high, there will be a large gap between the future and historical curves. Where climate departure is low, there will be more overlap between the future and historical curves.
+<div style="font-size:1.2em; font-style: italic; color:#f03800">
+Will the climatic conditions that existed in the past, exist in the future?  
+</div>
 <p>
-The reporting unit illustrated in figure 2 would have a <b>high</b> climate departure because there is no overlap between the historical curves and the future curves. Where this is the case, the future climate in the selected reporting unit is expected to deviate significantly from the historical climate. 
+
+Technically, climate departure is a measure of the number of standard deviations the projected future mean is from the historical mean.  
+
+This value, known as a standardized anomaly, is a Z-Score which is calculated as follows:
+
+<p>
+<img style="" src="static_climate_console/help/img/ce_equation.png">
+<p>
+
+where d is the difference, xf is the mean of the variable in the future period, xh is the mean of the variable in the historical period, and sxh is the standard deviation of the variable in the historical period. 
+<p>
+
+We then characterize the climate departure for each variable as ranging from "Very Low" to "Very High" using the breaks shown in the table below:  
+<p>
+<div style="width:100%; text-align:center">
+<table class="info_table">
+<tr>
+<th># of Standard Deviations <br>from the Historical</th><th>Climate Departure</th></tr>
+<tr><td> <= 0.5 </td><td>Very Low</td></tr>
+<tr><td> <= 1.5 </td><td>Low</td></tr>
+<tr><td> <= 2 </td><td>Moderate</td></tr>
+<tr><td> <= 2.5 </td><td>High</td></tr>
+<tr><td> <= 3 </td><td>Very High</td></tr>
+</table>
+</div>
+<p>
+
+It is important to note that a climate departure value of "Very Low" does not mean that climate "change" is expected to be low. Rather, it should be interpreted to mean that the historical climate conditions that existed in the past in the selected reporting unit will likely exist in the future somewhere in the same reporting unit, although not necessarily in the same locations within that reporting unit. For example, within a selected county, the temperatures that historically existed at lower elevations, may still exist in the same county in the future, but only at higher elevations. In general, reporting units with higher topographic diversity will tend to have lower climate departure values than flat, topographically homogeneous reporting units.    
+<p>
+
+The curves that appear in the chart show the distribution of cell values within the selected area for a set of bioclimatic variables for the historical period (1971-2000) as well as two future time periods (2016-2045 and 2046-2075). Two future models were selected, a Hot/Wet model (CanESM2) and a Hot/Dry model (HadGEM2-ES). 
+<p>
+Where climate departure is high, there will be a large gap between the future and historical curves. Where climate departure is low, there will be more overlap between the future and historical curves.
+<p>
+The reporting unit illustrated in figure 2 would have a <b>Very High</b> climate departure because the future means deviate significantly from the historical means. In fact, there is no overlap between the historical curves and the future curves. This indicates that the historical climate conditions that existed in the selected reporting unit are not expected to exist in the future. 
 
 <div style="width:100%; text-align:center; margin-left:auto; margin-right:auto"> <img style="" src="static_climate_console/help/img/high_climate_departure.png"></div>
 <span style="font-size:.7em">Figure 2: High Climate Departure</span>
 <p>
 
-The reporting unit illustrated in figure 3 would have a <b>low</b> climate departure because there is a significant amount of overlap between the historical curves and the future curves. Where this is the case, the historical climate conditions within the reporting unit are expected to exist in the future (though not necessarily in the same locations within the reporting unit).
+The reporting unit illustrated in figure 3 would have a <b>Very Low</b> climate departure because there is a significant amount of overlap between the historical curves and the future curves. Where this is the case, the historical climate conditions within the reporting unit are expected to exist in the future (though not necessarily in the same locations within the reporting unit).
 
 <div style="width:100%; text-align:center; margin-left:auto; margin-right:auto"> <img style="" src="static_climate_console/help/img/low_climate_departure.png"></div>
 <span style="font-size:.8em">Figure 3: Low Climate Departure</span>

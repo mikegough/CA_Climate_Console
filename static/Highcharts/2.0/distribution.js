@@ -4,15 +4,15 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
     margin_top =  100
   }
   else{
-    margin_top = null
+    margin_top = 90;
   }
 
   if (chart_type ==  "bar"){
-    margin_left = 258
+    margin_left = 258;
     rotation = 0
   }
   else{
-    margin_left = 68
+    margin_left = 68;
     rotation = -45
   }
 
@@ -23,30 +23,37 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
         marginLeft: margin_left,
         marginTop: margin_top,
         marginRight:20,
-        marginBottom:120,
-        height:320,
-        width:310,
+        marginBottom:140,
+        height:360,
+        width:330,
       },
       title: {
         text: label,
-        x: 10,
+        useHTML: true,
+        x: 0,
         style: {
           color: '#333333',
           fontSize: "14px",
+          whiteSpace: "nowrap",
         }
         //x: 25
       },
       subtitle: {
         text: "",
+        useHTML: true,
+        align: 'left',
+        style: {
+        },
+        x:0
+        //margin: 5,
         //x: 25
       },
       legend: {
-        y:10,
         enabled: true,
         itemStyle: {
              fontSize:'12px',
              fontWeight:'normal',
-             color: '#333333'
+             color: '#333333',
          },
       },
       credits: {

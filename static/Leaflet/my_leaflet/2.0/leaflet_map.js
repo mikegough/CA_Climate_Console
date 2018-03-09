@@ -888,7 +888,6 @@ function extract_raster_values(last_poly) {
         },
           success: function (response) {
 
-
                response_json = JSON.parse(response);
                results_json = response_json["selected_reporting_unit_results"];
 
@@ -1633,7 +1632,6 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
 
     });
 
-
     $.each(results_json_group, function (key, object) {
 
         var chart_title = object[0]["title"];
@@ -1662,6 +1660,37 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
         var chart = $("#" + key).highcharts();
 
         count = 1;
+
+        // Calculate Climate Departure
+        var historical_mean = object[0]["stats"]["mean"];
+        var hadgem2_es_mean = object[1]["stats"]["mean"];
+        var canesm2_mean = object[2]["stats"]["mean"];
+
+        var historical_sd = object[0]["stats"]["sd"];
+
+        var departure_hadgem2_es = ((hadgem2_es_mean - historical_mean) / historical_sd).toFixed(1);
+        var departure_canesm2 = ((canesm2_mean - historical_mean) / historical_sd).toFixed(1);
+
+        var departure_hadgem2_es_text = classify_departure(departure_hadgem2_es);
+        var departure_canesm2_text = classify_departure(departure_canesm2);
+
+        function classify_departure(departure) {
+
+            departure_abs = Math.abs(departure);
+            departure_text  = "";
+
+            if (departure_abs <= .5) {  departure_text = "Very Low" }
+            else if (departure_abs <= 1.5) { departure_text = "Low"}
+            else if (departure_abs <= 2.5) { departure_text = "Moderate"}
+            else if (departure_abs <= 3.5) { departure_text = "High"}
+            else (departure_text = "Very High") ;
+
+            return departure_text;
+
+        }
+
+        var subtitle = "<div class='histogram_subtitle'><span id='hadgem2_departure_label'><img class='climate_exposure_icon' src='" + static_url + "img/hadgem2_es_departure_icon.png'></span> Future Climate Departure is <b>" + departure_hadgem2_es_text + "</b> (Z="  + departure_hadgem2_es  + ")" + "<br><span id='canesm2_departure_label' ><img class='climate_exposure_icon' src='" + static_url + "img/canesm2_departure_icon.png'></span> Future  Climate Departure is <b>" + departure_canesm2_text + " </b>(Z=" + departure_canesm2 + ")</div>";
+        chart.setTitle(null, { text: subtitle});
 
         var layer_id;
         var legend_container_id = key + "_legend_container";
@@ -1707,8 +1736,17 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
             if (typeof series_opacity == "undefined"){
                 series_opacity = .3
             }
+
+            var max_legend_char = 47;
+            var char_count = object["series"].length
+            var truncated_series_name = object["series"].substring(0, max_legend_char);
+
+            if (char_count > max_legend_char) {
+                truncated_series_name += "..."
+            }
+
             chart.addSeries({
-                name: object["series"],
+                name: truncated_series_name,
                 type: chart_type,
                 connectNulls: true,
                 min:0,
