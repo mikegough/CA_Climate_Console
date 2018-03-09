@@ -1801,6 +1801,23 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
         return avg
     }
 
+    $("#mean_departure_table td:nth-child(2)").hide();
+
+    show_mean_departure(mean_departure_canesm2);
+
+    function show_mean_departure(departure) {
+
+            if (departure <= .5) { $("#very_low_departure").show()}
+            else if (departure <= 1.5) {$("#low_departure").show() }
+            else if (departure <= 2.5) { $("#moderate_departure").show()}
+            else if (departure <= 3.5) { $("#high_departure").show()}
+            else (departure_text = $("#very_high_departure").show()) ;
+
+            return departure_text;
+
+    }
+
+
 }
 
 function binData(data,min,max,bins) {

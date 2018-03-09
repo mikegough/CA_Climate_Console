@@ -2601,6 +2601,73 @@ margin-bottom: 5px;
 	height: 400px;
 }
 
+#loading_contents_departure{
+    margin-left:100px;
+}
+
+#mean_departure_div {
+	float: left;
+	position: absolute;
+	left: 0px;
+	width: 120px;
+	cursor: default;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+	color: rgb(51, 51, 51);
+	cursor: pointer;
+	z-index: 9999;
+	background-color: #E7E7E7;
+}
+
+#mean_departure_table{
+}
+
+#mean_departure_table th {
+	font-size: 13px;
+	font-weight: normal;
+	background-color: #cccbcb;
+}
+
+#mean_departure_table td {
+	font-size: 13px;
+	color: rgb(51, 51, 51);
+	text-align: center;
+}
+
+#mean_departure_table td:nth-child(2){
+    font-size: 15px;
+    color: rgb(51, 51, 51);
+    display:none;
+}
+
+#mean_departure_table td:first-child {
+	width: 90px;
+	height: 60.5px;
+}
+
+#mean_departure_table tr:nth-child(2) td:first-child{
+    background-color: #F36A6C;
+}
+
+#mean_departure_table tr:nth-child(3) td:first-child{
+    background-color: #FDAE61;
+}
+
+#mean_departure_table tr:nth-child(4) td:first-child{
+    background-color: #FFFFBF;
+}
+
+#mean_departure_table tr:nth-child(5) td:first-child{
+    background-color: #A6D96A;
+}
+
+#mean_departure_table tr:nth-child(6) td:first-child{
+    background-color: #1A9641;
+}
+
+.departure_indicator {
+    font-size:30px !important;
+}
+
 .histogram_subtitle {
     text-align:left;
     line-height: 18px;
@@ -2654,9 +2721,10 @@ margin-bottom: 5px;
 	text-align: left;
 	color: #666666;
 	height: 0px;
-	margin-left: 10px;
+	margin-left: 125px;
 	position: relative;
 	top: -10px;
+	display: none;
 }
 
 #intro {
