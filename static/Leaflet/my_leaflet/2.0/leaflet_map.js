@@ -1789,8 +1789,8 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
         });
     });
 
-    mean_departure_hadgem2_es = calc_mean(all_departure_hadgem2_es);
-    mean_departure_canesm2 = calc_mean(all_departure_canesm2);
+    var mean_departure_hadgem2_es = calc_mean(all_departure_hadgem2_es);
+    var mean_departure_canesm2 = calc_mean(all_departure_canesm2);
 
     function calc_mean(all_departure_values) {
         var sum = 0;
@@ -1803,7 +1803,9 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
 
     $("#mean_departure_table td:nth-child(2)").hide();
 
-    show_mean_departure(mean_departure_canesm2);
+    var mean_departure_combined = mean_departure_canesm2 + mean_departure_hadgem2_es
+
+    show_mean_departure(mean_departure_combined);
 
     function show_mean_departure(departure) {
 
