@@ -1458,7 +1458,6 @@ function load_help_content(title, file) {
 
         }
     });
-
 }
 
 $(document).on("change", "#macrogroup_dropdown", function(){

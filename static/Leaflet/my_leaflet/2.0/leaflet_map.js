@@ -1621,6 +1621,9 @@ $.each($("#leaflet-control-layers-group-2").find("label"), function(index,value)
 
 function create_charts(results_json_group, table_name, sub_title, show_in_legend, legend_position = "top") {
 
+    all_departure_hadgem2_es = [];
+    all_departure_canesm2 = [];
+
     // results_json_group = results_json["CNS"] or results_json["Climate"]
 
     $("#"+ table_name).empty();
@@ -1668,11 +1671,14 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
 
         var historical_sd = object[0]["stats"]["sd"];
 
-        var departure_hadgem2_es = ((hadgem2_es_mean - historical_mean) / historical_sd).toFixed(1);
-        var departure_canesm2 = ((canesm2_mean - historical_mean) / historical_sd).toFixed(1);
+        var departure_hadgem2_es = ((hadgem2_es_mean - historical_mean) / historical_sd);
+        var departure_canesm2 = ((canesm2_mean - historical_mean) / historical_sd);
 
         var departure_hadgem2_es_text = classify_departure(departure_hadgem2_es);
         var departure_canesm2_text = classify_departure(departure_canesm2);
+
+        all_departure_hadgem2_es.push(departure_hadgem2_es);
+        all_departure_canesm2.push(departure_canesm2);
 
         function classify_departure(departure) {
 
@@ -1689,7 +1695,7 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
 
         }
 
-        var subtitle = "<div class='histogram_subtitle'><span id='hadgem2_departure_label'><img class='climate_exposure_icon' src='" + static_url + "img/hadgem2_es_departure_icon.png'></span> Future Climate Departure is <b>" + departure_hadgem2_es_text + "</b> (Z="  + departure_hadgem2_es  + ")" + "<br><span id='canesm2_departure_label' ><img class='climate_exposure_icon' src='" + static_url + "img/canesm2_departure_icon.png'></span> Future  Climate Departure is <b>" + departure_canesm2_text + " </b>(Z=" + departure_canesm2 + ")</div>";
+        var subtitle = "<div class='histogram_subtitle'><span id='hadgem2_departure_label'><img class='climate_exposure_icon' src='" + static_url + "img/hadgem2_es_departure_icon.png'></span> Future Climate Departure is <b>" + departure_hadgem2_es_text + "</b> (Z="  + departure_hadgem2_es.toFixed(1)  + ")" + "<br><span id='canesm2_departure_label' ><img class='climate_exposure_icon' src='" + static_url + "img/canesm2_departure_icon.png'></span> Future  Climate Departure is <b>" + departure_canesm2_text + " </b>(Z=" + departure_canesm2.toFixed(1) + ")</div>";
         chart.setTitle(null, { text: subtitle});
 
         var layer_id;
@@ -1782,6 +1788,18 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
 
         });
     });
+
+    mean_departure_hadgem2_es = calc_mean(all_departure_hadgem2_es);
+    mean_departure_canesm2 = calc_mean(all_departure_canesm2);
+
+    function calc_mean(all_departure_values) {
+        var sum = 0;
+        for (var i = 0; i < all_departure_values.length; i++) {
+            sum += Math.abs(all_departure_values[i]); //don't forget to add the base
+        }
+        var avg = sum/all_departure_values.length;
+        return avg
+    }
 
 }
 
