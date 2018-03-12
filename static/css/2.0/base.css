@@ -2609,13 +2609,13 @@ margin-bottom: 5px;
 	cursor: default;
 	font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
 	color: rgb(51, 51, 51);
-	cursor: pointer;
 	z-index: 9999;
 	border-right: 1px solid #E7E7E7;
 	background-color: white;
 	display: table-cell;
-	top: 0px;
+	top: 5px;
 	vertical-align: top;
+	position: relative;
 }
 
 #mean_departure_table{
@@ -2627,6 +2627,7 @@ margin-bottom: 5px;
 	font-weight: normal;
 	background-color: #cccbcb;
     border: 2px solid #545151;
+    cursor: default !important;
 }
 
 #mean_departure_table td {
@@ -2634,6 +2635,7 @@ margin-bottom: 5px;
 	color: rgb(51, 51, 51);
 	text-align: center;
 	border: 2px solid #545151;
+    cursor: default !important;
 }
 
 #mean_departure_table td:nth-child(2){
