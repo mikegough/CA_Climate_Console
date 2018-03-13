@@ -1328,6 +1328,58 @@ table tr td.changeTD{
     border-top:0px !important
 }
 
+.dropbtn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 16px;
+	font-size: 18px;
+	border: none;
+	cursor: pointer;
+	width: 160px;
+	z-index: 99999;
+	height: 40px;
+	letter-spacing: 1px;
+	line-height: 1px;
+	font-variant: all-petite-caps;
+	border-radius: 20px 20px 0px 0px;
+}
+
+.dropdown {
+	position: absolute;
+	display: inline-block;
+	right: 16px;
+	top: 12px;
+	font-family: Helvetica;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	right: 0px;
+	background-color: #f9f9f9;
+	/* min-width: 160px; */
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	max-width: 160px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size:1.1em;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
 
 #DataBasinLinkBox{
     position: absolute;
@@ -2626,7 +2678,7 @@ margin-bottom: 5px;
 	font-size: 13px;
 	font-weight: normal;
 	background-color: #cccbcb;
-    border: 2px solid #545151;
+    border: 2px solid #5f5757;
     cursor: default !important;
 }
 
@@ -2634,7 +2686,7 @@ margin-bottom: 5px;
 	font-size: 13px;
 	color: rgb(51, 51, 51);
 	text-align: center;
-	border: 2px solid #545151;
+	border: 2px solid #5f5757;
     cursor: default !important;
 }
 

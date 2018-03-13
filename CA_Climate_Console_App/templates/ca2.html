@@ -207,35 +207,49 @@
     <div id="title" onClick="window.location.reload()">
         <script>document.write(title)</script><span id="title2"> Climate Console</span><br>
     </div>
+    <div class="dropdown" style="float:right;">
+  <button class="dropbtn">Use Cases</button>
+  <div class="dropdown-content">
+    <a href="http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c" target="_blank">The Renewable Energy Planner</a>
+    <a href="http://www.arcgis.com/apps/MapJournal/index.html?appid=d2dde95d03784e1c80163b5348da1891" target="_blank">The Forest Manager</a>
+  </div>
 </div>
 
-     <div id="intro">
-        <!--
-        <div id="subtitle">Mapping climate exposure and terrestrial resilience across nature's stage in the pacific northwest.</div>
-        -->
-        <div id="intro_image_div" title="Anaheim, California (Photo by Jordan Wozniak)"></div>
-        <div class="intro_header">Welcome</div>
 
-         The Climate Console is a web mapping application designed for exploring climate change projections, simulated impacts, and fuzzy logic (EEMS) model results for a specified area of interest.
-        <div class="intro_header">Getting Started</div>
-        <div>
-            <div class="getting_started_text">
-                <!--<span class="helper_number">1</span>-->1. Select a reporting units layer <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStepNumber(1)' src="{{STATIC_URL}}img/info.png">
-            </div>
-            <div class="interp_image_div"><img style="width:140px" src="{{STATIC_URL}}img/layers.png"></div>
-            <div class="getting_started_text">
-                <!-- <span class="helper_number">2</span>-->2. Select a feature or set of features in the map <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStepNumber(2)' src="{{STATIC_URL}}img/info.png">
-            </div><!--onmouseover='gettingStartedIntro.start().goToStep(2)'-->
-            <!--<div style="margin-left:auto;margin-right:auto;text-align:center"><img  style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>-->
-            <div class="interp_image_div"><img style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>
+</div>
 
-            <div class="getting_started_text">
-            <!-- <span class="helper_number">2</span>-->3. Explore results generated for the selected area
-            </div>
-            <div class="interp_image_div"><img style="width:180px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
+<div id="story_maps">
+    <iframe width="100%" height="800px" src="http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c" frameborder="0" scrolling="yes"></iframe>
+</div>
+
+<div id="home" style="display:none">
+<div id="intro">
+    <!--
+    <div id="subtitle">Mapping climate exposure and terrestrial resilience across nature's stage in the pacific northwest.</div>
+    -->
+    <div id="intro_image_div" title="Anaheim, California (Photo by Jordan Wozniak)"></div>
+    <div class="intro_header">Welcome</div>
+
+     The Climate Console is a web mapping application designed for exploring climate change projections, simulated impacts, and fuzzy logic (EEMS) model results for a specified area of interest.
+    <div class="intro_header">Getting Started</div>
+    <div>
+        <div class="getting_started_text">
+            <!--<span class="helper_number">1</span>-->1. Select a reporting units layer <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStepNumber(1)' src="{{STATIC_URL}}img/info.png">
         </div>
+        <div class="interp_image_div"><img style="width:140px" src="{{STATIC_URL}}img/layers.png"></div>
+        <div class="getting_started_text">
+            <!-- <span class="helper_number">2</span>-->2. Select a feature or set of features in the map <img style="cursor:pointer" onclick='gettingStartedIntro.start().goToStepNumber(2)' src="{{STATIC_URL}}img/info.png">
+        </div><!--onmouseover='gettingStartedIntro.start().goToStep(2)'-->
+        <!--<div style="margin-left:auto;margin-right:auto;text-align:center"><img  style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>-->
+        <div class="interp_image_div"><img style="width:150px" src="{{STATIC_URL}}img/map_click2.png"></div>
 
+        <div class="getting_started_text">
+        <!-- <span class="helper_number">2</span>-->3. Explore results generated for the selected area
+        </div>
+        <div class="interp_image_div"><img style="width:180px" src="{{STATIC_URL}}img/combo_chart_icon.png"></div>
     </div>
+
+</div>
 
     <div id="side_tab"><img class="rotate_90" id="side_tab_arrow"src="{{STATIC_URL}}img/collapse_down_arrow_blk.png"></div>
 
@@ -724,6 +738,7 @@
 
     </div>
 
+</div>
 
 <div id="footer" class="no-print">
     <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2017 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
