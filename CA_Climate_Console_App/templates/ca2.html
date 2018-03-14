@@ -117,8 +117,10 @@
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.OpacityControls-master/lib/opacity/Control.Opacity.js"></script>
 
 
+<!--
 <script src="{{STATIC_URL}}deps/Leaflet/Leaflet.OpacityControls-master/lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
 <link rel="stylesheet" href="{{STATIC_URL}}deps/Leaflet/Leaflet.OpacityControls-master/lib/jquery/jquery-ui-1.10.3.custom.min.css" />
+-->
 
 <!-- My Charts -->
 <script src="{{STATIC_URL}}Highcharts/2.0/point_chart.js"></script>
@@ -207,22 +209,36 @@
     <div id="title" onClick="window.location.reload()">
         <script>document.write(title)</script><span id="title2"> Climate Console</span><br>
     </div>
-    <div class="dropdown" style="float:right;">
-  <button class="dropbtn">Use Cases</button>
-  <div class="dropdown-content">
-    <a href="http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c" target="_blank">The Renewable Energy Planner</a>
-    <a href="http://www.arcgis.com/apps/MapJournal/index.html?appid=d2dde95d03784e1c80163b5348da1891" target="_blank">The Forest Manager</a>
-  </div>
+    <div id="nav">
+          <ul>
+              <li><a id="map_link" class="active" show="home" href="javascript:void(0); deactivate_dropdown()">Map</a></li>
+              <!--
+              <li><a id="about_link" show="about" href="javascript:void(0); deactivate_dropdown()">About</a></li>
+              -->
+              <li>
+                  <!-- Dropdown class -->
+                  <div class="dropdown">
+                      <span href="javascript:void(0)">Use Cases</span>
+                      <div class="dropdown-content">
+                          <!-- Story maps don't work if they are loaded with a display:none initially. Needed to load content into story_maps div dynamically -->
+                          <a show="story_maps" href="javascript:void(0)" onclick=load_story_map("http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c")>The Renewable Energy Planner</a>
+                          <a show="story_maps" href="javascript:void(0)" onclick=load_story_map("http://www.arcgis.com/apps/MapJournal/index.html?appid=d2dde95d03784e1c80163b5348da1891")>The Forest Manager</a>
+                      </div>
+                      <script>$(".dropdown").hover(function(){$(".dropdown-content").show()}, function(){$(".dropdown-content").hide()})</script>
+                  </div>
+              </li>
+          </ul>
+    </div>
 </div>
 
+<div id="story_maps" class="navdiv">
+</div>
+
+<div id="about" class="navdiv" style="display:none">
 
 </div>
 
-<div id="story_maps">
-    <iframe width="100%" height="800px" src="http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c" frameborder="0" scrolling="yes"></iframe>
-</div>
-
-<div id="home" style="display:none">
+<div id="home" class="navdiv">
 <div id="intro">
     <!--
     <div id="subtitle">Mapping climate exposure and terrestrial resilience across nature's stage in the pacific northwest.</div>
@@ -509,23 +525,23 @@
                             </tr>
                             <tr>
                                 <!--<td title="Very High: The historical climate conditions within this reporting unit will likely not exist in the future. In the charts to the right, you will notice little to no overlap between the historical and future curves.">Very High</td>-->
-                                <td title="Very High: The historical climate conditions within this reporting unit will likely not exist in the future. In the charts to the right, you will notice little to no overlap between the historical and future curves.">Very High</td>
+                                <td title="On average, the future means in the charts to the right deviate from the historical means by more than 3.5 standard deviations. The climatic conditions that existed in the past within this reporting unit will likely not exist in the future.">Very High</td>
                                 <td class="departure_indicator" id="very_high_departure">&#x25C0;</td>
                             </tr>
                             <tr>
-                                <td>High</td>
+                                <td title="On average, the future means in the charts to the right deviate from the historical means by 2.5 to 3.5 standard deviations">High</td>
                                 <td class="departure_indicator" id="high_departure">&#x25C0;</td>
                             </tr>
                             <tr>
-                                <td>Moderate</td>
+                                <td title="On average, the future means in the charts to the right deviate from the historical means by 1.5 to 2.5 standard deviations">Moderate</td>
                                 <td class="departure_indicator" id="moderate_departure">&#x25C0;</td>
                             </tr>
                             <tr>
-                                <td>Low</td>
+                                <td title="On average, the future means in the charts to the right deviate from the historical means by 0.5 to 1.5 standard deviations">Low</td>
                                 <td class="departure_indicator" id="low_departure">&#x25C0;</td>
                             </tr>
                             <tr>
-                                <td>Very Low</td>
+                                <td title="On average, the future means in the charts to the right deviate from the historical means by less than or equal to 0.5 standard deviations. The climatic conditions that existed in the past within this reporting unit will likely exist in the future (athough not necessarily at the same locations within this reporting unit).">Very Low</td>
                                 <td class="departure_indicator" id="very_low_departure">&#x25C0;</td>
                             </tr>
                             <tr>
@@ -741,7 +757,7 @@
 </div>
 
 <div id="footer" class="no-print">
-    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2017 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
+    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2018 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
 
 <script>

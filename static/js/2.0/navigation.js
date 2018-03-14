@@ -1,3 +1,8 @@
+function load_story_map(url){
+    $(".dropdown").addClass("active");
+    $("#story_maps").html('<iframe width="100%" height="100%" src="' + url + '" frameborder="0" scrolling="yes"></iframe>')
+}
+
 $( document ).ready(function() {
 
     // On the first click of the side tab arrow, slide the panel to the left.
@@ -24,6 +29,10 @@ $( document ).ready(function() {
     });
 
 });
+
+function deactivate_dropdown(){
+    $(".dropdown").removeClass("active");
+}
 
 $(window).load(function(){
 

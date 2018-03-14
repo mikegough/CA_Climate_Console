@@ -1328,52 +1328,94 @@ table tr td.changeTD{
     border-top:0px !important
 }
 
-.dropbtn {
-	background-color: #4CAF50;
-	color: white;
-	padding: 16px;
-	font-size: 18px;
-	border: none;
-	cursor: pointer;
-	width: 160px;
-	z-index: 99999;
-	height: 40px;
-	letter-spacing: 1px;
-	line-height: 1px;
-	font-variant: all-petite-caps;
-	border-radius: 20px 20px 0px 0px;
+/* Nav Menu */
+#nav {
+	float: right;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	color: #b9b9b9;
+	height:52px;
+	margin-right: 5px;
 }
 
-.dropdown {
-	position: absolute;
-	display: inline-block;
-	right: 16px;
-	top: 12px;
-	font-family: Helvetica;
+#header ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+	height: 52px;
+}
+
+#header li {
+    float: left;
+}
+
+#header li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 18px 16px;
+	text-decoration: none;
+}
+
+#header li a:hover:not(.active) {
+    background-color: #111;
+}
+
+#header .active {
+    background-color: #4CAF50;
+    color: white !important
 }
 
 .dropdown-content {
 	display: none;
-	position: absolute;
-	right: 0px;
+	position: absolute !important;
+	right: 0px !important;
 	background-color: #f9f9f9;
-	/* min-width: 160px; */
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
-	max-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
+	z-index: 1 !important;
+	max-width: 180px !important;
+	top: 52px;
+}
+
+.dropdown span {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+    cursor: default;
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size:1.1em;
+    color: black !important;
+    padding: 12px 16px !important;
+    text-decoration: none !important;
+    display: block !important;
+    font-size:1.1em !important;
+    cursor: pointer !important;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+    display: block;
+}
 
-.dropdown:hover .dropdown-content {
+.dropdown .dropdown-content a:hover:not(.active) {
+    background-color: #f1f1f1 !important
+}
+
+
+.dropdown{
+    width:120px;
+}
+
+#use_cases a{
+    cursor: default;
+}
+
+#use_cases:hover .dropdown-content {
     display: block;
 }
 
@@ -2687,7 +2729,7 @@ margin-bottom: 5px;
 	color: rgb(51, 51, 51);
 	text-align: center;
 	border: 2px solid #5f5757;
-    cursor: default !important;
+    cursor: help !important;
 }
 
 #mean_departure_table td:nth-child(2){
