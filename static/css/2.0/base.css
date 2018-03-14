@@ -2707,12 +2707,12 @@ margin-bottom: 5px;
 	border-right: 1px solid #E7E7E7;
 	background-color: white;
 	display: table-cell;
-	top: 5px;
+	top: 18px;
 	vertical-align: top;
 	position: relative;
 }
 
-#mean_departure_table{
+#mean_departure_table {
 	border-collapse: collapse;
 }
 
@@ -2732,17 +2732,21 @@ margin-bottom: 5px;
     cursor: help !important;
 }
 
+#mean_departure_table td:first-child {
+	width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+	height: 55px;
+	/* background-color: #545151; */
+}
+
 #mean_departure_table td:nth-child(2){
+    width: 40px;
+    min-width: 20px;
     font-size: 15px;
     color: rgb(51, 51, 51);
     display:none;
     border: 0px;
-}
-
-#mean_departure_table td:first-child {
-	width: 90px;
-	height: 60.5px;
-    background-color: #545151;
 }
 
 #mean_departure_table tr:nth-child(2) td:first-child{
