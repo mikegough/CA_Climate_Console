@@ -2771,11 +2771,12 @@ margin-bottom: 5px;
 }
 
 .histogram_subtitle {
-    text-align:left;
-    line-height: 18px;
-    white-space: nowrap;
-    min-width: 300px;
-    cursor:default;
+	text-align: left;
+	line-height: 18px;
+	white-space: nowrap;
+	min-width: 300px;
+	cursor: default;
+	margin-left: 30px;
 }
 
 .climate_exposure_icon{

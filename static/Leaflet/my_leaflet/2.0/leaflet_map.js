@@ -1695,7 +1695,7 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
 
         }
 
-        var subtitle = "<div class='histogram_subtitle'><span id='hadgem2_departure_label'><img class='climate_exposure_icon' src='" + static_url + "img/hadgem2_es_departure_icon.png'></span> Future Climate Departure is <b>" + departure_hadgem2_es_text + "</b> (Z="  + departure_hadgem2_es.toFixed(1)  + ")" + "<br><span id='canesm2_departure_label' ><img class='climate_exposure_icon' src='" + static_url + "img/canesm2_departure_icon.png'></span> Future  Climate Departure is <b>" + departure_canesm2_text + " </b>(Z=" + departure_canesm2.toFixed(1) + ")</div>";
+        var subtitle = "<div class='histogram_subtitle'><span id='hadgem2_departure_label'><img class='climate_exposure_icon' src='" + static_url + "img/hadgem2_es_departure_icon.png'></span> Climate Departure is <b>" + departure_hadgem2_es_text + "</b> (Z="  + departure_hadgem2_es.toFixed(1)  + ")" + "<br><span id='canesm2_departure_label' ><img class='climate_exposure_icon' src='" + static_url + "img/canesm2_departure_icon.png'></span> Climate Departure is <b>" + departure_canesm2_text + " </b>(Z=" + departure_canesm2.toFixed(1) + ")</div>";
         chart.setTitle(null, { text: subtitle});
 
         var layer_id;
