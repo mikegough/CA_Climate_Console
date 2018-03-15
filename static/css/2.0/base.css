@@ -2593,8 +2593,9 @@ margin-bottom: 5px;
 	padding-right: 10px;
 	top: 50px;
 	right: 0px;
-	width: 50%;
-	min-width: 800px;
+	/* width: 50%; */
+	/* min-width: 800px; */
+	max-width: 50%;
 }
 
 .results_container {
