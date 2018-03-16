@@ -106,8 +106,9 @@ The ten GCM/ESMs capture a wide range of projected changes in both average annua
     </div>
 <p>
 We used the downscaled climate projections from the NASA Earth Exchange (NEX) U.S. Downscaled Climate Projections (NEX US-DCP30) dataset (Thrasher et al. 2013) for the entire state of California. We chose two thirty-year periods, 2016-2045 and 2046-2075, to represent the projected futures. Each climate model projections were averaged over those periods and a multi-model ensemble mean of the ten model projections was also calculated for each time period.
-<p>
+<div id="climvars">
  <b>Calculation of Climate Variables</b>
+</div>
 <p>
 Climate variable values (tmax, tmin, and prec) were calculated as means of annual average temperatures and of annual total precipitation for each time period (1971-2000, 2016-2045, and 2046-2075) .
 <p>
@@ -117,10 +118,12 @@ PET = 0.0023 x 0.408RA x (Tavg + 17.8) x TD 0.5 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  
 <p>
 where RA is the extraterrestrial radiation expressed in (MJ m-2 d-1), Tavg (oC) is the average daily temperature, and TD (oC) is the temperature range. The constant 0.408 is the inverse of latent heat flux of vaporization at 20 oC. It is used to convert extraterrestrial radiation units from MJ m-2 d-1 to mm d-1. RA was calculated using the r.sun (Suri & Hofierka 2004) routine in the GRASS geographic information system (GRASS 2015).
 <p>
+<div id="aridity">
 Aridity was defined as P/PET where P is annual precipitation. The percentage change in aridity was calculated by following Feng and Fu's method (2013):
 <p>
 &Delta;(P/PET)/(P/PET)&asymp;&Delta;P/P-&Delta;PET/PET    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    (2)
 <p>
+</div>
 All climate variables for historic and future projections (from ten climate models and one ensemble mean) were calculated from the NetCDF files in the NCAR Command Language (NCL) software program (NCL 2014) and are listed in Table 2.
 <p>
 

@@ -1,6 +1,10 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="http://climateconsole.org/static_climate_console/css/2.0/base.css">
+<script src="http://climateconsole.org/static_climate_console/deps/jquery/jquery-2.1.4.min.js"></script>
+<link rel="stylesheet" href="http://climateconsole.org/static_climate_console/deps/Messi/messi.css" />
+<script src="http://climateconsole.org/static_climate_console/deps/Messi/messi.js"></script>
+
 </head>
 <body>
 <div style="width:100%; height: 100%; color: #666666; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, sans-serif; font-size: 16px; overflow-y:auto; overflow-x:hidden">
@@ -75,6 +79,30 @@ where d is the difference, x<sub>f</sub> is the mean of the variable in the futu
 <a href="http://databasin.org/datasets/c55b0a726487406bba0e17f4fe1b2cbb" target="_blank">View or Download this dataset on Data Basin (2016-2045)</a> <br>
 <a href="http://databasin.org/datasets/d0e9905271294cd293160cff7115ce8f" target="_blank">View or Download this dataset on Data Basin (2046-2075)</a>
 -->
+<div id="intactness_learn_more">
+<h3>Terrestrial Intactness</h3>
+Terrestrial intactness is based on the extent to which human impacts such as agriculture, urban development, natural resource extraction, and invasive species have disrupted the landscape across the State of California. Terrestrial intactness values are high in areas where these impacts are low.
+<p>
+This dataset, updated December 2016, is the most recent version (v30) created for the California Energy Commission using the open-source logic modeling framework Environmental Evaluation Modeling System (EEMS). Spatially-explicit logic modeling hierarchically integrates numerous and diverse datasets into composite layers, quantifying information in a continuous rather than binary fashion. This technique yields accessible decision-support products that state and federal agencies can use to craft scientifically-rigorous management strategies. The analysis was carried out at 1 sq. km resolution.
+<p>
+Input data used to create this version range in currency from 2011-2015; the majority of data portray the more recent condition of the landscape.
+<p>
+This model integrates agriculture development (from FRAP Vegetation, and CDL Cropscape), urban development (from LANDFIRE EVT and NLCD Impervious Surfaces), polluted areas (from NHD treatment ponds and EPA Superfund and Brownfield sites), linear development (OHV routes from owlsheadgps.com, roads from TIGER (broken down by type), utility lines, railroads, and pipelines from various state and BLM sources), point development (communication towers from the FCC), energy and mining development (from the state's Office of Mine Reclamation mine dataset, larger mine footprints, state geothermal wells, USGS wind turbines, solar footprints, renewable projects in development, oil refineries and state oil/gas wells), clear cuts from Statewide Timber Harvest Plans, invasive vegetation (compiled from multiple sources including LANDFIRE EVT, NatureServe Landcover, and NISIMS BLM database), and measures of natural vegetation fragmentation calculated using FRAGSTATS (percent natural core area, number of patches, and nearest neighbor). Results are dependent on the quality of available input data for a given area.
+<p>
+This most recent version of the model (v30) addresses over-estimation of fragmentation impacts seen in previous versions (e.g. v24), which stemmed from invasive vegetation and fire effects in FRAGSTATS calculations. New fragmentation metrics shift focus to anthropogenic development. Invasive vegetation is now compartmentalized within the logic model and influences the overall impact/condition score to a lesser extent. Additional model refinements stratify road impacts by TIGER class, e.g. different weighting for interstates vs. local roads.
+<p>
+Results apply to terrestrial areas only. (Water bodies are omitted from the final dataset.)
+<p>
+The input data, intermediate layers, and final results of this analysis can be explored via the EEMS Explorer of Data Basin (http://databasin.org/), where they are accessible as online interactive maps showing the signature of human impact across the landscape.
+<p>
+Caution is warranted in interpreting this dataset because it provides a single estimate of terrestrial intactness based on available data. It does not directly address ecological value; the "Conservation Values" model does. The degree of terrestrial intactness likely varies for a particular species or conservation element, and may depend on additional factors or thresholds not included in this model. This model should be taken as a general measure of intactness that can serve as a template for evaluating across many species at the ecoregion scale, and provides a framework within which species-specific parameters can be incorporated for more detailed analyses.
+
+<p>
+<a href="https://databasin.org/datasets/e3ee00e8d94a4de58082fdbc91248a65" target="_blank">View or Download this dataset on Data Basin</a>
+<p>
+Click here <a target="_blank" href="http://climateconsole.org/static_climate_console/docs/CA_Terrestrial_Intactness_EEMS_methodologies_v30.pdf">here</a> to download the Terrestrial Intactness methodologies paper.
+</div>
+
 </div>
 </div>
 </body>

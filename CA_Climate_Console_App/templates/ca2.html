@@ -218,7 +218,7 @@
               <li>
                   <!-- Dropdown class -->
                   <div class="dropdown">
-                      <span href="javascript:void(0)">Use Cases</span>
+                      <span href="javascript:void(0)">User Stories</span>
                       <div class="dropdown-content">
                           <!-- Story maps don't work if they are loaded with a display:none initially. Needed to load content into story_maps div dynamically -->
                           <a show="story_maps" href="javascript:void(0)" onclick=load_story_map("http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c")>The Renewable Energy Planner</a>
@@ -469,7 +469,7 @@
                         <p>The values in this table are calculated by subtracting the historical (1971-2000) mean from the future mean. This is done for two future time periods (2016-2045 and 2046-2075).
                         <p>
                         Note that changing the climate model, the season, or the units in the chart above will affect what is displayed in this table.
-                        <div onclick="load_help_content('Climate Change Table', 'climate_projections_table.html')" class="learn_more">Learn more... </div>
+                        <div onclick="load_help_content('Climate Projection Summaries', 'climate_projections_table.html')" class="learn_more">Learn more... </div>
                     </div>
 
             </div>
@@ -508,7 +508,7 @@
                     <option value='M110' class='macrogroup_option' >California Foothill and Coastal Rock Outcrop Vegetation</option>
                     <option value='M117' class='macrogroup_option' >Sparsely Vegetated Desert Dune</option>
                 </select>
-                <div onclick="load_help_content('Bioclimatic Departure', 'bioclimatic_variables.html')" id="learn_more_departure" class="learn_more">Learn more... </div>
+                <div onclick="load_help_content('Bioclimatic Departure & Vegetation Outlook', 'bioclimatic_variables.html')" id="learn_more_departure" class="learn_more">Learn more... </div>
             </div>
             <div class="collapsible_div" style="display:none">
             <div class="loading" id="loading_departure">
@@ -573,7 +573,7 @@
                         <p>
                         Click any column to display the map layer used to generate the plotted value as well as a clickable interactive diagram that shows how the model was created.
                         <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/point_click.png"></div>
-                        <div onclick="load_help_content('Condition & Exposure', 'eems.html')" id="learn_more_exposure" class="learn_more">Learn more... </div>
+                        <div onclick="load_help_content('Site Condition & Climate Exposure', 'eems.html')" id="learn_more_exposure" class="learn_more">Learn more... </div>
                         <p>
                     </div>
                     <div id="column_chart"></div>
@@ -669,7 +669,7 @@
                         Move the slider below the chart to display the map layer for the specified decade.
                     <p>
                     <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/slider_hand.png"></div>
-                    <div onclick="load_help_content('Land Cover (MC2)', 'mc2_veg.html')" id="learn_more_mc2_veg" class="learn_more">Learn more... </div>
+                    <div onclick="load_help_content('Projected Land Cover Change', 'mc2_veg.html')" id="learn_more_mc2_veg" class="learn_more">Learn more... </div>
                     <p>
                 </div>
 
@@ -744,7 +744,7 @@
                         Move the slider below the chart to display the map layer for the specified decade.
                     <p>
                     <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/slider_hand.png"></div>
-                    <div onclick="load_help_content('Carbon, Fire, and Water (MC2)', 'mc2_continuous.html')" id="learn_more_mc2_continuous" class="learn_more">Learn more... </div>
+                    <div onclick="load_help_content('Projected Change in Carbon, Fire, and Water', 'mc2_continuous.html')" id="learn_more_mc2_continuous" class="learn_more">Learn more... </div>
                     <p>
                 </div>
             </div>
