@@ -154,7 +154,7 @@ function init(){
 
             if (EEMSParams['hasSubNodeImageOverlays']){
 
-                if (node.id.indexOf("Fz") >= 1) {
+                if (node.id.indexOf("Fz") >= 1 || node.id.indexOf("Is") >= 1) {
                     //Change renderer options. Clicking a color ramp selects the corresponding radio button.
                     //Whichever radio button is set to checked below sets the default renderer.
                     label.innerHTML += '<span style="display:none"><input type="radio" name="' + node.id + '" id="' + node.id + '_classified" value="classified">class</span>';
