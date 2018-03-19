@@ -190,6 +190,8 @@ function createColumnChart(){
 
                                     //Update MEEMSE2.0 values
                                     //Clear out the div containing the model diagram
+                                    // Scroll to the bottom of the results div.
+                                    $("#results").animate({ scrollTop: $("#results")[0].scrollHeight }, 1000);
                                     initialize_tree(layerToAdd)
 
                                     // Workaround to getting the last bar clicked to show up on top
