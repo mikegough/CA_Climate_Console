@@ -839,7 +839,7 @@ function create_post(newWKT) {
 
             if (typeof areaChart != 'undefined' && areaChart != false && vtypeTablesList.length > 0 && response['categoricalValues'].length == 1) {
 
-                $("#no_climate_impacts_data").hide();
+                $(".no_climate_impacts_data").hide();
 
                 // For dashboard, the call to createAreaChart happens in dashboard.js
                 createAreaChart(document.getElementById("ecoServSelectionForm").value);
@@ -849,7 +849,7 @@ function create_post(newWKT) {
                 }
             }
             else  {
-                $("#no_climate_impacts_data").show()
+                $(".no_climate_impacts_data").show()
             }
 
 

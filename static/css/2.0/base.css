@@ -2524,7 +2524,7 @@ margin-bottom: 5px;
     right: 10px !important;
 }
 
-#no_climate_impacts_data {
+.no_climate_impacts_data {
 	position: relative;
 	z-index: 9999;
 	height: 100%;
@@ -2539,7 +2539,7 @@ margin-bottom: 5px;
     overflow:hidden;
 }
 
-#no_climate_impacts_alert_icon{
+.no_climate_impacts_alert_icon{
     height:100px
 }
 
