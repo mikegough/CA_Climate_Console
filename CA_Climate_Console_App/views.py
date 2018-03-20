@@ -1656,7 +1656,11 @@ def extract_text_values(macrogroup_code, macrogroup_name):
         for line in reader:
             count = 0
             for header in header_list_filtered:
-                raw_data[header].append(round(float(line[count]), 2))
+                # Ken's corrected CWD text files had "--" where there were no data pixels.
+                try:
+                    raw_data[header].append(round(float(line[count]), 2))
+                except:
+                    pass
                 count += 1
 
         max_val = {}
