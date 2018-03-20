@@ -315,7 +315,7 @@ def view1(request):
                 resultsDict["intactness_avg"] = 0
 
             #columnChartColor1 = getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor1 = getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
+            columnChartColor1 = getColor(resultsDict["hisensfz270_avg"], "ClimateEEMS")
             columnChartColor2 = getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
             columnChartColor3 = getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
             #columnChartColor4 = getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
