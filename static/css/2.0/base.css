@@ -2525,7 +2525,7 @@ margin-bottom: 5px;
 }
 
 #no_climate_impacts_data {
-	position: absolute;
+	position: relative;
 	z-index: 9999;
 	height: 100%;
 	background-color: white;
