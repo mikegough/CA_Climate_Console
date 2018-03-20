@@ -298,6 +298,21 @@ def view1(request):
 
             columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
+        elif studyarea == 'ca2':
+
+            #columnChartColor1 = getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor1 = getColor(resultsDict["hisensfz270_avg"], "ClimateEEMS")
+            columnChartColor2 = getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
+            columnChartColor3 = getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
+            #columnChartColor4 = getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
+            #columnChartColor5 = getColor(resultsDict["eepifzt2_avg"], "ClimateEEMS")
+            # Took out potential impacts, so TI is Color4
+            columnChartColor4 = getColor(resultsDict["intactness_avg"], "TI")
+            columnChartColor5 = ""
+            columnChartColor6 = ""
+
+            columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
+
         else:
 
             #if table == "ca_reporting_units_1km_poly":
@@ -315,7 +330,7 @@ def view1(request):
                 resultsDict["intactness_avg"] = 0
 
             #columnChartColor1 = getColor(resultsDict["intactness_avg"], "TI")
-            columnChartColor1 = getColor(resultsDict["hisensfz270_avg"], "ClimateEEMS")
+            columnChartColor1 = getColor(resultsDict["hisensfz_avg"], "ClimateEEMS")
             columnChartColor2 = getColor(resultsDict["eecefzt1_avg"], "ClimateEEMS")
             columnChartColor3 = getColor(resultsDict["eecefzt2_avg"], "ClimateEEMS")
             #columnChartColor4 = getColor(resultsDict["eepifzt1_avg"], "ClimateEEMS")
