@@ -293,6 +293,7 @@ function swapImageOverlay(layerName,modelType) {
         //ti
         if (climate_PNG_overlay.name == layerName && lastRenderer==renderer){
             map.removeLayer(climate_PNG_overlay);
+            climate_PNG_overlay = ""
             climate_PNG_overlay_url="";
             //Transparency slider
 
