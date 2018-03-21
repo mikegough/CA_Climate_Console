@@ -226,37 +226,43 @@ function createColumnChart(){
 
 }
 
+var modelForTree;
 function initialize_tree(layerToAdd){
 
-    swapImageOverlay("single_transparent_pixel");
+    if (modelForTree == layerToAdd){
+        swapImageOverlay("single_transparent_pixel");
+        modelForTree = "";
+    }
+    else {
 
-    modelForTree = layerToAdd;
+        modelForTree = layerToAdd;
 
-    eems_file_name = EEMSParams['models'][modelForTree][6];
-    top_node = EEMSParams['models'][modelForTree][7];
+        eems_file_name = EEMSParams['models'][modelForTree][6];
+        top_node = EEMSParams['models'][modelForTree][7];
 
-    $('#infovis').html('');
-    $('#MEEMSE_node_count_legend').css("visibility","visible");
+        $('#infovis').html('');
+        $('#MEEMSE_node_count_legend').css("visibility", "visible");
 
-    $.ajax({
-        url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
-        //Webfactional
-        //url : "/enerate_eems_tree", // the endpoint
-        async: false,
-        type: "POST", // http method
-        data: {eems_file_name: eems_file_name, top_node: top_node},
+        $.ajax({
+            url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
+            //Webfactional
+            //url : "/enerate_eems_tree", // the endpoint
+            async: false,
+            type: "POST", // http method
+            data: {eems_file_name: eems_file_name, top_node: top_node},
 
-        success: function (results) {
-            var response=JSON.parse(results);
-            json=response['eems_tree_dict'];
-            top_node=response['top_node'];
-            init();
-            if (typeof modelForTree != 'undefined'){
-                 eems_node_image_name=eems_file_name.replace(".eem","")+"_" + top_node;
-                 eems_node_legend_name=eems_file_name.replace(".eem","")+"_" + "Legend";
-                 swapImageOverlay(eems_node_image_name,'EEMSmodel');
-                 swapLegend(layerToAdd, eems_node_image_name, 'EEMSmodel')
+            success: function (results) {
+                var response = JSON.parse(results);
+                json = response['eems_tree_dict'];
+                top_node = response['top_node'];
+                init();
+                if (typeof modelForTree != 'undefined') {
+                    eems_node_image_name = eems_file_name.replace(".eem", "") + "_" + top_node;
+                    eems_node_legend_name = eems_file_name.replace(".eem", "") + "_" + "Legend";
+                    swapImageOverlay(eems_node_image_name, 'EEMSmodel');
+                    swapLegend(layerToAdd, eems_node_image_name, 'EEMSmodel')
+                }
             }
-        }
-    });
+        });
+    }
 }
