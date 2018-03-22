@@ -1766,20 +1766,39 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 borderColor: '#666666',
                 color: series_color ,
                 marker: {
-                    enabled: false
+                    enabled: false,
+                    states: {
+                        hover: {
+                            enabled: false
+
+                        }
+                    }
                 },
                 showInLegend: show_in_legend,
-                point: {
-                    events: {
-                      click: function () {
-                        //alert('Category: ' + this.category + ', value: ' + this.y);
-                          var png_file = tif_file.replace(".tif", "")
-                          swapImageOverlay(png_file)
-                          swapLegend(png_file, null,null, png_file)
+                events: {
+                  click: function () {
+                    //alert('Category: ' + this.category + ', value: ' + this.y);
+                      console.log(this)
+                      test=this
+                      var png_file = tif_file.replace(".tif", "")
+                      swapImageOverlay(png_file)
+                      swapLegend(png_file, png_file,null, png_file)
 
-                      }
-                    }
-              }
+                  },
+                    /*
+                  mouseOver: function(){
+                      this.chart.series[this.index].graph.attr({
+                          stroke: "#00FFFF"
+                    });
+                      this.chart.series[this.index].color="red"
+                  },
+                  mouseOut: function(){
+                      this.chart.series[this.index].graph.attr({
+                          stroke: this.userOptions.oldColor
+                      });
+                  },
+                  */
+                }
             });
 
             count += 1;

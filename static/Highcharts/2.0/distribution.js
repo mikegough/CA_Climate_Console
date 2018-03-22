@@ -63,13 +63,27 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
         enabled: false
       },
       plotOptions: {
+        areaspline: {
+          states: {
+            hover: {
+              lineWidth: 5,
+              animation: {
+                duration: 50,
+              }
+            }
+          }
+        },
         column:{
             maxPointWidth:28
         },
         series: {
-          groupPadding:.1,
+          findNearestPointBy: 'xy',
+          trackByArea: true,
+          stickyTracking: true,
+
           //colors:colors,
           /*
+           groupPadding:.1,
           groupPadding: 0,
           pointPadding: 0.1,
           groupPadding: 0.1,
@@ -125,13 +139,29 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
         }
       },
       tooltip: {
-        formatter: function () {
+       //fix for subtitle label on top. See also distribution_chart_tooltip_class.
+       useHTML:true,
+       borderWidth: 0,
+       backgroundColor: "rgba(255,255,255,0)",
+       shadow: false,
+       margin:0,
+       style: {
+            padding: 0,
+        },
+       hideDelay:500,
+       formatter: function () {
+           $(".distribution_chart_tooltip").css("border-color", this.color);
+           min = (Math.min.apply(null, this.series.xData)).toFixed(1);
+           max = (Math.max.apply(null, this.series.xData)).toFixed(1);
+           return "<div class='distribution_chart_tooltip'><span style='font-size:1.6em; color:" + this.color + "'>\u25CF</span> &nbspRange: " + min + " - " + max + "<div style='margin-left:18px; font-style:italic'>(Click to Map)</div></div>";
+          /*
           if (data_type == "categorical"){
             return  "<b>Percent Area: </b>" + this.y + "%"
           }
           else {
             return "<b>Range: </b>" + (this.x - this.series.closestPointRange / 2).toFixed(1) + "-" + (this.x + this.series.closestPointRange).toFixed(1) + "<br>" + "<b>Percent Area: </b>" + this.y + "%"
           }
+          */
         }
       }
 
