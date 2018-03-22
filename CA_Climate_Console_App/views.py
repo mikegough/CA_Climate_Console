@@ -1529,6 +1529,7 @@ def extract_raster_values(request):
                     raster_definition_dict = {}
 
                     raster_definition_dict["title"] = raster_dict["title"]
+                    raster_definition_dict["file"] = raster_dict["raster"]
                     raster_definition_dict["series"] = raster_dict["series"]
                     raster_definition_dict["stats"] = {}
 
@@ -1618,13 +1619,13 @@ def get_raster_defs():
     ]
 
     rasters["Climate"]["bio_13"] = [
-        {"raster": "hist_bio13.tif", "title": "Precipitation of the Driest Month (mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hist_bio13.tif", "title": "Precipitation of the Wettest Month (mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_bio13.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES (Hot/Dry))", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_bio13.tif", "title": "", "series": "Future (2046 - 2075, CanESM2 (Hot/Wet))", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
 
     rasters["Climate"]["bio_14"] = [
-        {"raster": "hist_bio14.tif", "title": "Precipitation of the Wettest Month (mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
+        {"raster": "hist_bio14.tif", "title": "Precipitation of the Driest Month (mm)", "series": "Historical (1971 - 2000)", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[0], "series_opacity":climate_opacity[0]},
         {"raster": "hadgem_bio14.tif", "title": "", "series": "Future (2046 - 2075, HadGEM2-ES (Hot/Dry))", "data_type": "continuous", "chart_type": "areaspline", "color": climate_colors[1], "series_opacity":climate_opacity[1]},
         {"raster": "canesm_bio14.tif", "title": "", "series": "Future (2046 - 2075, CanESM2 (Hot/Wet))", "data_type": "continuous", "chart_type": "areaspline","color": climate_colors[2],"series_opacity": climate_opacity[2]},
     ]
