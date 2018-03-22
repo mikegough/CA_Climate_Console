@@ -1770,15 +1770,15 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 },
                 showInLegend: show_in_legend,
                 point: {
-                events: {
-                  click: function () {
-                    //alert('Category: ' + this.category + ', value: ' + this.y);
-                      var png_file = tif_file.replace(".tif", "")
-                      swapImageOverlay(png_file)
-                      swapLegend(png_file, null,null, png_file)
+                    events: {
+                      click: function () {
+                        //alert('Category: ' + this.category + ', value: ' + this.y);
+                          var png_file = tif_file.replace(".tif", "")
+                          swapImageOverlay(png_file)
+                          swapLegend(png_file, null,null, png_file)
 
-                  }
-                }
+                      }
+                    }
               }
             });
 
