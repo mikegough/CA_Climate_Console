@@ -1778,14 +1778,11 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 events: {
                   click: function () {
                     //alert('Category: ' + this.category + ', value: ' + this.y);
-                      console.log(this)
-                      test=this
-                      var png_file = tif_file.replace(".tif", "")
-                      swapImageOverlay(png_file)
-                      swapLegend(png_file, png_file,null, png_file)
-
+                      var png_file = tif_file.replace(".tif", "");
+                      swapImageOverlay(png_file);
+                      swapLegend(png_file, png_file,null, png_file);
                   },
-                    /*
+                   /*
                   mouseOver: function(){
                       this.chart.series[this.index].graph.attr({
                           stroke: "#00FFFF"

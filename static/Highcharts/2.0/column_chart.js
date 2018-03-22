@@ -103,8 +103,8 @@ function createColumnChart(){
                        style: { fontSize: '11px', fontWeight: 'normal', textAlign: 'left', cursor: 'pointer', textOverflow:'none'},
                        staggerLines:1,
                        //fix for overlapping labels
-                       //useHTML:false
-                       useHTML:true
+                       useHTML:false
+                       //useHTML: true
                     }
                 },
 

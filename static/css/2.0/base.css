@@ -318,7 +318,7 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 .columnChartTooltip{
    z-index:9999 !important;
     background-color:#E9E6E0;
-    padding:13px;
+    padding:5px;
 }
 
 .distribution_chart_tooltip{
@@ -2456,7 +2456,7 @@ div#pop-up2 {
 }
 
 #continuousMapSlider {
-	top: 15px;
+	top: 40px;
 	opacity: .85;
 	width: 365px;
 	z-index: 1;
@@ -2470,7 +2470,7 @@ div#pop-up2 {
 
 #area_chart .highcharts-tooltip span {
     background-color: white;
-    opacity: .8;
+    opacity: .9;
     z-index: 9999 !important;
 }
 
@@ -2480,6 +2480,7 @@ div#pop-up2 {
 
 #areaChartTooltipContainer {
 	border: 1px solid orange;
+    background-color: white;
 	padding: 5px;
 	box-shadow: 2px 2px 8px #636363;
 }

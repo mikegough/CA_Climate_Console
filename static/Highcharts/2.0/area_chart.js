@@ -71,7 +71,7 @@ function createAreaChart(model) {
             tooltip: {
                 zIndex:9999999,
                 //pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} km<sup>2</sup>)<br/>',
-                backgroundColor: "rgba(255,255,255,1)",
+                backgroundColor: "rgba(255,255,255,0)",
                 borderWidth:0,
                 shadow:false,
                 shared: true,

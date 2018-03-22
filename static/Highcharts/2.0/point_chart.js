@@ -73,7 +73,7 @@ function createChart(climateVariable, statistic, season) {
                 height:330,
                 marginTop:35,
                 marginRight:50,
-                marginLeft:60
+                marginLeft:80
             },
             title: {
                 text: 'Click any point to map the data',
@@ -172,7 +172,7 @@ function createChart(climateVariable, statistic, season) {
                 hideDelay:0,
                 //useHTML causes hover problems.
                 //useHTML: true,
-                padding: 0,
+                padding: 5,
                 pointFormat: '<b>{point.y}</b> ' + valueSuffix + '<br><i>(Click to Map)</i>',
                 /*
                 positioner: function () {
