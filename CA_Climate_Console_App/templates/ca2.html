@@ -386,7 +386,7 @@
         <div class="results_container">
             <div class="header header full_border_radius" id="climate_table_header">
                 Climate Projection Summaries<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div" id="collapsible_div_change_table" style="display:none">
+            <div class="collapsible_div loading_contents" id="collapsible_div_change_table" style="display:none">
                     <div id="climate_quick_view">
 
                         <table id="climate_quick_view_table">
@@ -480,6 +480,11 @@
                     </div>
 
             </div>
+            <div class="collapsible_div" style="display:none">
+                <div class="loading">
+                    <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
+                </div>
+            </div>
         </div>
 
         <div class="results_container">
@@ -562,7 +567,7 @@
 
         <div class="results_container">
             <div class="header header full_border_radius" id="eems_header">Site Condition & Climate Exposure <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div" style="display:none">
+            <div class="collapsible_div loading_contents" style="display:none">
                 <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
                     Currently Selected:
                     <span class="selectedFeaturesShortList"></span>
@@ -637,12 +642,18 @@
                     </div>
                </div>
             </div>
+            <div class="collapsible_div" style="display:none">
+                <div class="loading">
+                    <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
+                    <!--<div class="loading_text">&nbsp Loading...</div>-->
+                </div>
+            </div>
         </div>
 
         <div class="results_container">
 
             <div class="header header full_border_radius" id="climate_impacts_header">Projected Land Cover Change <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div" id="collapsible_div_area_chart" style="display:none">
+            <div class="collapsible_div loading_contents" id="collapsible_div_area_chart" style="display:none">
                 <div class="no_climate_impacts_data"><img class="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png><p>The data in this panel are not available for the selected reporting units and/or more than one feature has been selected in the map (this panel currently only supports single feature selection)</p></div>
                 <div id="all_area_chart_goodies">
                 <!-- Start and Stop Buttons -->
@@ -681,12 +692,17 @@
                 </div>
 
             </div>
+            <div class="collapsible_div" style="display:none">
+                <div class="loading">
+                    <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
+                    <!--<div class="loading_text">&nbsp Loading...</div>-->
+                </div>
+            </div>
         </div>
 
         <div class="results_container">
-
             <div class="header header full_border_radius" id="climate_impacts_header">Projected Change in Carbon, Fire, and Water<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div" id="collapsible_div_spline_chart" style="display:none">
+            <div class="collapsible_div loading_contents" id="collapsible_div_spline_chart" style="display:none">
                 <div class="no_climate_impacts_data"><img class="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png><p>The data in this panel are not available for the selected reporting units and/or more than one feature has been selected in the map (this panel currently only supports single feature selection)</p></div>
                 <div id="all_spline_chart_goodies">
                     <!-- Start and Stop Buttons -->
@@ -755,10 +771,14 @@
                     <p>
                 </div>
             </div>
-
+            <div class="collapsible_div" style="display:none">
+                <div class="loading">
+                    <img class="loading_image" src='{{STATIC_URL}}img/loader_circular2.gif'><br>
+                    <!--<div class="loading_text">&nbsp Loading...</div>-->
+                </div>
+            </div>
         </div>
     </div>
-
     </div>
 
 </div>
