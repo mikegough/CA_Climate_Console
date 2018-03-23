@@ -87,19 +87,21 @@ function createChart(climateVariable, statistic, season) {
             exporting: {
                 enabled:true,
                 allowHTML:true,
-                buttons: {
+                 buttons: {
                     contextButton: {
                         align:'right',
-                        y:-10,
+                        y:-5,
+                        x:-20
                     }
                 },
                 filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason+")",
                 chartOptions: {
                     chart:{
-                        /*
                         height:500,
                         width:600,
-                        */
+                        margin:100,
+                        marginBottom:110,
+                        marginTop:100,
                     },
                     legend: {
                         y:-5
@@ -108,6 +110,7 @@ function createChart(climateVariable, statistic, season) {
                         align:'center',
                         useHTML: false,
                         margin:20,
+                        y:20,
                         text: "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'],
                     },
                     subtitle: {
