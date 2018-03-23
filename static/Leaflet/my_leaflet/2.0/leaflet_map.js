@@ -62,53 +62,53 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
     //layerToAdd is null for climate data
     if (layerToAdd != null) {
-        layerIndex = layerToAdd.split(':')[1]
-        layerToAdd = layerToAdd.split(':')[0]
+        layerIndex = layerToAdd.split(':')[1];
+        layerToAdd = layerToAdd.split(':')[0];
 
         if (typeof layerIndex == 'undefined' || layerIndex == '') {
-            dbid_with_index = EEMSParams["models"][modelForTree][5]
+            dbid_with_index = EEMSParams["models"][modelForTree][5];
         }
         else {
             if (dbid != '') {
-                urlBase = EEMSParams["models"][modelForTree][5].split('&')[0]
-                dbid_with_index = urlBase + "&visibleLayers=" + layerIndex
+                urlBase = EEMSParams["models"][modelForTree][5].split('&')[0];
+                dbid_with_index = urlBase + "&visibleLayers=" + layerIndex;
             }
         }
     }
 
-    DataBasinLayerIndex='0'
+    DataBasinLayerIndex='0';
 
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
-        document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+        document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
         $(".info").hide();
 
     } else {
         $(".info").show();
 
        if (typeof Data_Basin_ID_Dict != 'undefined' ) {
-           dbid = Data_Basin_ID_Dict[layerToAddName]
+           dbid = Data_Basin_ID_Dict[layerToAddName];
        }
 
         //Column chart click
         if (climateVariable=='EEMSmodel'){
 
-            legendTitle=EEMSParams["models"][layerToAddName][0]
-            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
-            legendHeight=EEMSParams["models"][layerToAddName][3]
-            legendLabels=EEMSParams["models"][layerToAddName][4]
-            dbid=dbid_with_index
+            legendTitle=EEMSParams["models"][layerToAddName][0];
+            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2];
+            legendHeight=EEMSParams["models"][layerToAddName][3];
+            legendLabels=EEMSParams["models"][layerToAddName][4];
+            dbid=dbid_with_index;
 
         }
 
         //JIT tree standard
         else if (climateVariable=='EEMSmodelTREE_Standard'){
 
-            legendTitle=layerToAdd
-            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
-            legendHeight=EEMSParams["models"][layerToAddName][3]
-            legendLabels=EEMSParams["models"][layerToAddName][4]
-            dbid=dbid_with_index
+            legendTitle=layerToAdd;
+            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2];
+            legendHeight=EEMSParams["models"][layerToAddName][3];
+            legendLabels=EEMSParams["models"][layerToAddName][4];
+            dbid=dbid_with_index;
 
         }
 
@@ -117,26 +117,26 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
             // Updated version. Legend name matched to filename.  Non-shared legends for non-fuzzy inputs.
 
-            legendTitle=layerToAdd
-            legendImage="/Legends/" + eems_file_name.split(".")[0] + "_" + layerToAddName +"_legend"
-            legendHeight=""
-            legendLabels=EEMSParams["models"]["inputs"][4]
-            dbid=dbid_with_index
+            legendTitle=layerToAdd;
+            legendImage="/Legends/" + eems_file_name.split(".")[0] + "_" + layerToAddName +"_legend";
+            legendHeight="";
+            legendLabels=EEMSParams["models"]["inputs"][4];
+            dbid=dbid_with_index;
         }
 
         else if (climateVariable=="EcosystemServices"){
 
-            legendTitle=modelName
-            legendImage="/Legends/" + layerToAddName +"_legend"
-            legendHeight=""
+            legendTitle=modelName;
+            legendImage="/Legends/" + layerToAddName +"_legend";
+            legendHeight="";
 
         }
 
         else if (climateVariable=="bioclimatic"){
 
-            legendTitle=modelName
-            legendImage="/Legends/" + layerToAddName +"_legend"
-            legendHeight="202px"
+            legendTitle=modelName;
+            legendImage="/Legends/" + layerToAddName +"_legend";
+            legendHeight="202px";
 
         }
 
@@ -1142,6 +1142,7 @@ info2.update = function (props) {
 
 // add the info window to the map
 info2.addTo(map);
+
 // END TEXT BOTTOM LEFT
 
 var geoSearch = L.control.geonames({
