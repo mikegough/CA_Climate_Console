@@ -1936,8 +1936,10 @@ function endLoadingDeparture(){
 // Nudge the currently selected div over when the reporting units selection control is open.
 $(".leaflet-control-layers").hover(function() {
     $(".info2").css("left", "167px");
+    $("#side_tab").hide()
 }, function() {
         $(".info2").css("left", "45");
+        $("#side_tab").show()
     }
 );
 
