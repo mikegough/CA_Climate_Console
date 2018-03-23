@@ -132,6 +132,14 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
         }
 
+        else if (climateVariable=="bioclimatic"){
+
+            legendTitle=modelName
+            legendImage="/Legends/" + layerToAddName +"_legend"
+            legendHeight="202px"
+
+        }
+
         //Climate
         else {
 
@@ -1752,7 +1760,7 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 truncated_series_name += "..."
             }
 
-            var tif_file = object["file"]
+            var tif_file = object["file"];
 
             chart.addSeries({
                 name: truncated_series_name,
@@ -1777,10 +1785,11 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 showInLegend: show_in_legend,
                 events: {
                   click: function () {
+                      legend_title = chart_title + "<br>" + object.series
                     //alert('Category: ' + this.category + ', value: ' + this.y);
                       var png_file = tif_file.replace(".tif", "");
                       swapImageOverlay(png_file);
-                      swapLegend(png_file, png_file,null, png_file);
+                      swapLegend(png_file, null, "bioclimatic", legend_title);
                   },
                    /*
                   mouseOver: function(){
