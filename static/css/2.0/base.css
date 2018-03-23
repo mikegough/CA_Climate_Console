@@ -252,6 +252,13 @@ ul.tabs li a{
 	position: relative;
 }
 
+.point_click_img_small{
+	height: 30px;
+	float: left;
+	top: -10px;
+	position: relative;
+}
+
 .learn_more {
 	font-size: 1.2em;
 	font-weight: bold;
@@ -2710,7 +2717,7 @@ margin-bottom: 5px;
 }
 
 #collapsible_div_point_chart {
-    max-height: 460px;
+	max-height: 480px;
 }
 
 #collapsible_div_change_table{
@@ -2854,12 +2861,12 @@ margin-bottom: 5px;
 	text-align: left;
 	color: #666666;
 	height: 0px;
-	margin-left: 145px;
+	margin-left: 152px;
 	position: relative;
 	top: -10px;
-	/* display: none; */
 	font-size: .9em;
 	font-style: italic;
+	width: 100%;
 }
 
 #intro {
