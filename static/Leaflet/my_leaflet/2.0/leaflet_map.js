@@ -1762,6 +1762,7 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
             }
 
             var tif_file = object["file"];
+            var model = object["model"];
 
             chart.addSeries({
                 name: truncated_series_name,
@@ -1773,7 +1774,9 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 data: binnedData,
                 fillOpacity:series_opacity,
                 borderColor: '#666666',
-                color: series_color ,
+                color: series_color,
+                mean: mean,
+                model: model,
                 marker: {
                     enabled: false,
                     states: {

@@ -151,9 +151,14 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
        hideDelay:500,
        formatter: function () {
            $(".distribution_chart_tooltip").css("border-color", this.color);
-           min = (Math.min.apply(null, this.series.xData)).toFixed(1);
-           max = (Math.max.apply(null, this.series.xData)).toFixed(1);
-           return "<div class='distribution_chart_tooltip'><span style='font-size:1.6em; color:" + this.color + "'>\u25CF</span> &nbspRange: " + min + " - " + max + "<div style='margin-left:18px; font-style:italic'>(Click to Map)</div></div>";
+           var min = (Math.min.apply(null, this.series.xData)).toFixed(1);
+           var max = (Math.max.apply(null, this.series.xData)).toFixed(1);
+           var mean = (this.series.userOptions.mean).toFixed(1);
+           var model = (this.series.userOptions.model);
+           //return "<div class='distribution_chart_tooltip'><span style='font-size:1.6em; color:" + this.color + "'>\u25CF</span>&nbspMean: " + mean  + "<div style='margin-left:17px;'> &nbspRange: " + min + " - " + max + "</div><div style='margin-left:18px; font-style:italic'>(Click to Map)</div></div>";
+           return "<div class='distribution_chart_tooltip'>" +
+               "<span style='font-size:1.6em; color:" + this.color + "'>\u25CF</span>&nbsp" + model +
+               "<div style='margin-left:18px;'> Mean: " + mean  + "<br>Range: " + min + " - " + max + "<div style='margin-left:0px; font-style:italic'>(Click to Map)</div></div>";
           /*
           if (data_type == "categorical"){
             return  "<b>Percent Area: </b>" + this.y + "%"
