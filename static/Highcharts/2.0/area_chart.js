@@ -47,6 +47,48 @@ function createAreaChart(model) {
                 */
                 opacity:.85,
             },
+            exporting: {
+                enabled:true,
+                allowHTML:true,
+                filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + "Projected Land Cover Change",
+                chartOptions: {
+                    chart: {
+                        height:580,
+                        marginTop: 80,
+                        marginLeft: 50
+
+                    },
+                    legend: {
+                        y: -5
+                    },
+                    title: {
+                        align: 'center',
+                        useHTML: false,
+                        margin: 20,
+                        y: 20,
+                        text: "<br>" + activeReportingUnitsName + ": " + response['categoricalValues'],
+                    },
+                    subtitle: {
+                        text: "<br>Projected Land Cover Change<br>",
+                        margin: 20,
+                        marginBottom: 100,
+                    },
+                    credits: {
+                        enabled: true,
+                        allowHTML: true,
+                        marginBottom: 100,
+                        margin: 10,
+                        style: {
+                            padding: '20px',
+                        },
+                        position: {
+                            align: 'center',
+                            y: -10,
+                        },
+                        text: "Source: " + title + " Climate Console, " + currentYear + " Conservation Biology Institute",
+                    },
+                },
+            },
             subtitle: {
                 text: ''
             },

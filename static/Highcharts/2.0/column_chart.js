@@ -43,31 +43,25 @@ function createColumnChart(){
                 credits: {
                     enabled: false
                 },
-
                 exporting: {
                     enabled:true,
                     allowHTML:true,
-                    buttons: {
-                        contextButton: {
-                            align:'right',
-                            y:-15,
-                            x:-10,
-                        }
-                    },
                     filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + "EEMS_Model_Results",
                     chartOptions: {
                         chart:{
                             height:500,
                             width:600,
                             margin:100,
-                            marginBottom:180,
+                            marginBottom:110,
                             marginLeft:140,
+                            marginTop:100
                         },
                         legend: {
                             y:-10
                         },
                         title: {
                             margin:20,
+                            y:20,
                             text: "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'],
                         },
                         subtitle: {
