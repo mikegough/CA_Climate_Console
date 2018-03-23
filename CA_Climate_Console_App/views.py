@@ -78,7 +78,9 @@ def view1(request):
         template = 'drecp'
         config_file = "config_drecp.js"
 
-    elif studyarea == 'ca':
+    elif studyarea == 'ca1':
+
+        print ('ca1')
 
         if table == None:
             table = "ca_reporting_units_county_boundaries_5_simplify"
@@ -87,7 +89,7 @@ def view1(request):
         template = 'ca'
         config_file = "config_ca.js"
 
-    elif studyarea == 'ca2':
+    elif studyarea == 'ca':
 
         if table == None:
             table = "ca_reporting_units_county_boundaries_5_simplify"
@@ -298,7 +300,7 @@ def view1(request):
 
             columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        elif studyarea == 'ca2':
+        elif studyarea == 'ca':
 
             #columnChartColor1 = getColor(resultsDict["intactness_avg"], "TI")
             columnChartColor1 = getColor(resultsDict["hisensfz270_avg"], "ClimateEEMS")
@@ -313,7 +315,7 @@ def view1(request):
 
             columnChartColors = columnChartColor1+","+columnChartColor2+","+columnChartColor3+","+columnChartColor4+","+columnChartColor5+","+columnChartColor6
 
-        else:
+        elif studyarea == 'ca1':
 
             #if table == "ca_reporting_units_1km_poly":
             #    resultsDict["intactness_avg"] = 0

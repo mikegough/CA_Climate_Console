@@ -871,14 +871,12 @@ div#point_chart_description a:hover, div#box_plot_description a:hover{
 #climate_quick_view_table td {
 	border: 1px solid #C0D0E0;
 	color: #606060;
-	/* text-align: center; */
 	text-align: left;
 	vertical-align: middle;
-	min-height: 100px;
-	height: 100px;
+	min-height: 126px;
+	height: 126px;
 	padding: 9px;
 	padding-top: 11px;
-	/* width: 33.33%; */
 	font-size: .9em;
 	cursor: default;
 }
@@ -2722,7 +2720,7 @@ margin-bottom: 5px;
 }
 
 #collapsible_div_change_table{
-    max-height:783px;
+    max-height:760px;
 }
 
 #collapsible_div_climate_departure {
