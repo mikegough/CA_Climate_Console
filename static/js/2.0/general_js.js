@@ -6,8 +6,11 @@
      document.title=title + " Climate Console";
      //$("#view1Link").click()
 
-    //Prepare Near Term Forecast
+    // Prepare Near Term Forecast
+    // Commented out since we're not using the NOAA near term forecast data in the new CA Console.
+    // Still won't work with the new layout, but would need to uncomment the block below in order to get it to work.
 
+    /*
     previousDivision='';
     countTimesNoaa3MonthCalled=0;
     //Initialize Selected Time Frame
@@ -33,6 +36,7 @@
          create_post_downscale(initialDownscaleMarkerLon, initialDownscaleMarkerLat)
          $('#downscaled_coords').html(initialDownscaleMarkerLon + ", " + initialDownscaleMarkerLat)
      }
+     */
 
      //If using introJs, the function needs to be called in the script section at the bottom of the template.
      if (typeof introJs  == "function") {
