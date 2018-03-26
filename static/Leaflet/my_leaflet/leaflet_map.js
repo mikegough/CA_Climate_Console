@@ -1282,87 +1282,93 @@ function selectClimateDivision(e) {
 }
 
 function activateMapForClimateForecast(){
-    $(".info").show();
-    // Get climate_division_polygon that contains the results_poly_centroid
-    var layer = leafletPip.pointInLayer(results_poly_centroid, near_term_climate_divisions_layer, true);
-
-    // Get the name of that climate division to select later on.
-    if (layer.length) {
-        selectedClimateDivision = layer[0].feature.properties.NAME;
+    if (firstYearInFile == false){
+        // Handles the case where there is a problem with the near-term weather files.
+        $("#view4").html("<div class='no_weather_forecast_message'>Weather Forecast data are currently unavailable. Please check back later.</div>")
     }
+    else {
+        $(".info").show();
+        // Get climate_division_polygon that contains the results_poly_centroid
+        var layer = leafletPip.pointInLayer(results_poly_centroid, near_term_climate_divisions_layer, true);
 
-    $(document).ajaxStart(function(){
-        //hide spinner on the weather-forecast tab
-        $(".loading").css("display", "none");
-    });
+        // Get the name of that climate division to select later on.
+        if (layer.length) {
+            selectedClimateDivision = layer[0].feature.properties.NAME;
+        }
 
-    $('#clickToMapInfo').hide();
-
-    if (typeof defaultLatLng == 'undefined') {
-        defaultLatLng = L.latLng([initialDownscaleMarkerLat, initialDownscaleMarkerLon])
-    }
-
-    if (typeof geo_marker != 'undefined'){
-       map.removeLayer(geo_marker)
-    }
-
-    if (enableDownscale) {
-
-        marker = new L.marker(defaultLatLng)
-            .bindPopup("<div id='initialMarkerMessage' style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
-            .addTo(map)
-
-        marker.on("popupopen", onPopupOpen);
-
-        map.on('click', function (e) {
-            map.removeLayer(marker);
-            var marker = new L.marker(e.latlng).addTo(map);
+        $(document).ajaxStart(function () {
+            //hide spinner on the weather-forecast tab
+            $(".loading").css("display", "none");
         });
-    }
 
-    if ( typeof fillOpacityLevel == 'undefined') {
-        fillOpacityLevel=.85
-    }
+        $('#clickToMapInfo').hide();
 
-    $('.leaflet-control-layers').hide();
-    $('.leaflet-draw').hide();
-    $('.toolTitle2').hide();
-    $('.leaflet-geonames-search').hide();
-    $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span><span style="font-size:.9em">Select a Climate Division</span>');
-    $('.leaflet-bottom').show();
-    $('.ui-opacity').show();
-    $('.leaflet-control-layers:nth-child(1)').show();
+        if (typeof defaultLatLng == 'undefined') {
+            defaultLatLng = L.latLng([initialDownscaleMarkerLat, initialDownscaleMarkerLon])
+        }
 
-    //Currently this function is also called on document read in the general_js script.
-    //Noaa chart becomes unsynced without calling twice.
-    generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
+        if (typeof geo_marker != 'undefined') {
+            map.removeLayer(geo_marker)
+        }
 
-    //Loop through the array of all layers and remove them
-    allLayers.forEach( function (arrayItem) {
-        map.removeLayer(arrayItem)
-    });
+        if (enableDownscale) {
 
-    //Also remove any climate overlays and the results_poly
-    map.removeLayer(climate_PNG_overlay);
-    map.removeLayer(results_poly);
-    // Remove any image overlay reporting units
-    if (typeof reporting_unit_overlay != "undefined") {
-        map.removeLayer(reportingUnitLayers[reporting_unit_overlay]);
-    }
+            marker = new L.marker(defaultLatLng)
+                .bindPopup("<div id='initialMarkerMessage' style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
+                .addTo(map)
 
-    near_term_climate_divisions.addTo(map);
-    near_term_climate_divisions.bringToFront();
+            marker.on("popupopen", onPopupOpen);
 
-    updateNearTermForecastLegend();
-    updateClimateDivisionSymbology();
+            map.on('click', function (e) {
+                map.removeLayer(marker);
+                var marker = new L.marker(e.latlng).addTo(map);
+            });
+        }
 
-    document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
+        if (typeof fillOpacityLevel == 'undefined') {
+            fillOpacityLevel = .85
+        }
 
-    if (typeof marker != 'undefined') {
-        markerInfo = L.popup()
-            .setLatLng([defaultLatLng.lat + 1, defaultLatLng.lng])
-            .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month forecast at the marker location. <p> Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
-            .addTo(map);
+        $('.leaflet-control-layers').hide();
+        $('.leaflet-draw').hide();
+        $('.toolTitle2').hide();
+        $('.leaflet-geonames-search').hide();
+        $('.toolTitle').html('<span class="introjs-helperNumberLayer">1</span><span style="font-size:.9em">Select a Climate Division</span>');
+        $('.leaflet-bottom').show();
+        $('.ui-opacity').show();
+        $('.leaflet-control-layers:nth-child(1)').show();
+
+        //Currently this function is also called on document read in the general_js script.
+        //Noaa chart becomes unsynced without calling twice.
+        generateNearTermClimateResults(selectedNearTermClimatePeriod, selectedClimateDivision)
+
+        //Loop through the array of all layers and remove them
+        allLayers.forEach(function (arrayItem) {
+            map.removeLayer(arrayItem)
+        });
+
+        //Also remove any climate overlays and the results_poly
+        map.removeLayer(climate_PNG_overlay);
+        map.removeLayer(results_poly);
+        // Remove any image overlay reporting units
+        if (typeof reporting_unit_overlay != "undefined") {
+            map.removeLayer(reportingUnitLayers[reporting_unit_overlay]);
+        }
+
+        near_term_climate_divisions.addTo(map);
+        near_term_climate_divisions.bringToFront();
+
+        updateNearTermForecastLegend();
+        updateClimateDivisionSymbology();
+
+        document.getElementsByClassName('info2')[0].innerHTML = '<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
+
+        if (typeof marker != 'undefined') {
+            markerInfo = L.popup()
+                .setLatLng([defaultLatLng.lat + 1, defaultLatLng.lng])
+                .setContent("<div style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'><span style='left:-20px;font-style:italic' class='introjs-helperNumberLayer'>i</span>The charts on the right show the three month weather forecast for the climate division outlined in blue (climate division #" + selectedClimateDivision + "). Click on the blue marker below to view the downscaled three month forecast at the marker location. <p> Click anywhere in the map to select a new climate division and marker location. Downscaled data is only available for the Western United States.</div>")
+                .addTo(map);
+        }
     }
 }
 

@@ -823,9 +823,15 @@ function acquireNearTermClimate() {
         }
     }
 
-
-    firstYearInFile=allTempDataArray[0][0]
-    firstMonthInFile=allTempDataArray[0][1]
+    // Handles the case where there is a problem with the near-term weather files.
+    if(typeof allTempDataArray[0] != "undefined") {
+        firstYearInFile = allTempDataArray[0][0];
+        firstMonthInFile = allTempDataArray[0][1];
+    }
+    else{
+        firstYearInFile = false;
+        firstMonthInFile = false;
+    }
 
 }
 
