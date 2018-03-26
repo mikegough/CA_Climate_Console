@@ -140,6 +140,14 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
         }
 
+        else if (climateVariable=="macrogroup"){
+
+            legendTitle=modelName;
+            legendImage="/Legends/" + layerToAddName +"_legend";
+            legendHeight="20px";
+
+        }
+
         //Climate
         else {
 
@@ -1761,7 +1769,7 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 truncated_series_name += "..."
             }
 
-            var tif_file = object["file"];
+            var tif_file = object["raster"];
             var model = object["model"];
 
             chart.addSeries({
@@ -1789,11 +1797,19 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                 showInLegend: show_in_legend,
                 events: {
                   click: function () {
-                      legend_title = chart_title + "<br>" + object.series
-                    //alert('Category: ' + this.category + ', value: ' + this.y);
+                      //alert('Category: ' + this.category + ', value: ' + this.y);
                       var png_file = tif_file.replace(".tif", "");
-                      swapImageOverlay(png_file);
-                      swapLegend(png_file, null, "bioclimatic", legend_title);
+
+                      if (this.userOptions.model == 'Selected Veg Type Across CA'){
+                          swapImageOverlay(png_file, "bioclim");
+                          legend_title = object.series;
+                          swapLegend("macrogroup", null, "macrogroup", legend_title);
+                      }
+                      else {
+                          swapImageOverlay(png_file);
+                          legend_title = chart_title + "<br>" + object.series;
+                          swapLegend(png_file, null, "bioclimatic", legend_title);
+                      }
                   },
                    /*
                   mouseOver: function(){

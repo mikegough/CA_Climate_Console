@@ -1531,7 +1531,7 @@ def extract_raster_values(request):
                     raster_definition_dict = {}
 
                     raster_definition_dict["title"] = raster_dict["title"]
-                    raster_definition_dict["file"] = raster_dict["raster"]
+                    raster_definition_dict["raster"] = raster_dict["raster"]
                     raster_definition_dict["series"] = raster_dict["series"]
                     raster_definition_dict["model"] = raster_dict["model"]
 
@@ -1692,12 +1692,15 @@ def extract_text_values(macrogroup_code, macrogroup_name):
 
         mean_val = 1
 
-        results["bio5"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio5"], "stats": {"mean": mean_val, "max": max_val["bio5"], "min": min_val["bio5"]}}
-        results["bio6"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio6"], "stats": {"mean": mean_val, "max": max_val["bio6"], "min": min_val["bio6"]}}
-        results["bio_12"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_12"], "stats": {"mean": mean_val, "max": max_val["bio_12"], "min": min_val["bio_12"]}}
-        results["bio_13"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_13"], "stats": {"mean": mean_val, "max": max_val["bio_13"], "min": min_val["bio_13"]}}
-        results["bio_14"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_14"], "stats": {"mean": mean_val, "max": max_val["bio_14"], "min": min_val["bio_14"]}}
-        results["cwd"] = {"title": "", "series": macrogroup_name, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["cwd"], "stats": {"mean": mean_val, "max": max_val["cwd"], "min": min_val["cwd"]}}
+        #If this variable is changed, it will need to be changed in leaflet_map.js as well since the text is used to determine the legend png name and display properties.
+        text_for_popup_and_legend_identification = "Selected Veg Type Across CA"
+
+        results["bio5"] = {"raster": macrogroup_code, "title": "", "series": macrogroup_name, "model": text_for_popup_and_legend_identification, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio5"], "stats": {"mean": mean_val, "max": max_val["bio5"], "min": min_val["bio5"]}}
+        results["bio6"] = {"raster": macrogroup_code, "title": "", "series": macrogroup_name, "model": text_for_popup_and_legend_identification, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio6"], "stats": {"mean": mean_val, "max": max_val["bio6"], "min": min_val["bio6"]}}
+        results["bio_12"] = {"raster": macrogroup_code, "title": "", "series": macrogroup_name, "model": text_for_popup_and_legend_identification, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_12"], "stats": {"mean": mean_val, "max": max_val["bio_12"], "min": min_val["bio_12"]}}
+        results["bio_13"] = {"raster": macrogroup_code, "title": "", "series": macrogroup_name, "model": text_for_popup_and_legend_identification, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_13"], "stats": {"mean": mean_val, "max": max_val["bio_13"], "min": min_val["bio_13"]}}
+        results["bio_14"] = {"raster": macrogroup_code, "title": "", "series": macrogroup_name, "model": text_for_popup_and_legend_identification, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["bio_14"], "stats": {"mean": mean_val, "max": max_val["bio_14"], "min": min_val["bio_14"]}}
+        results["cwd"] = {"raster": macrogroup_code, "title": "", "series": macrogroup_name, "model": text_for_popup_and_legend_identification, "data_type": "continuous", "chart_type": "areaspline", "color": "rgba(255,165,0,.6)", "series_opacity": .6, "raw_data": raw_data["cwd"], "stats": {"mean": mean_val, "max": max_val["cwd"], "min": min_val["cwd"]}}
 
     return results
 

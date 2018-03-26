@@ -1466,11 +1466,14 @@ function load_help_content(title, file) {
 
 $(document).on("change", "#macrogroup_dropdown", function(){
 
+    var selected_text = $(this).find("option:selected").text();
+
     startLoadingDeparture();
     extract_raster_values(last_poly);
     var png_file = $(this).val();
     swapImageOverlay("none", "");
     swapImageOverlay(png_file, "bioclim");
+    swapLegend("macrogroup", null, "macrogroup", selected_text);
     last_png_overlay = png_file;
 
  });
