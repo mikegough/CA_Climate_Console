@@ -1800,7 +1800,7 @@ function create_charts(results_json_group, table_name, sub_title, show_in_legend
                       //alert('Category: ' + this.category + ', value: ' + this.y);
                       var png_file = tif_file.replace(".tif", "");
 
-                      if (this.userOptions.model == 'Selected Veg Type Across CA'){
+                      if (this.userOptions.model == 'Selected Vegetation Across CA'){
                           swapImageOverlay(png_file, "bioclim");
                           legend_title = object.series;
                           swapLegend("macrogroup", null, "macrogroup", legend_title);

@@ -168,6 +168,15 @@ ul.tabs li a{
 	width: 100%;
 }
 
+#veg_help{
+    cursor:help;
+	float: left;
+	margin-right: 10px;
+	height: 20px;
+	top: 5px;
+	position: relative;
+}
+
 #veg_select_form {
 	width: 420px;
 	margin-left: 60px;

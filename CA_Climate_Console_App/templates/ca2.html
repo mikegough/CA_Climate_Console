@@ -491,7 +491,13 @@
                 <span class="selected_watershed_icon"></span>Bioclimatic Departure & Vegetation Outlook<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png">
             </div>
             <div id="macrogroup_dropdown_container" class="collapsible_div" style="display:none">
-                Select a Vegetation Type:
+                <img id="veg_help" title="Select a vegetation type from the dropdown menu.
+
+The orange curves that appear on the chart represent the historical range of values within the distribution of the selected vegetation type across the state of California (i.e., within the orange area that appears on the map).
+
+The degree of overlap between the orange curves and the future curves can help in assessing the future suitability of the selected area for the selected vegetation type. Where there is no overlap with the future curves, the selected area is projected to be outside the range of conditions to which the selected vegetation type is adapted.
+
+" src="{{STATIC_URL}}img/help_orange.png">Select a Vegetation Type:
                 <select id="macrogroup_dropdown">
                     <option id="none" selected value="none" >None</option>
                     <option value='M09' class='macrogroup_option' >California Foothill and Valley Forests and Woodlands</option>
@@ -515,8 +521,6 @@
                     <option value='M117' class='macrogroup_option' >Sparsely Vegetated Desert Dune</option>
                 </select>
                 <div onclick="load_help_content('Bioclimatic Departure & Vegetation Outlook', 'bioclimatic_variables.html')" id="learn_more_departure" class="learn_more">Learn more... </div>
-                <!--
-                -->
             </div>
             <div class="collapsible_div" style="display:none">
             <div class="loading" id="loading_departure">
