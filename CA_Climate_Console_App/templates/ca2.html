@@ -380,7 +380,8 @@
         <div class="results_container">
             <div class="header header full_border_radius" id="climate_table_header">
                 Climate Projection Summaries<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div loading_contents" id="collapsible_div_change_table" style="display:none">
+            <div class="collapsible_div"  id="collapsible_div_change_table" style="display:none">
+                <div class="loading_contents">
                     <div id="climate_quick_view">
 
                         <table id="climate_quick_view_table">
@@ -472,7 +473,7 @@
                         Note that changing the climate model, the season, or the units in the chart above will affect what is displayed in this table.
                         <div onclick="load_help_content('Climate Projection Summaries', 'climate_projections_table.html')" class="learn_more">Learn more... </div>
                     </div>
-
+                </div>
             </div>
             <div class="collapsible_div" style="display:none">
                 <div class="loading">
@@ -567,80 +568,82 @@ The degree of overlap between the orange curves and the future curves can help i
 
         <div class="results_container">
             <div class="header header full_border_radius" id="eems_header">Site Condition & Climate Exposure <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div loading_contents" style="display:none">
-                <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
-                    Currently Selected:
-                    <span class="selectedFeaturesShortList"></span>
-                    <span class="additionalFeaturesCount"></span>
-                </div>
-                <span class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
-                <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
-
-                <!--
-                <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Logic Model Results</span></div>
-                -->
-                <div id="MEEMSE_chart_and_description">
-                    <div id="MEEMSE_description" class="description"><div class="description_header">Description<p></div>
-                        This chart displays the results for several EEMS fuzzy logic models averaged over the selected area.
-                        <p>
-                        Click any column to display the map layer used to generate the plotted value as well as a clickable interactive diagram that shows how the model was created.
-                        <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/point_click.png"></div>
-                        <div onclick="load_help_content('Site Condition & Climate Exposure', 'eems.html')" id="learn_more_exposure" class="learn_more">Learn more... </div>
-                        <p>
+            <div class="collapsible_div" style="display:none">
+                <div class="loading_contents">
+                    <div class="selectedFeaturesListHeader" class="selectedFeaturesClass">
+                        Currently Selected:
+                        <span class="selectedFeaturesShortList"></span>
+                        <span class="additionalFeaturesCount"></span>
                     </div>
-                    <div id="column_chart"></div>
-                </div>
+                    <span class="closeSelectedFeaturesFullList"><a class="closeSelectedFeaturesFullListLink">x</a></span>
+                    <div class="selectedFeaturesFullList" class="selectedFeaturesClass"></div>
 
-                <div id="container">
-                    <div id="log">
-                        <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
-                        <div id="initialTreeInfo">
-                            <!--
-                            <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
-                            -->
+                    <!--
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Logic Model Results</span></div>
+                    -->
+                    <div id="MEEMSE_chart_and_description">
+                        <div id="MEEMSE_description" class="description"><div class="description_header">Description<p></div>
+                            This chart displays the results for several EEMS fuzzy logic models averaged over the selected area.
+                            <p>
+                            Click any column to display the map layer used to generate the plotted value as well as a clickable interactive diagram that shows how the model was created.
+                            <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/point_click.png"></div>
+                            <div onclick="load_help_content('Site Condition & Climate Exposure', 'eems.html')" id="learn_more_exposure" class="learn_more">Learn more... </div>
+                            <p>
                         </div>
+                        <div id="column_chart"></div>
                     </div>
-                <div id="infovis"></div>
+
+                    <div id="container">
+                        <div id="log">
+                            <span id="infoCircle" style="position:absolute;top:0px; left:8px" class="introjs-helperNumberLayer">i</span>
+                            <div id="initialTreeInfo">
+                                <!--
+                                <span style="margin-left:19px">Click on any column above to explore the model diagram<img src="{{STATIC_URL}}img/model_diagram.png" id="modelDiagramIcon"></span>
+                                -->
+                            </div>
+                        </div>
+                    <div id="infovis"></div>
 
 
-                <div id="right-container" style="display:none">
-                     <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
-                </div>
-
-                </div>
-                <div id="MEEMSE_footer">
-                    <div id="MEEMSE_node_count_legend">
-                        <span title="Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes.">
-                        <table class="MEEMSE_node_count_legend_table">
-                            <tr>
-                                <td rowspan="2" style="width: 200px; min-width: 55px; text-align: right; padding-right: 8px;">Number of<br>Inputs</td>
-                                <td>0</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                            </tr>
-                            <tr>
-                                <td style="background-color:#AAAAAA"></td>
-                                <td style="background-color:#BBAAAA"></td>
-                                <td style="background-color:#CCAAAA"></td>
-                                <td style="background-color:#DDAAAA"></td>
-                                <td style="background-color:#EEAAAA"></td>
-                                <td style="background-color:#FFAAAA"></td>
-                            </tr>
-                        </table>
-                        </span>
-                        <span title="Green nodes represent the active branch (the branch for which the input nodes are displayed), with the lowest green node being the one that is visible in the map.">
-                        <table class="MEEMSE_node_count_legend_table" style="width:70px">
-                            <tr>
-                            <td style="min-width: 58px; line-height:7px; text-align:right">Active</td>
-                            <td style="min-width:8px; background-color:#A6C8A6"></td>
-                            </tr>
-                        </table>
-                        </span>
+                    <div id="right-container" style="display:none">
+                         <input type="radio" id="s-normal" name="selection" checked="checked" value="normal" />
                     </div>
-               </div>
+
+                    </div>
+                    <div id="MEEMSE_footer">
+                        <div id="MEEMSE_node_count_legend">
+                            <span title="Node colors indicate the number of input nodes. Lighter shades indicate more direct input nodes. Darker colors indicate fewer direct input nodes.">
+                            <table class="MEEMSE_node_count_legend_table">
+                                <tr>
+                                    <td rowspan="2" style="width: 200px; min-width: 55px; text-align: right; padding-right: 8px;">Number of<br>Inputs</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color:#AAAAAA"></td>
+                                    <td style="background-color:#BBAAAA"></td>
+                                    <td style="background-color:#CCAAAA"></td>
+                                    <td style="background-color:#DDAAAA"></td>
+                                    <td style="background-color:#EEAAAA"></td>
+                                    <td style="background-color:#FFAAAA"></td>
+                                </tr>
+                            </table>
+                            </span>
+                            <span title="Green nodes represent the active branch (the branch for which the input nodes are displayed), with the lowest green node being the one that is visible in the map.">
+                            <table class="MEEMSE_node_count_legend_table" style="width:70px">
+                                <tr>
+                                <td style="min-width: 58px; line-height:7px; text-align:right">Active</td>
+                                <td style="min-width:8px; background-color:#A6C8A6"></td>
+                                </tr>
+                            </table>
+                            </span>
+                        </div>
+                   </div>
+                </div>
             </div>
             <div class="collapsible_div" style="display:none">
                 <div class="loading">
@@ -653,44 +656,45 @@ The degree of overlap between the orange curves and the future curves can help i
         <div class="results_container">
 
             <div class="header header full_border_radius" id="climate_impacts_header">Projected Land Cover Change <img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div loading_contents" id="collapsible_div_area_chart" style="display:none">
-                <div class="no_climate_impacts_data"><img class="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png><p>The data in this panel are not available for the selected reporting units and/or more than one feature has been selected in the map (this panel currently only supports single feature selection)</p></div>
-                <div id="all_area_chart_goodies">
-                <!-- Start and Stop Buttons -->
-                    <form class="select_form2" id="veg_select_form">
-                        <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options">Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
-                        <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                        <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
-                            <!-- Annual Averages -->
-                            <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
-                            <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
-                            <option value="canesm2">CanESM2 (Hot/Wet)</option>
-                            <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
-                        </select>
-                    </form>
-                    <!--
-                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
-                    -->
-                    <div id="area_chart"></div>
-                    <div id="vegMapSliderContainer"></div>
-                    <div id="playButtons2">
-                        <a href="#" id="start2" title="Click to automatically cycle through the time steps"><button id="startDiv2"></button></a>
-                        <a href="#" id="stop2" title="Click to stop"><button id="stopDiv2"></button></a>
+            <div class="collapsible_div " id="collapsible_div_area_chart" style="display:none">
+                <div class="loading_contents">
+                    <div class="no_climate_impacts_data"><img class="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png><p>The data in this panel are not available for the selected reporting units and/or more than one feature has been selected in the map (this panel currently only supports single feature selection)</p></div>
+                    <div id="all_area_chart_goodies">
+                    <!-- Start and Stop Buttons -->
+                        <form class="select_form2" id="veg_select_form">
+                            <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options">Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                                <!-- Annual Averages -->
+                                <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
+                                <option value="canesm2">CanESM2 (Hot/Wet)</option>
+                                <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
+                            </select>
+                        </form>
+                        <!--
+                        <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
+                        -->
+                        <div id="area_chart"></div>
+                        <div id="vegMapSliderContainer"></div>
+                        <div id="playButtons2">
+                            <a href="#" id="start2" title="Click to automatically cycle through the time steps"><button id="startDiv2"></button></a>
+                            <a href="#" id="stop2" title="Click to stop"><button id="stopDiv2"></button></a>
+                        </div>
+
                     </div>
-
+                    <div id="MC2_description" class="description"><div class="description_header">Description<p></div>
+                        This chart displays land cover data simulated using the Dynamic Global Vegetation Model MC2 for each decade starting in 2011 (2011-2020, 2021-2030, etc).
+                        <p>
+                            For each decade on the x-axis, the chart indicates the percent cover of each vegetation type expected to occur within the selected reporting unit.
+                        <p>
+                            Move the slider below the chart to display the map layer for the specified decade.
+                        <p>
+                        <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/slider_hand.png"></div>
+                        <div onclick="load_help_content('Projected Land Cover Change', 'mc2_veg.html')" id="learn_more_mc2_veg" class="learn_more">Learn more... </div>
+                        <p>
+                    </div>
                 </div>
-                <div id="MC2_description" class="description"><div class="description_header">Description<p></div>
-                    This chart displays land cover data simulated using the Dynamic Global Vegetation Model MC2 for each decade starting in 2011 (2011-2020, 2021-2030, etc).
-                    <p>
-                        For each decade on the x-axis, the chart indicates the percent cover of each vegetation type expected to occur within the selected reporting unit.
-                    <p>
-                        Move the slider below the chart to display the map layer for the specified decade.
-                    <p>
-                    <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/slider_hand.png"></div>
-                    <div onclick="load_help_content('Projected Land Cover Change', 'mc2_veg.html')" id="learn_more_mc2_veg" class="learn_more">Learn more... </div>
-                    <p>
-                </div>
-
             </div>
             <div class="collapsible_div" style="display:none">
                 <div class="loading">
@@ -702,73 +706,75 @@ The degree of overlap between the orange curves and the future curves can help i
 
         <div class="results_container">
             <div class="header header full_border_radius" id="climate_impacts_header">Projected Change in Carbon, Fire, and Water<img class="collapse_icon rotate90" src="{{STATIC_URL}}img/collapse_down_arrow.png"></div>
-            <div class="collapsible_div loading_contents" id="collapsible_div_spline_chart" style="display:none">
-                <div class="no_climate_impacts_data"><img class="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png><p>The data in this panel are not available for the selected reporting units and/or more than one feature has been selected in the map (this panel currently only supports single feature selection)</p></div>
-                <div id="all_spline_chart_goodies">
-                    <!-- Start and Stop Buttons -->
-                        <form class="select_form2" id="select_form2_continuous_model">
-                                <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
-                                <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                                <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
-                                    <!-- Annual Averages -->
-                                    <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
-                                    <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
-                                    <option value="canesm2">CanESM2 (Hot/Wet)</option>
-                                    <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
-                                </select>
-                        </form>
-                        <!--
-                        <div class="nearTermHeader" id="fuzzLogicNearTermHeader" style="padding-right:20px;">Carbon, Fire, and Water</div>
-                        -->
-                        <div id="spline_variable_dropdown">
-                            <form class="select_form2">
-                                <div id="AdditionalESVariablesY1">
-                                    <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Y1 Axis Variable<span class="verticalSeparatorLine">|</span></span>
-                                    <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value); continuousVariableForSlider=this.value' >
+            <div class="collapsible_div " id="collapsible_div_spline_chart" style="display:none">
+                <div class="loading_contents">
+                    <div class="no_climate_impacts_data"><img class="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png><p>The data in this panel are not available for the selected reporting units and/or more than one feature has been selected in the map (this panel currently only supports single feature selection)</p></div>
+                    <div id="all_spline_chart_goodies">
+                        <!-- Start and Stop Buttons -->
+                            <form class="select_form2" id="select_form2_continuous_model">
+                                    <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
+                                    <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                                    <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
                                         <!-- Annual Averages -->
-                                        <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
-                                        <option value="c_forest">Live Forest Carbon</option>
-                                        <option value="c_dead_abo">Above Ground Dead Biomass</option>
-                                        <option value="nbp">Net Biological Production</option>
+                                        <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
+                                        <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
+                                        <option value="canesm2">CanESM2 (Hot/Wet)</option>
+                                        <option value="hadgem2es">HadGem2-ES (Hot/Dry)</option>
                                     </select>
-                                </div>
-                                <p>
-                                <div id="AdditionalESVariablesY2">
-                                    <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Y2 Axis Variable<span class="verticalSeparatorLine">|</span></span>
-                                    <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value); continuousVariableForSlider=this.value' >
-                                        <!-- Annual Averages -->
-                                        <option value="cwd">Climatic Water Deficit</option>
-                                        <option value="consumed">Biomass Consumed by Fire</option>
-                                        <option value="h2o_stream">Stream Flow</option>
-                                    </select>
-                                </div>
                             </form>
+                            <!--
+                            <div class="nearTermHeader" id="fuzzLogicNearTermHeader" style="padding-right:20px;">Carbon, Fire, and Water</div>
+                            -->
+                            <div id="spline_variable_dropdown">
+                                <form class="select_form2">
+                                    <div id="AdditionalESVariablesY1">
+                                        <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Y1 Axis Variable<span class="verticalSeparatorLine">|</span></span>
+                                        <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value); continuousVariableForSlider=this.value' >
+                                            <!-- Annual Averages -->
+                                            <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
+                                            <option value="c_forest">Live Forest Carbon</option>
+                                            <option value="c_dead_abo">Above Ground Dead Biomass</option>
+                                            <option value="nbp">Net Biological Production</option>
+                                        </select>
+                                    </div>
+                                    <p>
+                                    <div id="AdditionalESVariablesY2">
+                                        <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Y2 Axis Variable<span class="verticalSeparatorLine">|</span></span>
+                                        <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value); continuousVariableForSlider=this.value' >
+                                            <!-- Annual Averages -->
+                                            <option value="cwd">Climatic Water Deficit</option>
+                                            <option value="consumed">Biomass Consumed by Fire</option>
+                                            <option value="h2o_stream">Stream Flow</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <p>
+                        <div id="spline_chart"></div>
+                        <div id="playButtons3">
+                            <a href="#" id="start3" title="Click to automatically cycle through the time steps"><button id="startDiv3"></button></a>
+                            <a href="#" id="stop3" title="Click to stop"><button id="stopDiv3"></button></a>
                         </div>
-                        <p>
-                    <div id="spline_chart"></div>
-                    <div id="playButtons3">
-                        <a href="#" id="start3" title="Click to automatically cycle through the time steps"><button id="startDiv3"></button></a>
-                        <a href="#" id="stop3" title="Click to stop"><button id="stopDiv3"></button></a>
+                        <div style="position:relative; left:-25px">Note: These variables may or may not be related.</div>
+                        <!--
+                        <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
+                        -->
                     </div>
-                    <div style="position:relative; left:-25px">Note: These variables may or may not be related.</div>
-                    <!--
-                    <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
-                    -->
-                </div>
-                <div id="MC2_continuous_description" class="description"><div class="description_header">Description<p></div>
-                    This chart displays carbon, fire, and water data simulated using the Dynamic Global Vegetation Model MC2 for each decade starting in 2011 (2011-2020, 2021-2030, etc).
-                    <p>
-                        Values on the y-axis represent the mean averages calculated across the selected reporting unit and the decade indicated on the x-axis.
-                    <p>
-                        Click any point to toggle the corresponding map layer on/off in the map.
-                    <p>
-                    <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/point_click.png"></div>
-                    <p>
-                        Move the slider below the chart to display the map layer for the specified decade.
-                    <p>
-                    <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/slider_hand.png"></div>
-                    <div onclick="load_help_content('Projected Change in Carbon, Fire, and Water', 'mc2_continuous.html')" id="learn_more_mc2_continuous" class="learn_more">Learn more... </div>
-                    <p>
+                    <div id="MC2_continuous_description" class="description"><div class="description_header">Description<p></div>
+                        This chart displays carbon, fire, and water data simulated using the Dynamic Global Vegetation Model MC2 for each decade starting in 2011 (2011-2020, 2021-2030, etc).
+                        <p>
+                            Values on the y-axis represent the mean averages calculated across the selected reporting unit and the decade indicated on the x-axis.
+                        <p>
+                            Click any point to toggle the corresponding map layer on/off in the map.
+                        <p>
+                        <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/point_click.png"></div>
+                        <p>
+                            Move the slider below the chart to display the map layer for the specified decade.
+                        <p>
+                        <div id="point_click_img_div"><img id="point_click_img" src="{{STATIC_URL}}img/slider_hand.png"></div>
+                        <div onclick="load_help_content('Projected Change in Carbon, Fire, and Water', 'mc2_continuous.html')" id="learn_more_mc2_continuous" class="learn_more">Learn more... </div>
+                        <p>
+                    </div>
                 </div>
             </div>
             <div class="collapsible_div" style="display:none">
