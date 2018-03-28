@@ -122,17 +122,22 @@ a:hover {
 	padding-right: 17px;
 }
 
-#about_panels{
-	width:500px;
-	float:right;
-	margin-left:20px;
-	margin-top:10px;
+#about_panels {
+	width: 500px;
+	float: right;
+	margin-left: 20px;
+	margin-top: 5px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-#about_logos{
+#about_logos {
+	margin-top: 30px;
 	width: 100%;
 }
+
 #about_logos img{
+	height: 130px;
+	padding: 10px;
 
 }
 
@@ -163,6 +168,26 @@ a:hover {
     padding-top:18px;
     font: 18px Verdana;
     color:#5F5F5F;
+}
+
+.search_icon {
+	font-size: 22px;
+	border-radius: 4px;
+	display: inline-block;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+	text-decoration: none;
+	color: #4e4e4e;
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+	font-weight: bold;
 }
 
 #initialization_container{
