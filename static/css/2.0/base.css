@@ -87,6 +87,65 @@ a:hover {
 	left: 400px;
 }
 
+#about{
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+
+#about::after {
+  content: "";
+  background-image: url('../../img/sky.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: .9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+#about a{
+}
+
+#about_scroll_container {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	font-size: 17px;
+	color: #484848;
+	overflow-y: scroll;
+	padding-right: 17px;
+}
+
+#about_panels{
+	width:500px;
+	float:right;
+	margin-left:20px;
+	margin-top:10px;
+}
+
+#about_logos{
+	width: 100%;
+}
+#about_logos img{
+
+}
+
+#about_text {
+	display: block;
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: rgba(255, 255, 255, 0.9);
+	padding: 35px 100px 200px 100px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
 .loading, .loading_departure {
 	display: inline;
 	position: absolute !important;
@@ -228,7 +287,7 @@ ul.tabs li a{
 	font: 10pt Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif;
 	width: calc(100% - 555px);
 	border-left: 1px solid #DCDCDC;
-	height: 100vh;
+	height: 120vh;
 	right: -20px;
 	text-align: left;
 }
@@ -1414,7 +1473,7 @@ table tr td.changeTD{
 	background-color: #f9f9f9;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
 	z-index: 1 !important;
-	max-width: 180px !important;
+	max-width: 191px !important;
 	top: 52px;
 }
 
@@ -3040,6 +3099,32 @@ ul.selectboxit-options {
     max-height: 580px;
 }
 */
+#about_getting_started a {
+	background-image: url('../../img/spritesheet.png');
+	background-repeat: no-repeat;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+
+}
+
+#about_getting_started .leaflet-draw-toolbar .leaflet-draw-draw-polyline {
+	background-position: -2px -2px;
+}
+
+#about_getting_started .leaflet-draw-draw-polygon {
+	background-position: -31px -2px;
+}
+
+#about_getting_started .leaflet-draw-draw-rectangle {
+	background-position: -62px -2px;
+}
 
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */

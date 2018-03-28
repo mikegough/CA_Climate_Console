@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
 <link rel="shortcut icon" href="{{STATIC_URL}}img/sun.ico">
 
@@ -213,6 +214,7 @@
     <div id="nav">
           <ul>
               <li><a id="map_link" class="active" show="home" href="javascript:void(0); deactivate_dropdown()">Map</a></li>
+              <li><a id="about_link" class="deactive" show="about" href="javascript:void(0); deactivate_dropdown()">About</a></li>
               <!--
               <li><a id="about_link" show="about" href="javascript:void(0); deactivate_dropdown()">About</a></li>
               -->
@@ -223,7 +225,7 @@
                       <div class="dropdown-content">
                           <!-- Story maps don't work if they are loaded with a display:none initially. Needed to load content into story_maps div dynamically -->
                           <a show="story_maps" href="javascript:void(0)" onclick=load_story_map("http://www.arcgis.com/apps/Cascade/index.html?appid=0c3aa4fdfa754ab2ae0a5f55c6364a0c")>The Renewable Energy Planner</a>
-                          <a show="story_maps" href="javascript:void(0)" onclick=load_story_map("http://www.arcgis.com/apps/MapJournal/index.html?appid=d2dde95d03784e1c80163b5348da1891")>The Forest Manager</a>
+                          <a show="story_maps" href="javascript:void(0)" onclick=load_story_map("https://www.arcgis.com/apps/Cascade/index.html?appid=d0998f911e734c09879d84a2f1defb86")>The Forest Manager</a>
                       </div>
                       <script>$(".dropdown").hover(function(){$(".dropdown-content").show()}, function(){$(".dropdown-content").hide()})</script>
                   </div>
@@ -236,7 +238,38 @@
 </div>
 
 <div id="about" class="navdiv" style="display:none">
-
+        <div id="about_scroll_container">
+            <div id="about_text">
+                <div class="intro_header">About the California Climate Console</div>
+                The Climate Console is a web mapping application designed for exploring climate change projections, simulated impacts, and fuzzy logic (EEMS) model results for a specified area of interest.
+                The California Climate Console was developed by the <a href="http://consbio.org" target="_blank">Conservation Biology Institute</a> with support from the <a href="http://www.energy.ca.gov/" target="_blank">California Energy Commission</a>.
+                Additional Climate Consoles have been developed and tailored for different regions; these can be accessed using the blue pulldown menu at the top of the screen.
+                <p>
+                Follow the instructions below to get started, or click on one of the "User Stories" in the upper right hand corner to see examples of how planners and land managers are using this application to help make more informed decisions.
+                <div class="intro_header">Getting Started</div>
+                <div>
+                    <ol id="about_getting_started">
+                     <li>Select a reporting units layer by clicking the layer icon <img src="{{STATIC_URL}}img/leaflet_layers_icon.png"> in the upper left hand corner of the map. The term "reporting units" refers to the ecological or administrative boundaries for which the climate projections will be calculated and reported on (for example counties or watersheds).
+                     <li>Select a feature or set of features in the map. A feature refers to a specific administrative or ecological boundary in the reporting units layer selected in step 1 (for example, a specific county or watershed). To select a single feature, simply left click on that feature in the map.
+                         To select multiple features, use the drawing tools on the left hand side of the screen.
+                        <!--(line <a class="leaflet-draw-draw-polyline" href="#" title="Draw a polyline"></a>, polygon <a class="leaflet-draw-draw-polygon" href="#"></a>, or rectangle <a class="leaflet-draw-draw-rectangle" href="#"></a>).-->
+                         Features that intersect your drawing will be selected. Alternatively you can search for a geographic place name (e.g., a city or lake) by clicking on the search icon.
+                         Features that intersect your placename will be selected. Changing the reporting units layer to "User Defined Area" will allow you to make a custom selection based on a 1km grid.
+                     <li>After you've selected an area of interest, you'll see a series of collapsible panels on the right hand side of the screen. Each panel will contain a series of charts that capture information for your selected area.
+                    </ol>
+                </div>
+                <p>
+                <p>
+                <div class="intro_header">Exploring the Results</div>
+                <img id="about_panels" src="{{STATIC_URL}}img/panels.png">
+                Click on one of the blue headers to expand the panel and show the charts for that category.
+                <p>
+                Each panel will have a short description on the right hand side and a <span style="color:#4575B5"> Learn More..."</span> link that will provide additional information about the data displayed in that panel.
+                <p>
+                For more information about the Climate Console, contact the Conservation Biology Institute at <a href="mailto:info@consbio.org?Subject=California%20Climate%20Console" target="_top">info@consbio.org</a>
+                <div id="about_logos"><img style="height:150px" src="{{STATIC_URL}}img/cbi-logo-circular-rgb.png"> <img style="height:150px" src="{{STATIC_URL}}img/cec.png"></div>
+            </div>
+        </div>
 </div>
 
 <div id="home" class="navdiv">
