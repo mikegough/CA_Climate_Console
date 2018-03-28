@@ -2,7 +2,7 @@ AvailableWaterStorage:Available Water Capacity:0
 DepthToBedrock:Depth To Bedrock:1
 SoilpHIsExtreme:Extreme Soil pH:2
 PotentialEvapotransIsHigh:High Potential EvapoTrans:3
-SiteSensitivityIsHigh:High Site Sensitivity:4
+SiteSensitivityIsHigh:Site Sensitivity:4
 SoilSalinityIsHigh:High Salinity:5
 HighSiteSensitivityFz:Site Sensitivity:6
 SoilErodibilityIsHigh:High Soil Erodibility:7
