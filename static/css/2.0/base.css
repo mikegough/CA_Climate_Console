@@ -135,10 +135,9 @@ a:hover {
 	width: 100%;
 }
 
-#about_logos img{
+#about_logos img {
 	height: 130px;
-	padding: 10px;
-
+	padding: 10px 20px;
 }
 
 #about_text {
