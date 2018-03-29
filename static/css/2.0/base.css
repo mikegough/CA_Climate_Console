@@ -2523,6 +2523,14 @@ div#pop-up2 {
 	width: 220px !important;
 }
 
+#ecoServSelectionForm2SelectBoxIt {
+	border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+	border-left: 0px;
+	left: -5px;
+	width: 220px !important;
+}
+
 #area_chart .highcharts-legend{
     position:relative;
     top:10px;

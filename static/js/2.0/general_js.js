@@ -1322,7 +1322,13 @@ function updateEcosystemServicesCharts(dropDownValue) {
     }
 
 }
- function updateClimateHelpContent(){
+
+function updateModelInAreaChart(value) {
+
+    $("#ecoServSelectionForm").data("selectBox-selectBoxIt").selectOption(value);
+}
+
+function updateClimateHelpContent(){
      gettingStartedIntro2 = introJs();
      gettingStartedIntro2.setOptions({
          'showStepNumbers': false,
