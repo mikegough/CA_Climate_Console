@@ -225,6 +225,7 @@ function initialize_tree(layerToAdd){
 
     if (modelForTree == layerToAdd){
         swapImageOverlay("single_transparent_pixel");
+        $('.info').hide();
         modelForTree = "";
     }
     else {
