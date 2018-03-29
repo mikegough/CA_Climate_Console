@@ -1304,6 +1304,7 @@ function animateClickToMapInfoBox(){
     $('.clickToMapInfo').animate({"right":"80px"},600);
 }
 
+/*
 function updateEcosystemServicesCharts(dropDownValue) {
     createAreaChart(dropDownValue);
     if (typeof createSplineChart == "function") {
@@ -1322,11 +1323,40 @@ function updateEcosystemServicesCharts(dropDownValue) {
     }
 
 }
+*/
 
-function updateModelInAreaChart(value) {
+// this variable allows the two model dropdowns to stay in sync while preventing an infinte loop caused by recursive changing.
+var current_mc2_model = "";
 
-    $("#ecoServSelectionForm").data("selectBox-selectBoxIt").selectOption(value);
-}
+function updateEcosystemServicesCharts(dropDownValue, calledBy) {
+
+    if (current_mc2_model != dropDownValue) {
+
+        current_mc2_model = dropDownValue;
+
+        // Want to change the other dropdown to keep them in sync, but don't want to trigger another change to call this function.
+        if (calledBy == "Area") {
+            $("#ecoServSelectionForm2").data("selectBox-selectBoxIt").selectOption(dropDownValue);
+        }
+        else if (calledBy == "Line") {
+            $("#ecoServSelectionForm").data("selectBox-selectBoxIt").selectOption(dropDownValue);
+        }
+        createAreaChart(dropDownValue);
+        createSplineChart(dropDownValue);
+        // lastThingViewed gets set to continuous when the user clicks a point in the continuous chart.
+        // if the last thing the looked at in the map was veg_type, load a new veg type PNG on model dropdown change
+        if (typeof lastThingViewed == "undefined" || lastThingViewed != "continuous") {
+            swapImageOverlay("vtype_agg_" + dropDownValue + "__" + pngCloverYear, "EcosystemServices")
+        }
+        // otherwise change it to the new continous model
+        else {
+            var previous_model = pngName.split("__")[0].split("_").pop();
+            var new_mc2_pngName = pngName.replace(previous_model, dropDownValue);
+            swapImageOverlay(new_mc2_pngName, "EcosystemServices")
+        }
+
+    }
+ }
 
 function updateClimateHelpContent(){
      gettingStartedIntro2 = introJs();

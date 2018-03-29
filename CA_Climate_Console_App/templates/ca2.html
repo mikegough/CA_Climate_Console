@@ -705,7 +705,7 @@ The degree of overlap between the orange curves and the future curves can help i
                         <form class="select_form2" id="veg_select_form">
                             <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options">Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
                             <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value, "Area")' >
                                 <!-- Annual Averages -->
                                 <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
                                 <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
@@ -755,7 +755,7 @@ The degree of overlap between the orange curves and the future curves can help i
                             <form class="select_form2" id="select_form2_continuous_model">
                                     <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
                                     <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
-                                    <select id="ecoServSelectionForm2" onchange='updateModelInAreaChart(this.value)' >
+                                    <select id="ecoServSelectionForm2" onchange='updateEcosystemServicesCharts(this.value, "Line")' >
                                         <!-- Annual Averages -->
                                         <option value="ccsm4" selected>CCSM4 (Warm/Dry)</option>
                                         <option value="cnrm">CNRM-CM5 (Warm/Wet)</option>
