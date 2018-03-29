@@ -221,16 +221,18 @@ function createColumnChart(){
 }
 
 var modelForTree;
+var lastModel;
 function initialize_tree(layerToAdd){
 
-    if (modelForTree == layerToAdd){
+    if (lastModel == layerToAdd){
         swapImageOverlay("single_transparent_pixel");
         $('.info').hide();
-        modelForTree = "";
+        lastModel = "";
     }
     else {
 
         modelForTree = layerToAdd;
+        lastModel = layerToAdd;
 
         eems_file_name = EEMSParams['models'][modelForTree][6];
         top_node = EEMSParams['models'][modelForTree][7];
