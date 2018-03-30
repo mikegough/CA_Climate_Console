@@ -874,7 +874,8 @@ function create_post(newWKT) {
 
         // handle a non-successful response
         error : function(xhr,errmsg,err) {
-            alertify.alert('No features selected. Please make a new selection.')
+            alertify.alert("<div id='no_features' class='info_popup'> No features selected. Please make a new selection.<p><div class='interp_image_div'><img style='width:150px' src='" + static_url + "img/map_click2.png'></div></div>")
+            //$(".alertify").addClass("alertify_error");
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         },
         complete: function (jqXHR, status){
