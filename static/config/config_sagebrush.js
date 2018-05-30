@@ -28,6 +28,7 @@ reportingUnits={
      // "Reporting Units Label":["database_table_name","name_field","json_file"]
     "Counties": ["sagebrush_reporting_units_county_boundaries_2_simplify","name","Sagebrush_Reporting_Units_Counties_2_Simplify.json"],
     "Ecoregions":["sagebrush_reporting_units_epa_liii_ecoregions_1_simplify","us_l3name","Sagebrush_Reporting_Units_EPA_LIII_Ecoregions_1_simplify.json"],
+    "Major Land Resource Areas (MLRAs)":["sagebrush_reporting_units_mlras_5_simplify","name","Sagebrush_Reporting_Units_MLRAs_5_simplify.json"],
 };
 
 // Optional image overlay for reporting units where the JSON file would be too large for display in Leaflet.
