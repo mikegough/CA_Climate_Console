@@ -2299,6 +2299,16 @@ div#pop-up2 {
     background:white;
 }
 
+#footerImage {
+	position: relative;
+	height: 24px;
+	margin-left: 7px;
+	background: #FFF;
+	padding: 1px 2px;
+	border-radius: 50%;
+	box-sizing: border-box;
+}
+
 #footer a:link {color:#4D79B3; text-decoration:none}      /* unvisited link */
 #footer a:hover {color:#4D79B3; text-decoration:underline}  /* mouse over link */
 #footer a:active {color:#4D79B3;}  /* selected link */
