@@ -23,10 +23,10 @@
 	height: -moz-calc(100% - 151px);
 	height: -webkit-calc(100% - 151px);
 	height: calc(100% - 151px);
-	border-bottom: 2px solid #C0D0E0;
 	overflow-y: hidden;
 	margin-bottom: 20px;
 	overflow-x:auto;
+    position: relative;
 }
 
 /*Legend */

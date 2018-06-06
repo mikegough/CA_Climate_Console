@@ -163,6 +163,11 @@
         display:none;
     }
 
+    #footer{
+        padding-bottom: 4px;
+        padding-top: 3px;
+    }
+
 </style>
 
 </head>
@@ -595,7 +600,8 @@
 </div>
 
 <div id="footer" class="no-print">
-    <img src="{{STATIC_URL}}img/CBI_logo_sm.png"><span style="position:relative; bottom:6px"> &copy; 2016 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
+    <img id="footerImage" src="{{STATIC_URL}}img/CBI_logo_sm.svg">
+    <span style="position:relative; bottom:6px"> &copy; 2018 <a href="http://consbio.org" target="_new">Conservation Biology Institute</a> | <a href="mailto:info@consbio.org">info@consbio.org</a></span>
 </div>
 
 <script src="{{STATIC_URL}}config/oid_index_multi-lcc.js"></script>
