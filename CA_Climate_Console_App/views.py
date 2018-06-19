@@ -65,8 +65,6 @@ def view1(request):
 
     ############################################# INPUT PARAMETERS #####################################################
 
-    print table
-
     stats_field_exclusions = "'id_for_zon', 'objectid', 'shape_leng', 'shape_area'"
 
     if studyarea == 'drecp':
@@ -79,8 +77,6 @@ def view1(request):
         config_file = "config_drecp.js"
 
     elif studyarea == 'ca1':
-
-        print ('ca1')
 
         if table == None:
             table = "ca_reporting_units_county_boundaries_5_simplify"
@@ -147,7 +143,7 @@ def view1(request):
 
     cursor = connection.cursor()
     field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + table + "' and (data_type = 'numeric' or data_type = 'double precision') and column_name not in (" + stats_field_exclusions + ");"
-    cursor.execute(field_name_query);
+    cursor.execute(field_name_query)
     statsFieldsTuple = cursor.fetchone()
     statsFields = ",".join(statsFieldsTuple)
 
@@ -246,7 +242,6 @@ def view1(request):
         except:
             print "Error: No features selected"
             raise SystemExit(0)
-            #return render(request, template+'.html')
 
         WKT_SelectedPolys = resultsDict['outline_of_selected_features']
 
@@ -266,8 +261,6 @@ def view1(request):
 
         #Take fieldname,value pairs from the dict and dump to a JSON string.
         resultsJSON = json.dumps(resultsDict)
-        #return HttpResponse(str(resultsDict.keys())+ str(resultsDict.values()))
-        #return HttpResponse(resultsDict['tm_c4_2_avg'])
 
         ##################################### SET ADDITIONAL VARIABLES #################################################
 
@@ -366,8 +359,8 @@ def view1(request):
             'categoricalValues': categoricalValues,
             'columnChartColors': columnChartColors,
             'error': 0,
-            'config_file':config_file,
-            'ecosystem_services_data':ecosystem_services_data
+            'config_file': config_file,
+            'ecosystem_services_data': ecosystem_services_data
         }
 
     if request.method == 'POST':
@@ -412,7 +405,6 @@ def view2(request):
 
         #First condition handles a Map Click. Select LCC Boundary & get all protected areas within it.
         if "POINT" in WKT or "POLYGON" in WKT or "LINESTRING" in WKT:
-            print "yes"
 
             table = "multi_lcc_query_layer_protected_areas_soils_90_simplify_v2"
 
@@ -1246,16 +1238,15 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
         cursor = connection.cursor()
         selectList = "SELECT "
         for field in statsFields.split(','):
-            selectList += field + " as " + field +", "
+            selectList += field + " as " + field + ", "
         #Extra comma
         selectList = selectList.rstrip(', ')
         vtype_tableList = " FROM " + vtype_table
         selectFieldsFromTable = selectList + vtype_tableList
         if spatial_or_aspatial == 'spatial':
-            selectStatement = selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + vtype_table + ".geom)"
+            selectStatement = selectFieldsFromTable + " where ST_Intersects('" + WKT + "', " + vtype_table + ".geom)"
         else:
             selectStatement = selectFieldsFromTable + " where name = '" + WKT + "'"
-        #print selectStatement
         cursor.execute(selectStatement)
         resultsDict = {}
         #Get field names
@@ -1293,16 +1284,15 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
                 cursor = connection.cursor()
                 selectList = "SELECT "
                 for field in statsFields.split(','):
-                    selectList += field + " as " + field +", "
+                    selectList += field + " as " + field + ", "
                 #Extra comma
                 selectList = selectList.rstrip(', ')
                 continuous_tableList = " FROM " + continuous_table
                 selectFieldsFromTable = selectList + continuous_tableList
                 if spatial_or_aspatial == 'spatial':
-                    selectStatement = selectFieldsFromTable + " where ST_Intersects('"+ WKT + "', " + continuous_table + ".geom)"
+                    selectStatement = selectFieldsFromTable + " where ST_Intersects('" + WKT + "', " + continuous_table + ".geom)"
                 else:
                     selectStatement = selectFieldsFromTable + " where name = '" + WKT + "'"
-                #print selectStatement
                 cursor.execute(selectStatement)
                 resultsDict = {}
                 #Get field names
@@ -1328,7 +1318,7 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
 
     return veg_composition_data
 
-# Created for the CONUS Console. Old method would have required 100 database tables.
+# Created for, and used by, the CONUS Console. Old method would have required 100 database tables.
 def get_ecosystem_services_data2(ru_set_id, ru_id):
 
     # Only have support for single feature selection for MC2 data.
@@ -1484,6 +1474,7 @@ def calc_zonal_mean_netcdf(user_wkt, study_area):
 
     return results_dict
 
+# Used by new version of CA Climate Console.
 @gzip_page
 @csrf_exempt
 def extract_raster_values(request):
@@ -1602,6 +1593,7 @@ def extract_raster_values(request):
 
     return HttpResponse(json.dumps(context, sort_keys=True))
 
+# Used by new version of CA Climate Console.
 def get_raster_defs():
 
     rasters = {}
