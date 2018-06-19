@@ -236,7 +236,13 @@ def view1(request):
                     if isinstance(row[i], basestring):
                         resultsDict[columns[i]] = row[i].strip()
                     else:
-                        resultsDict[columns[i]] = (float(round(row[i], 2)))
+                        # This try/except block should allow for the selection of reporting units where not all of the
+                        # data are available. For example, in the Sagebrush CC, not all of the EEMS models cover the
+                        # entire study area. May need to remove if causes problems elsewhere.
+                        try:
+                            resultsDict[columns[i]] = (float(round(row[i], 2)))
+                        except:
+                            resultsDict[columns[i]] = 0
         except:
             print "Error: No features selected"
             raise SystemExit(0)
