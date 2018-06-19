@@ -1228,12 +1228,12 @@ def get_ecosystem_services_data(WKT,continuous_tables,vtype_tables,spatial_or_as
     #VTYPE
     cursor = connection.cursor()
     #vtype_tables = ['ca_reporting_units_huc5_watersheds_es_decadal_vtype_ccsm4','ca_reporting_units_huc5_watersheds_es_decadal_vtype_cnrm','ca_reporting_units_huc5_watersheds_es_decadal_vtype_canesm2','ca_reporting_units_huc5_watersheds_es_decadal_vtype_hadgem2es']
-    field_exclusions = "'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name'"
+    field_exclusions = "'objectid','shape_leng','shape_area','id_for_zon','ID_For_Zonal_Stats_JOIN','name', 'us_l3name'"
     resultsDictMultiTable = {}
     resultsDictMultiTable["vegetation_composition"] = {}
     for vtype_table in vtype_tables:
         field_name_query = "SELECT string_agg(column_name, ',') FROM information_schema.columns where table_name ='" + vtype_table + "' and (data_type = 'text' or data_type = 'character varying')  and column_name not in (" + field_exclusions + ");"
-        #print field_name_query
+        print field_name_query
         cursor.execute(field_name_query)
         statsFieldsTuple = cursor.fetchone()
         statsFields = ",".join(statsFieldsTuple)

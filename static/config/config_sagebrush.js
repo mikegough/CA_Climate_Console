@@ -7,7 +7,8 @@ initialDownscaleMarkerLat=40;
 initialDownscaleMarkerLon=-111;
 selectedClimateDivision='49';
 zoomLevel=5;
-areaChart=false;
+areaChart=true;
+hasEcosystemServices=true;
 initialBaseMap="worldTopo";
 
 headerLinks={
@@ -98,4 +99,82 @@ EEMSParams={
     "overlayBounds2":[[28.9713024690001, -124.763583911], [49.0031387380001, -101.345043443]],
     "overlayBounds3":[[31.30479955912671, -124.73750686645512], [49.02916526794433, -102.02248116866267]],
 };
+
+//Don't forget to add areaChart=true and hasEcosystemServices=true at the top;
+ecosystemServicesParams= {
+     "overlayBounds": [[24.080857826581145, -125.02083333333337], [49.93750000000001, -66.48264501549222]],
+     "vtypeLookup" : {
+            'value_0': ['undefined', 'gray'],
+            'value_1': ['Tundra', '#D4D4FF'],
+            'value_2': ['Taiga tundra', '#7171FF'],
+            'value_3': ['Conifer forest', '#267D51'],
+            'value_4': ['Cool mixed forest', '#92C98F'],
+            'value_5': ['Deciduous forest', '#FF6619'],
+            'value_6': ['Warm mixed forest', '#25FF06'],
+            'value_7': ['Tropical broadleaf forest', '#FF9866'],
+            'value_8': ['Woodland/Savanna', '#C7AA8D'],
+            'value_9': ['Shrubland/Woodland', '#83613F'],
+            'value_10': ['Grassland', '#FFFF26'],
+            'value_11': ['Arid land', '#FF2626'],
+    },
+    "Counties": {
+        "continuousTables": {
+            "ccsm4": "sagebrush_reporting_units_counties_es_decadal_ccsm4",
+            "cnrm": "sagebrush_reporting_units_counties_es_decadal_cnrm",
+            "canesm2": "sagebrush_reporting_units_counties_es_decadal_canesm2",
+            "hadgem2es": "sagebrush_reporting_units_counties_es_decadal_hadgem2"
+        },
+        "vtypeTables": {
+            "ccsm4": 'sagebrush_reporting_units_counties_es_decadal_vtype_ccsm4',
+            "cnrm": 'sagebrush_reporting_units_counties_es_decadal_vtype_cnrm',
+            "canesm2": 'sagebrush_reporting_units_counties_es_decadal_vtype_canesm2',
+            "hadgem2es": 'sagebrush_reporting_units_counties_es_decadal_vtype_hadgem2es'
+        },
+    },
+    "Ecoregions": {
+        "continuousTables": {
+            "ccsm4": "sagebrush_reporting_units_ecoregions_es_decadal_ccsm4",
+            "cnrm": "sagebrush_reporting_units_ecoregions_es_decadal_cnrm",
+            "canesm2": "sagebrush_reporting_units_ecoregions_es_decadal_canesm2",
+            "hadgem2es": "sagebrush_reporting_units_ecoregions_es_decadal_hadgem2es"
+        },
+        "vtypeTables": {
+            "ccsm4": 'sagebrush_reporting_units_ecoregions_es_decadal_vtype_ccsm4',
+            "cnrm": 'sagebrush_reporting_units_ecoregions_es_decadal_vtype_cnrm',
+            "canesm2": 'sagebrush_reporting_units_ecoregions_es_decadal_vtype_canesm2',
+            "hadgem2es": 'sagebrush_reporting_units_ecoregions_es_decadal_vtype_hadgem2es'
+        },
+    },
+    "Major Land Resource Areas (MLRAs)": {
+        "continuousTables": {
+            "ccsm4": "sagebrush_reporting_units_mlras_es_decadal_ccsm4",
+            "cnrm": "sagebrush_reporting_units_mlras_es_decadal_cnrm",
+            "canesm2": "sagebrush_reporting_units_mlras_es_decadal_canesm2",
+            "hadgem2es": "sagebrush_reporting_units_mlras_es_decadal_hadgem2_es"
+        },
+        "vtypeTables": {
+            "ccsm4": 'sagebrush_reporting_units_mlras_es_decadal_vtype_ccsm4',
+            "cnrm": 'sagebrush_reporting_units_mlras_es_decadal_vtype_cnrm',
+            "canesm2": 'sagebrush_reporting_units_mlras_es_decadal_vtype_canesm2',
+            "hadgem2es": 'sagebrush_reporting_units_mlras_es_decadal_vtype_hadgem2es'
+        },
+    },
+    "HUC5 Watersheds": {
+        "continuousTables": {
+            "ccsm4": "sagebrush_reporting_units_watersheds_es_decadal_ccsm4",
+            "cnrm": "sagebrush_reporting_units_watersheds_es_decadal_cnrm",
+            "canesm2": "sagebrush_reporting_units_watersheds_es_decadal_canesm2",
+            "hadgem2es": "sagebrush_reporting_units_watersheds_es_decadal_hadgem2"
+        }
+        ,
+        "vtypeTables": {
+            "ccsm4": 'sagebrush_reporting_units_watersheds_es_decadal_vtype_ccsm4',
+            "cnrm": 'sagebrush_reporting_units_watersheds_es_decadal_vtype_cnrm',
+            "canesm2": 'sagebrush_reporting_units_watersheds_es_decadal_vtype_canesm2',
+            "hadgem2es": 'sagebrush_reporting_units_watersheds_es_decadal_vtype_hadgem2es'
+        },
+    },
+};
+
+
 

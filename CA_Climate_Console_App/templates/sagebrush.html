@@ -114,14 +114,8 @@
 <script src="{{STATIC_URL}}Highcharts/column_chart.js"></script>
 <script src="{{STATIC_URL}}Highcharts/time_series_popup.js"></script>
 
- <!--
 <script src="{{STATIC_URL}}Highcharts/area_chart.js"></script>
- <script src="{{STATIC_URL}}Highcharts/spline_chart.js"></script>
- -->
-    <script>
-        function createAreaChart(){return false}
-        function createSplineChart(){return false}
-    </script>
+<script src="{{STATIC_URL}}Highcharts/spline_chart.js"></script>
 
 <script src="{{STATIC_URL}}Highcharts/noaa_3_month_multi_panes.js"></script>
 
@@ -177,6 +171,17 @@
 
 <style>
 
+ul.tabs li a {
+	padding-right: 4px !important;
+	padding-left: 5px;
+	font-size: 11.5px;
+}
+
+#view3Link{
+	padding-left: 7px !important;
+	padding-right: 7px !important;
+}
+
 #view8{
     padding: 30px;
 }
@@ -191,13 +196,7 @@
 }
 
 #view1Link {
-	padding-left: 10px;
-	padding-right: 10px;
     border-left: 0px;
-}
-
-ul.tabs li a {
-	padding-right: 7px;
 }
 
 .container {
@@ -462,8 +461,9 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
             <li><a href="#view4" onclick="$('#clickToMapInfo').hide(); activateMapForClimateForecast()" >Weather </a></li>
             <!--<li><a href="#view2" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Selected Features </a></li>-->
             <li><a href="#view5" onclick="$('#clickToMapInfo').hide();activateMapForDefault();">Condition & Impacts</a></li>-->
+            <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices()">Climate Impacts</a></li>
             <li><a href="#view8">CNS</a></li>
-            <li><a href="#view7">Data Downloads</a></li>
+            <li><a href="#view7">Data</a></li>
             <!--
             <li><a href="#view6" onclick="$('#clickToMapInfo').hide();activateMapForEcosystemServices();">Ecosystem Services</a></li>
             -->
@@ -1174,6 +1174,62 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
                     <div id="EEMS_info_link_div"><a id="EEMSInfoLink" href="" title="Click for information about the condition & impact fuzzy logic models">About the condition & impact models</a></div>
 
                </div>
+            </div>
+
+              <div id="view6">
+                <div id="no_climate_impacts_data"><img id="no_climate_impacts_alert_icon" src={{STATIC_URL}}img/alert.png></p>Climate Impacts data are not available for the selected reporting units and/or more than one feature has been selected in the map (the climate impacts tab currently only supports single feature selection)</p></div>
+                <!-- Start and Stop Buttons -->
+                <div class="select_container_2" id="view6_contents">
+                    <form class="select_form2">
+                        <div id="ecosystem_services_model_div">
+                            <span id="ecoServClimateModelLabel" class="selectboxit-btn ecoServSelectselectboxit-btn selectboxit-container selectboxit selectboxit-options"> Select a Climate Model <span class="verticalSeparatorLine">|</span></span>
+                            <!-- On change, create the charts, passing in whichever variables the user has selectd in all 3 dropdowns -->
+                            <select id="ecoServSelectionForm" onchange='updateEcosystemServicesCharts(this.value)' >
+                                <!-- Annual Averages -->
+                                  <optgroup label = "Climate Model:">
+                                        <option value = "canesm2" selected>	CanESM2	</option>
+                                        <option value = "ccsm4">	CCSM4	</option>
+                                        <option value = "cnrm">	CNRM	</option>
+                                        <option value = "hadgem2es">	HadGEM2ES </option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader">Vegetation Composition</div>
+                    <div id="area_chart"></div>
+                    <div id="vegMapSliderContainer"></div>
+                    <div id="playButtons2">
+                        <a href="#" id="start2" title="Click to automatically cycle through the time steps"><button id="startDiv2"></button></a>
+                        <a href="#" id="stop2" title="Click to stop"><button id="stopDiv2"></button></a>
+                    </div>
+                    <div class="nearTermHeader" id="fuzzLogicNearTermHeader" style="padding-right:20px;">Carbon, Fire, and Water</div>
+                    <div id="spline_variable_dropdown">
+                        <form class="select_form2">
+                            <div id="AdditionalESVariablesY1">
+                                <select id="y1_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, this.value, document.getElementById("y2_axis_choices").value); continuousVariableForSlider=this.value' >
+                                    <!-- Annual Averages -->
+                                    <option value="c_ecosys" selected>Total Ecosystem Carbon</option>
+                                    <option value="c_forest">Live Forest Carbon</option>
+                                    <option value="c_dead_abo">Above Ground Dead Biomass</option>
+                                    <option value="nbp">Net Biological Production</option>
+                                </select>
+                            </div>
+                            <div id="AdditionalESVariablesY2">
+                                <select id="y2_axis_choices" onchange='createSplineChart(document.getElementById("ecoServSelectionForm").value, document.getElementById("y1_axis_choices").value, this.value); continuousVariableForSlider=this.value' >
+                                    <!-- Annual Averages -->
+                                    <option value="cwd">Climatic Water Deficit</option>
+                                    <option value="consumed">Biomass Consumed by Fire</option>
+                                    <option value="h2o_stream">Stream Flow</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                <div id="spline_chart"></div>
+                <div id="playButtons3">
+                    <a href="#" id="start3" title="Click to automatically cycle through the time steps"><button id="startDiv3"></button></a>
+                    <a href="#" id="stop3" title="Click to stop"><button id="stopDiv3"></button></a>
+                </div>
+                <div id="spline_chart_info">Values in the chart above represent the mean averages calculated across the selected reporting unit.<a id="EcosystemServicesInfoLink" href="" title="Click for information about the climate impacts data"> About the climate impacts data</a></div>
+            </div>
             </div>
 
             <div id="view7" class="views">
