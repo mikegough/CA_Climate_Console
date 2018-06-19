@@ -136,7 +136,7 @@ ecosystemServicesParams= {
             "ccsm4": "sagebrush_reporting_units_ecoregions_es_decadal_ccsm4",
             "cnrm": "sagebrush_reporting_units_ecoregions_es_decadal_cnrm",
             "canesm2": "sagebrush_reporting_units_ecoregions_es_decadal_canesm2",
-            "hadgem2es": "sagebrush_reporting_units_ecoregions_es_decadal_hadgem2es"
+            "hadgem2es": "sagebrush_reporting_units_ecoregions_es_decadal_hadgem2"
         },
         "vtypeTables": {
             "ccsm4": 'sagebrush_reporting_units_ecoregions_es_decadal_vtype_ccsm4',
