@@ -235,15 +235,20 @@ def view1(request):
                         # This try/except block should allow for the selection of reporting units where not all of the
                         # data are available. For example, in the Sagebrush CC, not all of the EEMS models cover the
                         # entire study area. May need to remove if causes problems elsewhere.
+                        resultsDict[columns[i]] = (float(round(row[i], 2)))
                         try:
                             resultsDict[columns[i]] = (float(round(row[i], 2)))
                         except:
                             resultsDict[columns[i]] = 0
         except:
-            print "Error: No features selected"
+            print "Error: Wasn't able to process results"
             raise SystemExit(0)
 
         WKT_SelectedPolys = resultsDict['outline_of_selected_features']
+
+        if WKT_SelectedPolys == 0:
+            print "Error: No features selected"
+            raise SystemExit(0)
 
         if categoricalFields:
             categoricalValues = []
