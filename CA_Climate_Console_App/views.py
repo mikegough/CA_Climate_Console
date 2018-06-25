@@ -246,6 +246,7 @@ def view1(request):
 
         WKT_SelectedPolys = resultsDict['outline_of_selected_features']
 
+        # Exit if no features selected. Fixes issue with user defined "no results" slipping by try/except above.
         if WKT_SelectedPolys == 0:
             print "Error: No features selected"
             raise SystemExit(0)
