@@ -1433,6 +1433,7 @@ def get_ecosystem_services_data2(ru_set_id, ru_id):
 
     return mc2_data
 
+# Used by the CONUS Console for User defined areas. Extract raster values on the fly.
 def calc_zonal_mean_netcdf(user_wkt, study_area):
 
     print user_wkt
