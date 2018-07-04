@@ -191,18 +191,17 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
                 var statisticLabel = 'Average'
             }
 
-            legendTitle = climateVariableLabel+"<br>"+ statisticLabel + "<br>" + season + "<br>" + timePeriod + "<br>(" + modelName + ")"
+            legendTitle = climateVariableLabel + "<br>"+ statisticLabel + "<br>" + season + "<br>" + timePeriod + "<br>(" + modelName + ")";
 
-            //legendImage = climateVariable+"_legend"
             if(unitsForChart == "english"){
-                legendImage = "Legends/"+layerToAddName+"_english_legend"
+                legendImage = "Legends/" + layerToAddName + "_english_legend"
             }
             else {
-                legendImage = "Legends/"+layerToAddName+"_legend"
+                legendImage = "Legends/" + layerToAddName + "_legend"
             }
 
             layerToAddName = "climate";
-            legendHeight = window[layerToAddName+"Params"].legendHeight;
+            legendHeight = window[layerToAddName + "Params"].legendHeight;
 
             if (typeof dbid != "undefined" && dbid != "") {
                 dbid = dbid + '&visibleLayers=' + DataBasinLayerIndex
@@ -210,19 +209,18 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         }
           //If its a classified renderer from the EEMS charts or a climate variable
           if (renderer == "classified" || climateVariable.indexOf("EEMS") < 0) {
-              if (typeof dbid !="undefined") {
+              if (typeof dbid != "undefined") {
                   document.getElementsByClassName('info')[0].innerHTML =
                       '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
                       '<div id="DataBasinRedirectText">View this in<br>Data Basin</div></div></a>'
               }
               else {
-                  document.getElementsByClassName('info')[0].innerHTML =''
+                  document.getElementsByClassName('info')[0].innerHTML = ''
               }
-               document.getElementsByClassName('info')[0].innerHTML+=
+               document.getElementsByClassName('info')[0].innerHTML +=
               '<div id="LegendHeader">' + legendTitle + '</div>' +
-                  //'<img style="float:left" height="' + legendHeight + '" src="'+static_url+'Leaflet/myPNG/climate/TrimmedPNG/'+legendImage + '.png">'+
               '<img style="float:left" height="' + legendHeight + '" src="' + static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + legendImage + '.png">' +
-              '<div class="legendLabels">'
+              '<div class="legendLabels">';
 
               if (typeof EEMSParams['models'][layerToAddName] != 'undefined') {
                   for (i in legendLabels) {
@@ -253,7 +251,7 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 overlay_bounds = climateParams['overlayBounds'];
 
 if (typeof climate_PNG_overlay != 'undefined') {
-    climate_PNG_overlay_url = static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + climate_PNG_overlay
+    climate_PNG_overlay_url = static_url + 'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR'] + '/' + climate_PNG_overlay;
     climate_PNG_overlay = L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
     climate_PNG_overlay.addTo(map)
 
@@ -359,7 +357,7 @@ var hoverStyle = {
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
-var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+var onekm_url= static_url + 'Leaflet/myPNG/single_transparent_pixel.png';
 var onekm= L.imageOverlay(onekm_url, onekmBounds);
 
 allLayers = new Array();
@@ -429,7 +427,7 @@ activeReportingUnits = layer0;
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
-var onekm_url = static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+var onekm_url = static_url + 'Leaflet/myPNG/single_transparent_pixel.png';
 var onekm = L.imageOverlay(onekm_url, onekmBounds);
 
 //Map Layers in layer control. Arrange order here. Uses the grouped layers plugin.
@@ -1237,7 +1235,7 @@ var near_term_climate_divisions= L.geoJson(null, {
 
 });
 
-var near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions);
+var near_term_climate_divisions_layer= omnivore.topojson(static_url + 'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions);
 
 
 function passClimateDivisionID(feature, layer) {
@@ -1449,7 +1447,7 @@ function updateClimateDivisionSymbology(){
     });
 
 
-    near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions);
+    near_term_climate_divisions_layer= omnivore.topojson(static_url + 'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions);
     map.addLayer(near_term_climate_divisions)
 
 }
@@ -1556,7 +1554,7 @@ function activateMapForEcosystemServices(){
     swapImageOverlay("single_transparent_pixel");
 
     map.removeLayer(near_term_climate_divisions);
-    document.getElementsByClassName('info legend leaflet-control')[0].innerHTML='';
+    document.getElementsByClassName('info legend leaflet-control')[0].innerHTML = '';
 
     $("div.leaflet-draw").hide();
 
