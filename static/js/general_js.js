@@ -361,10 +361,10 @@ function createDynamicDataTable(){
                     expandedLabel = expandedLabel.replace('c4', '<td>CCSM4 </td>');
                     expandedLabel = expandedLabel.replace('m5', '<td>MIROC5 </td>');
                     expandedLabel = expandedLabel.replace('pm', '<td>PRISM </td>');
-;
+
                     expandedLabel = expandedLabel.replace('arid', '<td>Aridity Change </td>');
                     expandedLabel = expandedLabel.replace('pet', '<td>PET Average </td>');
-;
+
                     expandedLabel = expandedLabel.replace('prec', '<td>Precip Average </td>');
                     expandedLabel = expandedLabel.replace('pred', '<td>Precip Change </td>');
                     expandedLabel = expandedLabel.replace('prea', '<td>Precip Anomaly </td>');
@@ -374,13 +374,13 @@ function createDynamicDataTable(){
                     expandedLabel = expandedLabel.replace('tmin', '<td>Min Temp Average </td>');
                     expandedLabel = expandedLabel.replace('tmia', '<td>Min Temp Anomaly </td>');
                     expandedLabel = expandedLabel.replace('tmid', '<td>Min Temp Change </td>');
-;
+
                     expandedLabel = expandedLabel.replace('s0', '<td>Annual </td>');
                     expandedLabel = expandedLabel.replace('s1', '<td>Jan-Feb-Mar </td>');
                     expandedLabel = expandedLabel.replace('s2', '<td>Apr-May-Jun </td>');
                     expandedLabel = expandedLabel.replace('s3', '<td>Jul-Aug-Sep </td>');
                     expandedLabel = expandedLabel.replace('s4', '<td>Oct-Nov-Dec </td>');
-;
+
                     expandedLabel = expandedLabel.replace('t0', '<td>Historical</td>');
                     expandedLabel = expandedLabel.replace('t1', '<td>2016-2045</td>');
                     expandedLabel = expandedLabel.replace('t2', '<td>2046-2075</td>');
@@ -533,13 +533,13 @@ function updateQuickViewTable(season,model){
                 //Update Quick Table
                 $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg'], 'tmad'));
                 $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg'], 'tmad'));
-;
+
                 $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg'], 'tmid'));
                 $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg'], 'tmid'));
-;
+
                 $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'], 'pred'));
                 $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'], 'pred'));
-;
+
                 $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'], 'arid'));
                 $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'], 'arid'));
 
@@ -561,13 +561,13 @@ function updateQuickViewTable(season,model){
                 //Update Quick Table
                 $('#quick_value_tmax_t1').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg']);
                 $('#quick_value_tmax_t2').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg']);
-;
+
                 $('#quick_value_tmin_t1').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg']);
                 $('#quick_value_tmin_t2').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg']);
-;
+
                 $('#quick_value_precip_t1').html(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg']);
                 $('#quick_value_precip_t2').html(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg']);
-;
+
                 $('#quick_value_aridity_t1').html(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg']);
                 $('#quick_value_aridity_t2').html(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg']);
 
