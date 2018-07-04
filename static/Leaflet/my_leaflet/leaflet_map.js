@@ -357,8 +357,8 @@ var hoverStyle = {
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
-var onekm_url= static_url + 'Leaflet/myPNG/single_transparent_pixel.png';
-var onekm= L.imageOverlay(onekm_url, onekmBounds);
+var onekm_url = static_url + 'Leaflet/myPNG/single_transparent_pixel.png';
+var onekm = L.imageOverlay(onekm_url, onekmBounds);
 
 allLayers = new Array();
 
