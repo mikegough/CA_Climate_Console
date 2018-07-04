@@ -1,9 +1,9 @@
 //set a cookie for introJS. Only show on first visit
 function setCookie(c_name,value,exdays){
-    var exdate=new Date();
+    var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-    document.cookie=c_name + "=" + c_value;
+    var c_value = escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    document.cookie = c_name + "=" + c_value;
 }
 
 //check for the cookie when user first arrives, if cookie doesn't exist call the intro.
@@ -66,7 +66,7 @@ var dynamic_legend = L.control({position: 'bottomright'});
 //Initialize Legend
 dynamic_legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
-    div.innerHTML=""
+    div.innerHTML = "";
     return div;
 };
 
@@ -75,25 +75,25 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
     //layerToAdd is null for climate data
     if (layerToAdd != null) {
-        layerIndex = layerToAdd.split(':')[1]
-        layerToAdd = layerToAdd.split(':')[0]
+        layerIndex = layerToAdd.split(':')[1];
+        layerToAdd = layerToAdd.split(':')[0];
 
         if (typeof layerIndex == 'undefined' || layerIndex == '') {
             dbid_with_index = EEMSParams["models"][modelForTree][5]
         }
         else {
             if (dbid != '') {
-                urlBase = EEMSParams["models"][modelForTree][5].split('&')[0]
+                urlBase = EEMSParams["models"][modelForTree][5].split('&')[0];
                 dbid_with_index = urlBase + "&visibleLayers=" + layerIndex
             }
         }
     }
 
-    DataBasinLayerIndex='0'
+    DataBasinLayerIndex = '0';
 
     if ((! map.hasLayer(climate_PNG_overlay) && ! map.hasLayer(layerToAdd)) || layerToAddName == 'single_transparent_pixel') {
 
-        document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+        document.getElementsByClassName('info legend leaflet-control')[0].innerHTML = '';
         $(".info").hide();
 
     } else {
@@ -104,44 +104,44 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
        }
 
         //Column chart click
-        if (climateVariable=='EEMSmodel'){
+        if (climateVariable == 'EEMSmodel'){
 
-            legendTitle=EEMSParams["models"][layerToAddName][0]
-            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
-            legendHeight=EEMSParams["models"][layerToAddName][3]
-            legendLabels=EEMSParams["models"][layerToAddName][4]
-            dbid=dbid_with_index
+            legendTitle = EEMSParams["models"][layerToAddName][0];
+            legendImage = "/Legends/"+EEMSParams["models"][layerToAddName][2];
+            legendHeight = EEMSParams["models"][layerToAddName][3];
+            legendLabels = EEMSParams["models"][layerToAddName][4];
+            dbid = dbid_with_index
 
         }
 
         //JIT tree standard
-        else if (climateVariable=='EEMSmodelTREE_Standard'){
+        else if (climateVariable == 'EEMSmodelTREE_Standard'){
 
-            legendTitle=layerToAdd
-            legendImage="/Legends/"+EEMSParams["models"][layerToAddName][2]
-            legendHeight=EEMSParams["models"][layerToAddName][3]
-            legendLabels=EEMSParams["models"][layerToAddName][4]
-            dbid=dbid_with_index
+            legendTitle = layerToAdd
+            legendImage = "/Legends/"+EEMSParams["models"][layerToAddName][2];
+            legendHeight = EEMSParams["models"][layerToAddName][3];
+            legendLabels = EEMSParams["models"][layerToAddName][4];
+            dbid = dbid_with_index
 
         }
 
         //JIT tree stretched
-        else if (climateVariable=='EEMSmodelTREE_Stretched') {
+        else if (climateVariable == 'EEMSmodelTREE_Stretched') {
 
             // Updated version. Legend name matched to filename.  Non-shared legends for non-fuzzy inputs.
 
-            legendTitle=layerToAdd
-            legendImage="/Legends/" + eems_file_name.split(".")[0] + "_" + layerToAddName +"_legend"
-            legendHeight=""
-            legendLabels=EEMSParams["models"]["inputs"][4]
-            dbid=dbid_with_index
+            legendTitle = layerToAdd;
+            legendImage = "/Legends/" + eems_file_name.split(".")[0] + "_" + layerToAddName +"_legend";
+            legendHeight = "";
+            legendLabels = EEMSParams["models"]["inputs"][4];
+            dbid = dbid_with_index
         }
 
-        else if (climateVariable=="EcosystemServices"){
+        else if (climateVariable == "EcosystemServices"){
 
-            legendTitle=modelName
-            legendImage="/Legends/" + layerToAddName +"_legend"
-            legendHeight=""
+            legendTitle = modelName;
+            legendImage = "/Legends/" + layerToAddName +"_legend";
+            legendHeight = ""
 
         }
 
@@ -149,8 +149,8 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
         else {
 
             //Legend Title
-            timePeriod=climateParams["timePeriodLabels"][parseInt(layerToAddName.match(/\d+$/)[0])];
-            season=layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec')
+            timePeriod = climateParams["timePeriodLabels"][parseInt(layerToAddName.match(/\d+$/)[0])];
+            season = layerToAddName.replace(/.*s0.*/,'Annual').replace(/.*s1.*/,'Jan-Feb-Mar').replace(/.*s2.*/,'Apr-May-Jun').replace(/.*s3.*/,'Jul-Aug-Sep').replace(/.*s4.*/,'Oct-Nov-Dec');
 
             if (modelName == "PRISM") {
                 //For PRISM, the layer index comes from the season, s0 is the average and is the first layer in the Data Basin Dataset, s1 is PRISM JFM, etc. Get the index number from the layer name.
@@ -162,54 +162,54 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 
             //Create Climate Variable Label
             if (layerToAddName.indexOf('tma') != -1  ){
-               var climateVariableLabel='Max Temp'
+               var climateVariableLabel = 'Max Temp'
 
             } else if (layerToAddName.indexOf('tmi') != -1  ){
-                var climateVariableLabel='Min Temp'
+                var climateVariableLabel = 'Min Temp'
 
             } else if (layerToAddName.indexOf('pre') != -1  ){
-                var climateVariableLabel='Precipitation'
+                var climateVariableLabel = 'Precipitation'
 
             } else if (layerToAddName.indexOf('ari') != -1  ){
-                var climateVariableLabel='Aridity'
+                var climateVariableLabel = 'Aridity'
 
             } else if (layerToAddName.indexOf('pet') != -1  ){
-                var climateVariableLabel='Potential Evapotranspiration'
+                var climateVariableLabel = 'Potential Evapotranspiration'
 
             } else if (layerToAddName.indexOf('vpr') != -1  ){
-                var climateVariableLabel='Vapor Pressure'
+                var climateVariableLabel = 'Vapor Pressure'
             }
 
             //Create Statistic Label
             if (layerToAddName.match(/(tmaa|tmia|prea|aria|peta)/)){
-                var statisticLabel='Anomaly'
+                var statisticLabel = 'Anomaly'
 
             } else if (layerToAddName.match(/(tmad|tmid|pred|arid|petd)/)){
-                var statisticLabel='Change'
+                var statisticLabel = 'Change'
 
             } else {
-                var statisticLabel='Average'
+                var statisticLabel = 'Average'
             }
 
-            legendTitle=climateVariableLabel+"<br>"+ statisticLabel + "<br>" + season + "<br>" + timePeriod + "<br>(" + modelName + ")"
+            legendTitle = climateVariableLabel+"<br>"+ statisticLabel + "<br>" + season + "<br>" + timePeriod + "<br>(" + modelName + ")"
 
-            //legendImage=climateVariable+"_legend"
-            if(unitsForChart=="english"){
-                legendImage="Legends/"+layerToAddName+"_english_legend"
+            //legendImage = climateVariable+"_legend"
+            if(unitsForChart == "english"){
+                legendImage = "Legends/"+layerToAddName+"_english_legend"
             }
             else {
-                legendImage="Legends/"+layerToAddName+"_legend"
+                legendImage = "Legends/"+layerToAddName+"_legend"
             }
 
-            layerToAddName="climate"
-            legendHeight=window[layerToAddName+"Params"].legendHeight
+            layerToAddName = "climate";
+            legendHeight = window[layerToAddName+"Params"].legendHeight;
 
             if (typeof dbid != "undefined" && dbid != "") {
                 dbid = dbid + '&visibleLayers=' + DataBasinLayerIndex
             }
         }
           //If its a classified renderer from the EEMS charts or a climate variable
-          if (renderer=="classified" || climateVariable.indexOf("EEMS") < 0) {
+          if (renderer == "classified" || climateVariable.indexOf("EEMS") < 0) {
               if (typeof dbid !="undefined") {
                   document.getElementsByClassName('info')[0].innerHTML =
                       '<div id="DataBasinRedirect" title="Click to view or download this dataset on Data Basin"> <a target="_blank" href="http://databasin.org/maps/new#datasets=' + dbid + '"><img class="DataBasinRedirectImg"  src="' + static_url + 'img/dataBasinRedirect.png">' +
@@ -253,16 +253,16 @@ function swapLegend(layerToAddName, layerToAdd, climateVariable, modelName) {
 overlay_bounds = climateParams['overlayBounds'];
 
 if (typeof climate_PNG_overlay != 'undefined') {
-    climate_PNG_overlay_url=static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + climate_PNG_overlay
-    climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
+    climate_PNG_overlay_url = static_url+'Leaflet/myPNG/climate/'+climateParams['imageOverlayDIR']+'/' + climate_PNG_overlay
+    climate_PNG_overlay = L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
     climate_PNG_overlay.addTo(map)
 
 } else {
-    climate_PNG_overlay_url='';
-    climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
+    climate_PNG_overlay_url = '';
+    climate_PNG_overlay = L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 }
 
-base_data_PNG_overlay="";
+base_data_PNG_overlay = "";
 
 //Function used by the Climate chart to add PNGs. Obviates the need to manually define each image overlay object.
 function swapImageOverlay(layerName,modelType) {
@@ -275,16 +275,16 @@ function swapImageOverlay(layerName,modelType) {
         //Need different overlay bounds for EEMS Models
         //The PNGs that come out of clover are not clipped to the data perfectly. So for those PNGs that come from the
         //Automated ArcMap Script, a different extent is needed.
-        if (modelType=="EEMSmodel"){
+        if (modelType == "EEMSmodel"){
             if (EEMSParams["models"][modelForTree][9]) {
-                overlayBoundsNumber=(EEMSParams["models"][modelForTree][9]).toString()
+                overlayBoundsNumber = (EEMSParams["models"][modelForTree][9]).toString()
                 overlay_bounds = EEMSParams['overlayBounds' + overlayBoundsNumber];
             }
             else {
                 overlay_bounds = EEMSParams['overlayBounds'];
             }
         }
-        else if (modelType=="EcosystemServices"){
+        else if (modelType == "EcosystemServices"){
             overlay_bounds = ecosystemServicesParams["overlayBounds"];
         }
         else{
@@ -293,30 +293,30 @@ function swapImageOverlay(layerName,modelType) {
 
         $("#clickToMapInfo").hide();
         //Transparency slider
-        elements=document.getElementsByClassName('ui-opacity');
+        elements = document.getElementsByClassName('ui-opacity');
         map.removeLayer(climate_PNG_overlay);
         //ti
-        if (climate_PNG_overlay_url.search(layerName)> 0 && lastRenderer==renderer){
+        if (climate_PNG_overlay_url.search(layerName)> 0 && lastRenderer == renderer){
             map.removeLayer(climate_PNG_overlay);
-            climate_PNG_overlay_url="";
+            climate_PNG_overlay_url = "";
             //Transparency slider
             for (var i = 0; i < elements.length; i++) {
                 elements[i].style.display = elements[i].style.display = 'none';
             }
 
         } else {
-                if (renderer=='stretched' && modelType== "EEMSmodel") {
+                if (renderer == 'stretched' && modelType== "EEMSmodel") {
                     climate_PNG_overlay_url = static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/Stretched/' + layerName + '.png';
                 }
                 else{
                     climate_PNG_overlay_url = static_url + 'Leaflet/myPNG/climate/' + climateParams['imageOverlayDIR'] + '/' + layerName + '.png';
                 }
 
-                climate_PNG_overlay=L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
+                climate_PNG_overlay = L.imageOverlay(climate_PNG_overlay_url, overlay_bounds);
 
                 climate_PNG_overlay.addTo(map);
                 climate_PNG_overlay.bringToBack();
-                elements=document.getElementsByClassName('ui-opacity');
+                elements = document.getElementsByClassName('ui-opacity');
                 //Transparency slider
                 for (var i = 0; i < elements.length; i++) {
                     elements[i].style.display = elements[i].style.display = 'inline';
@@ -325,10 +325,10 @@ function swapImageOverlay(layerName,modelType) {
 
         }
 
-        lastRenderer=renderer
+        lastRenderer = renderer;
 
         //For keeping table row selected
-        climate_PNG_overlay.name=layerName
+        climate_PNG_overlay.name = layerName;
 
         // allLayers is not used in this app. If image overlays can come from a different source (e.g., bar chart.)
         // define allLayers as a list of those layers to be removed when this function is called.
@@ -381,7 +381,7 @@ if (typeof studyAreaBoundary != "undefined") {
 // when the 1km reporting units are selected because the study area boundary turns on when the 1km reporting units are selected.
     study_area_boundary.on('click', function (e) {
         selectFeature(e)
-    })
+    });
 
     allLayers.push(study_area_boundary)
 }
@@ -400,7 +400,7 @@ for (reporting_unit in reportingUnits) {
         allLayers.push(eval("layer" + i))
     }
 
-    reportingUnitsName = Object.keys(reportingUnits)[i]
+    reportingUnitsName = Object.keys(reportingUnits)[i];
     reportingUnitLayers[reportingUnitsName] = eval("layer" + i);
     reporting_units = dbtable;
     i++
@@ -429,20 +429,20 @@ activeReportingUnits = layer0;
 
 //1km Reporting Units | NOTE: 4KM reporting units, even simplified at 100% in mapshaper, makes the application unusable.
 onekmBounds = [[36, -114], [36, -114]];
-var onekm_url= static_url+'Leaflet/myPNG/single_transparent_pixel.png';
-var onekm= L.imageOverlay(onekm_url, onekmBounds);
+var onekm_url = static_url+'Leaflet/myPNG/single_transparent_pixel.png';
+var onekm = L.imageOverlay(onekm_url, onekmBounds);
 
 //Map Layers in layer control. Arrange order here. Uses the grouped layers plugin.
-OpenStreetMap=L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' });
+OpenStreetMap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' });
 lightGray= L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer');
-worldTopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer');
-USATopo=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
-streetMap=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer');
-imagery=L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer');
-oceans=L.esri.tiledMapLayer('http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer');
+worldTopo = L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer');
+USATopo = L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer');
+streetMap = L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer');
+imagery = L.esri.tiledMapLayer('http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer');
+oceans = L.esri.tiledMapLayer('http://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer');
 
 if (typeof initialBaseMap == "undefined"){
-    initialBaseMap="worldTopo";
+    initialBaseMap = "worldTopo";
 }
 
 eval(initialBaseMap).addTo(map);
@@ -508,7 +508,7 @@ map.on('overlayremove', function (eventLayer) {
     // Remove the WMS Legend
     var wms_legend_div_id = this._leaflet_id;
     if (typeof wmsLayers != "undefined" && typeof wmsLayers[eventLayer.name] != "undefined") {
-        $("#" + wms_legend_div_id).remove()
+        $("#" + wms_legend_div_id).remove();
         $(".info_wms").hide();
     }
 });
@@ -563,15 +563,15 @@ map.on('baselayerchange', function (event) {
     reporting_units = event.layer.options.dbtable;
     name_field = event.layer.options.dbnamefield;
     if (event.name == "User Defined (1km)" ) {
-        reporting_units=reportingUnits["User Defined (1km)"][0]; map.addLayer(study_area_boundary)
+        reporting_units = reportingUnits["User Defined (1km)"][0]; map.addLayer(study_area_boundary)
     }
     else if (event.name == "User Defined (4km)" ) {
-        reporting_units=reportingUnits["User Defined (4km)"][0]; map.addLayer(study_area_boundary)
+        reporting_units = reportingUnits["User Defined (4km)"][0]; map.addLayer(study_area_boundary)
     }
     // Reporting units using image overlays. Add study area boundary to allow for click to select
     else if (typeof event.layer.options.type != "undefined" && event.layer.options.type == "ImageOverlayType") {
-         map.addLayer(study_area_boundary)
-         reportingUnitLayers[reporting_unit_overlay].bringToBack()
+         map.addLayer(study_area_boundary);
+         reportingUnitLayers[reporting_unit_overlay].bringToBack();
          climate_PNG_overlay.bringToBack()
     }
     else {
@@ -580,17 +580,17 @@ map.on('baselayerchange', function (event) {
 });
 
 if (typeof ecosystemServicesParams == "undefined"){
-    ecosystemServicesParams=[];
-    ecosystemServicesParams["continuousTables"]="";
-    ecosystemServicesParams["vtypeTables"]="";
+    ecosystemServicesParams = [];
+    ecosystemServicesParams["continuousTables"] = "";
+    ecosystemServicesParams["vtypeTables"] = "";
 }
 
 // AJAX for posting
 function create_post(newWKT) {
-    initialize=0
+    initialize = 0;
 
-    var continuousTablesList=[];
-    var vtypeTablesList=[];
+    var continuousTablesList = [];
+    var vtypeTablesList = [];
 
     if (typeof ecosystemServicesParams[activeReportingUnitsName] != "undefined") {
         $.each(ecosystemServicesParams[activeReportingUnitsName]["continuousTables"], function (key, value) {
@@ -618,35 +618,35 @@ function create_post(newWKT) {
         // handle a successful response
         success : function(json) {
             $(".info2").show();
-            timesRun=initialize+1
+            timesRun = initialize + 1;
             //json is what gets returned from the HTTP Response
             //console.log(json); // log the returned json to the console
 
-            response=JSON.parse(json)
-            resultsJSON=JSON.parse(response.resultsJSON)
+            response = JSON.parse(json);
+            resultsJSON = JSON.parse(response.resultsJSON);
 
-            centroid=resultsJSON['centroid']
+            centroid = resultsJSON['centroid'];
 
             if (centroid != 0 && typeof centroid != 'undefined') {
-                centerLat = centroid.split("(")[1].split(" ")[1].replace(")", "")
-                centerLon = parseFloat(centroid.split("(")[1].split(" ")[0])+2.5
-                centerCoords = []
+                centerLat = centroid.split("(")[1].split(" ")[1].replace(")", "");
+                centerLon = parseFloat(centroid.split("(")[1].split(" ")[0]) + 2.5;
+                centerCoords = [];
 
-                centerCoords.push(centerLat)
-                centerCoords.push(centerLon)
+                centerCoords.push(centerLat);
+                centerCoords.push(centerLon);
 
                 map.setView(centerCoords, 7);
             }
             else {
 
-                    $("#map").css("width","")
-                    $("#dataTableContainer").css("display","block")
-                    $("#detailedView").css("display","none")
-                    $("#about").css("display","none")
-                    $("#tab_container").css("width","")
-                    $("#dataTableDiv").css("width","")
-                    $("#detailedView").css("width","")
-                    $("#detailedView").css("float","")
+                    $("#map").css("width","");
+                    $("#dataTableContainer").css("display","block");
+                    $("#detailedView").css("display","none");
+                    $("#about").css("display","none");
+                    $("#tab_container").css("width","");
+                    $("#dataTableDiv").css("width","");
+                    $("#detailedView").css("width","");
+                    $("#detailedView").css("float","");
                     $(".loading").css("width", "")
 
             }
@@ -657,18 +657,16 @@ function create_post(newWKT) {
 
                 function findAndReplace(object) {
                     //console.log(Object.keys(object))
-                    oldKeys = Object.keys(object)
+                    oldKeys = Object.keys(object);
                     for (i = 0; i < oldKeys.length; i++) {
                         //console.log(oldKeys[i])
-                        newKey = oldKeys[i].replace('eeccfz1530', 'eecefzt1')
-                        newKey = newKey.replace('eeccfz4560', 'eecefzt2')
-                        newKey = newKey.replace('eepifz1530', 'eepifzt1')
-                        newKey = newKey.replace('eepifz4560', 'eepifzt2')
-                        newKey = newKey.replace('6899', 's0t0')
-                        newKey = newKey.replace('1530', 's0t1')
-                        newKey = newKey.replace('4560', 's0t2')
-                        //newKey = newKey.replace('tmass0', 'tmaxs2')
-                        //newKey=newKey.replace('tmis','tmins0')
+                        newKey = oldKeys[i].replace('eeccfz1530', 'eecefzt1');
+                        newKey = newKey.replace('eeccfz4560', 'eecefzt2');
+                        newKey = newKey.replace('eepifz1530', 'eepifzt1');
+                        newKey = newKey.replace('eepifz4560', 'eepifzt2');
+                        newKey = newKey.replace('6899', 's0t0');
+                        newKey = newKey.replace('1530', 's0t1');
+                        newKey = newKey.replace('4560', 's0t2');
                         resultsJSON[newKey] = object[oldKeys[i]]
                         //Don't delete old key...if a key isn't replaced, it will get deleted.
                     }
@@ -679,30 +677,30 @@ function create_post(newWKT) {
 
             updateQuickViewTable(document.getElementById("season_selection_form").value);
 
-            initialize=response.initialize;
+            initialize = response.initialize;
 
             if (typeof results_poly != 'undefined') {
-                map.removeLayer(results_poly)
+                map.removeLayer(results_poly);
                 layerControl.removeLayer(results_poly)
             }
 
-            last_poly=response.WKT_SelectedPolys
-            results_poly = omnivore.wkt.parse(last_poly)
+            last_poly = response.WKT_SelectedPolys;
+            results_poly = omnivore.wkt.parse(last_poly);
             results_poly_centroid = results_poly.getBounds().getCenter();
 
             //Allows for clicking reporting units that are beneath the selected feature(s).
-            results_poly.on('click',function(e){selectFeature(e) })
-            results_poly.addTo(map)
-            results_poly.setStyle({color:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:0, opacity:1})
-            results_poly.bringToFront()
+            results_poly.on('click',function(e){selectFeature(e) });
+            results_poly.addTo(map);
+            results_poly.setStyle({color:'#00FFFF', weight: 5, dashArray: 0, fillOpacity:0, opacity:1});
+            results_poly.bringToFront();
 
             layerControl.addOverlay(results_poly, "Current Selection");
 
             //Hide the initialization container upon successful response and show the tabs.
-            document.getElementById('initialization_container').style.display="none";
-            document.getElementById('tab_container').style.display="block";
+            document.getElementById('initialization_container').style.display = "none";
+            document.getElementById('tab_container').style.display = "block";
 
-            refreshSelectedFeaturesTab()
+            refreshSelectedFeaturesTab();
             //createDynamicDataTable()
 
             //Populate the list of selected features in the bottom left hand corner.
@@ -714,20 +712,20 @@ function create_post(newWKT) {
             }
 
             //column chart colors.
-            columnChartColorsCSV=response['columnChartColors']
+            columnChartColorsCSV = response['columnChartColors'];
 
             //create the charts.
-            if (showChartOnMapSelect=="PointChart"){
+            if (showChartOnMapSelect == "PointChart"){
                 //if this is the first time we're creating a chart.
-                if (typeof chart=='undefined') {
-                    animateClickToMapInfoBox()
+                if (typeof chart == 'undefined') {
+                    animateClickToMapInfoBox();
                     createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
                 }
                 else {
                     updateData(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value);
                 }
             }
-            else if(showChartOnMapSelect=="BoxPlot"){
+            else if(showChartOnMapSelect == "BoxPlot"){
                 createBoxPlot(document.getElementById("variable_selection_form").value,document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
             }
             else {
@@ -757,9 +755,9 @@ function create_post(newWKT) {
                 });
                 //ShowBullets is not working. Set dispay=none for the .introjs-bullets class in the css file instead.
 
-                var cookie=getCookie("climateConsole");
+                var cookie = getCookie("climateConsole");
 
-                if (cookie==null || cookie=="") {
+                if (cookie == null || cookie == "") {
                    setCookie("climateConsole", "1",90);
                    gettingStartedIntro2.goToStep(4).start()
                 }
@@ -782,14 +780,14 @@ function create_post(newWKT) {
                 $(".additionalFeaturesCount").empty();
                 $('.selectedFeaturesFullList').hide();
             }
-            else if (featureCount==1) {
+            else if (featureCount == 1) {
                 $(".selectedFeaturesShortList").show();
                 $(".selectedFeaturesShortList").html(response['categoricalValues']);
                 $(".additionalFeaturesCount").empty();
                 $('.selectedFeaturesFullList').hide();
             }
             else {
-                additionalFeatures=featureCount-1;
+                additionalFeatures = featureCount-1;
                 $(".selectedFeaturesShortList").html(response['categoricalValues'][0]);
                 $(".additionalFeaturesCount").html("+ <a title='Click to view the full list of selected features'>" + additionalFeatures + " More</a>");
                 $(".additionalFeaturesCount").show();
@@ -856,7 +854,7 @@ function create_post(newWKT) {
 
         // handle a non-successful response
         error : function(xhr,errmsg,err) {
-            alertify.alert('No features selected. Please make a new selection.')
+            alertify.alert('No features selected. Please make a new selection.');
             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
@@ -885,7 +883,7 @@ function selectFeature(e){
 function highlightFeature(e) {
     $(".info2").show();
     var layer = e.target;
-    layer.setStyle(hoverStyle)
+    layer.setStyle(hoverStyle);
 
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
@@ -895,12 +893,12 @@ function highlightFeature(e) {
 
 function resetHighlight(e) {
     $(".info2").hide();
-    var layer= e.target
-    layer.setStyle(defaultStyle)
+    var layer = e.target;
+    layer.setStyle(defaultStyle);
 
-    if (initialize==0 && reporting_units != "onekm" && typeof response != 'undefined') {
+    if (initialize == 0 && reporting_units != "onekm" && typeof response != 'undefined') {
         $(".info2").show();
-        $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: "+response['categoricalValues']+"</span>")
+        $('.info2').html("<b><span style='color:#5083B0'>Currently Selected: " + response['categoricalValues'] + "</span>")
     }
     else {
         info2.update('');
@@ -911,7 +909,7 @@ function resetHighlight(e) {
 }
 
 function mouseOverTextChangeColor(hovername) {
-    text_hover_layer=activeReportingUnits
+    text_hover_layer = activeReportingUnits;
     if (text_hover_layer != null) {
 
         text_hover_layer.eachLayer(function(dist){
@@ -929,7 +927,7 @@ function mouseOutTextChangeBack() {
     //Loop through the array of all layers and remove them
     allLayers.forEach( function (arrayItem) {
         arrayItem.setStyle(defaultStyle)
-    })
+    });
     results_poly.bringToFront()
 }
 
@@ -971,15 +969,15 @@ map.on('draw:created', function (e) {
     var layer = e.layer;
     drawnItems.addLayer(layer);
     //console.log(toWKT(layer));
-    user_wkt=toWKT(layer);
+    user_wkt = toWKT(layer);
 
     //Check for area selections that may take a long time. Ask for confirmation.
-    if (e.layerType=='rectangle' || e.layerType=='polygon'){
-        area=L.GeometryUtil.geodesicArea(layer.getLatLngs());
+    if (e.layerType == 'rectangle' || e.layerType == 'polygon'){
+        area = L.GeometryUtil.geodesicArea(layer.getLatLngs());
     } else{
-        area=0
+        area = 0
     }
-    if ((reporting_units == 'onekm') & (e.layerType=='rectangle' || e.layerType=='polygon') & area > 10000000000 ){
+    if ((reporting_units == 'onekm') & (e.layerType == 'rectangle' || e.layerType == 'polygon') & area > 10000000000 ){
         if (! confirm("Warning: This selection may require a significant amount of processing time. \n\n Click \"Ok\" to proceed with the selection, or \"Cancel\" to cancel the selection." )){drawnItems.clearLayers(); return}
     }
 
@@ -999,7 +997,7 @@ document.onmousemove = function(e) {
     // Adjust control.
     handle.style.top = Math.max(-5, Math.min(145, startTop + parseInt(e.clientY, 10) - start)) + 'px';
 
-    fillOpacityLevel=(1 - (handle.offsetTop / 150));
+    fillOpacityLevel = (1 - (handle.offsetTop / 150));
 
     // Adjust opacity on image overlays.
     if (climate_PNG_overlay_url != '') {
@@ -1184,7 +1182,7 @@ function activateMapForDefault(){
     $('.leaflet-draw').show();
 
     //map.addLayer(results_poly)
-    //document.getElementsByClassName('info')[0].innerHTML='';
+    //document.getElementsByClassName('info')[0].innerHTML = '';
     map.removeLayer(climate_PNG_overlay);
     $(".info").hide();
 
@@ -1214,7 +1212,7 @@ function showPrimaryControlsRecallPreviousSelection() {
 
 // AJAX for posting
 function create_post_downscale(lon,lat) {
-    var newWKT="POINT(" + lon + " " +  lat + ")";
+    var newWKT = "POINT(" + lon + " " +  lat + ")";
     initialize = 0;
     $.ajax({
         url: "downscale", // the endpoint (for a specific view configured in urls.conf /view_name/)
@@ -1224,10 +1222,10 @@ function create_post_downscale(lon,lat) {
         data: {input: newWKT},
 
         success: function (results) {
-            response2=JSON.parse(results);
-            dates=response2['dates'];
-            tmax_data=response2['tmax_data'];
-            precip_data=response2['precip_data'];
+            response2 = JSON.parse(results);
+            dates = response2['dates'];
+            tmax_data = response2['tmax_data'];
+            precip_data = response2['precip_data'];
             createTimeSeries(dates,tmax_data,precip_data)
         }
     })
@@ -1258,11 +1256,11 @@ function passClimateDivisionID(feature, layer) {
 function highlightClimateDivision(e) {
     var layer = e.target;
     climateDivisionHover = layer.feature.properties.NAME;
-    document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Click to select Climate Division ' + climateDivisionHover+ '</span>'
+    document.getElementsByClassName('info2')[0].innerHTML = '<span style="font-weight:bold; color: #5083B0;">Click to select Climate Division ' + climateDivisionHover+ '</span>'
 }
 
 function resetClimateDivision(e) {
-    document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
+    document.getElementsByClassName('info2')[0].innerHTML = '<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
 }
 
 function selectClimateDivision(e) {
@@ -1271,10 +1269,10 @@ function selectClimateDivision(e) {
     near_term_climate_divisions.setStyle({color:'#444444', weight:2});
 
     clickedPolygon = e.target;
-    document.getElementsByClassName('info2')[0].innerHTML='<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
-    selectedClimateDivision=clickedPolygon.feature.properties.NAME
+    document.getElementsByClassName('info2')[0].innerHTML = '<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>';
+    selectedClimateDivision = clickedPolygon.feature.properties.NAME;
 
-    clickedPolygon.setStyle({color :'#00FFFF', weight:5})
+    clickedPolygon.setStyle({color :'#00FFFF', weight:5});
 
     if (!L.Browser.ie && !L.Browser.opera) {
         clickedPolygon.bringToFront();
@@ -1315,7 +1313,7 @@ function activateMapForClimateForecast(){
 
             marker = new L.marker(defaultLatLng)
                 .bindPopup("<div id='initialMarkerMessage' style='font-family: Lucida Grande,Lucida Sans Unicode,Arial,Helvetica,sans-serif'>Downscaled 3 Month Forecast at Marker Location <br>(" + defaultLatLng + ")</div><div id='time_series_popup'></div>")
-                .addTo(map)
+                .addTo(map);
 
             marker.on("popupopen", onPopupOpen);
 
@@ -1361,7 +1359,7 @@ function activateMapForClimateForecast(){
         updateNearTermForecastLegend();
         updateClimateDivisionSymbology();
 
-        document.getElementsByClassName('info2')[0].innerHTML = '<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>'
+        document.getElementsByClassName('info2')[0].innerHTML = '<span style="font-weight:bold; color: #5083B0;">Currently Selected: Climate Division ' + selectedClimateDivision + '</span>';
 
         if (typeof marker != 'undefined') {
             markerInfo = L.popup()
@@ -1374,41 +1372,39 @@ function activateMapForClimateForecast(){
 
 function updateNearTermForecastLegend(){
 
-    if (typeof selectedNearTermVariableToMap=='undefined' ||  selectedNearTermVariableToMap=='temp'){
-       legendTitle="Temperature Change <br> (Forecast - Historical)"
-       units='&deg; F'
-       color_6='#D62F27'
-       color_5='#F56C42'
-       color_4='#FCAE60'
-       color_3='#FFE291'
-       color_2='#FFFFBF'
-       color_1='#DADADA'
-       //color_0='#4575B5'
-       color_0='#BEB0FF'
-    } else if (selectedNearTermVariableToMap=='precip'){
-       legendTitle="Precipitiation Change <br> (Forecast - Historical)"
-       units=' in.'
-       color_6='#002673'
-       color_5='#08519c'
-       color_4='#3182bd'
-       color_3='#6baed6'
-       color_2='#bdd7e7'
-       color_1='#DADADA'
-       color_0='#654321'
-       // color_0='#A56629'
+    if (typeof selectedNearTermVariableToMap == 'undefined' ||  selectedNearTermVariableToMap == 'temp'){
+       legendTitle = "Temperature Change <br> (Forecast - Historical)";
+       units  = '&deg; F';
+       color_6 = '#D62F27';
+       color_5 = '#F56C42';
+       color_4 = '#FCAE60';
+       color_3 = '#FFE291';
+       color_2 = '#FFFFBF';
+       color_1 = '#DADADA';
+       color_0='#BEB0FF';
+    } else if (selectedNearTermVariableToMap == 'precip'){
+       legendTitle = "Precipitiation Change <br> (Forecast - Historical)";
+       units = ' in.';
+       color_6 = '#002673';
+       color_5 = '#08519c';
+       color_4 = '#3182bd';
+       color_3 = '#6baed6';
+       color_2 = '#bdd7e7';
+       color_1 = '#DADADA';
+       color_0 = '#654321';
     }
 
-    label_6='> 1' + units
-    label_5='>.75' + units
-    label_4='>.50' + units
-    label_3='>.25' + units
-    label_2='> 0' + units
-    label_1='No Change'
-    label_0='Decrease'
+    label_6 = '> 1' + units;
+    label_5 = '>.75' + units;
+    label_4 = '>.50' + units;
+    label_3 = '>.25' + units;
+    label_2 = '> 0' + units;
+    label_1 = 'No Change';
+    label_0 = 'Decrease';
 
-    legend_image=''
+    legend_image = '';
 
-    document.getElementsByClassName('info')[0].innerHTML=
+    document.getElementsByClassName('info')[0].innerHTML =
 
         '<div id="LegendHeader">' + legendTitle+ '</div>' +
             '<table class="legendTable" border="0">' +
@@ -1427,7 +1423,7 @@ function updateClimateDivisionSymbology(){
 
     selectedNearTermVariableToMap = $('input[name=nearTermMapVariable]:checked').val();
 
-    map.removeLayer(near_term_climate_divisions)
+    map.removeLayer(near_term_climate_divisions);
 
     near_term_climate_divisions= L.geoJson(null, {
         style: function(feature) {
@@ -1453,7 +1449,7 @@ function updateClimateDivisionSymbology(){
     });
 
 
-    near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions)
+    near_term_climate_divisions_layer= omnivore.topojson(static_url+'Leaflet/myJSON/Climate_Divisions_USA.json', null, near_term_climate_divisions);
     map.addLayer(near_term_climate_divisions)
 
 }
@@ -1472,10 +1468,10 @@ function getNearTermColor(d) {
 // Script for adding marker on map click
 function onMapClick(e) {
 
-    map.removeLayer(markerInfo)
+    map.removeLayer(markerInfo);
 
     //This maintains the last position of the marker if the user goes back to the charts view and then returns to the weather forecast view.
-    defaultLatLng=e.latlng
+    defaultLatLng = e.latlng;
 
     if  (typeof marker != 'undefined') {
         map.removeLayer(marker);
@@ -1515,9 +1511,9 @@ function onMapClick(e) {
 // Function to handle delete as well as other events on marker popup open
 function onPopupOpen() {
 
-    map.removeLayer(markerInfo)
+    map.removeLayer(markerInfo);
 
-    createTimeSeries(dates,tmax_data,precip_data)
+    createTimeSeries(dates,tmax_data,precip_data);
 
     tempMarker = this;
 
@@ -1539,10 +1535,10 @@ function getAllMarkers() {
         //console.log(map._layers)
         if (map._layers[ml].feature) {
 
-            allMarkersObjArray.push(this)
-                                    allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+            allMarkersObjArray.push(this);
+            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
         }
-    })
+    });
 
     console.log(allMarkersObjArray);
     alert("total Markers : " + allMarkersGeoJsonArray.length + "\n\n" + allMarkersGeoJsonArray + "\n\n Also see your console for object view of this array" );
@@ -1584,10 +1580,9 @@ function activateMapForEcosystemServices(){
 
 $.each($("#leaflet-control-layers-group-2").find("label"), function(index,value){
 
-    var wmsLayerName = $(this).text().trim()
+    var wmsLayerName = $(this).text().trim();
     if (typeof wmsLayers[wmsLayerName][5] != "undefined"){
             $(this).append(" <img class='reference_layer_help_icon' title='" + wmsLayers[wmsLayerName][5] + "' src='" + static_url + "img/help2.png'>")
         }
 
 });
-
