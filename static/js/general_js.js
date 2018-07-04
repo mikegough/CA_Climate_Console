@@ -1,23 +1,22 @@
  $(document).ready(function(){
 
-     var currentDate=new Date();
-     currentYear=currentDate.getFullYear();
+     var currentDate = new Date();
+     currentYear = currentDate.getFullYear();
 
-     document.title=title + " Climate Console";
-     //$("#view1Link").click()
+     document.title = title + " Climate Console";
 
     //Prepare Near Term Forecast
 
-    previousDivision='';
-    countTimesNoaa3MonthCalled=0;
+    previousDivision = '';
+    countTimesNoaa3MonthCalled = 0;
     //Initialize Selected Time Frame
-    selectedNearTermClimatePeriod=1;
+    selectedNearTermClimatePeriod = 1;
 
     acquireNearTermClimate();
-    createDynamicMonthlyRadioButtons()
+    createDynamicMonthlyRadioButtons();
      //Only need this because for cases when the page is refreshed and the Near-Term Forecast tab is selected.
      //Otherwise it could go in the leaflet_map function activateMapForNearTerm...function.
-    generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision)
+    generateNearTermClimateResults(selectedNearTermClimatePeriod,selectedClimateDivision);
 
     //Check the top radio buttons
      $('.neartermclimateform').each(function(){
@@ -30,7 +29,7 @@
 
      //Initialize Downlscaled Time Series
      if (enableDownscale) {
-         create_post_downscale(initialDownscaleMarkerLon, initialDownscaleMarkerLat)
+         create_post_downscale(initialDownscaleMarkerLon, initialDownscaleMarkerLat);
          $('#downscaled_coords').html(initialDownscaleMarkerLon + ", " + initialDownscaleMarkerLat)
      }
 
@@ -38,18 +37,18 @@
      if (typeof introJs  == "function") {
 
          $('.leaflet-control-layers-expanded').each(function (i) {
-             $(this).attr('data-step', '1')
+             $(this).attr('data-step', '1');
              $(this).attr('data-intro', '<b>Reporting units</b> define the ecological or administrative boundaries for which the climate projections will be calculated. By selecting counties, for example, you will be able to examine the climate projections for a specified county or counties of interest.')
          });
 
          $('.leaflet-draw').each(function (i) {
-             $(this).attr('data-step', '2')
+             $(this).attr('data-step', '2');
              //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
              $(this).attr('data-intro', 'A <b>feature</b> refers to a specific administrative or ecological boundary in the reporting units layer selected above. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features (selected features will be those that intersect the drawn shape), or simply click on a single feature of interest in the map.')
          });
 
          $('.leaflet-geonames-search').each(function (i) {
-             $(this).attr('data-step', '3')
+             $(this).attr('data-step', '3');
              //$(this).attr('data-intro','<b>Select a feature or set of features in the map.</b><br>A feature refers to a polygon delineating a specific administrative or ecological boundary. For example, a county or watershed. You can use one of the selection tools on the left to select multiple features, or simply click on a single feature of interest in the map.')
              $(this).attr('data-intro', 'You can also click here to select a feature based on the location of a specified place name.')
          });
@@ -108,21 +107,20 @@
      });
 
      $(".additionalFeaturesCount").click(function() {
-            $('.selectedFeaturesFullList').empty()
-            $(".selectedFeaturesShortList").hide()
-            $(".closeSelectedFeaturesFullList").show()
-            $(".additionalFeaturesCount").hide()
+            $('.selectedFeaturesFullList').empty();
+            $(".selectedFeaturesShortList").hide();
+            $(".closeSelectedFeaturesFullList").show();
+            $(".additionalFeaturesCount").hide();
 
-            $('.selectedFeaturesFullList').append('<br><div class="selectedFeaturesFullListTableContainer"></div>')
+            $('.selectedFeaturesFullList').append('<br><div class="selectedFeaturesFullListTableContainer"></div>');
             $('.selectedFeaturesFullListTableContainer').append('<table class="selectedFeaturesFullListTable" class="selectedFeaturesTable"></table>');
-            var selectedFeaturesTable=$('.selectedFeaturesFullListTableContainer').children();
+            var selectedFeaturesTable = $('.selectedFeaturesFullListTableContainer').children();
 
-            $('.selectedFeaturesFullList').show()
+            $('.selectedFeaturesFullList').show();
 
-            var count = 1
-            listOfSelectedFeatures = ""
-            categoricalValuesArray = response['categoricalValues']
-            //console.log(categoricalValuesArray)
+            var count = 1;
+            listOfSelectedFeatures = "";
+            categoricalValuesArray = response['categoricalValues'];
 
             for (var i = 0, tot = categoricalValuesArray.length; i < tot; i++) {
 
@@ -136,13 +134,12 @@
      });
 
      $(".closeSelectedFeaturesFullListLink").click(function(){
-         $(".closeSelectedFeaturesFullList").hide()
-         $(".selectedFeaturesShortList").show()
-         $(".additionalFeaturesCount").show()
-         $('.selectedFeaturesFullList').empty()
-         $('.selectedFeaturesFullList').hide()
-
-     })
+         $(".closeSelectedFeaturesFullList").hide();
+         $(".selectedFeaturesShortList").show();
+         $(".additionalFeaturesCount").show();
+         $('.selectedFeaturesFullList').empty();
+         $('.selectedFeaturesFullList').hide();
+     });
 
      /* Hover over legend tip */
      /*
@@ -251,44 +248,41 @@ function refreshSelectedFeaturesTab(){
     //var save = $('#view2 .select_container').detach();
     //$('#view2').empty().append(save);
 
-    $('#view2').empty()
+    $('#view2').empty();
 
     //$('#view2').append("<br><h3>Current Selection:</h3>")
-    $('#view2').append('<br><div id="dynamicSelectedFeaturesTableDiv"></div>')
+    $('#view2').append('<br><div id="dynamicSelectedFeaturesTableDiv"></div>');
     $('#dynamicSelectedFeaturesTableDiv').append('<table class="dynamicDataTable" id="selectedFeaturesTable"></table>');
-    var selectedFeaturesTable=$('#dynamicSelectedFeaturesTableDiv').children();
-    selectedFeaturesTable.append("<tr><th>Reporting Units</th><th>Selected Features</th></tr>")
+    var selectedFeaturesTable = $('#dynamicSelectedFeaturesTableDiv').children();
+    selectedFeaturesTable.append("<tr><th>Reporting Units</th><th>Selected Features</th></tr>");
 
-    featureCount=response['count']
+    featureCount = response['count'];
 
     if (featureCount > 1)  {
-        pluralize="s"
+        pluralize = "s"
     } else {
-        pluralize=""
+        pluralize = ""
     }
 
     if (response['reporting_units'] == 'onekm'){
            selectedFeaturesTable.append("<tr><td>" + 'User Defined (1km)' + "</td><td>" + response['count'] + " grid cell"+pluralize+ " selected </td></tr>")
     } else {
 
-            var count = 1
-            listOfSelectedFeatures=""
-            categoricalValuesArray=response['categoricalValues']
-            //console.log(categoricalValuesArray)
+            var count = 1;
+            listOfSelectedFeatures = "";
+            categoricalValuesArray = response['categoricalValues'];
 
             for (var i=0,  tot=categoricalValuesArray.length; i < tot; i++) {
 
-                listOfSelectedFeatures=listOfSelectedFeatures+"<div class='selectedFeaturesText' onmouseout='mouseOutTextChangeBack()' onmouseover='mouseOverTextChangeColor(\"" + categoricalValuesArray[i] + "\")' id='" + categoricalValuesArray[i] + "' >" + count + ". " + categoricalValuesArray[i] + "<span class='inner'></span></div>";
+                listOfSelectedFeatures = listOfSelectedFeatures + "<div class='selectedFeaturesText' onmouseout='mouseOutTextChangeBack()' onmouseover='mouseOverTextChangeColor(\"" + categoricalValuesArray[i] + "\")' id='" + categoricalValuesArray[i] + "' >" + count + ". " + categoricalValuesArray[i] + "<span class='inner'></span></div>";
 
-                count=count+1
+                count = count + 1
             }
 
-            selectedFeaturesTable.append("<tr><td>" + activeReportingUnitsName +"</span></td><td>" + listOfSelectedFeatures + "</td></tr>")
+            selectedFeaturesTable.append("<tr><td>" + activeReportingUnitsName +"</span></td><td>" + listOfSelectedFeatures + "</td></tr>");
    }
 
-
-    //$('#view2').append('<div id="getRawValuesButton"><button onclick="getRawValues()">Show Raw Data Table</button></div>')
-    $('#view2').append('</table>')
+    $('#view2').append('</table>');
 
     //createDynamicDataTable()
 
@@ -301,100 +295,100 @@ function createDynamicDataTable(){
     //var save = $('#view2 .select_container').detach();
     //$('#view2').empty().append(save);
 
-    $('#getRawValuesButton').css('display','None')
-    $('#view2').append("<br><h3>Climate Data:</h3>")
+    $('#getRawValuesButton').css('display','None');
+    $('#view2').append("<br><h3>Climate Data:</h3>");
 
-    resultsJSONsorted=sortObject(resultsJSON)
+    resultsJSONsorted = sortObject(resultsJSON);
 
-    $('#view2').append('<div id="dynamicDataTableDiv"></div>')
+    $('#view2').append('<div id="dynamicDataTableDiv"></div>');
     $('#dynamicDataTableDiv').append('<table class="dynamicDataTable"></table>');
-    var table=$('#dynamicDataTableDiv').children();
-    table.append("<tr><th>Model</th><th>Variable</th><th>Season</th><th>Time Period</th><th>Value</th></tr>")
+    var table = $('#dynamicDataTableDiv').children();
+    table.append("<tr><th>Model</th><th>Variable</th><th>Season</th><th>Time Period</th><th>Value</th></tr>");
 
-    $('#view2').append("<br><h3>EEMS Data:</h3>")
+    $('#view2').append("<br><h3>EEMS Data:</h3>");
 
-    $('#view2').append('<div id="dynamicEEMSDataTableDiv"></div>')
+    $('#view2').append('<div id="dynamicEEMSDataTableDiv"></div>');
     $('#dynamicEEMSDataTableDiv').append('<table class="dynamicDataTable"></table>');
 
-    var EEMStable=$('#dynamicEEMSDataTableDiv').children();
-    EEMStable.append("<tr><th>EEMS Model</th><th>Time Period</th><th>Climate Model Input </th><th>Value</th></tr>")
+    var EEMStable = $('#dynamicEEMSDataTableDiv').children();
+    EEMStable.append("<tr><th>EEMS Model</th><th>Time Period</th><th>Climate Model Input </th><th>Value</th></tr>");
 
     for (var key in resultsJSONsorted) {
 
-        var imageOverlayName=key.replace("_avg","")
+        var imageOverlayName = key.replace("_avg","");
 
         if (key != 'count'){
 
             if (key == 'intactness_avg' || key == 'eepifzt1_avg' || key == 'eepifzt2_avg' || key == 'eecefzt1_avg' || key == 'eecefzt2_avg' || key == 'hisensfz_avg') {
 
                 if (imageOverlayName == 'intactness'){
-                    EEMSData='<td>Terrestrial Intactness</td><td></td><td></td>'
+                    EEMSData = '<td>Terrestrial Intactness</td><td></td><td></td>'
                 }
                 else if(imageOverlayName == 'hisensfz') {
-                    EEMSData='<td>Site Sensitivity</td><td></td><td></td>'
+                    EEMSData = '<td>Site Sensitivity</td><td></td><td></td>'
                 }
                 else if(imageOverlayName == 'eecefzt1') {
-                    EEMSData='<td>Climate Exposure</td><td>2016-2045</td><td>Ensemble</td>'
+                    EEMSData = '<td>Climate Exposure</td><td>2016-2045</td><td>Ensemble</td>'
                 }
                 else if(imageOverlayName == 'eecefzt2') {
-                    EEMSData='<td>Climate Exposure</td><td>2046-2075</td><td>Ensemble</td>'
+                    EEMSData = '<td>Climate Exposure</td><td>2046-2075</td><td>Ensemble</td>'
                 }
                 else if(imageOverlayName == 'eepifzt1') {
-                    EEMSData='<td>Potential Impact</td><td>2016-2045</td><td>Ensemble</td>'
+                    EEMSData = '<td>Potential Impact</td><td>2016-2045</td><td>Ensemble</td>'
                 }
                 else if(imageOverlayName == 'eepifzt2') {
-                    EEMSData='<td>Potential Impact</td><td>2046-2075</td><td>Ensemble</td>'
+                    EEMSData = '<td>Potential Impact</td><td>2046-2075</td><td>Ensemble</td>'
                 }
 
                 if (imageOverlayName == climate_PNG_overlay.name){
-                    background_color="#00FFFF"
+                    background_color = "#00FFFF"
                 } else {
-                    background_color="white"
+                    background_color = "white"
                 }
 
-                EEMStable.append("<tr style='background-color:"+ background_color + "' onclick='swapImageOverlay(&quot;" +imageOverlayName + "&quot;); swapLegend(&quot;"+imageOverlayName +"&quot;," + null + ",&quot;EEMSmodel&quot;)'>" + EEMSData + "<td>" +resultsJSONsorted[key] + "</td></tr>")
+                EEMStable.append("<tr style='background-color:"+ background_color + "' onclick='swapImageOverlay(&quot;" +imageOverlayName + "&quot;); swapLegend(&quot;"+imageOverlayName +"&quot;," + null + ",&quot;EEMSmodel&quot;)'>" + EEMSData + "<td>" +resultsJSONsorted[key] + "</td></tr>");
 
             }else{
 
                 if ((key).indexOf('') > -1 ) {
 
 
-                    expandedLabel = key.replace('g3', '<td>GFDL-CM3</td>')
-                    expandedLabel = expandedLabel.replace('c2', '<td>CanESM2 </td>')
-                    expandedLabel = expandedLabel.replace('ee', '<td>Ensemble </td>')
-                    expandedLabel = expandedLabel.replace('c5', '<td>CESM1-CAM5 </td>')
-                    expandedLabel = expandedLabel.replace('m3', '<td>MRI-CGCM3 </td>')
-                    expandedLabel = expandedLabel.replace('c4', '<td>CCSM4 </td>')
-                    expandedLabel = expandedLabel.replace('m5', '<td>MIROC5 </td>')
-                    expandedLabel = expandedLabel.replace('pm', '<td>PRISM </td>')
-
-                    expandedLabel = expandedLabel.replace('arid', '<td>Aridity Change </td>')
-                    expandedLabel = expandedLabel.replace('pet', '<td>PET Average </td>')
-
-                    expandedLabel = expandedLabel.replace('prec', '<td>Precip Average </td>')
-                    expandedLabel = expandedLabel.replace('pred', '<td>Precip Change </td>')
-                    expandedLabel = expandedLabel.replace('prea', '<td>Precip Anomaly </td>')
-                    expandedLabel = expandedLabel.replace('tmax', '<td>Max Temp Average </td>')
-                    expandedLabel = expandedLabel.replace('tmaa', '<td>Max Temp Anomaly </td>')
-                    expandedLabel = expandedLabel.replace('tmad', '<td>Max Temp Change </td>')
-                    expandedLabel = expandedLabel.replace('tmin', '<td>Min Temp Average </td>')
-                    expandedLabel = expandedLabel.replace('tmia', '<td>Min Temp Anomaly </td>')
-                    expandedLabel = expandedLabel.replace('tmid', '<td>Min Temp Change </td>')
-
-                    expandedLabel = expandedLabel.replace('s0', '<td>Annual </td>')
-                    expandedLabel = expandedLabel.replace('s1', '<td>Jan-Feb-Mar </td>')
-                    expandedLabel = expandedLabel.replace('s2', '<td>Apr-May-Jun </td>')
-                    expandedLabel = expandedLabel.replace('s3', '<td>Jul-Aug-Sep </td>')
-                    expandedLabel = expandedLabel.replace('s4', '<td>Oct-Nov-Dec </td>')
-
-                    expandedLabel = expandedLabel.replace('t0', '<td>Historical</td>')
-                    expandedLabel = expandedLabel.replace('t1', '<td>2016-2045</td>')
-                    expandedLabel = expandedLabel.replace('t2', '<td>2046-2075</td>')
+                    expandedLabel = key.replace('g3', '<td>GFDL-CM3</td>');
+                    expandedLabel = expandedLabel.replace('c2', '<td>CanESM2 </td>');
+                    expandedLabel = expandedLabel.replace('ee', '<td>Ensemble </td>');
+                    expandedLabel = expandedLabel.replace('c5', '<td>CESM1-CAM5 </td>');
+                    expandedLabel = expandedLabel.replace('m3', '<td>MRI-CGCM3 </td>');
+                    expandedLabel = expandedLabel.replace('c4', '<td>CCSM4 </td>');
+                    expandedLabel = expandedLabel.replace('m5', '<td>MIROC5 </td>');
+                    expandedLabel = expandedLabel.replace('pm', '<td>PRISM </td>');
+;
+                    expandedLabel = expandedLabel.replace('arid', '<td>Aridity Change </td>');
+                    expandedLabel = expandedLabel.replace('pet', '<td>PET Average </td>');
+;
+                    expandedLabel = expandedLabel.replace('prec', '<td>Precip Average </td>');
+                    expandedLabel = expandedLabel.replace('pred', '<td>Precip Change </td>');
+                    expandedLabel = expandedLabel.replace('prea', '<td>Precip Anomaly </td>');
+                    expandedLabel = expandedLabel.replace('tmax', '<td>Max Temp Average </td>');
+                    expandedLabel = expandedLabel.replace('tmaa', '<td>Max Temp Anomaly </td>');
+                    expandedLabel = expandedLabel.replace('tmad', '<td>Max Temp Change </td>');
+                    expandedLabel = expandedLabel.replace('tmin', '<td>Min Temp Average </td>');
+                    expandedLabel = expandedLabel.replace('tmia', '<td>Min Temp Anomaly </td>');
+                    expandedLabel = expandedLabel.replace('tmid', '<td>Min Temp Change </td>');
+;
+                    expandedLabel = expandedLabel.replace('s0', '<td>Annual </td>');
+                    expandedLabel = expandedLabel.replace('s1', '<td>Jan-Feb-Mar </td>');
+                    expandedLabel = expandedLabel.replace('s2', '<td>Apr-May-Jun </td>');
+                    expandedLabel = expandedLabel.replace('s3', '<td>Jul-Aug-Sep </td>');
+                    expandedLabel = expandedLabel.replace('s4', '<td>Oct-Nov-Dec </td>');
+;
+                    expandedLabel = expandedLabel.replace('t0', '<td>Historical</td>');
+                    expandedLabel = expandedLabel.replace('t1', '<td>2016-2045</td>');
+                    expandedLabel = expandedLabel.replace('t2', '<td>2046-2075</td>');
 
                     if (imageOverlayName == climate_PNG_overlay.name){
-                        class_name="active"
+                        class_name = "active"
                     } else {
-                        class_name=""
+                        class_name = ""
                     }
 
                     table.append("<tr class='" +class_name + "' onclick='swapImageOverlay(&quot;" +imageOverlayName + "&quot;); swapLegend(&quot;"+imageOverlayName +"&quot;," + null + ",&quot;null&quot;)'>" + expandedLabel + "<td>" +resultsJSONsorted[key] + "</td></tr>")
@@ -433,8 +427,8 @@ function sortObject(o) {
 /*********************************** CHANGE SELECTION DROP-DOWN BASED ON CHART  ***************************************/
 function changeSelectionForm(whichChart){
 
-    if (whichChart=="EnableForBoxPlot"){
-        showChartOnMapSelect="BoxPlot"
+    if (whichChart == "EnableForBoxPlot"){
+        showChartOnMapSelect = "BoxPlot"
         $( "#variable_selection_form" ).change(function() {
             createBoxPlot(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
         });
@@ -452,8 +446,8 @@ function changeSelectionForm(whichChart){
         */
 
     }
-    else if (whichChart=="EnableForPointChart") {
-        showChartOnMapSelect="PointChart"
+    else if (whichChart == "EnableForPointChart") {
+        showChartOnMapSelect = "PointChart"
         $( "#variable_selection_form" ).change(function() {
             createChart(document.getElementById("variable_selection_form").value, document.getElementById("statistic_selection_form").value, document.getElementById("season_selection_form").value)
         });
@@ -481,40 +475,40 @@ function changeSelectionForm(whichChart){
 
 function EnglishUnitsConversionQuickTable(dataValue,climateVariable){
 
-    var convertedValue
-    var roundedConvertedValue
+    var convertedValue;
+    var roundedConvertedValue;
 
     //Celsius to Fahrenheit
     if (climateVariable == 'tmin'|| climateVariable == 'tmax'){
-        convertedValue=1.8*dataValue+32;
+        convertedValue = 1.8*dataValue + 32;
     }
     else {
         if (climateVariable == 'tmid'|| climateVariable == 'tmad'){
-            var factor=1.8
+            var factor = 1.8
         }
         else if (climateVariable == 'prec' || climateVariable == 'pet'){
-            var factor=0.03936996
+            var factor = 0.03936996
         }
         else if (climateVariable == 'arid' || climateVariable == 'pred'){
-            var factor=1
+            var factor = 1
         }
         else {
-            var factor=1
+            var factor = 1
         }
 
         //Turns out precip deltas for the DRECP are mm
         if ((climateVariable == 'prec' || climateVariable == 'pred')  && title == 'DRECP'){
-                var factor=0.03936996
+                var factor = 0.03936996
         }
 
-        convertedValue=dataValue*factor
+        convertedValue = dataValue * factor
     }
 
-    roundedConvertedValue=Number(convertedValue.toFixed(2));
+    roundedConvertedValue = Number(convertedValue.toFixed(2));
     return roundedConvertedValue
 }
 
-var season_labels={};
+var season_labels = {};
 season_labels["s0"] = 'Annual';
 season_labels["s1"] = 'Jan-Feb-Mar';
 season_labels["s2"] = 'Apr-May-Jun';
@@ -537,29 +531,23 @@ function updateQuickViewTable(season,model){
              if (unitsForChart == "english") {
 
                 //Update Quick Table
-                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg'], 'tmad'))
-                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg'], 'tmad'))
-
-                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg'], 'tmid'))
-                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg'], 'tmid'))
-
-                $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'], 'pred'))
-                $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'], 'pred'))
-
-                $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'], 'arid'))
-                $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'], 'arid'))
+                $('#quick_value_tmax_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg'], 'tmad'));
+                $('#quick_value_tmax_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg'], 'tmad'));
+;
+                $('#quick_value_tmin_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg'], 'tmid'));
+                $('#quick_value_tmin_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg'], 'tmid'));
+;
+                $('#quick_value_precip_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'], 'pred'));
+                $('#quick_value_precip_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'], 'pred'));
+;
+                $('#quick_value_aridity_t1').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'], 'arid'));
+                $('#quick_value_aridity_t2').html(EnglishUnitsConversionQuickTable(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'], 'arid'));
 
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('F');
                 });
 
-                /*
-                $('.quick_value_pet_units').each(function() {
-                     $(this).html('in');
-                 });
-                */
-
-                if (title=="DRECP") {
+                if (title == "DRECP") {
                      $('.quick_value_precip_units').each(function () {
                          $(this).html('in');
                      });
@@ -571,17 +559,17 @@ function updateQuickViewTable(season,model){
             else {
 
                 //Update Quick Table
-                $('#quick_value_tmax_t1').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg'])
-                $('#quick_value_tmax_t2').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg'])
-
-                $('#quick_value_tmin_t1').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg'])
-                $('#quick_value_tmin_t2').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg'])
-
-                $('#quick_value_precip_t1').html(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg'])
-                $('#quick_value_precip_t2').html(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg'])
-
-                $('#quick_value_aridity_t1').html(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg'])
-                $('#quick_value_aridity_t2').html(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg'])
+                $('#quick_value_tmax_t1').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't1_avg']);
+                $('#quick_value_tmax_t2').html(resultsJSON[model_code_dropdown + 'tmad' + season + 't2_avg']);
+;
+                $('#quick_value_tmin_t1').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't1_avg']);
+                $('#quick_value_tmin_t2').html(resultsJSON[model_code_dropdown + 'tmid' + season + 't2_avg']);
+;
+                $('#quick_value_precip_t1').html(resultsJSON[model_code_dropdown + 'pred' + season + 't1_avg']);
+                $('#quick_value_precip_t2').html(resultsJSON[model_code_dropdown + 'pred' + season + 't2_avg']);
+;
+                $('#quick_value_aridity_t1').html(resultsJSON[model_code_dropdown + 'arid' + season + 't1_avg']);
+                $('#quick_value_aridity_t2').html(resultsJSON[model_code_dropdown + 'arid' + season + 't2_avg']);
 
                 $('.quick_value_temp_units').each(function() {
                     $(this).html('C');
@@ -593,7 +581,7 @@ function updateQuickViewTable(season,model){
                 });
                 */
 
-                if (title=="DRECP") {
+                if (title == "DRECP") {
 
                      $('.quick_value_precip_units').each(function () {
                          $(this).html('mm');
@@ -754,8 +742,8 @@ function acquireNearTermClimate() {
     //Called once during initial page load.
 
     // TEMPERATURE
-    allTempDataArray=[]
-    allTempDeltaDict={}
+    allTempDataArray = [];
+    allTempDeltaDict = {};
 
     $.ajax({
         type: "GET",
@@ -776,12 +764,12 @@ function acquireNearTermClimate() {
         //Dictionary of all deltas For Setting Map Symbology
         //allTempDeltaDict[division][period]=value
         for (var i=0; i< allTempDataArray.length; i++){
-            division=allTempDataArray[i][3]
+            division = allTempDataArray[i][3];
 
-            temp_climatological_mean=allTempDataArray[i][19]
-            temp_forecast_mean=allTempDataArray[i][18]
+            temp_climatological_mean = allTempDataArray[i][19];
+            temp_forecast_mean = allTempDataArray[i][18];
 
-            delta=temp_forecast_mean-temp_climatological_mean
+            delta = temp_forecast_mean-temp_climatological_mean;
 
             if ( !(division in allTempDeltaDict)) {
                 allTempDeltaDict[division]=[]
@@ -790,8 +778,8 @@ function acquireNearTermClimate() {
         }
     }
 
-    allPrecipDataArray=[]
-    allPrecipDeltaDict={}
+    allPrecipDataArray = [];
+    allPrecipDeltaDict = {};
 
     // PRECIPITATION
     $.ajax({
@@ -809,12 +797,12 @@ function acquireNearTermClimate() {
         }
 
         for (var i=0; i< allPrecipDataArray.length; i++){
-            division=allPrecipDataArray[i][3]
+            division = allPrecipDataArray[i][3];
 
-            precip_climatological_mean=allPrecipDataArray[i][19]
-            precip_forecast_mean=allPrecipDataArray[i][18]
+            precip_climatological_mean = allPrecipDataArray[i][19];
+            precip_forecast_mean = allPrecipDataArray[i][18];
 
-            delta=precip_forecast_mean-precip_climatological_mean
+            delta = precip_forecast_mean-precip_climatological_mean;
 
             if ( !(division in allPrecipDeltaDict)) {
                 allPrecipDeltaDict[division]=[]
@@ -835,51 +823,51 @@ function acquireNearTermClimate() {
 
 }
 
-month_names_short=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+month_names_short = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 function createDynamicMonthlyRadioButtons(){
 
-    $(".nearTermClimateForm").empty()
+    $(".nearTermClimateForm").empty();
 
-    month_list=[]
-    year_list=[]
+    month_list = [];
+    year_list = [];
 
     //The inintial lead of "1" in the file is automatically factored in since new Date(2016,2) returns March.
-    firstDateInFile=new Date(firstYearInFile,firstMonthInFile)
+    firstDateInFile = new Date(firstYearInFile,firstMonthInFile);
 
     for (i=0; i<15; i++) {
         //firstDateInFile.getMonth() below for March returns 2, which is the correct index for March in the short list array.
         //If the first month in the file is a 2, the first value stored in the month variable will be a 3
         //which is what is wanted because of the lead.
-        month = month_names_short[firstDateInFile.getMonth()]
-        year = String(firstDateInFile.getFullYear())
+        month = month_names_short[firstDateInFile.getMonth()];
+        year = String(firstDateInFile.getFullYear());
         firstDateInFile.setMonth(firstDateInFile.getMonth()+1);
-        month_list[i]=month
+        month_list[i]=month;
         year_list[i]=year
 
     }
 
 
-    date_labels=[]
+    date_labels = []
     for (i=0; i<13; i++) {
 
         if (year_list[i] == year_list[i+1] && year_list[i+1]== year_list[i+2]){
 
-            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_list[i])
+            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_list[i]);
 
-            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '"><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">'+ date_labels[i] + ' </div></input><br>')
+            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '"><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">'+ date_labels[i] + ' </div></input><br>');
         }
         else {
 
-            year_span = year_list[i].slice(-2) + "-" + (parseInt(year_list[i].slice(-2)) + 1)
+            year_span = year_list[i].slice(-2) + "-" + (parseInt(year_list[i].slice(-2)) + 1);
 
-            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_span)
+            date_labels.push(month_list[i] + '-' + month_list[i+1] + '-' + month_list[i+2] + ' ' + year_span);
 
-            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '" ><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">' + date_labels[i] + ' </div></input><br>')
+            $(".nearTermClimateForm").append('<input class="testDiv" type="radio" id="test-' + i + '" name="period" value="' + (i+1) + '" ><div class="radio-button-circle"> </div><div class="radio-button-span" id="radio-button-span'+ i +'">' + date_labels[i] + ' </div></input><br>');
 
         }
 
     }
-     $("#radio-button-span0").css({'background-color':'#D8E8CC'})
+     $("#radio-button-span0").css({'background-color':'#D8E8CC'});
 }
 
 function generateNearTermClimateResults(period,division) {
@@ -887,39 +875,37 @@ function generateNearTermClimateResults(period,division) {
     //Function to replace the contents of table 2 & table 3 when a user clicks on a climate division or changes the Time Frame
 
     //Update Climate Divsion # at the top of the tab
-    $('#climateDivision').html(division)
+    $('#climateDivision').html(division);
 
     // TEMPERATURE
-    temp_array=[]
+    temp_array = [];
 
     for (var i=0; i< allTempDataArray.length; i++){
         if (allTempDataArray[i][3] == division && allTempDataArray[i][2] == period){
-            temp_array=allTempDataArray[i]
+            temp_array = allTempDataArray[i]
         }
     }
 
-    temp_climatological_mean=Number(temp_array[19])
-    temp_forecast_mean=Number(temp_array[18])
-    temp_change=temp_forecast_mean-temp_climatological_mean
-    temp_change_rounded=Math.round(temp_change * 100) / 100
-    temp_ninety_percent_confidence_interval=temp_array[6] + "&deg;F - "  + temp_array[16] + "&deg;F"
+    temp_climatological_mean = Number(temp_array[19]);
+    temp_forecast_mean = Number(temp_array[18]);
+    temp_change = temp_forecast_mean-temp_climatological_mean;
+    temp_change_rounded = Math.round(temp_change * 100) / 100;
+    temp_ninety_percent_confidence_interval = temp_array[6] + "&deg;F - "  + temp_array[16] + "&deg;F";
 
     // PRECIPITATION
-    precip_array=[]
+    precip_array = [];
 
     for (var i=0; i< allPrecipDataArray.length; i++){
         if (allPrecipDataArray[i][3] == division && allPrecipDataArray[i][2] == period){
-            precip_array=allPrecipDataArray[i]
+            precip_array = allPrecipDataArray[i]
         }
     }
 
-    precip_climatological_mean=precip_array[19]
-    precip_forecast_mean=precip_array[18]
-    precip_change=precip_forecast_mean-precip_climatological_mean
-    precip_change_rounded=Math.round(precip_change * 100) / 100
-    precip_ninety_percent_confidence_interval=precip_array[6] + " in. - "  + precip_array[16] + " in."
-
-    //console.log(precip_array)
+    precip_climatological_mean = precip_array[19];
+    precip_forecast_mean = precip_array[18];
+    precip_change = precip_forecast_mean-precip_climatological_mean;
+    precip_change_rounded = Math.round(precip_change * 100) / 100;
+    precip_ninety_percent_confidence_interval = precip_array[6] + " in. - "  + precip_array[16] + " in.";
 
     //Table 2
 
@@ -928,37 +914,37 @@ function generateNearTermClimateResults(period,division) {
 
     $('#nearTermClimateWrapper').empty();
 
-    $('#nearTermClimateWrapper').append('<br><div id="dynamicNearTermClimateTableDiv"></div>')
+    $('#nearTermClimateWrapper').append('<br><div id="dynamicNearTermClimateTableDiv"></div>');
     $('#dynamicNearTermClimateTableDiv').append('<table class="dynamicNearTermClimateTable" id="nearTermChangeTable"></table>');
 
-    var nearTermClimateTable=$('#dynamicNearTermClimateTableDiv').children();
+    var nearTermClimateTable = $('#dynamicNearTermClimateTableDiv').children();
 
     if (temp_change_rounded > 0 ) {
         //$('#thermometerDegreeChange').html('&#9650;')
-        temp_change_td_contents='<img height="17px" src="'+static_url+'img/up_arrow.png"> ' + temp_change_rounded + '&deg;F'
+        temp_change_td_contents = '<img height="17px" src="'+static_url + 'img/up_arrow.png"> ' + temp_change_rounded + '&deg;F'
     }
     else if (temp_change_rounded < 0 ) {
         //$('#thermometerDegreeChange').html('&#9660')
-        temp_change_td_contents='<img height="17px" src="'+static_url+'img/down_arrow.png"> ' + temp_change_rounded + '&deg;F'
+        temp_change_td_contents = '<img height="17px" src="'+static_url + 'img/down_arrow.png"> ' + temp_change_rounded + '&deg;F'
     }
     else {
-        temp_change_td_contents='No Change'
+        temp_change_td_contents = 'No Change'
     }
 
     if (precip_change_rounded > 0 ) {
         //$('#rainGaugeChange').html('&#9650;')
-        precip_change_td_contents='<img height="17px" src="'+static_url+'img/up_arrow.png"> ' + precip_change_rounded + " in."
+        precip_change_td_contents = '<img height="17px" src="'+static_url + 'img/up_arrow.png"> ' + precip_change_rounded + " in."
     }
     else if (precip_change_rounded < 0 ) {
         //$('#rainGaugeChange').html('&#9660')
-        precip_change_td_contents='<img height="17px" src="'+static_url+'img/down_arrow.png"> ' + precip_change_rounded + " in."
+        precip_change_td_contents = '<img height="17px" src="'+static_url + 'img/down_arrow.png"> ' + precip_change_rounded + " in."
     }
     else {
-        precip_change_td_contents='No Change'
+        precip_change_td_contents = 'No Change'
     }
 
-    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Variable</td>'+'<td><b>Temperature</b></td><td><b>Precipitation</b></td></tr>')
-    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Change from the <br> Historical Mean*</td>'+'<td class="changeTD">'+temp_change_td_contents+'</td><td class="changeTD">'+precip_change_td_contents+'</td></tr>')
+    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Variable</td>'+'<td><b>Temperature</b></td><td><b>Precipitation</b></td></tr>');
+    nearTermClimateTable.append('<tr style="border-bottom:none !important"><td rowspan="1" style="border-right:none !important;">Change from the <br> Historical Mean*</td>'+'<td class="changeTD">'+temp_change_td_contents + '</td><td class="changeTD">'+precip_change_td_contents + '</td></tr>');
 
     //Append the "Show on Map" Radio Buttons.
     nearTermClimateTable.append(save);
@@ -971,40 +957,40 @@ function generateNearTermClimateResults(period,division) {
 
     var nearTermClimateTable2=$('#dynamicNearTermClimateTableDiv2').children();
 
-    nearTermClimateTable2.append("<tr><td>Historical Mean*</td><td>" + temp_climatological_mean+ "&deg;F</td><td>"+precip_climatological_mean+ " in.</td></tr>")
-    nearTermClimateTable2.append("<tr><td>Forecast Mean</td><td>"+temp_forecast_mean+"&deg;F</td><td>"+precip_forecast_mean+" in.</td></tr>")
-    nearTermClimateTable2.append("<tr><td>90% Confidence</td><td>"+temp_ninety_percent_confidence_interval+ "</td><td>"+precip_ninety_percent_confidence_interval+"</td></tr>")
+    nearTermClimateTable2.append("<tr><td>Historical Mean*</td><td>" + temp_climatological_mean+ "&deg;F</td><td>" + precip_climatological_mean + " in.</td></tr>");
+    nearTermClimateTable2.append("<tr><td>Forecast Mean</td><td>" + temp_forecast_mean + "&deg;F</td><td>" + precip_forecast_mean + " in.</td></tr>");
+    nearTermClimateTable2.append("<tr><td>90% Confidence</td><td>" + temp_ninety_percent_confidence_interval + "</td><td>" + precip_ninety_percent_confidence_interval + "</td></tr>");
 
     // Adjust the thermometer and rain gauge levels based on the change
     // +21 to offset for Historical Mean
-    $('#thermometerAfter').css('height', (temp_change_rounded * 37 + 67) + "px")
-    $('#rainGaugeAfter').css('height', (precip_change_rounded * 37 + 67) + "px")
+    $('#thermometerAfter').css('height', (temp_change_rounded * 37 + 67) + "px");
+    $('#rainGaugeAfter').css('height', (precip_change_rounded * 37 + 67) + "px");
 
 
     //test new noaa chart
     if (typeof createNoaa3Month == "function") {
 
 
-                var temp_array_selected_division = []
-                j = 0
+                var temp_array_selected_division = [];
+                j = 0;
                 for (var i = 0; i < allTempDataArray.length; i++) {
                     if (allTempDataArray[i][3] == division) {
-                        temp_array_selected_division[j] = allTempDataArray[i]
+                        temp_array_selected_division[j] = allTempDataArray[i];
                         j += 1
                     }
                 }
 
                 //test new noaa chart
                 var precip_array_selected_division = []
-                j = 0
+                j = 0;
                 for (var i = 0; i < allPrecipDataArray.length; i++) {
                     if (allPrecipDataArray[i][3] == division) {
-                        precip_array_selected_division[j] = allPrecipDataArray[i]
+                        precip_array_selected_division[j] = allPrecipDataArray[i];
                         j += 1
                     }
                 }
 
-                countTimesNoaa3MonthCalled+=1
+                countTimesNoaa3MonthCalled += 1;
 
                 //Prevent NT charts from reloading if the climate divios
                 //This has to be called twice for some reason in order for the charts to sync up.
@@ -1021,9 +1007,9 @@ function generateNearTermClimateResults(period,division) {
 
 function showInfoPopup(layerToDescribe){
 
-    var dbid=EEMSParams['models'][layerToDescribe][5]
-    title=EEMSParams['models'][layerToDescribe][0]
-    description=EEMSParams['models'][layerToDescribe][8]
+    var dbid = EEMSParams['models'][layerToDescribe][5];
+    title = EEMSParams['models'][layerToDescribe][0];
+    description = EEMSParams['models'][layerToDescribe][8];
     new Messi(description, {title: title, center:true, width:'1000px', modal:true, modalOpacity:.4,center: true});
 
 }
@@ -1071,7 +1057,7 @@ $(window).load(function(){
         //map.removeLayer(layer)
 
         //Update MEEMSE2.0 values
-        if (typeof st != 'undefined' && typeof resultsJSON[modelForTree+"_avg"] != 'undefined') {
+        if (typeof st != 'undefined' && typeof resultsJSON[modelForTree + "_avg"] != 'undefined') {
             //defineJSONtree()
             //st.loadJSON(json)
             //st.refresh()
@@ -1089,7 +1075,7 @@ $(window).load(function(){
 
 function startCycle(){
 
-    index=$(".nearTermClimateForm input[type='radio']:checked").val();
+    index = $(".nearTermClimateForm input[type='radio']:checked").val();
 
     change = function () {
         setTimeout(function () {
@@ -1100,7 +1086,7 @@ function startCycle(){
             change();
         },
         2000);
-    }
+    };
 
     $(function () {
         change();
@@ -1109,7 +1095,7 @@ function startCycle(){
 }
 
 function stopCycle(){
-    change='';
+    change = '';
     clearTimeout(change)
 }
 
@@ -1131,7 +1117,7 @@ $('#start2').click(function(e){
 
 $('#stop2').click(function(e){
     e.preventDefault();
-    animationState = "off"
+    animationState = "off";
      $.each(timeouts, function (_, id) {
        clearTimeout(id);
     });
@@ -1145,7 +1131,7 @@ $('#start3').click(function(e){
 
 $('#stop3').click(function(e){
     e.preventDefault();
-    animationState = "off"
+    animationState = "off";
      $.each(timeouts, function (_, id) {
        clearTimeout(id);
     });
@@ -1172,7 +1158,7 @@ if (typeof headerLinks != "undefined") {
             $('#cbp-spmenu-s3').append("<a href='javascript:void(0);' id='close_explore'>&#10006</a>")
         }
 
-        $('#cbp-spmenu-s3').append("<a href='" + value + "'>" + key + "</a>")
+        $('#cbp-spmenu-s3').append("<a href='" + value + "'>" + key + "</a>");
         link_count += 1
     });
 
@@ -1308,7 +1294,7 @@ function update_slider_label(value){
 
 
 function changeUnits(units){
-    unitsForChart=units;
+    unitsForChart = units;
     if (typeof layerToAddName != 'undefined' && typeof modelName != 'undefined'){
         swapLegend(layerToAddName, null, document.getElementById("variable_selection_form").value, modelName);
     }
@@ -1441,7 +1427,7 @@ function changeImageOverlayBasedOnNewDropdownSelection(modelIndex,climateVariabl
                 if (typeof modelIndex != "undefined") {
                     var modelCode = climateParams["models"][chart.series[modelIndex].name][0];
                     var modelName = chart.series[modelIndex].name;
-                    if (statistic=="delta") {
+                    if (statistic == "delta") {
                         //remove the last character and add a "d" (e.g., tmin->tmid)
                         climateVariable = (climateVariable.slice(0,-1) + 'd');
                     }
@@ -1514,5 +1500,5 @@ vtype_images = [
 "vtype_agg_hadgem2es__80719",
 "vtype_agg_hadgem2es__84372",
 "vtype_agg_hadgem2es__88024",
-"vtype_agg_cnrm__58804",
-]
+"vtype_agg_cnrm__58804"
+];
