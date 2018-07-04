@@ -1506,6 +1506,7 @@ function onMapClick(e) {
         }).addTo(map);
     }
 }
+
 // Function to handle delete as well as other events on marker popup open
 function onPopupOpen() {
 
