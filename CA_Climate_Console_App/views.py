@@ -1826,71 +1826,71 @@ def getClimateCode(Name):
       #Note that these have dashes from the netCDF filenames, not underscores like the datasets.
 
        if "CCSM4" in Name:
-          modelAbbreviation='C4'
+          modelAbbreviation = 'C4'
        elif "ensemble" in Name:
-          modelAbbreviation='ee'
+          modelAbbreviation = 'ee'
        elif "GFDL-ESM2G" in Name:
-           modelAbbreviation='g4'
+           modelAbbreviation = 'g4'
        elif "GFDL-ESM2M" in Name:
-           modelAbbreviation='g5'
+           modelAbbreviation = 'g5'
        elif "GFDL" in Name:
-          modelAbbreviation='G3'
+          modelAbbreviation = 'G3'
        elif "MRI-CGCM3" in Name:
-           modelAbbreviation='mi'
+           modelAbbreviation = 'mi'
        elif "MRI" in Name:
-          modelAbbreviation='M3'
+          modelAbbreviation = 'M3'
        elif "CanESM2" in Name:
-          modelAbbreviation='C2'
+          modelAbbreviation = 'C2'
        elif "MIROC5" in Name:
-          modelAbbreviation='M5'
+          modelAbbreviation = 'M5'
        elif "MIROC-ESM-CHEM" in Name:
-           modelAbbreviation='mc'
+           modelAbbreviation = 'mc'
        elif "MIROC-ESM" in Name:
-           modelAbbreviation='me'
+           modelAbbreviation = 'me'
        elif "HadGEM2-ES" in Name:
-          modelAbbreviation='HS'
+          modelAbbreviation = 'HS'
        elif "HadGEM2-CC" in Name:
-          modelAbbreviation='HC'
+          modelAbbreviation = 'HC'
        elif "CNRM-CM5" in Name:
-          modelAbbreviation='C5'
+          modelAbbreviation = 'C5'
        elif "CMCC-CM" in Name:
-          modelAbbreviation='CM'
+          modelAbbreviation = 'CM'
        elif "CESM1-BGC" in Name:
-          modelAbbreviation='CC'
+          modelAbbreviation = 'CC'
        elif "CESM1-CAM5" in Name:
-           modelAbbreviation='C5'
+           modelAbbreviation = 'C5'
        elif "ACCESS1-0" in Name:
-          modelAbbreviation='A0'
+          modelAbbreviation = 'A0'
        elif "bcc-csm1-1-m" in Name:
-           modelAbbreviation='bm'
+           modelAbbreviation = 'bm'
        elif "bcc-csm1-1" in Name:
-           modelAbbreviation='bc'
+           modelAbbreviation = 'bc'
        elif "CSIRO-Mk3-6-0" in Name:
-           modelAbbreviation='c0'
+           modelAbbreviation = 'c0'
        elif "IPSL-CM5A-MR" in Name:
-           modelAbbreviation='ir'
+           modelAbbreviation = 'ir'
        elif "NorESM1-M" in Name:
-           modelAbbreviation='nm'
+           modelAbbreviation = 'nm'
        elif "BNU-ESM" in Name:
-           modelAbbreviation='BN'
+           modelAbbreviation = 'BN'
        elif "inmcm4" in Name:
-           modelAbbreviation='in'
+           modelAbbreviation = 'in'
        elif "IPSL-CM5A-LR" in Name:
-           modelAbbreviation='ia'
+           modelAbbreviation = 'ia'
        elif "IPSL-CM5A-MR" in Name:
-           modelAbbreviation='ir'
+           modelAbbreviation = 'ir'
        elif "IPSL-CM5B-LR" in Name:
-           modelAbbreviation='ib'
+           modelAbbreviation = 'ib'
        elif "PRISM" in Name:
-          modelAbbreviation='pm'
+          modelAbbreviation = 'pm'
        else:
-          modelAbbreviation="NoModel"
+          modelAbbreviation = "NoModel"
        return modelAbbreviation
 
-    modelAbbreviation=getModelAbbreviation(Name)
-    variable=getVariableAbbreviation(Name)
-    season=getSeasonAbbreviation(Name)
-    timePeriod=getTimePeriodAbbreviation(Name)
+    modelAbbreviation = getModelAbbreviation(Name)
+    variable = getVariableAbbreviation(Name)
+    season = getSeasonAbbreviation(Name)
+    timePeriod = getTimePeriodAbbreviation(Name)
 
     try:
         climateCode = (modelAbbreviation+variable+season+timePeriod).lower()
