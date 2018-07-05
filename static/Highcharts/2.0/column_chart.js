@@ -1,13 +1,13 @@
-var attributes =[]
+var attributes = []
 for (EEMSModel in EEMSParams["models"]){
-    var imageToOverlay=EEMSParams['models'][EEMSModel][6].replace(".eem","") + "_" + EEMSParams['models'][EEMSModel][7];
+    var imageToOverlay = EEMSParams['models'][EEMSModel][6].replace(".eem","") + "_" + EEMSParams['models'][EEMSModel][7];
     attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='initialize_tree(&quot;" + EEMSModel +"&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <br><div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>");
 }
 
 function createColumnChart(){
 
-    valuesToPlot=[]
-    layersToAddNames=[]
+    valuesToPlot = [];
+    layersToAddNames = [];
 
     for (EEMSModel in EEMSParams["models"]){
         if (typeof resultsJSON[EEMSModel+"_avg"] != 'undefined') {
@@ -22,7 +22,7 @@ function createColumnChart(){
     var minVal = -1;
     var maxVal = 1;
 
-    columnChartColors=columnChartColorsCSV.split(',')
+    columnChartColors = columnChartColorsCSV.split(',');
 
     $(function () {
         $('#column_chart').highcharts({
@@ -35,7 +35,7 @@ function createColumnChart(){
 
                 },
                 title: {
-                    text: 'Click any column to map the data',
+                    //text: 'Click any column to map the data',
                     text: '',
                     style: { "color": "#666666", "fontSize": "11px" },
                     y:-2
