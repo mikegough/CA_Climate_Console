@@ -8,45 +8,45 @@ function createChart(climateVariable, statistic, season) {
     climateSeason = document.getElementById("season_selection_form");
     selectedClimateSeason = climateSeason.options[climateSeason.selectedIndex].text;
 
-    yAxisLabel=climateParams['labels'][climateVariable][0]
-    valueSuffix=climateParams['labels'][climateVariable][1]
+    yAxisLabel = climateParams['labels'][climateVariable][0];
+    valueSuffix = climateParams['labels'][climateVariable][1];
 
-    var db_statistic="avg"
-    var seriesNumber=1;
+    var db_statistic = "avg";
+    var seriesNumber = 1;
 
     //Data to plot comes from the resultsJSON dictionary (example: resultsJSON['m5arids2t1_avg'], where m5arids2t1 is the field name in the postGIS database.)
     //m5=MIROC5,arid=aridity(delta),s2=Season2,t1=Season1,avg=database statistic
 
-    var timePeriodCount=climateParams['timePeriods']
+    var timePeriodCount = climateParams['timePeriods'];
 
     for (model in climateParams['models']){
 
-        modelAbbreviation=climateParams['models'][model][0]
+        modelAbbreviation = climateParams['models'][model][0];
 
         //Data To Plot (line1Values, line2Values, etc)
         //Historical (PRISM)
         if (modelAbbreviation == 'pm'){
-            if (statistic=='anom' || statistic =='delta' ){
-                eval("var " + "line"+seriesNumber+"Values=[0]")
-                pm_LayersToAdd=['single_transparent_pixel']
+            if (statistic == 'anom' || statistic == 'delta' ){
+                eval("var " + "line"+seriesNumber + "Values=[0]");
+                pm_LayersToAdd = ['single_transparent_pixel']
             } else {
-                eval("var " + "line"+seriesNumber+"Values=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]")
-                pm_LayersToAdd=['pm'+climateVariable+season+'t0']
+                eval("var " + "line"+seriesNumber + "Values=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]");
+                pm_LayersToAdd = ['pm'+climateVariable + season+'t0']
             }
         }
 
         else{
 
-            eval("var " + "line"+seriesNumber+"Values=['']")
-            eval("var " + modelAbbreviation+"_LayersToAdd=['']")
-            var j=1;
+            eval("var " + "line"+seriesNumber + "Values=['']");
+            eval("var " + modelAbbreviation + "_LayersToAdd=['']");
+            var j = 1;
             //For Each Time Period
             while(j<=timePeriodCount) {
-                var value=modelAbbreviation+climateVariable+season+'t'+j
+                var value = modelAbbreviation + climateVariable+season+'t'+j;
                 //Push data into series array
-                eval("line"+seriesNumber+"Values").push(resultsJSON[value+'_'+db_statistic])
+                eval("line"+seriesNumber + "Values").push(resultsJSON[value+'_'+db_statistic]);
                 //Layers to Add
-                eval(modelAbbreviation+"_LayersToAdd").push(value)
+                eval(modelAbbreviation + "_LayersToAdd").push(value);
                 j++;
             }
         }
@@ -60,7 +60,7 @@ function createChart(climateVariable, statistic, season) {
     )
 
 
-    document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average annual " + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
+    document.getElementById('point_chart_description').innerHTML = "<b>Description:</b> " + "Within the area selected on the map, the average annual " + selectedClimateVar.toLowerCase() + " during the historical period from 1971-2000 was " + line1Values  + "&degC" + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
     if (climateParams['boxPlot']==true) {
         $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
     }
@@ -95,7 +95,7 @@ function createChart(climateVariable, statistic, season) {
                         x:-20
                     }
                 },
-                filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason+")",
+                filename:activeReportingUnitsName+ "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + "_" + selectedClimateStat + "_" + "("+selectedClimateSeason + ")",
                 chartOptions: {
                     chart:{
                         height:500,
@@ -199,21 +199,21 @@ function createChart(climateVariable, statistic, season) {
     });
 
     //Loop through all the models in the config file and create new series out of them.
-    chart=$('#point_chart').highcharts();
-    seriesNumber=1;
+    chart = $('#point_chart').highcharts();
+    seriesNumber = 1;
     for (model in climateParams['models']){
-        var modelAbbreviation=climateParams['models'][model][0];
+        var modelAbbreviation = climateParams['models'][model][0];
         var radius;
         var symbol;
         var color;
         if (typeof climateParams['models'][model][4] != "undefined") {
-            radius = climateParams['models'][model][4]    ;
+            radius = climateParams['models'][model][4];
         }
         else{
             radius = 4;
         }
         if (typeof climateParams['models'][model][5] != "undefined") {
-            symbol = climateParams['models'][model][5]    ;
+            symbol = climateParams['models'][model][5];
         }
         else{
             symbol = "";
@@ -228,7 +228,7 @@ function createChart(climateVariable, statistic, season) {
             name: model,
             allowPointSelect: true,
             color:color,
-            data: eval("line"+seriesNumber+"Values"),
+            data: eval("line"+seriesNumber + "Values"),
             visible: climateParams['models'][model][3],
             layersToAdd:eval(modelAbbreviation +"_LayersToAdd"),
             index:seriesNumber,
@@ -244,7 +244,7 @@ function createChart(climateVariable, statistic, season) {
                         }
             },
             point: {
-                data: eval("line"+seriesNumber+"Values"),
+                data: eval("line"+seriesNumber + "Values"),
                 events: {
                     click: function() {
                         layerToAddName = this.series.userOptions.layersToAdd[this.x]; // onclick get the x index and use it to find the URL
@@ -259,13 +259,13 @@ function createChart(climateVariable, statistic, season) {
                             }
                             // For PRISM don't need to change dropdown.
                             else {
-                                swapImageOverlay(layerToAddName)
+                                swapImageOverlay(layerToAddName);
                                 swapLegend(layerToAddName, null, climateVariable, modelName)
                             }
                         }
                         // If there's no model dropdown, use the original point click actions .
                         else {
-                            swapImageOverlay(layerToAddName)
+                            swapImageOverlay(layerToAddName);
                             swapLegend(layerToAddName, null, climateVariable, modelName)
                         }
                         // return false to prevent default action. Prevents the d.select is not a function error in the console.
@@ -315,10 +315,10 @@ function updateData(climateVariable, statistic, season, model_index) {
 
     //Unit Conversion (metric to english)
     if (typeof unitsForChart == 'undefined') {
-        unitsForChart='metric'
+        unitsForChart = 'metric'
     }
 
-    line1Values='0'
+    line1Values = '0';
 
     //Determine what variables are set in the drop down menu.
     climateVar = document.getElementById("variable_selection_form");
@@ -329,58 +329,58 @@ function updateData(climateVariable, statistic, season, model_index) {
     selectedClimateSeason = climateSeason.options[climateSeason.selectedIndex].text;
 
     //Allow for climate variable variations.
-    if (statistic=="anom"){
+    if (statistic == "anom"){
         //remove the last character and add a "a" (e.g., tmin->tmia)
         climateVariable = (climateVariable.slice(0,-1) + 'a');
     }
-    else if (statistic=="delta") {
+    else if (statistic == "delta") {
         //remove the last character and add a "d" (e.g., tmin->tmid)
         climateVariable = (climateVariable.slice(0,-1) + 'd');
     }
 
     //Force statistic type for certain climate variables.
-    if (climateVariable=='pet' || climateVariable=='vpr') {
+    if (climateVariable == 'pet' || climateVariable == 'vpr') {
         statistic='avg'
     }
-    else if (climateVariable=='arid') {
-        statistic='delta'
+    else if (climateVariable == 'arid') {
+        statistic = 'delta'
     }
 
-    if (climateVariable=='tmax' || climateVariable=="tmin" || climateVariable=="tmid" || climateVariable=="tmad"){
+    if (climateVariable == 'tmax' || climateVariable == "tmin" || climateVariable == "tmid" || climateVariable == "tmad"){
         $('#units_selector').show()
         $('#MetricLabel').html('&deg;Celsius');
         $('#EnglishLabel').html('&deg;Fahrenheit');
     }
-    else if (climateVariable=='prec' || climateVariable=="pet") {
+    else if (climateVariable == 'prec' || climateVariable == "pet") {
         $('#units_selector').show()
         $('#MetricLabel').html('Millimeters (mm)');
         $('#EnglishLabel').html('Inches (in)');
     }
-    else if (climateVariable=='arid' || climateVariable=='pred' || climateVariable=='vpr' || climateVariable=='vpd') {
+    else if (climateVariable == 'arid' || climateVariable == 'pred' || climateVariable == 'vpr' || climateVariable == 'vpd') {
         $('#units_selector').hide()
     }
 
     //Turns out precip deltas for the DRECP are mm
-    if (title == 'DRECP'  &&  climateVariable=='pred'){
+    if (title == 'DRECP'  &&  climateVariable == 'pred'){
         $('#units_selector').show()
         $('#MetricLabel').html('Millimeters (mm)');
         $('#EnglishLabel').html('Inches (in)');
     }
 
-    yAxisLabel=climateParams['labels'][climateVariable][0]
-    valueSuffix=climateParams['labels'][climateVariable][1]
+    yAxisLabel = climateParams['labels'][climateVariable][0];
+    valueSuffix = climateParams['labels'][climateVariable][1];
 
-    var db_statistic="avg"
+    var db_statistic = "avg";
 
-    var seriesNumber=1;
+    var seriesNumber = 1;
 
 
     //Data to plot comes from the resultsJSON dictionary (example: resultsJSON['m5arids2t1_avg'], where m5arids2t1 is the field name in the postGIS database.)
     //m5=MIROC5,arid=aridity(delta),s2=Season2,t1=Season1,avg=database statistic
 
-    var timePeriodCount=climateParams['timePeriods']
+    var timePeriodCount = climateParams['timePeriods'];
 
-    if (unitsForChart=='english') {
+    if (unitsForChart == 'english') {
         yAxisLabel = yAxisLabel.replace('mm', 'inches');
         valueSuffix = valueSuffix.replace('mm', 'inches');
         yAxisLabel = yAxisLabel.replace('°C', '°F');
@@ -389,29 +389,28 @@ function updateData(climateVariable, statistic, season, model_index) {
 
     for (model in climateParams['models']){
 
-        modelAbbreviation=climateParams['models'][model][0]
+        modelAbbreviation = climateParams['models'][model][0];
 
         //Data To Plot (line1Values, line2Values, etc)
         //Historical (PRISM)
 
         if (modelAbbreviation == 'pm'){
-            if (statistic=='anom' || statistic =='delta' ){
-                historicalDataToPlot=[0]
-                pm_LayersToAdd=['single_transparent_pixel']
+            if (statistic == 'anom' || statistic == 'delta' ){
+                historicalDataToPlot = [0];
+                pm_LayersToAdd = ['single_transparent_pixel']
             } else {
-                historicalDataToPlot=[resultsJSON['pm'+climateVariable+season+'t0'+'_'+statistic]]
-                pm_LayersToAdd=['pm'+climateVariable+season+'t0']
-                if (unitsForChart=='english'){
-                    historicalDataToPlot=[EnglishUnitsConversion(historicalDataToPlot[0])]
+                historicalDataToPlot = [resultsJSON['pm' + climateVariable + season + 't0' + '_' + statistic]];
+                pm_LayersToAdd = ['pm' + climateVariable + season + 't0'];
+                if (unitsForChart == 'english'){
+                    historicalDataToPlot = [EnglishUnitsConversion(historicalDataToPlot[0])]
                 }
             }
 
             //Update the Data & the Click Event Layers to Add.
-            chart.series[0].setData(historicalDataToPlot,false,true,true);
-            //chart.series[0].data[0].update(historicalDataToPlot,false);
+            chart.series[0].setData(historicalDataToPlot, false, true, true);
 
             chart.series[0].update({
-                layersToAdd:eval(modelAbbreviation +"_LayersToAdd")
+                layersToAdd:eval(modelAbbreviation + "_LayersToAdd")
             },false);
 
             //Update the units that appear in the tooltip
@@ -425,21 +424,21 @@ function updateData(climateVariable, statistic, season, model_index) {
         else{
 
             //New Layers to Add on Point Click
-            eval("var " + modelAbbreviation +"_LayersToAdd=['']")
+            eval("var " + modelAbbreviation + "_LayersToAdd=['']");
             //Array to store the new data to plot
-            var fieldCode
-            var dataPoint
-            var dataToPlot=['']
+            var fieldCode;
+            var dataPoint;
+            var dataToPlot = [''];
 
-            var j=1;
+            var j = 1;
             //For Each Time Period. Loop through and push data into array
             while(j<=timePeriodCount) {
-                fieldCode = modelAbbreviation + climateVariable + season + 't' + j
+                fieldCode = modelAbbreviation + climateVariable + season + 't' + j;
                 //console.log(fieldCode)
                 //Layers to Add
-                eval(modelAbbreviation + "_LayersToAdd").push(fieldCode)
+                eval(modelAbbreviation + "_LayersToAdd").push(fieldCode);
                 //Push data into array
-                dataPoint=resultsJSON[fieldCode + '_' + db_statistic];
+                dataPoint = resultsJSON[fieldCode + '_' + db_statistic];
                 if (unitsForChart == 'metric') {
                     dataToPlot.push(dataPoint);
                 }
@@ -452,7 +451,7 @@ function updateData(climateVariable, statistic, season, model_index) {
             }
 
             //update the data in the chart
-            var chartSeriesIndex = seriesNumber - 1
+            var chartSeriesIndex = seriesNumber - 1;
             chart.series[chartSeriesIndex].setData(dataToPlot,false,true,true);
 
             //Update the Click Event Layers To Add.
@@ -473,36 +472,36 @@ function updateData(climateVariable, statistic, season, model_index) {
 
     function EnglishUnitsConversion(dataValue){
 
-        var convertedValue
-        var roundedConvertedValue
+        var convertedValue;
+        var roundedConvertedValue;
 
         //Celsius to Fahrenheit
         if (climateVariable == 'tmin'|| climateVariable == 'tmax'){
-            convertedValue=1.8*dataValue+32;
+            convertedValue = 1.8 * dataValue + 32;
         }
         else {
             if (climateVariable == 'tmid'|| climateVariable == 'tmad'){
-                var factor=1.8
+                var factor = 1.8
             }
             else if (climateVariable == 'prec' || climateVariable == 'pet'){
-                var factor=0.03936996
+                var factor = 0.03936996
             }
             else if (climateVariable == 'arid' || climateVariable == 'pred'){
-                var factor=1
+                var factor = 1
             }
 
             //Turns out precip deltas for the DRECP are mm
             if (climateVariable == 'pred' && title == 'DRECP'){
-                var factor=0.03936996
+                var factor = 0.03936996
             }
 
-            convertedValue=dataValue*factor
+            convertedValue = dataValue*factor
         }
 
-        roundedConvertedValue=Number(convertedValue.toFixed(2));
+        roundedConvertedValue = Number(convertedValue.toFixed(2));
         //If the configuration file contains a model abbreviation that is not in the database, the math above fails with a NaN. The chart will not plot this model.
         if (isNaN(roundedConvertedValue)) {
-            console.log(modelAbbreviation + " is a model abbreviation that does not appear in the database")
+            console.log(modelAbbreviation + " is a model abbreviation that does not appear in the database");
             return ''
         }
         else {
@@ -519,32 +518,29 @@ function updateData(climateVariable, statistic, season, model_index) {
 
     $('#point_chart_description').append(
         " Click on a point to display the dataset used to generate the plotted value. "
-    )
+    );
 
-    selectedClimateVar=selectedClimateVar.replace("PET", "potential evapotranspiration")
+    selectedClimateVar = selectedClimateVar.replace("PET", "potential evapotranspiration");
 
-    if (selectedClimateSeason=="Annual"){
-        seasonalMonthlyModifier=" "
-        annualModifier=" annual "
-        selectedClimateSeason=selectedClimateSeason.toLowerCase()
+    if (selectedClimateSeason == "Annual"){
+        seasonalMonthlyModifier = " ";
+        annualModifier = " annual ";
+        selectedClimateSeason = selectedClimateSeason.toLowerCase()
     }
     else
     {
-        seasonalMonthlyModifier=" (for the months of " + selectedClimateSeason + ")"
-        annualModifier=""
+        seasonalMonthlyModifier = " (for the months of " + selectedClimateSeason + ")";
+        annualModifier = ""
     }
 
-    if((selectedClimateStat=="Average" && climateVariable != "arid") || climateVariable == "pet" ) {
+    if((selectedClimateStat == "Average" && climateVariable != "arid") || climateVariable == "pet" ) {
             document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "Within the area selected on the map, the average " + annualModifier + selectedClimateVar.toLowerCase() + seasonalMonthlyModifier + " during the historical period from 1971-2000 was " + historicalDataToPlot[0] +" "+valueSuffix + ". " + "The chart above shows the modeled projections for two future time periods within this same area. Click on any point to display the dataset used to generate the plotted value."
-            if (climateParams['boxPlot']==true) {
+            if (climateParams['boxPlot'] == true) {
                 $('#point_chart_description').append(" Explore " + selectedClimateVar + " <a onclick=\"changeSelectionForm('EnableForBoxPlot'); createBoxPlot(document.getElementById('variable_selection_form').value, document.getElementById('statistic_selection_form').value, document.getElementById('season_selection_form').value)\"><span title='Click to view box plots' style='cursor: help; font-weight:bold; color: #0054A8'>variability</span></a> within the DRECP study area.")
             }
-            /*
-            $('#point_chart_description').append("<div style='position:relative; float:right; right:0px; width:40px; margin-left:5px'><img style='width:20px; position:absolute; bottom:-20px;' src='"+static_url + "img/boxPlotIcon.png'></div>")
-            */
         }
 
-    else if (selectedClimateStat=='Change' || climateVariable == "arid") {
+    else if (selectedClimateStat == 'Change' || climateVariable == "arid") {
             document.getElementById('point_chart_description').innerHTML="<b>Description:</b> " + "The chart above shows modeled predictions of average "  + annualModifier + selectedClimateVar.toLowerCase()  + " change " +  seasonalMonthlyModifier + " during two future time periods within the area selected on the map. Click on any point to display the dataset used to generate the plotted value."
         }
 
@@ -552,11 +548,11 @@ function updateData(climateVariable, statistic, season, model_index) {
         text: yAxisLabel
     });
 
-    chart.options.exporting.filename=activeReportingUnitsName + "_"+response['categoricalValues'] + "_" + selectedClimateVar + "_" + selectedClimateStat + "_" + selectedClimateSeason,
-    chart.options.exporting.chartOptions.title.text="<br>"+activeReportingUnitsName + ": " + response['categoricalValues']
-    chart.options.exporting.chartOptions.subtitle.text="<br>"+selectedClimateVar + " " + selectedClimateStat + " " + "("+selectedClimateSeason+")"+"<br>"
+    chart.options.exporting.filename = activeReportingUnitsName + "_" + response['categoricalValues'] + "_" + selectedClimateVar + "_" + selectedClimateStat + "_" + selectedClimateSeason,
+    chart.options.exporting.chartOptions.title.text = "<br>"+activeReportingUnitsName + ": " + response['categoricalValues'];
+    chart.options.exporting.chartOptions.subtitle.text = "<br>"+selectedClimateVar + " " + selectedClimateStat + " " + "(" + selectedClimateSeason + ")" + "<br>";
 
-    changeImageOverlayBasedOnNewDropdownSelection(model_index,climateVariable,season,statistic)
+    changeImageOverlayBasedOnNewDropdownSelection(model_index, climateVariable, season, statistic)
 
 }
 

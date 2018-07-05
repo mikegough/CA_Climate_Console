@@ -1,13 +1,13 @@
-var attributes =[]
+var attributes = [];
 for (EEMSModel in EEMSParams["models"]){
-    var imageToOverlay=EEMSParams['models'][EEMSModel][6].replace(".eem","") + "_" + EEMSParams['models'][EEMSModel][7];
-    attributes.push("<span class='highChartsXaxisText'><span title='Click to toggle this layer on/off in the map' onclick='initialize_tree(&quot;" + EEMSModel +"&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div title='Click to view information about this model' class='info_icon' onClick=showInfoPopup('"+EEMSModel+"')> </div></span>");
+    var imageToOverlay = EEMSParams['models'][EEMSModel][6].replace(".eem","") + "_" + EEMSParams['models'][EEMSModel][7];
+    attributes.push("<span class = 'highChartsXaxisText'><span title = 'Click to toggle this layer on/off in the map' onclick = 'initialize_tree(&quot;" + EEMSModel +"&quot;)'>"+EEMSParams['models'][EEMSModel][1]+"</span> <div title = 'Click to view information about this model' class = 'info_icon' onClick = showInfoPopup('"+EEMSModel+"')> </div></span>");
 }
 
 function createColumnChart(){
 
-    valuesToPlot=[]
-    layersToAddNames=[]
+    valuesToPlot = [];
+    layersToAddNames = [];
 
     for (EEMSModel in EEMSParams["models"]){
         if (typeof resultsJSON[EEMSModel+"_avg"] != 'undefined') {
@@ -22,15 +22,12 @@ function createColumnChart(){
     var minVal = -1;
     var maxVal = 1;
 
-    columnChartColors=columnChartColorsCSV.split(',')
+    columnChartColors = columnChartColorsCSV.split(',');
 
     $(function () {
         $('#column_chart').highcharts({
               chart: {
                     type: 'column',
-                    /*
-                    width:477,
-                    */
                     width:445,
                     height:400,
                     marginRight:35,
@@ -148,12 +145,12 @@ function createColumnChart(){
                     padding: 1,
                     },
                    hideDelay:0,
-                  // pointFormat: '<span style="font-size:14px"><b>{point.y}</b> </span>' + valueSuffix + '<br><i>(Click to Map)</i>',
+                  // pointFormat: '<span style = "font-size:14px"><b>{point.y}</b> </span>' + valueSuffix + '<br><i>(Click to Map)</i>',
 
                    formatter: function() {
-                        return "<div class='columnChartTooltip'>" +
+                        return "<div class = 'columnChartTooltip'>" +
                         this.key.replace(/\s*\<.*?\>\s*/g, '') +
-                        '<br><span style="font-size:14px"><b>'+ this.point.y + '</b> </span><br><i>(Click to Map)</i></div>'
+                        '<br><span style = "font-size:14px"><b>'+ this.point.y + '</b> </span><br><i>(Click to Map)</i></div>'
                     }
                 },
                 plotOptions: {
@@ -189,7 +186,7 @@ function createColumnChart(){
 
                                     //Update MEEMSE2.0 values
                                     //Clear out the div containing the model diagram
-                                    initialize_tree(layerToAdd)
+                                    initialize_tree(layerToAdd);
 
                                     // Workaround to getting the last bar clicked to show up on top
                                     // Simply remove the other ones if they're in the map.
@@ -225,15 +222,15 @@ function createColumnChart(){
 
 function initialize_tree(layerToAdd){
 
-    swapImageOverlay("single_transparent_pixel")
+    swapImageOverlay("single_transparent_pixel");
 
-    modelForTree=layerToAdd
+    modelForTree = layerToAdd;
 
-    eems_file_name=EEMSParams['models'][modelForTree][6]
-    top_node=EEMSParams['models'][modelForTree][7]
+    eems_file_name = EEMSParams['models'][modelForTree][6];
+    top_node = EEMSParams['models'][modelForTree][7];
 
-    $('#infovis').html('')
-    $('#MEEMSE_node_count_legend').css("visibility","visible")
+    $('#infovis').html('');
+    $('#MEEMSE_node_count_legend').css("visibility","visible");
 
     $.ajax({
         url: "generate_eems_tree", // the endpoint (for a specific view configured in urls.conf /view_name/)
@@ -244,16 +241,16 @@ function initialize_tree(layerToAdd){
         data: {eems_file_name: eems_file_name, top_node: top_node},
 
         success: function (results) {
-            var response=JSON.parse(results)
-            json=response['eems_tree_dict']
-            top_node=response['top_node']
-            init()
+            var response = JSON.parse(results);
+            json = response['eems_tree_dict'];
+            top_node = response['top_node'];
+            init();
             if (typeof modelForTree != 'undefined'){
                  //swapImageOverlay(layerToAdd,'EEMSmodel')
                  //swapLegend(layerToAdd, layerToAdd, 'EEMSmodel')
-                 eems_node_image_name=eems_file_name.replace(".eem","")+"_" + top_node
-                 eems_node_legend_name=eems_file_name.replace(".eem","")+"_" + "Legend"
-                 swapImageOverlay(eems_node_image_name,'EEMSmodel')
+                 eems_node_image_name = eems_file_name.replace(".eem", "")+"_" + top_node;
+                 eems_node_legend_name = eems_file_name.replace(".eem", "")+"_" + "Legend";
+                 swapImageOverlay(eems_node_image_name,'EEMSmodel');
                  swapLegend(layerToAdd, eems_node_image_name, 'EEMSmodel')
             }
         }
