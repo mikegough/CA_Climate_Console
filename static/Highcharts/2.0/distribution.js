@@ -80,15 +80,6 @@ function create_histogram(id, label, sub_title, data_type, labels, chart_type) {
           findNearestPointBy: 'xy',
           trackByArea: true,
           stickyTracking: true,
-
-          //colors:colors,
-          /*
-           groupPadding:.1,
-          groupPadding: 0,
-          pointPadding: 0.1,
-          groupPadding: 0.1,
-          borderWidth: 0.5,
-          */
           borderColor: 'rgba(255,255,255,0.5)',
         }
       },
