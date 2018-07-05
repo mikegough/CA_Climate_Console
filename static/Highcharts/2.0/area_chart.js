@@ -6,14 +6,14 @@ function createAreaChart(model) {
 
     //Initilization year for slider
     if (typeof vegCompositionSliderStartYear == 'undefined'){
-        vegCompositionSliderStartYear=2001
+        vegCompositionSliderStartYear = 2001
     }
 
-    splitTableName=model.split("_")
-    actualModelName=splitTableName[splitTableName.length-1]
+    splitTableName = model.split("_");
+    actualModelName = splitTableName[splitTableName.length-1];
 
 
-    years=_.range(2011,2101,10)
+    years = _.range(2011,2101,10);
 
     $(function () {
         $('#area_chart').highcharts({
@@ -40,11 +40,6 @@ function createAreaChart(model) {
                 itemWidth: 230,
                 x:57,
                 margin:25,
-                /*
-                align:'right',
-                verticalAlign:'top',
-                layout: 'vertical',
-                */
                 opacity:.85,
             },
             exporting: {
@@ -173,9 +168,9 @@ function createAreaChart(model) {
         });
     });
 
-    areaChart=$('#area_chart').highcharts();
+    areaChart = $('#area_chart').highcharts();
 
-    var vtype_db_table=ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"][model];
+    var vtype_db_table = ecosystemServicesParams[activeReportingUnitsName]["vtypeTables"][model];
 
     if (typeof response.ecosystem_services_data != "undefined") {
         ecosystem_services_data = JSON.parse(response.ecosystem_services_data);
@@ -189,8 +184,6 @@ function createAreaChart(model) {
     }
 
     for (var key in data_for_chart) {
-        //var veg_name=lookup(key)[0]
-        //var veg_color=lookup(key)[1]
         var veg_name = ecosystemServicesParams["vtypeLookup"][key][0];
         var veg_color = ecosystemServicesParams["vtypeLookup"][key][1];
         var ArrayData = $.map(data_for_chart[key].split(','), function(value){
@@ -208,7 +201,6 @@ function createAreaChart(model) {
                     mouseOver: function() {
                         layerToAddName = "VTYPE_" + actualModelName + "_" + years[this.x]; // onclick get the x index and use it to find the URL
                         vegClassName = this.series.userOptions.name; // onclick get the modelName (used in leaflet_map.js to get the Data Basin layer index)
-                        //console.log(layerToAddName)
                         //swapImageOverlay(layerToAddName)
                         //swapLegend(layerToAddName, null, "Veg","Veg")
                     },
@@ -218,8 +210,8 @@ function createAreaChart(model) {
     }
 
 
-    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-    var startDate = new Date(1850,01,1);
+    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    var startDate = new Date(1850, 01, 1);
 
     $(function() {
         $( "#vegMapSlider" ).slider({
@@ -228,11 +220,11 @@ function createAreaChart(model) {
           max: 2091,
           step: 10,
           slide: function( event, ui ) {
-            vegCompositionSliderStartYear=ui.value
+            vegCompositionSliderStartYear = ui.value;
             $( "#amount" ).val( "$" + ui.value );
-            document.getElementsByClassName('info legend leaflet-control')[0].innerHTML=''
+            document.getElementsByClassName('info legend leaflet-control')[0].innerHTML = '';
             //Or whatever is decided for off
-            if (ui.value==2001){
+            if (ui.value == 2001){
                 swapImageOverlay("single_transparent_pixel")
             }
             else {
@@ -251,21 +243,21 @@ function createAreaChart(model) {
 
 //array to store the setTimeout functions for each year. Needed since JS is single threaded. Need to destroy the [] on stop button push.
 var timeouts = [];
-var datePause = 2011
-var delayTime = 1000
+var datePause = 2011;
+var delayTime = 1000;
 function animateMap(){
-    var dateRange=_.range(datePause,2101,10)
-    var startDate = new Date(1850,01,1);
+    var dateRange = _.range(datePause,2101,10);
+    var startDate = new Date(1850, 01,1);
     $.each(dateRange, function(index, currentYear){
         timeouts.push(setTimeout(function () {
-            datePause = currentYear
+            datePause = currentYear;
             endDate = new Date(currentYear, 01, 1);
             pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (86400000)));
-            swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices")
+            swapImageOverlay("vtype_agg_" + actualModelName + "__" + pngCloverYear, "EcosystemServices");
             $("#vegMapSlider").slider('value', currentYear);
             //Last year. Restart
             if (index == dateRange.length - 1) {
-                datePause = 2011
+                datePause = 2011;
                 animateMap()
             }
         }, (index + 1) * delayTime));

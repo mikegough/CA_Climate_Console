@@ -1,7 +1,7 @@
-function createSplineChart(model,y1_variable,y2_variable) {
+function createSplineChart(model, y1_variable, y2_variable) {
 
-    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
-    var startDate = new Date(1850,01,1);
+    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    var startDate = new Date(1850, 01, 1);
 
     if (typeof pngCloverYearContinuous == "undefined"){
         pngCloverYearContinuous = 58804;
@@ -16,7 +16,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
         continuousVariableForSlider = "c_ecosys";
     }
 
-    var carbonColor="#5F8251";
+    var carbonColor = "#5F8251";
 
     chartSettings = {
         variables: {
@@ -29,14 +29,13 @@ function createSplineChart(model,y1_variable,y2_variable) {
             "h2o_stream": ["#146DD0","mm/year"],
             "cwd": ["#FC4E2A", "mm"],
         }
-    }
+    };
 
-    //variable name (e.g., c_ecosys)
-    y1_element = document.getElementById("y1_axis_choices")
-    y2_element = document.getElementById("y2_axis_choices")
+    y1_element = document.getElementById("y1_axis_choices");
+    y2_element = document.getElementById("y2_axis_choices");
 
-    y1_variable = y1_element.value
-    y2_variable = y2_element.value
+    y1_variable = y1_element.value;
+    y2_variable = y2_element.value;
 
     //variable label (e.g., Total Ecosystem Carbon)
     y1_label = y1_element.options[y1_element.selectedIndex].innerHTML;
@@ -57,16 +56,15 @@ function createSplineChart(model,y1_variable,y2_variable) {
         y2_color = "#146DD0"
     }
 
-    var modified_model_name=model.replace("_vtype_","_")
-    var years = _.range(2011, 2101, 10)
+    var modified_model_name = model.replace("_vtype_","_");
+    var years = _.range(2011, 2101, 10);
 
-    //console.log(modified_model_name)
-    var continuous_db_table=ecosystemServicesParams[activeReportingUnitsName]["continuousTables"][model]
+    var continuous_db_table = ecosystemServicesParams[activeReportingUnitsName]["continuousTables"][model];
 
-    var ecosystem_services_data=JSON.parse(response.ecosystem_services_data)
+    var ecosystem_services_data = JSON.parse(response.ecosystem_services_data);
 
-    var y1_data_string = ecosystem_services_data["continuous7"][continuous_db_table][y1_variable]
-    var y2_data_string = ecosystem_services_data["continuous7"][continuous_db_table][y2_variable]
+    var y1_data_string = ecosystem_services_data["continuous7"][continuous_db_table][y1_variable];
+    var y2_data_string = ecosystem_services_data["continuous7"][continuous_db_table][y2_variable];
 
     var y1_data = $.map(y1_data_string.split(','), function(value){
         return parseInt(value, 10);
@@ -163,7 +161,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
                 categories: years,
                 tickmarkPlacement: 'on',
                 title: {
-                    text:'<div id="continuousMapSlider"></div>',
+                    text:'<div id = "continuousMapSlider"></div>',
                     useHTML:true
                 },
                 categories:years,
@@ -236,15 +234,15 @@ function createSplineChart(model,y1_variable,y2_variable) {
                         click: function() {
                               var endDate = new Date(this.category, 01, 1);
                               var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                              lastThingViewed = "continuous"
-                              pngName = y1_variable + "_"  + actualModelName +"__"+ pngCloverYear
-                              swapImageOverlay(pngName, "EcosystemServices")
+                              lastThingViewed = "continuous";
+                              pngName = y1_variable + "_"  + actualModelName +"__"+ pngCloverYear;
+                              swapImageOverlay(pngName, "EcosystemServices");
 
-                              var legendName  = y1_variable + "_"  + actualModelName
-                              var legendTitle = y1_variable + " " + chartSettings["variables"][y1_variable][1]
-                              swapLegend(legendName, null, "EcosystemServices", legendTitle)
+                              var legendName  = y1_variable + "_"  + actualModelName;
+                              var legendTitle = y1_variable + " " + chartSettings["variables"][y1_variable][1];
+                              swapLegend(legendName, null, "EcosystemServices", legendTitle);
 
-                              continuousVariableForSlider=y1_variable
+                              continuousVariableForSlider = y1_variable
                             }
                         }
                 }
@@ -269,15 +267,15 @@ function createSplineChart(model,y1_variable,y2_variable) {
                         click: function() {
                             var endDate = new Date(this.category, 01, 1);
                             var pngCloverYear = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                            lastThingViewed = "continuous"
-                            pngName = y2_variable + "_"  + actualModelName +"__"+ pngCloverYear
-                            swapImageOverlay(pngName, "EcosystemServices")
+                            lastThingViewed = "continuous";
+                            pngName = y2_variable + "_"  + actualModelName + "__" + pngCloverYear;
+                            swapImageOverlay(pngName, "EcosystemServices");
 
-                            var legendName  = y2_variable + "_"  + actualModelName
-                            var legendTitle = y2_variable + " " + chartSettings["variables"][y2_variable][1]
-                            swapLegend(legendName, null, "EcosystemServices", legendTitle)
+                            var legendName  = y2_variable + "_"  + actualModelName;
+                            var legendTitle = y2_variable + " " + chartSettings["variables"][y2_variable][1];
+                            swapLegend(legendName, null, "EcosystemServices", legendTitle);
 
-                            continuousVariableForSlider=y2_variable
+                            continuousVariableForSlider = y2_variable
                         }
                     }
                 }
@@ -293,7 +291,7 @@ function createSplineChart(model,y1_variable,y2_variable) {
             max: 2091,
             step: 10,
             slide: function (event, ui) {
-                continuousSliderStartYear = ui.value
+                continuousSliderStartYear = ui.value;
                 $("#amount").val("$" + ui.value);
                 //Or whatever is decided for off
                 if (ui.value == 2001) {
@@ -303,9 +301,9 @@ function createSplineChart(model,y1_variable,y2_variable) {
                     //Date in png Name is days since 1850
                     var endDate = new Date(ui.value, 01, 1);
                     pngCloverYearContinuous = Math.round(Math.abs((endDate.getTime() - startDate.getTime()) / (oneDay)));
-                    swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYearContinuous, "EcosystemServices")
-                    var legendName  = continuousVariableForSlider + "_"  + actualModelName
-                    var legendTitle = continuousVariableForSlider + " " + chartSettings["variables"][continuousVariableForSlider][1]
+                    swapImageOverlay(continuousVariableForSlider + "_" + actualModelName + "__" + pngCloverYearContinuous, "EcosystemServices");
+                    var legendName  = continuousVariableForSlider + "_"  + actualModelName;
+                    var legendTitle = continuousVariableForSlider + " " + chartSettings["variables"][continuousVariableForSlider][1];
                     swapLegend(legendName, null, "EcosystemServices", legendTitle)
 
                 }
@@ -319,7 +317,7 @@ var timeouts = [];
 var datePause = 2011;
 var delayTime = 1000;
 function animateMapContinuous(){
-    var dateRange=_.range(datePause,2101,10);
+    var dateRange = _.range(datePause,2101,10);
     var startDate = new Date(1850,01,1);
     $.each(dateRange, function(index, currentYear){
         timeouts.push(setTimeout(function () {
