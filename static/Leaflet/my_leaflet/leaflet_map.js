@@ -557,7 +557,6 @@ if (typeof initialWMSLayer != "undefined") {
 
 map.on('baselayerchange', function (event) {
     activeReportingUnits = event.layer;
-    activeReportingUnitsName = event.layer.options.name;
     reporting_units = event.layer.options.dbtable;
     name_field = event.layer.options.dbnamefield;
     if (event.name == "User Defined (1km)" ) {
@@ -585,6 +584,12 @@ if (typeof ecosystemServicesParams == "undefined"){
 
 // AJAX for posting
 function create_post(newWKT) {
+
+    // Moved assignment of activeReportingUnits name from the baselayerchange function above to here.
+    // Fixes a rare bug where someone might potentially change the reporting units layer and then change the MC2 model
+    // before selecting a new reporting unit, causing the charts to fail.
+    activeReportingUnitsName = activeReportingUnits.options.name;
+
     initialize = 0;
 
     var continuousTablesList = [];
