@@ -21,7 +21,6 @@ headerLinks={
     "Climate Commons": "http://climate.calcommons.org/",
     // Row 3
     "Sagebrush Climate Console": "/sagebrush",
-    "CBI Climate Center": "http://climate.databasin.org/",
     "Nature's Stage Climate Mapper": "http://climatemapper.org/",
 };
 

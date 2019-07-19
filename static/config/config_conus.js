@@ -21,7 +21,6 @@ headerLinks={
     "CMIP5": "http://cmip-pcmdi.llnl.gov/cmip5/",
     // Row 3
     "Sagebrush Climate Console": "/sagebrush",
-    "CBI Climate Center": "http://climate.databasin.org/",
 };
 
 reportingUnits={
