@@ -960,6 +960,48 @@ ul.tabs li.selected a, ul.tabs li.selected a:hover{
 
                 <p>
 
+                   <h3 id="aboutEcosystemServicesData">Climate Impacts: </h3>
+                The climate impacts data consists of decadal means (modes in the case of vtype_agg) of variables output by <a target="_blank" href="http://bit.ly/2a9TrKD">MC2</a> runs of the ConUS, at 2.5 arc-minute resolution, using MACA downscaled data for 20 GCMs. They use rcp 8.5, and values represent potential vegetation without fire-suppression.
+                <p>
+                Because the model runs used historical (PRISM) climate through 2014, the value for the first decade (2011-2020) is a combination of the final 4 years of the run using PRISM data, and the first 6 years of the run using MACA-downscaled data. Since the future runs end in 2099, the final decade is a mean (mode) of 9 years (2091-2099) rather than 10 as for the other decades. Time values for each step in the charts represent the beginning of each decade.
+                <p>
+                The fine-grained vegetation classes from MC2 were simplified before the 10-year modes were calculated. The vegetation classes are:
+                <br>
+                <br>1: Tundra
+                <br>2: Taiga tundra
+                <br>3: Conifer forest
+                <br>4: Cool mixed forest
+                <br>5: Deciduous forest
+                <br>6: Warm mixed forest
+                <br>7: Tropical broadleaf forest
+                <br>8: Woodland/Savanna
+                <br>9: Shrubland/Woodland
+                <br>10: Grassland
+                <br>11: Arid land
+
+                <p/>
+                Decadal means of the following MC2 variables are made available:
+                <p/>
+
+                1. net biological production (NBP) (g C m-2 y-1)  which corresponds to primary production minus soil respiration and minus harvest (agriculture or logging) and material lost through fire emission
+                <p/>
+                2. total ecosystem carbon (g C m-2) including both herbaceous and woody plant material as well as soil carbon
+                <p/>
+                3. forest carbon (g C m-2) including leaves, branches and boles, roots
+                <p/>
+                4. dead aboveground carbon (g C m-2) corresponding to litter
+                <p/>
+                5. biomass consumed by fire and emitted as gaseous emissions
+                <p/>
+                6. stream flow including surface runoff and water that percolated through the soil profile without being evaporated or taken up by plant roots
+                <p/>
+                7. climatic water deficit (CWD) which corresponds to the difference between potential and actual evapotranspiration.
+                <p/>
+
+                The version of MC2 that was used here uses the Natural Resources Conservation Service (NRCS) runoff curve method ( <a target="_blank" href=" http://bit.ly/2aawHpu"> http://bit.ly/2aawHpu</a>)
+                <p/>
+                Postprocessing of the MC2 data involved projecting each dataset to Albers Equal Area (USGS Contiguous US version) and calculating the zonal mean (for continuous variables) or area tabulation (for vegetation class) for a select set of reporting units using ArcGIS 10.3.
+
                 <a name="refs"></a>
                 <h3>References:</h3>
                 <p/>
